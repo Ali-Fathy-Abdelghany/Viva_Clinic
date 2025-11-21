@@ -1,0 +1,29 @@
+{
+    "name": "clinic",
+    "version": "1.0.0",
+    "description": "Clinic back end application",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js",
+        "dev": "nodemon server.js"
+    },
+    "author": "Web Fellas",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^3.0.3",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "express": "^5.1.0",
+        "express-rate-limit": "^7.4.1",
+        "express-validator": "^7.0.1",
+        "http-status-codes": "^2.3.0",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.15.3",
+        "nodemailer": "^7.0.10",
+        "sequelize": "^6.37.7"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.11"
+    }
+}

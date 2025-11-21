@@ -1,0 +1,33 @@
+const express = require('express');
+const router = express.Router();
+const {
+  getDoctors,
+  getDoctor,
+  getDoctorAvailability,
+  getDoctorAppointments,
+  updateDoctorProfile
+} = require('../controllers/doctorController');
+const { authenticate, authorize } = require('../middleware/auth');
+const { validateDoctorProfile, validateId } = require('../middleware/validator');
+
+// Public route - get all doctors
+router.get('/', getDoctors);
+
+// Public route - get single doctor
+router.get('/:id', validateId, getDoctor);
+
+// Public route - get doctor availability
+router.get('/:id/availability', validateId, getDoctorAvailability);
+
+// Protected routes
+router.use(authenticate);
+
+// Get doctor's appointments (Doctor only)
+router.get('/:id/appointments', authorize('Doctor'), validateId, getDoctorAppointments);
+
+// Update doctor profile (Doctor only)
+router.put('/profile', authorize('Doctor'), validateDoctorProfile, updateDoctorProfile);
+router.patch('/profile', authorize('Doctor'), validateDoctorProfile, updateDoctorProfile);
+
+module.exports = router;
+
