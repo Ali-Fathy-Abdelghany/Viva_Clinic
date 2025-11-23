@@ -158,10 +158,12 @@ Back-End/
 - `GET /api/admin/reports/daily-schedule` - Get daily schedule
 - `GET /api/admin/reports/weekly-summary` - Get weekly summary
 - `GET /api/admin/reports/doctor-workload` - Get doctor workload statistics
+# API Routes Guide
 
-###ِAPI Routes Guide
-Auth
-(POST /auth/register)
+## Auth
+
+POST /auth/register
+```json
 {
   "firstName": "",
   "lastName": "",
@@ -171,12 +173,17 @@ Auth
   "role": "patient | doctor"
 }
 POST /auth/login
+
+json
+Copy code
 {
   "email": "",
   "password": ""
 }
 Users
 GET /users/:id
+
+```json
 {
   "userId": 1,
   "firstName": "",
@@ -186,6 +193,8 @@ GET /users/:id
   "role": ""
 }
 PUT /users/:id
+
+```json
 {
   "firstName": "",
   "lastName": "",
@@ -194,6 +203,8 @@ PUT /users/:id
 }
 Patients
 GET /patients/:id
+
+```json
 {
   "patientId": 1,
   "dateOfBirth": "",
@@ -203,6 +214,8 @@ GET /patients/:id
   "chronicDisease": ""
 }
 PUT /patients/:id
+
+```json
 {
   "address": "",
   "bloodType": "",
@@ -210,6 +223,8 @@ PUT /patients/:id
 }
 Doctors
 GET /doctors
+
+```json
 [
   {
     "doctorId": 1,
@@ -218,6 +233,8 @@ GET /doctors
   }
 ]
 GET /doctors/:id
+
+```json
 {
   "doctorId": 1,
   "specialtyId": 3,
@@ -232,6 +249,8 @@ GET /doctors/:id
 }
 Appointments
 POST /appointments
+
+```json
 {
   "doctorId": 1,
   "patientId": 1,
@@ -239,6 +258,8 @@ POST /appointments
   "startTime": ""
 }
 GET /appointments?patientId=
+
+```json
 [
   {
     "appointmentId": 1,
@@ -250,12 +271,16 @@ GET /appointments?patientId=
   }
 ]
 PUT /appointments/:id/cancel
+
+```json
 {
   "appointmentId": 1,
   "status": "canceled"
 }
 Medical Records
 GET /medical-records/patient/:patientId
+
+```json
 [
   {
     "recordId": 1,
@@ -266,6 +291,8 @@ GET /medical-records/patient/:patientId
   }
 ]
 POST /medical-records
+
+```json
 {
   "appointmentId": 1,
   "doctorId": 1,
@@ -276,6 +303,8 @@ POST /medical-records
 }
 Doctor Working Hours
 GET /working-hours/doctor/:doctorId
+
+```json
 [
   {
     "workingHourId": 1,
@@ -285,14 +314,14 @@ GET /working-hours/doctor/:doctorId
   }
 ]
 POST /working-hours
+
+```json
 {
   "doctorId": 1,
   "dayOfWeek": "",
   "startTime": "",
   "endTime": ""
 }
-
-
 
 ## Business Rules Implementation
 
