@@ -174,8 +174,6 @@ POST /auth/register
 }
 POST /auth/login
 
-json
-Copy code
 {
   "email": "",
   "password": ""
@@ -183,7 +181,6 @@ Copy code
 Users
 GET /users/:id
 
-```json
 {
   "userId": 1,
   "firstName": "",
@@ -194,7 +191,6 @@ GET /users/:id
 }
 PUT /users/:id
 
-```json
 {
   "firstName": "",
   "lastName": "",
@@ -204,7 +200,6 @@ PUT /users/:id
 Patients
 GET /patients/:id
 
-```json
 {
   "patientId": 1,
   "dateOfBirth": "",
@@ -215,7 +210,6 @@ GET /patients/:id
 }
 PUT /patients/:id
 
-```json
 {
   "address": "",
   "bloodType": "",
@@ -234,7 +228,6 @@ GET /doctors
 ]
 GET /doctors/:id
 
-```json
 {
   "doctorId": 1,
   "specialtyId": 3,
@@ -250,7 +243,6 @@ GET /doctors/:id
 Appointments
 POST /appointments
 
-```json
 {
   "doctorId": 1,
   "patientId": 1,
@@ -259,7 +251,6 @@ POST /appointments
 }
 GET /appointments?patientId=
 
-```json
 [
   {
     "appointmentId": 1,
@@ -280,7 +271,6 @@ PUT /appointments/:id/cancel
 Medical Records
 GET /medical-records/patient/:patientId
 
-```json
 [
   {
     "recordId": 1,
@@ -292,7 +282,6 @@ GET /medical-records/patient/:patientId
 ]
 POST /medical-records
 
-```json
 {
   "appointmentId": 1,
   "doctorId": 1,
@@ -304,7 +293,6 @@ POST /medical-records
 Doctor Working Hours
 GET /working-hours/doctor/:doctorId
 
-```json
 [
   {
     "workingHourId": 1,
@@ -315,7 +303,6 @@ GET /working-hours/doctor/:doctorId
 ]
 POST /working-hours
 
-```json
 {
   "doctorId": 1,
   "dayOfWeek": "",
@@ -328,7 +315,7 @@ POST /working-hours
 ### User Roles & Access Control
 - Three roles: Patient, Doctor, Admin
 - JWT-based authentication required for protected routes
-- Role-based authorization middleware
+- Role-based authorisation middleware
 
 ### Appointment Booking Rules
 - One appointment per patient per doctor per time slot
@@ -373,7 +360,7 @@ The system uses the following main entities:
 
 ### Adding New Features
 
-1. Create model in `models/` if needed
+1. Create a model in `models/` if needed
 2. Add associations in `models/index.js`
 3. Create controller in `controllers/`
 4. Add routes in `routes/`
@@ -384,8 +371,8 @@ The system uses the following main entities:
 
 For production, use Sequelize migrations instead of `sync()`:
 ```bash
-npx sequelize-cli init:migrations
-npx sequelize-cli migration:generate --name create-users
+npx sequelize-cli init: migrations
+npx sequelize-cli migration: generate --name create-users
 ```
 
 ## Testing
