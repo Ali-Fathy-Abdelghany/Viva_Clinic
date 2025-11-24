@@ -1,0 +1,44 @@
+<!-- otp-verification.html -->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OTP Verification | VIVA Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="VIVA Clinic">
+    </div>
+
+    <div class="card">
+      <h2>Email OTP Verification</h2>
+      <p>We sent a code to <span id="userEmail">info@example.com</span></p>
+
+      <form id="otpForm" class="otp-form">
+        <div class="otp-inputs">
+          <input type="text" maxlength="1" required />
+          <input type="text" maxlength="1" required />
+          <input type="text" maxlength="1" required />
+          <input type="text" maxlength="1" required />
+          <input type="text" maxlength="1" required />
+          <input type="text" maxlength="1" required />
+        </div>
+
+        <div class="resend">
+          Didn’t receive code. <a href="#" id="resendLink">Resend Code</a>
+          <span id="timer">00:45</span>
+        </div>
+
+        <button type="submit" class="btn">Verify & Proceed</button>
+      </form>
+    </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

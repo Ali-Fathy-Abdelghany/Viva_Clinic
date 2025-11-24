@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | VIVA Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="VIVA Clinic">
+    </div>
+
+    <div class="toggle">
+      <button class="toggle-btn active">Patient</button>
+      <button class="toggle-btn">Doctor</button>
+    </div>
+
+    <div class="card">
+      <h2>Sign In</h2>
+      <p>Please enter below details to access the dashboard</p>
+
+      <form id="loginForm">
+        <div class="input-box">
+          <label>Email Address</label>
+          <div class="input">
+            <i class="fas fa-envelope"></i>
+            <input type="email" name="email" placeholder="Enter Email Address" required />
+          </div>
+        </div>
+
+        <div class="input-box">
+          <label>Password</label>
+          <div class="input">
+            <i class="fas fa-lock"></i>
+            <input type="password" name="password" placeholder="••••••••••" required />
+            <i class="fas fa-eye-slash toggle-pass" onclick="togglePassword(this)"></i>
+          </div>
+        </div>
+
+        <div class="options">
+          <label class="remember">
+            <input type="checkbox" name="remember"> Remember Me
+          </label>
+          <a href="forgot-password.html" class="forgot">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+      </form>
+
+            <div class="or">OR</div>
+
+      <a href="#" class="google-btn">
+        <img src="google-logo.png" alt="Google">
+        <span>Continue with Google</span>
+      </a>
+
+      <p class="register-text">
+        Don't have an account yet? <a href="medical.html">Register</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="message"></div>
+<script src="main.js"></script>
+</body>
+</html>
