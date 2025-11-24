@@ -1,7 +1,6 @@
 
 const API_BASE = 'http://localhost:3000/api';
 
-// دالة عرض الرسايل (شغالة في كل الصفحات)
 function showMessage(text, type = 'success') {
   const msg = document.getElementById('message');
   msg.textContent = text;
@@ -10,7 +9,6 @@ function showMessage(text, type = 'success') {
   setTimeout(() => msg.classList.remove('show'), 4000);
 }
 
-// تبديل كلمة السر (عين)
 document.querySelectorAll('.toggle-pass').forEach(icon => {
   icon.addEventListener('click', function () {
     const input = this.previousElementSibling;
@@ -24,7 +22,6 @@ document.querySelectorAll('.toggle-pass').forEach(icon => {
   });
 });
 
-// تبديل الـ Toggle (Patient / Doctor) في Register & Login
 document.querySelectorAll('.toggle-btn').forEach(btn => {
   btn.addEventListener('click', function () {
     document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
@@ -33,7 +30,6 @@ document.querySelectorAll('.toggle-btn').forEach(btn => {
   });
 });
 
-// تحميل الـ role المحفوظ لما الصفحة تفتح
 document.addEventListener('DOMContentLoaded', () => {
   const savedRole = localStorage.getItem('selectedRole') || 'patient';
   document.querySelectorAll('.toggle-btn').forEach(btn => {
@@ -83,7 +79,6 @@ if (document.getElementById('timer')) {
     timerEl.textContent = '00:45';
     resendLink.style.pointerEvents = 'none';
     resendLink.style.color = '#aaa';
-    // هنا هتبعتي طلب resend للـ API لو عايزة
   });
 }
 
@@ -189,7 +184,6 @@ if (otpForm) {
     e.preventDefault();
     const code = Array.from(otpInputs).map(i => i.value).join('');
     if (code.length === 6) {
-      // هنا هتبعتي الكود للـ API
       showMessage('Verified!', 'success');
       setTimeout(() => window.location.href = 'reset-password.html', 1000);
     } else {
