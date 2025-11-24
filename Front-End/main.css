@@ -25,7 +25,6 @@ body::before {
   z-index: -1;
 }
 
-/* عامة */
 .container { 
   max-width: 480px; 
   width: 100%; 
