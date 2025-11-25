@@ -1,26 +1,24 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Specialty = sequelize.define('Specialty', {
-  SpecialtyID: {
+const Award = sequelize.define('Award', {
+  DoctorID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  Name: {
+  Award_name: {
     type: DataTypes.STRING(100),
-    allowNull: false,
-    unique: true
+    primaryKey: true
   },
-  Description: {
+  Award_description: {
     type: DataTypes.TEXT,
     allowNull: true
   },
   
 }, {
-  tableName: 'specialties',
+  tableName: 'award',
   timestamps: false
 });
 
-module.exports = Specialty;
-
+module.exports = Award;

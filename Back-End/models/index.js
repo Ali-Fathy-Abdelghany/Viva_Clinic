@@ -6,35 +6,51 @@ const Specialty = require('./Specialty');
 const DoctorWorkingHours = require('./DoctorWorkingHours');
 const Appointment = require('./Appointment');
 const MedicalRecord = require('./MedicalRecord');
-const LabResult = require('./LabResult');
+const Medical_info = require('./Medical_info');
+const Award = require('./Award');
+const Certification = require('./Certification');
+
+
+
 
 // Define Associations
-User.hasOne(Patient, { foreignKey: 'PatientID', as: 'patientInfo' });
-Patient.belongsTo(User, { foreignKey: 'PatientID', as: 'user' });
+User.hasOne(Patient, { foreignKey: 'UserID', as: 'patientInfo' });
+Patient.belongsTo(User, { foreignKey: 'UserID', as: 'user' });
 
-User.hasOne(Doctor, { foreignKey: 'DoctorID', as: 'doctorInfo' });
-Doctor.belongsTo(User, { foreignKey: 'DoctorID', as: 'user' });
+User.hasOne(Doctor, { foreignKey: 'UserID', as: 'doctorInfo' });
+Doctor.belongsTo(User, { foreignKey: 'UserID', as: 'user' });
 
-Specialty.hasMany(Doctor, { foreignKey: 'SpecialtyID', as: 'doctors' });
-Doctor.belongsTo(Specialty, { foreignKey: 'SpecialtyID', as: 'specialty' });
+Patient.hasMany(Appointment, { foreignKey: 'PatientID', as: 'patientAppointments' });
+Appointment.belongsTo(Patient, { foreignKey: 'PatientID', as: 'patient' });
+
+Patient.hasMany(Medical_info, { foreignKey: 'PatientID', as: 'patientMedicalInfo' });
+Medical_info.belongsTo(Patient, { foreignKey: 'PatientID', as: 'patient' });
+
+Patient.hasMany(MedicalRecord, { foreignKey: 'PatientID', as: 'patientMedicalRecords' });
+MedicalRecord.belongsTo(Patient, { foreignKey: 'PatientID', as: 'patient' });
 
 Doctor.hasMany(DoctorWorkingHours, { foreignKey: 'DoctorID', as: 'workingHours' });
 DoctorWorkingHours.belongsTo(Doctor, { foreignKey: 'DoctorID', as: 'doctor' });
 
-User.hasMany(Appointment, { foreignKey: 'PatientID', as: 'patientAppointments' });
-Appointment.belongsTo(User, { foreignKey: 'PatientID', as: 'patient' });
-
 Doctor.hasMany(Appointment, { foreignKey: 'DoctorID', as: 'doctorAppointments' });
 Appointment.belongsTo(Doctor, { foreignKey: 'DoctorID', as: 'doctor' });
+
+Doctor.hasMany(Award, { foreignKey: 'DoctorID', as: 'doctorAwards' });
+Award.belongsTo(Doctor, { foreignKey: 'DoctorID', as: 'doctor' });
+
+Doctor.hasMany(Certification, { foreignKey: 'DoctorID', as: 'doctorCertifications' });
+Certification.belongsTo(Doctor, { foreignKey: 'DoctorID', as: 'doctor' });
+
+Doctor.hasMany(MedicalRecord, { foreignKey: 'DoctorID', as: 'doctorMedicalRecords' });
+MedicalRecord.belongsTo(Doctor, { foreignKey: 'DoctorID', as: 'doctor' });
+
+Specialty.hasMany(Doctor, { foreignKey: 'SpecialtyID', as: 'doctors' });
+Doctor.belongsTo(Specialty, { foreignKey: 'SpecialtyID', as: 'specialty' });
 
 Appointment.hasOne(MedicalRecord, { foreignKey: 'AppointmentID', as: 'medicalRecord' });
 MedicalRecord.belongsTo(Appointment, { foreignKey: 'AppointmentID', as: 'appointment' });
 
-MedicalRecord.belongsTo(User, { foreignKey: 'PatientID', as: 'patient' });
-MedicalRecord.belongsTo(Doctor, { foreignKey: 'DoctorID', as: 'doctor' });
 
-MedicalRecord.hasMany(LabResult, { foreignKey: 'RecordID', as: 'labResults' });
-LabResult.belongsTo(MedicalRecord, { foreignKey: 'RecordID', as: 'medicalRecord' });
 
 module.exports = {
   sequelize,
@@ -45,5 +61,7 @@ module.exports = {
   DoctorWorkingHours,
   Appointment,
   MedicalRecord,
-  LabResult
+  Medical_info,
+  Award,
+  Certification
 };
