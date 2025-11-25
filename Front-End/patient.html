@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Information</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body class="patient-page">
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <img src="logo.png" alt="Clinic Logo" class="logo">
+
+    <nav class="nav-buttons">
+      <button>Home</button>
+      <button>Most Popular</button>
+      <button>Contact</button>
+      <button>About Us</button>
+      <button>Notification</button>
+    </nav>
+
+    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+  </header>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <button class="close-sidebar" id="close-sidebar">×</button>
+
+    <div class="sidebar-profile">
+      <img src="profile-placeholder.jpg" alt="Patient Profile" id="sidebar-profile-img">
+      <span class="sidebar-profile-name">Me</span>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><img src="My Appointments.jpg" class="sidebar-icon"><a href="#">My Appointments</a></li>
+      <li><img src="Medical Record.jpg" class="sidebar-icon"><a href="#">Medical Record</a></li>
+      <li><img src="Chats.jpg" class="sidebar-icon"><a href="#">Chats</a></li>
+      <li><img src="Settings.jpg" class="sidebar-icon"><a href="#">Settings</a></li>
+      <li><img src="Log out.jpg" class="sidebar-icon"><a href="#">Log out</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <h1>Patient Information</h1>
+
+    <!-- Profile Image -->
+    <div class="profile-section">
+      <img id="profile-preview" src="assets/profile-placeholder.png" alt="Profile Preview">
+      <input type="file" id="profile-picture" accept="image/*">
+    </div>
+
+    <form id="patient-form" class="patient-form">
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" placeholder="Enter First Name">
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" placeholder="Enter Last Name">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="Enter Phone Number">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="Enter Email Address">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob">
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender">
+            <option value="">Select</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="blood-group">Blood Group</label>
+          <input type="text" id="blood-group" placeholder="Enter Blood Group">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address1">Address Line 1</label>
+        <input type="text" id="address1" placeholder="Enter Address Line 1">
+      </div>
+      <div class="form-group">
+        <label for="address2">Address Line 2</label>
+        <input type="text" id="address2" placeholder="Enter Address Line 2">
+      </div>
+
+      <div class="form-group">
+        <label for="chronic">Chronic Illness</label>
+        <input type="text" id="chronic" placeholder="Enter Chronic Illness">
+      </div>
+      <div class="form-group">
+        <label for="allergies">Allergies</label>
+        <input type="text" id="allergies" placeholder="Enter Allergies">
+      </div>
+      <div class="form-group">
+        <label for="past-surgeries">Past Surgeries / Hospitalization</label>
+        <input type="text" id="past-surgeries" placeholder="Enter Past Surgeries / Hospitalization">
+      </div>
+      <div class="form-group">
+        <label for="current-medication">Current Medication</label>
+        <input type="text" id="current-medication" placeholder="Enter Current Medication">
+      </div>
+
+      <div class="form-buttons">
+        <button type="submit" class="btn save">Save Changes</button>
+        <button type="button" class="btn cancel" id="cancel-btn">Cancel</button>
+      </div>
+
+    </form>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>

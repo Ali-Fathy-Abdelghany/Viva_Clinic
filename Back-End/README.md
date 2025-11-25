@@ -51,13 +51,14 @@ Back-End/
 │   ├── User.js
 │   └── index.js         # Model associations
 ├── routes/              # API routes
-│   ├── adminRoutes.js
-│   ├── appointmentRoutes.js
+│  ├── adminRoutes.js
 │   ├── authRoutes.js
+│   ├── userRoutes.js
+│   ├── patientRoutes.js
 │   ├── doctorRoutes.js
-│   ├── labResultRoutes.js
+│   ├── appointmentRoutes.js
 │   ├── medicalRecordRoutes.js
-│   └── patientRoutes.js
+│   ├── doctorWorkingHoursRoutes.js
 ├── services/            # Business logic services
 │   ├── appointmentService.js
 │   └── notificationService.js
@@ -157,13 +158,164 @@ Back-End/
 - `GET /api/admin/reports/daily-schedule` - Get daily schedule
 - `GET /api/admin/reports/weekly-summary` - Get weekly summary
 - `GET /api/admin/reports/doctor-workload` - Get doctor workload statistics
+# API Routes Guide
+
+## Auth
+
+POST /auth/register
+```json
+{
+  "firstName": "",
+  "lastName": "",
+  "email": "",
+  "phone": "",
+  "password": "",
+  "role": "patient | doctor"
+}
+POST /auth/login
+
+{
+  "email": "",
+  "password": ""
+}
+Users
+GET /users/:id
+
+{
+  "userId": 1,
+  "firstName": "",
+  "lastName": "",
+  "email": "",
+  "phone": "",
+  "role": ""
+}
+PUT /users/:id
+
+{
+  "firstName": "",
+  "lastName": "",
+  "email": "",
+  "phone": ""
+}
+Patients
+GET /patients/:id
+
+{
+  "patientId": 1,
+  "dateOfBirth": "",
+  "gender": "",
+  "address": "",
+  "bloodType": "",
+  "chronicDisease": ""
+}
+PUT /patients/:id
+
+{
+  "address": "",
+  "bloodType": "",
+  "chronicDisease": ""
+}
+Doctors
+GET /doctors
+
+```json
+[
+  {
+    "doctorId": 1,
+    "specialtyId": 3,
+    "bio": ""
+  }
+]
+GET /doctors/:id
+
+{
+  "doctorId": 1,
+  "specialtyId": 3,
+  "bio": "",
+  "workingHours": [
+    {
+      "dayOfWeek": "",
+      "startTime": "",
+      "endTime": ""
+    }
+  ]
+}
+Appointments
+POST /appointments
+
+{
+  "doctorId": 1,
+  "patientId": 1,
+  "appointmentDate": "",
+  "startTime": ""
+}
+GET /appointments?patientId=
+
+[
+  {
+    "appointmentId": 1,
+    "appointmentDate": "",
+    "startTime": "",
+    "endTime": "",
+    "status": "",
+    "doctorId": 1
+  }
+]
+PUT /appointments/:id/cancel
+
+```json
+{
+  "appointmentId": 1,
+  "status": "canceled"
+}
+Medical Records
+GET /medical-records/patient/:patientId
+
+[
+  {
+    "recordId": 1,
+    "appointmentId": 1,
+    "diagnosis": "",
+    "notes": "",
+    "prescription": ""
+  }
+]
+POST /medical-records
+
+{
+  "appointmentId": 1,
+  "doctorId": 1,
+  "patientId": 1,
+  "diagnosis": "",
+  "notes": "",
+  "prescription": ""
+}
+Doctor Working Hours
+GET /working-hours/doctor/:doctorId
+
+[
+  {
+    "workingHourId": 1,
+    "dayOfWeek": "",
+    "startTime": "",
+    "endTime": ""
+  }
+]
+POST /working-hours
+
+{
+  "doctorId": 1,
+  "dayOfWeek": "",
+  "startTime": "",
+  "endTime": ""
+}
 
 ## Business Rules Implementation
 
 ### User Roles & Access Control
 - Three roles: Patient, Doctor, Admin
 - JWT-based authentication required for protected routes
-- Role-based authorization middleware
+- Role-based authorisation middleware
 
 ### Appointment Booking Rules
 - One appointment per patient per doctor per time slot
@@ -208,7 +360,7 @@ The system uses the following main entities:
 
 ### Adding New Features
 
-1. Create model in `models/` if needed
+1. Create a model in `models/` if needed
 2. Add associations in `models/index.js`
 3. Create controller in `controllers/`
 4. Add routes in `routes/`
@@ -219,8 +371,8 @@ The system uses the following main entities:
 
 For production, use Sequelize migrations instead of `sync()`:
 ```bash
-npx sequelize-cli init:migrations
-npx sequelize-cli migration:generate --name create-users
+npx sequelize-cli init: migrations
+npx sequelize-cli migration: generate --name create-users
 ```
 
 ## Testing
