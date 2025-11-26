@@ -10,19 +10,32 @@
 </head>
 <body>
 
-  <!-- Navbar  Scroll Spy + Login/Signup Links + Bell Alert -->
   <nav class="navbar">
     <div class="nav-left">
-      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
-      <img src="logo.png" alt="Viva Clinic" class="logo">
-      <div class="nav-links">
-        <a href="#home" class="active">Home</a>
-        <a href="#doctors">Most Popular</a>
-        <a href="#contact">Contact</a>
-      </div>
+        <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+        <img src="logo.png" alt="Viva Clinic" class="logo">
+        <div class="nav-links">
+         <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#doctors" class="nav-link" data-section="doctors">Most Popular</a>
+         <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+</div>
     </div>
-    <div class="nav-right" id="navRight"></div>
-  </nav>
+    
+    <div class="nav-right">
+        <i class="fas fa-bell" id="bellIcon"></i>
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="medical.html" class="signup-btn">Sign Up</a>
+    </div>
+</nav>
+
+<div class="sidebar" id="sidebar">
+    <div class="visitor-message">
+        <div style="text-align:center;padding:40px 20px;">
+            <i class="fas fa-user-circle" style="font-size:80px;color:#007977;"></i><br><br>
+            <a href="login.html" style="color:#007977;font-weight:bold;font-size:18px;">Log in to your account</a>
+        </div>
+    </div>
+</div>
 
   <!-- Hero -->
   <section class="hero" id="home">
@@ -103,10 +116,6 @@
       <a href="#"><i class="fab fa-linkedin-in"></i></a>
     </div>
   </footer>
-
-  <div class="sidebar" id="sidebar">
-    <div id="sidebarContent"></div>
-  </div>
 
   <script src="web-app.js"></script>
 </body>

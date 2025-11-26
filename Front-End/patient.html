@@ -4,55 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient Information</title>
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="web-app.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body class="patient-page">
 
-  <!-- Top Bar -->
-  <header class="top-bar">
-    <img src="logo.png" alt="Clinic Logo" class="logo">
-
-    <nav class="nav-buttons">
-      <button>Home</button>
-      <button>Most Popular</button>
-      <button>Contact</button>
-      <button>About Us</button>
-      <button>Notification</button>
-    </nav>
-
-    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
-  </header>
-
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <button class="close-sidebar" id="close-sidebar">×</button>
-
-    <div class="sidebar-profile">
-      <img src="profile-placeholder.jpg" alt="Patient Profile" id="sidebar-profile-img">
-      <span class="sidebar-profile-name">Me</span>
+  <!-- ==================================== NAVBAR ==================================== -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <!-- Hamburger menu button (toggles sidebar) -->
+      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      
+      <!-- Clinic logo -->
+      <img src="logo.png" alt="Viva Clinic Logo" class="logo">
+      
+      <!-- Navigation links (Single Page App style - uses data-section) -->
+      <div class="nav-links">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#doctors" class="nav-link" data-section="doctors">Most Popular</a>
+        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      </div>
     </div>
+    
+    <div class="nav-right">
+      <!-- Notification bell (dropdown will be added via JS) -->
+      <div class="bell-container">
+        <i class="fas fa-bell" id="bellIcon"></i>
+        <!-- Dropdown menu will be injected here dynamically -->
+        <div class="notifications-menu" id="notificationsMenu"></div>
+      </div>
+      
+      <!-- User profile picture (clickable → goes to patient profile) -->
+      <img src="assets/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+    </div>
+  </nav>
 
-    <ul class="sidebar-menu">
-      <li><img src="My Appointments.jpg" class="sidebar-icon"><a href="#">My Appointments</a></li>
-      <li><img src="Medical Record.jpg" class="sidebar-icon"><a href="#">Medical Record</a></li>
-      <li><img src="Chats.jpg" class="sidebar-icon"><a href="#">Chats</a></li>
-      <li><img src="Settings.jpg" class="sidebar-icon"><a href="#">Settings</a></li>
-      <li><img src="Log out.jpg" class="sidebar-icon"><a href="#">Log out</a></li>
-    </ul>
-  </aside>
+  <!-- ==================================== SIDEBAR ==================================== -->
+  <div class="sidebar" id="sidebar">
+    <div id="sidebarContent">
+      <!-- User info section -->
+      <div class="user-info">
+        <img src="assets/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+        <h3 id="sidebar-user-name">User Name</h3>
+        <p id="sidebar-user-email">user@example.com</p>
+      </div>
+      
+      <!-- Sidebar navigation menu -->
+      <ul>
+        <li onclick="window.location.href='my-appointments.html'">
+          <i class="fas fa-calendar-check"></i> My Appointments
+        </li>
+        <li onclick="window.location.href='medical-record.html'">
+          <i class="fas fa-file-medical"></i> Medical Record
+        </li>
+        <li onclick="window.location.href='chats.html'">
+          <i class="fas fa-comments"></i> Chats
+        </li>
+        <li onclick="window.location.href='settings.html'">
+          <i class="fas fa-cog"></i> Settings
+        </li>
+        <li id="logoutBtn" class="logout-item">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </li>
+      </ul>
+    </div>
+  </div>
 
-  <!-- Main Content -->
+  <!-- ==================================== MAIN CONTENT ==================================== -->
   <main>
     <h1>Patient Information</h1>
 
-    <!-- Profile Image -->
+    <!-- Profile picture upload section -->
     <div class="profile-section">
       <img id="profile-preview" src="assets/profile-placeholder.png" alt="Profile Preview">
       <input type="file" id="profile-picture" accept="image/*">
     </div>
 
+    <!-- Patient personal & medical information form -->
     <form id="patient-form" class="patient-form">
 
+      <!-- Row: First & Last Name -->
       <div class="form-row">
         <div class="form-group">
           <label for="first-name">First Name</label>
@@ -64,6 +95,7 @@
         </div>
       </div>
 
+      <!-- Row: Phone & Email -->
       <div class="form-row">
         <div class="form-group">
           <label for="phone">Phone Number</label>
@@ -75,6 +107,7 @@
         </div>
       </div>
 
+      <!-- Row: Date of Birth & Gender -->
       <div class="form-row">
         <div class="form-group">
           <label for="dob">Date of Birth</label>
@@ -91,47 +124,51 @@
         </div>
       </div>
 
+      <!-- Blood Group -->
       <div class="form-row">
         <div class="form-group">
           <label for="blood-group">Blood Group</label>
-          <input type="text" id="blood-group" placeholder="Enter Blood Group">
+          <input type="text" id="blood-group" placeholder="e.g. A+, O-, AB+">
         </div>
       </div>
 
+      <!-- Address Lines -->
       <div class="form-group">
         <label for="address1">Address Line 1</label>
-        <input type="text" id="address1" placeholder="Enter Address Line 1">
+        <input type="text" id="address1" placeholder="Street, Building, Apartment">
       </div>
       <div class="form-group">
-        <label for="address2">Address Line 2</label>
-        <input type="text" id="address2" placeholder="Enter Address Line 2">
+        <label for="address2">Address Line 2 <small>(Optional)</small></label>
+        <input type="text" id="address2" placeholder="Area, City, Governorate">
       </div>
 
+      <!-- Medical History -->
       <div class="form-group">
         <label for="chronic">Chronic Illness</label>
-        <input type="text" id="chronic" placeholder="Enter Chronic Illness">
+        <input type="text" id="chronic" placeholder="e.g. Diabetes, Hypertension">
       </div>
       <div class="form-group">
         <label for="allergies">Allergies</label>
-        <input type="text" id="allergies" placeholder="Enter Allergies">
+        <input type="text" id="allergies" placeholder="e.g. Penicillin, Nuts">
       </div>
       <div class="form-group">
         <label for="past-surgeries">Past Surgeries / Hospitalization</label>
-        <input type="text" id="past-surgeries" placeholder="Enter Past Surgeries / Hospitalization">
+        <input type="text" id="past-surgeries" placeholder="e.g. Appendectomy 2020">
       </div>
       <div class="form-group">
         <label for="current-medication">Current Medication</label>
-        <input type="text" id="current-medication" placeholder="Enter Current Medication">
+        <input type="text" id="current-medication" placeholder="e.g. Metformin 500mg daily">
       </div>
 
+      <!-- Form action buttons -->
       <div class="form-buttons">
         <button type="submit" class="btn save">Save Changes</button>
         <button type="button" class="btn cancel" id="cancel-btn">Cancel</button>
       </div>
-
     </form>
   </main>
 
-  <script src="main.js"></script>
+  <!-- Main JavaScript file (includes auth, dashboard, and profile logic) -->
+  <script src="web-app.js"></script>
 </body>
 </html>
