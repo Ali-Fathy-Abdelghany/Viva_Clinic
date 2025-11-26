@@ -19,7 +19,7 @@ const app = express();
 // CORS configuration - allow credentials for cookies
 app.use(
     cors({
-        origin: config.FRONTEND_URL || "http://localhost:3000",
+        origin: config.FRONTEND_URL,
         credentials: true, // Allow cookies to be sent
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],

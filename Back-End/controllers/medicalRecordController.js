@@ -1,5 +1,4 @@
 const { StatusCodes } = require('http-status-codes');
-const { MedicalRecord, Appointment, LabResult } = require('../models');
 const { asyncHandler, AppError } = require('../middleware/errorHandler');
 const { sendPrescriptionUpdate } = require('../services/notificationService');
 
@@ -104,10 +103,6 @@ const getMedicalRecord = asyncHandler(async (req, res) => {
             ]
           }
         ]
-      },
-      {
-        model: LabResult,
-        as: 'labResults'
       }
     ]
   });

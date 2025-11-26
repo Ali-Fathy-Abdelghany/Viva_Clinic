@@ -125,10 +125,6 @@ const getPatientMedicalRecords = asyncHandler(async (req, res) => {
             ]
           }
         ]
-      },
-      {
-        model: require('../models/LabResult'),
-        as: 'labResults'
       }
     ],
     order: [['createdAt', 'DESC']]
