@@ -12,35 +12,28 @@ const Patient = sequelize.define('Patient', {
   },
   DateOfBirth: {
     type: DataTypes.DATE,
-    allowNull: true
+    allowNull: false
   },
   Gender: {
-    type: DataTypes.ENUM('F', 'M'),
-    allowNull: true
+    type: DataTypes.ENUM('Male', 'Female'),
+    allowNull: false
+  },
+  Image_url: {
+    type: DataTypes.TEXT,
+    allowNull:true
   },
   Address: {
     type: DataTypes.TEXT,
     allowNull: true
   },
   BloodType: {
-    type: DataTypes.STRING(10),
+    type: DataTypes.ENUM('A+','A-','B+','B-','O+','O-','AB+','AB-'),
     allowNull: true
   },
-  ChronicDisease: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
+  
 }, {
-  tableName: 'Patients',
-  timestamps: true
+  tableName: 'patients',
+  timestamps: false
 });
 
 module.exports = Patient;

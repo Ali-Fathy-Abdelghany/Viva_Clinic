@@ -211,3 +211,141 @@ if (resetForm) {
     setTimeout(() => window.location.href = 'reset-success.html', 1500);
   });
 }
+
+// ==================== Patient Info Form ====================
+// main.js (مخصص للـ patient-page)
+// تأكدي إن <body> فيه class="patient-page" علشان الكود يشتغل فقط على الصفحة دي
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.body.classList.contains('patient-page')) return;
+
+  // عناصر الـ Sidebar و TopBar
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('sidebar-toggle');
+  const closeBtn = document.getElementById('close-sidebar');
+
+  // عناصر البروفايل + الفورم
+  const profileInput = document.getElementById('profile-picture');
+  const profilePreview = document.getElementById('profile-preview');
+  const sidebarProfileImg = document.getElementById('sidebar-profile-img');
+
+  const form = document.getElementById('patient-form');
+  const cancelBtn = document.getElementById('cancel-btn');
+
+  // مسارات الصور الافتراضية (عدّلي لو اسم الملف مختلف)
+  const PLACEHOLDER = 'profile-placeholder.png';
+
+  // حالة Object URL الحالية (لو اتعملت preview) علشان نمسحها بعدين
+  let currentObjectUrl = null;
+  function revokeCurrentObjectUrl() {
+    if (currentObjectUrl) {
+      URL.revokeObjectURL(currentObjectUrl);
+      currentObjectUrl = null;
+    }
+  }
+
+  /* ---------- Sidebar open/close ---------- */
+
+  // فتح
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      if (!sidebar) return;
+      sidebar.style.left = '0';
+    });
+  }
+
+  // غلق بزر ×
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      if (!sidebar) return;
+      sidebar.style.left = '-250px';
+    });
+  }
+
+  // غلق عند الضغط على Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar) {
+      sidebar.style.left = '-250px';
+    }
+  });
+
+  // غلق لما نضغط خارج الـ sidebar (مثلاً على الـ main)
+  document.addEventListener('click', (e) => {
+    if (!sidebar) return;
+    const target = e.target;
+    const clickedInsideSidebar = sidebar.contains(target);
+    const clickedToggle = toggleBtn && toggleBtn.contains(target);
+    if (!clickedInsideSidebar && !clickedToggle) {
+      sidebar.style.left = '-250px';
+    }
+  });
+
+  /* ---------- Profile image preview (form + sidebar) ---------- */
+  if (profileInput) {
+    profileInput.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      // نظف الـ object URL القديم
+      revokeCurrentObjectUrl();
+
+      // اعمل URL جديد للصورة
+      const url = URL.createObjectURL(file);
+      currentObjectUrl = url;
+
+      // حدث الصور في الفورم والسايد بار
+      if (profilePreview) profilePreview.src = url;
+      if (sidebarProfileImg) sidebarProfileImg.src = url;
+    });
+  }
+
+  /* ---------- Cancel button ---------- */
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      // إعادة تعيين الفورم
+      if (form) form.reset();
+
+      // إرجاع صور البروفايل للـ placeholder
+      revokeCurrentObjectUrl();
+      if (profilePreview) profilePreview.src = PLACEHOLDER;
+      if (sidebarProfileImg) sidebarProfileImg.src = PLACEHOLDER;
+    });
+  }
+
+  /* ---------- Form submit (مؤقت - مثال) ---------- */
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // جمع القيم من الحقول
+      const payload = {
+        firstName: (document.getElementById('first-name') || {}).value || '',
+        lastName: (document.getElementById('last-name') || {}).value || '',
+        phone: (document.getElementById('phone') || {}).value || '',
+        email: (document.getElementById('email') || {}).value || '',
+        dob: (document.getElementById('dob') || {}).value || '',
+        gender: (document.getElementById('gender') || {}).value || '',
+        bloodGroup: (document.getElementById('blood-group') || {}).value || '',
+        address1: (document.getElementById('address1') || {}).value || '',
+        address2: (document.getElementById('address2') || {}).value || '',
+        chronicIllness: (document.getElementById('chronic') || {}).value || '',
+        allergies: (document.getElementById('allergies') || {}).value || '',
+        pastSurgeries: (document.getElementById('past-surgeries') || {}).value || '',
+        currentMedication: (document.getElementById('current-medication') || {}).value || ''
+      };
+
+      // لو عايزة تبعثي الصورة كملف، ممكن تعملي FormData بدل JSON
+      // مثال تعليق: لو عندك endpoint لرفع الصورة ثم ربطها في payload
+      // -------------------------------------------------------------
+      // const formData = new FormData();
+      // if (profileInput.files[0]) formData.append('profilePicture', profileInput.files[0]);
+      // formData.append('firstName', payload.firstName);
+      // ...
+      // fetch('/api/patients/:id', { method: 'PUT', headers: {...}, body: formData })
+
+      console.log('Patient payload (demo):', payload);
+      // مؤقتًا بس نعرض تأكيد للحركة
+      alert('Saved (demo) — check console for payload.\nلو عايزة أبعت البيانات فعليًا للـ API أضيف fetch هنا.');
+    });
+  }
+
+}); // DOMContentLoaded end

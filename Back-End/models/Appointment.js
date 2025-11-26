@@ -11,8 +11,8 @@ const Appointment = sequelize.define('Appointment', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Users',
-      key: 'UserID'
+      model: 'Patients',
+      key: 'PatientID'
     }
   },
   DoctorID: {
@@ -36,25 +36,14 @@ const Appointment = sequelize.define('Appointment', {
     allowNull: false
   },
   Status: {
-    type: DataTypes.ENUM('Booked', 'Cancelled', 'Rescheduled', 'Completed'),
+    type: DataTypes.ENUM('Booked', 'Cancelled', 'Available', 'Completed',),
     allowNull: false,
-    defaultValue: 'Booked'
+    defaultValue: 'Available'
   },
-  Notes: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  CreatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
+  
 }, {
-  tableName: 'Appointments',
-  timestamps: true,
+  tableName: 'appointments',
+  timestamps: false,
   indexes: [
     {
       fields: ['PatientID']
@@ -64,6 +53,12 @@ const Appointment = sequelize.define('Appointment', {
     },
     {
       fields: ['AppointmentDate', 'StartTime']
+    },
+    {
+      fields: ['AppointmentDate', 'PatientID']
+    },
+    {
+      fields: ['AppointmentDate', 'DoctorID']
     }
   ]
 });

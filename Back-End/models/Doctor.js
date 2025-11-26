@@ -22,17 +22,31 @@ const Doctor = sequelize.define('Doctor', {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+  Image_url: {
+    type: DataTypes.TEXT,
+    allowNull:true
   },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
+  Gender:{
+    type: DataTypes.Enum('Male','Female'),
+    allowNull:false
+  },
+  Fee:{
+    type: DataTypes.INTEGER,
+    allowNull:false
+  },
+  Education:{
+    type: DataTypes.TEXT,
+    allowNull:true
+  },
+  YearsOfExperience:{
+    type: DataTypes.INTEGER,
+    allowNull:true
+  },
+
+
 }, {
-  tableName: 'Doctors',
-  timestamps: true
+  tableName: 'doctors',
+  timestamps: false
 });
 
 module.exports = Doctor;

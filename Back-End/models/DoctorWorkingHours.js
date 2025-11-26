@@ -16,13 +16,16 @@ const DoctorWorkingHours = sequelize.define('DoctorWorkingHours', {
     }
   },
   DayOfWeek: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0, // Sunday
-      max: 6  // Saturday
-    },
-    comment: '0 = Sunday, 1 = Monday, ..., 6 = Saturday'
+    type: DataTypes.ENUM(
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+    ),
+    allowNull:false
   },
   StartTime: {
     type: DataTypes.TIME,
@@ -32,21 +35,17 @@ const DoctorWorkingHours = sequelize.define('DoctorWorkingHours', {
     type: DataTypes.TIME,
     allowNull: false
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
+
 }, {
-  tableName: 'DoctorWorkingHours',
-  timestamps: true,
+  tableName: 'doctorworkinghours',
+  timestamps: false,
   indexes: [
     {
       unique: true,
       fields: ['DoctorID', 'DayOfWeek']
+    },
+    {
+      fields: ['DayOfWeek', 'StartTime']
     }
   ]
 });

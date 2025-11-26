@@ -36,28 +36,18 @@ const User = sequelize.define('User', {
   },
   Phone: {
     type: DataTypes.STRING(20),
-    allowNull: true
+    allowNull: true,
+    unique: true,
   },
   Role: {
     type: DataTypes.ENUM('Patient', 'Doctor', 'Admin'),
     allowNull: false,
     defaultValue: 'Patient'
   },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
+  
 }, {
-  tableName: 'Users',
-  timestamps: true
+  tableName: 'users',
+  timestamps: false
 });
 
 module.exports = User;

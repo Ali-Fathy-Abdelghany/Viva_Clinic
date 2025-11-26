@@ -2,15 +2,11 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const MedicalRecord = sequelize.define('MedicalRecord', {
-  RecordID: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
+  
   AppointmentID: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    unique: true,
+    primaryKey: true,
     references: {
       model: 'Appointments',
       key: 'AppointmentID'
@@ -19,9 +15,10 @@ const MedicalRecord = sequelize.define('MedicalRecord', {
   PatientID: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    primaryKey: true,
     references: {
-      model: 'Users',
-      key: 'UserID'
+      model: 'Patients',
+      key: 'PatientsID'
     }
   },
   DoctorID: {
@@ -40,28 +37,24 @@ const MedicalRecord = sequelize.define('MedicalRecord', {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  Prescription: {
+  Drug: {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
-  }
+  
 }, {
-  tableName: 'MedicalRecords',
-  timestamps: true,
+  tableName: 'medicalRecords',
+  timestamps: false,
   indexes: [
     {
       fields: ['PatientID']
     },
     {
       fields: ['DoctorID']
-    }
+    },
+    {
+      fields: ['AppointmentID'],
+}
   ]
 });
 
