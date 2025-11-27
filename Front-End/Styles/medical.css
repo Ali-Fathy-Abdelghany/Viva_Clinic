@@ -1,0 +1,255 @@
+/* ========== Global & background ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f0f7f7;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('bg (3).jpg') center/cover no-repeat fixed;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+/* ========== Container & Logo ========== */
+.container {
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.logo img {
+  width: 160px;
+  height: 107px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.15));
+}
+
+/* ========== Toggle (Admin / Patient) ========== */
+.toggle {
+  display: flex;
+  background: #f0f8f8;
+  border-radius: 50px;
+  padding: 8px;
+  margin: 0 auto 30px;
+  width: fit-content;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.toggle-btn {
+  padding: 12px 40px;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  background: transparent;
+  color: #007977;
+  transition: 0.3s;
+}
+
+.toggle-btn.active {
+  background: #007977;
+  color: white;
+}
+
+/* ========== Card ========== */
+.card {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 30px;
+  padding: 50px 45px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.card h2 {
+  color: #007977;
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.card > p {
+  color: #888;
+  font-size: 15px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* ========== Inputs ========== */
+.input-box {
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+.input-box label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 600;
+}
+
+.input {
+  position: relative;
+}
+
+.input i:first-child {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007977;
+  font-size: 18px;
+}
+
+.input input {
+  width: 100%;
+  padding: 18px 20px 18px 55px;
+  border: 2px solid #eee;
+  border-radius: 16px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.input input:focus {
+  outline: none;
+  border-color: #007977;
+  box-shadow: 0 0 0 4px rgba(0,121,119,0.1);
+}
+
+.toggle-pass {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #007977;
+}
+
+/* ========== Terms checkbox ========== */
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+  text-align: left;
+  margin: 10px 0 25px;
+}
+
+.terms input {
+  margin-top: 3px;
+  accent-color: #007977;
+}
+
+.terms a {
+  color: #007977;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+/* ========== Button ========== */
+.btn {
+  width: 100%;
+  padding: 18px;
+  background: #007977;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #005f5d;
+  transform: translateY(-2px);
+}
+
+/* ========== Google icon button (circle only) ========== */
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 12px;
+  background: white;
+  border-radius: 50%;
+  border: 2px solid #eee;
+}
+
+.google-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* ========== Login link text ========== */
+.login-text {
+  font-size: 14px;
+  color: #555;
+  margin-top: 6px;
+}
+
+.login-text a {
+  color: #007977;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* ========== Toast message (if used here too) ========== */
+#message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 32px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.4s;
+}
+
+#message.show {
+  opacity: 1;
+  top: 30px;
+}
+
+#message.error { background: #e74c3c; }
+#message.success { background: #27ae60; }
