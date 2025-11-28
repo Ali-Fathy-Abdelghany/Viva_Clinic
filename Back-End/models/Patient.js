@@ -6,35 +6,35 @@ const Patient = sequelize.define('Patient', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'UserID'
-    }
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   DateOfBirth: {
-    type: DataTypes.DATE,
-    allowNull: false
+    type: DataTypes.DATEONLY,
+    allowNull: true
   },
   Gender: {
-    type: DataTypes.ENUM('Male', 'Female'),
-    allowNull: false
-  },
-  Image_url: {
-    type: DataTypes.TEXT,
-    allowNull:true
+    type: DataTypes.ENUM('M', 'F'),
+    allowNull: true
   },
   Address: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(255),
+    allowNull: true
+  },
+  Image_url: {
+    type: DataTypes.STRING(255),
     allowNull: true
   },
   BloodType: {
-    type: DataTypes.ENUM('A+','A-','B+','B-','O+','O-','AB+','AB-'),
+    type: DataTypes.ENUM('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'),
     allowNull: true
-  },
-  
+  }
 }, {
   tableName: 'patients',
   timestamps: false
 });
 
 module.exports = Patient;
-
