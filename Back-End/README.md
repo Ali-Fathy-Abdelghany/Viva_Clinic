@@ -398,5 +398,4 @@ ISC
 
 ## Authors
 
-Ali Fathy & Huda Ali
-
+Web Fellas Team

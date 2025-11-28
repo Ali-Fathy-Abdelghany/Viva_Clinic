@@ -7,6 +7,7 @@ const {
   getDoctorAppointments,
   updateDoctorProfile
 } = require('../controllers/doctorController');
+const {getSpecialties}=require('../controllers/adminController')
 const { authenticate, authorize } = require('../middleware/auth');
 const { validateDoctorProfile, validateId } = require('../middleware/validator');
 
@@ -15,6 +16,9 @@ router.get('/', getDoctors);
 
 // Public route - get single doctor
 router.get('/:id', validateId, getDoctor);
+
+// Public route - get all specialties
+router.get('/specialties', getSpecialties);
 
 // Public route - get doctor availability
 router.get('/:id/availability', validateId, getDoctorAvailability);

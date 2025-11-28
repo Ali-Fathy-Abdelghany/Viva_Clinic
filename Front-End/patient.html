@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient Information</title>
-  <link rel="stylesheet" href="web-app.css">
+  <link rel="stylesheet" href="Styles/patient.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body class="patient-page">
@@ -16,7 +16,7 @@
       <i class="fas fa-bars menu-icon" id="menuBtn"></i>
       
       <!-- Clinic logo -->
-      <img src="logo.png" alt="Viva Clinic Logo" class="logo">
+      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
       
       <!-- Navigation links (Single Page App style - uses data-section) -->
       <div class="nav-links">
@@ -35,7 +35,7 @@
       </div>
       
       <!-- User profile picture (clickable → goes to patient profile) -->
-      <img src="assets/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+      <img src="images/assets/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
     </div>
   </nav>
 
@@ -44,7 +44,7 @@
     <div id="sidebarContent">
       <!-- User info section -->
       <div class="user-info">
-        <img src="assets/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+        <img src="images/assets/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
         <h3 id="sidebar-user-name">User Name</h3>
         <p id="sidebar-user-email">user@example.com</p>
       </div>
@@ -76,7 +76,7 @@
 
     <!-- Profile picture upload section -->
     <div class="profile-section">
-      <img id="profile-preview" src="assets/profile-placeholder.png" alt="Profile Preview">
+      <img id="profile-preview" src="images/assets/profile-placeholder.png" alt="Profile Preview">
       <input type="file" id="profile-picture" accept="image/*">
     </div>
 
@@ -169,6 +169,8 @@
   </main>
 
   <!-- Main JavaScript file (includes auth, dashboard, and profile logic) -->
-  <script src="web-app.js"></script>
+  <script src="scripts/auth-shared.js"></script>
+  <script src="scripts/common-layout.js"></script>
+  <script src="scripts/patient.js"></script>
 </body>
 </html>

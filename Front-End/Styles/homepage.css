@@ -1,0 +1,506 @@
+/* homepage.css */
+
+/* Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: #f8fcfc;
+  color: #333;
+}
+.hidden {
+  display: none !important;
+}
+/* Buttons */
+.btn {
+  background: #007977;
+  color: white;
+  padding: 15px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #006361;
+}
+
+.btn.large {
+  padding: 18px 60px;
+  font-size: 20px;
+}
+
+/* ========================================================================= */
+/* Navbar                                                                    */
+/* ========================================================================= */
+.navbar {
+  height: 70px;
+  background: #14a2a0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.menu-icon {
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  display: block;
+}
+
+.logo {
+  height: 60px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nav-links a.active {
+  text-decoration: underline;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  direction: rtl;
+}
+.nav-right > * {
+  direction: ltr;               /* يرجّع الأزرار والنصوص لليسار عادي */
+}
+.login-btn, .signup-btn {
+  color: white;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.signup-btn {
+  background: #007977;
+}
+
+.signup-btn:hover {
+  background: #00605e;
+}
+
+.bell-container {
+  position: relative;
+  order: 1;
+}
+
+#bellIcon {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.profile-pic {
+  order: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* ========================================================================= */
+/* Sidebar                                                                   */
+/* ========================================================================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 300px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+  transition: left 0.4s ease;
+  z-index: 999;
+  padding: 70px 10px;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+/* Guest Sidebar */
+.sidebar-guest-content {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.sidebar-guest-content i {
+  font-size: 80px;
+  color: #007977;
+  margin-bottom: 20px;
+}
+
+.login-link {
+  color: #007977;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+/* User Sidebar */
+.user-info {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 30px;
+}
+
+.user-info img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.user-info h3 {
+  color: #007977;
+  font-size: 15px;
+  margin: 8px 0 4px;
+}
+
+.user-info p {
+  color: #666;
+  font-size: 14px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.sidebar-menu li {
+  padding: 16px 0px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sidebar-menu li:hover {
+  color: #007977;
+}
+
+.logout-item {
+  color: #d9534f !important;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+/* ========================================================================= */
+/* 4. Hero Section                                                           */
+/* ========================================================================= */
+.hero {
+  margin-top: 70px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 30px;
+}
+
+.hero-content h1 {
+  font-size: 36px;
+  color: #101111;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.hero-image img {
+  width: 400px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* ========================================================================= */
+/* 5. Stats Section                                                          */
+/* ========================================================================= */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+  padding: 30px 20px;
+  background: #fff;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+  min-width: 100px;
+}
+
+.stat h3 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #01161a;
+  margin-bottom: 2px;
+}
+
+.stat p {
+  font-size: 15px;
+  color: #007977;
+}
+
+/* ========================================================================= */
+/* 6. Doctors Section                                                        */
+/* ========================================================================= */
+.doctors-section {
+  padding: 60px 20px;
+  max-width: 1500px;
+  margin: auto;
+}
+
+.doctors-section h2 {
+  text-align: center;
+  margin-left: 60px;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #0c0c0c;
+}
+
+.doctors-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  padding: 0 20px;
+}
+
+.doctor-card {
+  width: 100%;
+  max-width: 400px;
+  height: 160px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 18px;
+  transition: transform 0.3s;
+  position: relative;
+  margin: 0 auto;
+  border-radius: 14px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.doctor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.doctor-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 1px solid #ddd;
+}
+
+.specialty {
+  font-size: 16px;
+  color: #929292;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.price {
+  font-size: 16px;
+  color: #929292;
+  font-weight: 700;
+}
+
+.arrow {
+  position: absolute;
+  right: 18px;
+  top: 15%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  color: #0b0c0c;
+}
+/* Explore More button area */
+.explore-more {
+  margin: 60px 60px 0 auto;
+  text-align: right;
+}
+
+/* ========================================================================= */
+/* 7. Contact Section                                                        */
+/* ========================================================================= */
+.contact-about {
+    padding: 40px 20px; 
+    max-width: 1500px;
+    margin: auto;
+}
+
+.contact {
+    text-align: center;
+    padding: 30px 0;
+    background: white;
+}
+
+.contact h2 {
+    /* Overriding default alignment for this section */
+    text-align: center; 
+    margin-left: 0;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #0c0c0c;
+}
+
+.contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 200px;
+    flex: 1;
+    transition: transform 0.3s;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+}
+
+.contact-item img {
+    max-width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.contact-item h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #007977;
+}
+
+
+/* ========================================================================= */
+/* 8. Footer                                                                 */
+/* ========================================================================= */
+footer {
+  background: #14A2A0;
+  color: white;
+  padding: 20px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+footer .social a {
+  color: white;
+  font-size: 20px;
+  margin: 0 10px;
+}
+.social a {
+    color: white;
+    font-size: 20px;
+    margin: 0 10px;
+    transition: opacity 0.3s;
+}
+
+.social a:hover {
+    opacity: 0.7;
+}
+/* ========================================================================= */
+/* 9. Responsive Design                                                      */
+/* ========================================================================= */
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image img {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .doctors-container {
+    justify-content: center;
+  }
+
+  .doctor-card {
+    max-width: 350px;
+  }
+
+  .explore-more {
+    margin: 60px auto 0;
+    text-align: center;
+  }
+}
+/* #sidebarOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+#sidebarOverlay:not(.hidden) {
+  opacity: 1;
+  pointer-events: auto;
+} */

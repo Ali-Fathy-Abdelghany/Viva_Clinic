@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Viva Clinic - Home</title>
-  <link rel="stylesheet" href="Styles/homepage.css" />
+  <link rel="stylesheet" href="Styles/doctors.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
@@ -42,7 +42,6 @@
 
   <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-  <!-- Guest Sidebar (اللي بيظهر لما مفيش لوجن) -->
   <div id="guestSidebar">
     <div class="sidebar-guest-content">
       <i class="fas fa-user-circle" style="font-size:80px;color:#007977;"></i><br><br>
@@ -50,8 +49,7 @@
     </div>
   </div>
 
-  <!-- User Sidebar (اللي لازم يظهر لما اليوزر مسجل دخوله) -->
-  <div id="userSidebar" class="hidden">   <!-- ملاحظة: hidden من الأول عشان الـ JS يتحكم فيه -->
+  <div id="userSidebar" class="hidden">   
     <div class="user-info">
       <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
       <h3 id="sidebar-user-name">Loading...</h3>
@@ -80,40 +78,49 @@
 
 <!-- Overlay -->
 <div id="sidebarOverlay" class="overlay hidden"></div>
-  
-<main class="main-content">
 
-    <!-- Hero -->
-    <section class="hero" id="home">
-      <div class="hero-content">
-        <h1>Book Appointments<br>with Trusted Doctors</h1>
-        <p>Find and schedule visits with verified healthcare professionals anytime and anywhere. Your health is just a click away.</p>
-        <a href="#" class="btn">Book an Appointment</a>
-      </div>
-      <div class="hero-image">
-        <img src="images/img1.jpg" alt="Doctor">
-      </div>
+    <section class="explore-doctors-page">
+        <div class="container">
+            <h1 class="page-title">Explore All Doctors</h1>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-filter filter-icon" id="filterIcon"></i>
+                    <input type="text" id="searchInput" placeholder="Search For Doctor...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+
+                <div class="filter-menu" id="filterMenu">
+                    <div class="filter-item active" data-type="name">
+                        <i class="fas fa-user-md"></i>
+                        <div class="filter-text">
+                            <div class="filter-title">Search by Name</div>
+                            <div class="filter-subtitle">Find doctors by their name</div>
+                        </div>
+                    </div>
+
+                    <div class="filter-item" data-type="specialty">
+                        <i class="fas fa-stethoscope"></i>
+                        <div class="filter-text">
+                            <div class="filter-title">Search by Specialty</div>
+                            <div class="filter-subtitle">Cardiologist, Dentist, etc.</div>
+                        </div>
+                    </div>
+
+                    <div class="filter-item" data-type="price">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div class="filter-text">
+                            <div class="filter-title">Sort by Price</div>
+                            <div class="filter-subtitle">From lowest to highest</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Stats -->
-    <section class="stats">
-      <div class="stat">
-        <h3>20+</h3>
-        <p>Years Of Experience</p>
-      </div>
-      <div class="stat">
-        <h3>200+</h3>
-        <p>Satisfied Clients</p>
-      </div>
-      <div class="stat">
-        <h3>20+</h3>
-        <p>Certified Doctors</p>
-      </div>
-    </section>
-
-    <!-- Doctors -->
+                <!-- Doctors -->
     <section class="doctors-section" id="doctors">
-      <h2>Most Popular</h2>
       <div class="doctors-container">
         <div class="doctor-card">
           <img src="images/doctor.png" alt="Dr. Sara Ali">
@@ -125,47 +132,9 @@
           <span class="arrow">></span>
         </div>
       </div>
-      <div class="explore-more">
-        <a href="#" class="btn large">Explore All Doctors</a>
-      </div>
     </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-      <h2>Contact</h2>
-      <div class="contact-methods">
-        <div class="contact-item">
-          <img src="images/c1.png" alt="Phone">
-          <h3>Give us a call</h3>
-          <p>(123) 456-7890</p>
-        </div>
-        <div class="contact-item">
-          <img src="images/c2.png" alt="Email">
-          <h3>Send us an email</h3>
-          <p>contact@example.com</p>
-        </div>
-        <div class="contact-item">
-          <img src="images/c3.png" alt="Location">
-          <h3>Visit clinic</h3>
-          <p>Alexandria, Egypt</p>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer تحت خالص دايمًا -->
-  <footer>
-    <p>© 2025 Viva Clinic. All rights reserved.</p>
-    <div class="social">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-  </footer>
-
-  <script src="scripts/common-layout.js"></script>
-  <script src="scripts/Dynamic Navigation Logic.js"></script>
-</body>
+    <script src="scripts/doctors.js"></script>
+    <script src="scripts/Dynamic Navigation Logic.js"></script>
+    <script src="scripts/common-layout.js"></script>
 </html>
