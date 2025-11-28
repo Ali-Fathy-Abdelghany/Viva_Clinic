@@ -1,0 +1,555 @@
+/* new-doctor.css */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Cairo', sans-serif; background: #f8f9fa; color: #333; }
+body.admin-page main { margin-top: 90px; padding: 20px; }
+/* Navbar */
+.navbar {
+  height: 70px;
+  background: #14a2a0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.menu-icon {
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.logo {
+  height: 60px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nav-links a.active {
+  text-decoration: underline;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Bell container / icon */
+.bell-container {
+  position: relative;
+}
+
+#bellIcon {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Profile picture */
+.profile-pic {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* Notifications menu placeholder */
+.notifications-menu {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background: white;
+  width: 260px;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+  padding: 10px 0;
+  display: none;
+  z-index: 1000;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.08);
+  transition: left 0.35s ease;
+  z-index: 999;
+  padding: 20px 0;
+  font-family: 'Cairo', sans-serif;
+  overflow-y: auto;
+}
+.sidebar.active { left: 0; }
+
+.sidebar-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.admin-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e6f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #14a2a0;
+  font-size: 24px;
+}
+.admin-name {
+  font-weight: 700;
+  font-size: 17px;
+  color: #14a2a0;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 18px;
+  margin: 6px 0;
+  border-radius: 14px;
+  color: #555;
+  text-decoration: none;
+  font-size: 15.5px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu a:hover {
+  background: #f0fafa;
+  color: #14a2a0;
+}
+
+.sidebar-menu a.active {
+  background: #e6f4f4;
+  color: #14a2a0;
+  font-weight: 700;
+}
+
+.sidebar-menu a i {
+  font-size: 23px;
+  width: 28px;
+  color: #14a2a0;
+}
+
+.logout-item {
+  color: #e74c3c !important;
+  margin-top: 40px;
+}
+
+.logout-item i {
+  color: #e74c3c !important;
+}
+
+.logout-item:hover {
+  background: #ffeaea !important;
+}
+.logout-item i { color: #e74c3c !important; }
+.logout-item:hover { background: #ffeaea !important; }
+
+body.sidebar-open { overflow: hidden; }
+
+/* عشان عنوان New Doctor يبقى ممتد زي الصورة */
+.modal-header {
+  max-width: 1100px;
+  margin: 20px auto 0 auto;
+  border-radius: 12px 12px 0 0;
+}
+.form-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 0 0 12px 12px;
+}
+/* Modal */
+.modal-header {
+  background: #14a2a0;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+.close-btn { font-size: 30px; cursor: pointer; }
+
+.form-container {
+  background: white;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  padding: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+.section h3 {
+  color: #007977;
+  margin-bottom: 20px;
+  font-size: 18px;
+  border-bottom: 2px solid #14a2a0;
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+/* Profile Upload */
+.profile-upload {
+  text-align: left;
+  margin: 30px 0 40px;
+}
+#profile-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #14a2a0;
+}
+.upload-btn {
+  margin-top: 10px;
+  background: #14a2a0;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.contact-fields {
+  flex: 1;
+  min-width: 300px;
+}
+/* صفحات Full Width زي Patient Information */
+.full-width-page {
+  margin-top: 90px;
+  padding: 30px 50px;
+  background: #ffffff;
+  min-height: calc(100vh - 90px);
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+.page-header h1 {
+  font-size: 28px;
+  color: #007977;
+  font-weight: 700;
+}
+
+.form-wrapper {
+  max-width: 100%;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+.info-section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.info-section h3 {
+  color: #007977;
+  font-size: 20px;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #14a2a0;
+  display: inline-block;
+}
+
+/* نفس الـ grid بتاع Patient */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+.input-group label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #444;
+}
+.input-group input,
+.input-group select,
+.input-group textarea {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: border 0.3s;
+}
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #14a2a0;
+  outline: none;
+}
+.full-width { grid-column: 1 / -1; }
+
+/* Schedule Box */
+.schedule-box {
+  background: #f8fffe;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e0f2f1;
+}
+
+/* Schedule */
+.schedule-grid {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+.day-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.day-tab {
+  padding: 8px 16px;
+  border: none;
+  background: #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.day-tab.active { background: #14a2a0; color: white; }
+
+.time-slots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+.time-select, .time-input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.add-time, .remove-time {
+  background: #14a2a0;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+}
+.remove-time { background: #e74c3c; }
+.apply-all {
+  background: #007977;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Repeatable Sections */
+.repeatable-container .repeat-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr auto;
+  gap: 12px;
+  margin-bottom: 12px;
+  align-items: end;
+}
+.add-row {
+  background: #14a2a0;
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Buttons */
+.form-actions {
+  text-align: right;
+  margin-top: 30px;
+}
+.btn-cancel {
+  background: #ddd;
+  color: #333;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+.btn-add {
+  background: #14a2a0;
+  color: white;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* الشكل الجديد للـ inputs في Education, Awards, Certifications */
+.education-row input,
+.repeat-row input,
+.repeat-row select,
+.repeat-row textarea {
+  width: 100%;
+  padding: 16px 20px;           /* زيادة الـ padding عشان يبقى مريح */
+  border: 1.5px solid #e0e0e0;
+  border-radius: 30px;          /* ← ده اللي بيعمل الحواف المستديرة جدًا */
+  background-color: #ffffff;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  color: #333;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+/* لما نركز عليه */
+.education-row input:focus,
+.repeat-row input:focus,
+.repeat-row select:focus,
+.repeat-row textarea:focus {
+  outline: none;
+  border-color: #14a2a0;
+  box-shadow: 0 0 0 4px rgba(20, 162, 160, 0.15);
+}
+
+/* الـ placeholder */
+.education-row input::placeholder,
+.repeat-row input::placeholder,
+.repeat-row textarea::placeholder {
+  color: #aaa;
+  font-size: 14.5px;
+}
+
+/* عشان الـ date inputs كمان تبقى نفس الشكل */
+.education-row input[type="date"],
+.repeat-row input[type="date"] {
+  color: #555;
+  padding-right: 15px;
+}
+
+/* لو عايزة نخلي الـ select كمان نفس الشكل */
+.education-row select,
+.repeat-row select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2314a2a0' d='M6 8L0 2h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 18px center;
+  padding-left: 45px;
+}
+.repeatable-container {
+  margin-bottom: 20px;
+}
+
+.repeat-row {
+  position: relative;
+  background: #f8fffe;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1.5px solid #e0f2f1;
+  margin-bottom: 15px;
+  transition: all 0.3s;
+}
+
+.remove-row {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.remove-row:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+.add-row-btn {
+  background: transparent;
+  color: #14a2a0;
+  border: 2px dashed #14a2a0;
+  padding: 14px 20px;
+  width: 100%;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-row-btn:hover {
+  background: #e6f4f4;
+}
+.remove-row {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+  transition: all 0.3s;
+}
+
+.remove-row:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}

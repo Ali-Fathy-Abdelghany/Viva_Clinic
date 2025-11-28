@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const sequelize = require('../config/database');
 const User = require('./User');
 const Patient = require('./Patient');
@@ -216,3 +217,7 @@ module.exports = {
   Award,
   Certification
 };
+=======
+const ChatMessage = require('./chat/chatModel')(sequelize, DataTypes);
+db.ChatMessage = ChatMessage;
+>>>>>>> 157ce7e111d8c805cba70083526592b0b56ba5fe
