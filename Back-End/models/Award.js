@@ -4,12 +4,16 @@ const sequelize = require('../config/database');
 const Award = sequelize.define('Award', {
   DoctorID: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+    references: {
+          model: 'doctors',
+          key: 'DoctorID',
+        },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   Award_name: {
-    type: DataTypes.STRING(100),
-    primaryKey: true
+    type: DataTypes.TEXT,
+    allowNull: false
   },
   Award_description: {
     type: DataTypes.TEXT,
