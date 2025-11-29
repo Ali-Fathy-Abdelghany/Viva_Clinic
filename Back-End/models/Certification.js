@@ -4,12 +4,16 @@ const sequelize = require('../config/database');
 const Certification = sequelize.define('Certification', {
   DoctorID: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+    references: {
+          model: 'doctors',
+          key: 'DoctorID',
+        },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   Title: {
-    type: DataTypes.STRING(100),
-    primaryKey: true
+    type: DataTypes.STRING(255),
+    allowNull:false
   },
   Description: {
     type: DataTypes.TEXT,

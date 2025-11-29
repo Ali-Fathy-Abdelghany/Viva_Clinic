@@ -36,6 +36,7 @@ body {
   color: white;
   font-size: 26px;
   cursor: pointer;
+
 }
 
 .logo {
@@ -80,20 +81,6 @@ body {
   cursor: pointer;
 }
 
-/* Notifications menu placeholder */
-.notifications-menu {
-  position: absolute;
-  top: 55px;
-  right: 0;
-  background: white;
-  width: 260px;
-  border-radius: 10px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-  padding: 10px 0;
-  display: none;
-  z-index: 1000;
-}
-
 /* Sidebar */
 .sidebar {
   position: fixed;
@@ -103,9 +90,10 @@ body {
   height: 100vh;
   background: white;
   box-shadow: 5px 0 20px rgba(0,0,0,0.15);
-  padding: 100px 30px 30px;
+  padding: 90px 20px 20px;
   transition: 0.4s;
   z-index: 999;
+    padding: 70px 10px;
 }
 
 .sidebar.active {
@@ -259,3 +247,4 @@ body.patient-page h1 {
     min-width: 100%;
   }
 }
+
