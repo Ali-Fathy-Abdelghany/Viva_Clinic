@@ -76,25 +76,6 @@ section {
     font-size: 20px;
 }
 
-/* Login / Signup (not really used here, but harmless) */
-.login-btn,
-.signup-btn {
-    color: white;
-    text-decoration: none;
-    padding: 7px 18px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: background 0.3s;
-}
-
-.signup-btn {
-    background: #007977;
-}
-
-.signup-btn:hover {
-    background: #006361;
-}
 
 /* User profile picture */
 .profile-pic2 {
@@ -204,6 +185,8 @@ section {
 .logout-item {
     color: #d9534f;
 }
+/**********************************************************************************/
+/**********************************************************************************/
 
 /* --- 2. Patient Information Card --- */
 
@@ -215,7 +198,6 @@ section {
     overflow: hidden;
     margin-top: 30px;
 }
-
 .card-header {
     display: flex;
     justify-content: space-between;

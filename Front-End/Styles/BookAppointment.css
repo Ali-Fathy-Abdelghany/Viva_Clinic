@@ -1,0 +1,434 @@
+/* General Reset and Font */
+:root {
+    --primary-color: #007bff; 
+    --text-color: #333;
+    --header-bg: #b2dfdb; 
+    --viva-green: #388e3c; 
+    --card-green: #4CAF50; 
+    --booked-perm: #006666; /* Permanent booked color: #006666 */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f0f2f5; 
+}
+
+/* --- Layout & Navbar Styles --- */
+/* 2. Navbar (Header Navigation)                                             */
+/* ========================================================================= */
+.navbar {
+    height: 70px;
+    background: #14a2a0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.menu-icon {
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.logo {
+    height: 60px;
+}
+
+/* Main navigation links */
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.nav-links a.active {
+    text-decoration: underline;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-right i {
+    color: white;
+    font-size: 20px;
+}
+
+
+/* User profile picture */
+.profile-pic2 {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* Bell Notification Tooltip */
+#bellIcon {
+    cursor: pointer;
+    position: relative;
+}
+
+#bellIcon::after {
+    content: "See notifications";
+    position: absolute;
+    top: 50px;
+    right: -50px;
+    background: #333;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1001;
+}
+
+#bellIcon:hover::after {
+    opacity: 1;
+}
+
+
+/* ========================================================================= */
+/* 3. Sidebar (Off-Canvas Menu)                                              */
+/* ========================================================================= */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 100vh;
+    background: white;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.15);
+    padding: 100px 30px 30px;
+    transition: 0.4s;
+    z-index: 999;
+}
+
+/* Active state: slide into view */
+.sidebar.active {
+    left: 0;
+}
+
+/* User info block inside the sidebar */
+#sidebar .user-info {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+#sidebar .user-info img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+#sidebar .user-info h3 {
+    font-size: 15px;
+    color: #007977;
+    margin: 2px 0;
+}
+
+#sidebar .user-info p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Sidebar navigation links */
+#sidebar ul {
+    list-style: none;
+    padding: 5px 0;
+}
+
+#sidebar ul li {
+    padding: 15px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#sidebar ul li:hover {
+    color: #007977;
+}
+
+.logout-item {
+    color: #d9534f;
+}
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+.appointment-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.card-header h2 {
+    color: var(--card-green);
+    margin-bottom: 25px;
+}
+
+.card-content {
+    display: flex;
+    gap: 40px;
+}
+
+/* --- Calendar Styles --- */
+.date-selection {
+    flex: 0 0 350px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+.day-label {
+    font-weight: bold;
+    padding: 8px 0;
+    color: #999;
+}
+
+.date-cell {
+    padding: 10px 0;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.faded {
+    color: #bbb;
+    cursor: default;
+}
+
+.selected-day {
+    background-color: var(--card-green); 
+    color: white;
+    font-weight: bold;
+}
+
+/* --- Time Slot Status Styles --- */
+.day-columns {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.day-column {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.day-name {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.time-slot {
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    transition: background-color 0.2s, border-color 0.2s;
+    width: 100%;
+    text-align: center;
+    border: none;
+}
+
+/* Status: Booked (Red) */
+.time-slot.booked-red {
+    background-color: #ffcdd2;
+    border: 1px solid #d32f2f;
+    color: #d32f2f;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Status: Available (Gray) */
+.time-slot.available {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    color: var(--text-color);
+    cursor: pointer;
+}
+.time-slot.available:hover {
+    background-color: #e0e0e0;
+}
+
+/* Status: Selected (Teal/008080) - Temporary selection color */
+.time-slot.selected-teal {
+    background-color: #008080; 
+    color: white;
+    border-color: #008080;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Status: Permanently Booked (006666) - After submission */
+.time-slot.booked-permanent {
+    background-color: var(--booked-perm); /* #006666 */
+    color: white;
+    border-color: var(--booked-perm);
+    font-weight: bold;
+    cursor: not-allowed;
+    opacity: 1; 
+}
+
+/* --- Submit Button --- */
+.submit-button {
+    background-color: #008080;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 30px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 150px;
+    text-transform: uppercase;
+}
+
+.submit-button:hover {
+    background-color: var(--booked-perm); /* #006666 */
+}
+
+/* ================================== */
+/* --- SUCCESS MODAL STYLES --- */
+/* ================================== */
+
+/* --- SUCCESS MODAL STYLES --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px); 
+    background-image: radial-gradient(circle at top left, rgba(255, 255, 255, 0.2), rgba(120, 255, 170, 0.1));
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 18px; 
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 0 0 10px rgba(0, 0, 0, 0.03); 
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+}
+
+.modal-icon {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 2em;
+    height: 60px;
+    width: 60px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.modal-message {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.modal-subtext {
+    margin-bottom: 25px;
+}
+
+.modal-subtext a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.modal-button {
+    background-color: #008080; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.modal-button:hover {
+    background-color: #006666;
+}
