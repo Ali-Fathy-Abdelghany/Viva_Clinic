@@ -1,7 +1,9 @@
 const { StatusCodes } = require('http-status-codes');
-const { Appointment, Doctor, DoctorWorkingHours, User, Specialty } = require('../models');
+const { Appointment, DoctorWorkingHours} = require('../models');
 const { Op } = require('sequelize');
 const { AppError } = require('../middleware/errorHandler');
+
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 // Check if appointment time conflicts with existing appointments
 const checkAppointmentConflict = async (doctorId, appointmentDate, startTime, endTime, excludeAppointmentId = null) => {
@@ -41,20 +43,20 @@ const checkAppointmentConflict = async (doctorId, appointmentDate, startTime, en
   return conflictingAppointment !== null;
 };
 
-// Check if appointment time is within doctor's working hours
+
+// Check if the appointment time is within the doctor's working hours
 const checkWorkingHours = async (doctorId, appointmentDate, startTime, endTime) => {
-  const dayOfWeek = new Date(appointmentDate).getDay();
-  
+  const dayIndex = new Date(appointmentDate).getDay();
+  const dayName = DAY_NAMES[dayIndex];
+
   const workingHours = await DoctorWorkingHours.findOne({
     where: {
       DoctorID: doctorId,
-      DayOfWeek: dayOfWeek
+      DayOfWeek: dayName
     }
   });
 
-  if (!workingHours) {
-    return false;
-  }
+  if (!workingHours) return false;
 
   const workStart = workingHours.StartTime;
   const workEnd = workingHours.EndTime;
@@ -62,39 +64,76 @@ const checkWorkingHours = async (doctorId, appointmentDate, startTime, endTime) 
   return startTime >= workStart && endTime <= workEnd;
 };
 
-// Validate appointment booking
-const validateAppointmentBooking = async (patientId, doctorId, appointmentDate, startTime, endTime) => {
-  // Check if patient already has an appointment at this time
-  const patientConflict = await Appointment.findOne({
-    where: {
-      PatientID: patientId,
-      AppointmentDate: appointmentDate,
-      StartTime: startTime,
-      EndTime: endTime,
-      Status: { [Op.notIn]: ['Cancelled'] }
-    }
-  });
 
-  if (patientConflict) {
-    throw new AppError('You already have an appointment at this time', StatusCodes.BAD_REQUEST);
+// Validate appointment booking
+const validateAppointmentBooking = async (
+  patientId,
+  doctorId,
+  appointmentDate,
+  startTime,
+  endTime,
+  excludeAppointmentId = null
+) => {
+  // Check if patient already has an appointment at this time
+  const patientWhere = {
+    PatientID: patientId,
+    AppointmentDate: appointmentDate,
+    StartTime: startTime,
+    EndTime: endTime,
+    Status: { [Op.notIn]: ['Cancelled'] }
+  };
+
+  if (excludeAppointmentId) {
+    patientWhere.AppointmentID = { [Op.ne]: excludeAppointmentId };
   }
 
-  // Check doctor availability
-  const doctorConflict = await checkAppointmentConflict(doctorId, appointmentDate, startTime, endTime);
+  const patientConflict = await Appointment.findOne({ where: patientWhere });
+
+  if (patientConflict) {
+    throw new AppError(
+      'You already have an appointment at this time',
+      StatusCodes.BAD_REQUEST
+    );
+  }
+
+  // Check doctor availability (exclude same appointment when rescheduling)
+  const doctorConflict = await checkAppointmentConflict(
+    doctorId,
+    appointmentDate,
+    startTime,
+    endTime,
+    excludeAppointmentId
+  );
+
   if (doctorConflict) {
-    throw new AppError('Doctor is not available at this time', StatusCodes.BAD_REQUEST);
+    throw new AppError(
+      'Doctor is not available at this time',
+      StatusCodes.BAD_REQUEST
+    );
   }
 
   // Check working hours
-  const withinWorkingHours = await checkWorkingHours(doctorId, appointmentDate, startTime, endTime);
+  const withinWorkingHours = await checkWorkingHours(
+    doctorId,
+    appointmentDate,
+    startTime,
+    endTime
+  );
+
   if (!withinWorkingHours) {
-    throw new AppError('Appointment time is outside doctor working hours', StatusCodes.BAD_REQUEST);
+    throw new AppError(
+      'Appointment time is outside doctor working hours',
+      StatusCodes.BAD_REQUEST
+    );
   }
 
   // Check if appointment is in the past
   const appointmentDateTime = new Date(`${appointmentDate}T${startTime}`);
   if (appointmentDateTime < new Date()) {
-    throw new AppError('Cannot book appointments in the past', StatusCodes.BAD_REQUEST);
+    throw new AppError(
+      'Cannot book appointments in the past',
+      StatusCodes.BAD_REQUEST
+    );
   }
 
   return true;
@@ -102,60 +141,60 @@ const validateAppointmentBooking = async (patientId, doctorId, appointmentDate, 
 
 // Get available time slots for a doctor on a specific date
 const getAvailableTimeSlots = async (doctorId, date, slotDuration = 30) => {
-  const dayOfWeek = new Date(date).getDay();
-  
+  const dayIndex = new Date(date).getDay();
+  const dayName = DAY_NAMES[dayIndex];
+
   const workingHours = await DoctorWorkingHours.findOne({
     where: {
       DoctorID: doctorId,
-      DayOfWeek: dayOfWeek
+      DayOfWeek: dayName
     }
   });
 
-  if (!workingHours) {
-    return [];
-  }
+  if (!workingHours) return [];
 
-  // Get existing appointments for the day
-  const existingAppointments = await Appointment.findAll({
-    where: {
-      DoctorID: doctorId,
-      AppointmentDate: date,
-      Status: { [Op.notIn]: ['Cancelled'] }
-    },
-    order: [['StartTime', 'ASC']]
-  });
+  const { StartTime, EndTime } = workingHours;
 
-  // Generate time slots
+  const start = new Date(`${date}T${StartTime}`);
+  const end = new Date(`${date}T${EndTime}`);
+
   const slots = [];
-  const start = new Date(`${date}T${workingHours.StartTime}`);
-  const end = new Date(`${date}T${workingHours.EndTime}`);
 
-  let currentTime = new Date(start);
-  while (currentTime < end) {
-    const slotStart = new Date(currentTime);
-    const slotEnd = new Date(currentTime.getTime() + slotDuration * 60000);
+  let slotStart = new Date(start);
 
-    if (slotEnd <= end) {
-      // Check if slot conflicts with existing appointments
-      const conflicts = existingAppointments.some(apt => {
-        const aptStart = new Date(`${date}T${apt.StartTime}`);
-        const aptEnd = new Date(`${date}T${apt.EndTime}`);
-        return (slotStart < aptEnd && slotEnd > aptStart);
-      });
+  while (slotStart < end) {
+    let slotEnd = new Date(slotStart.getTime() + slotDuration * 60000);
 
-      if (!conflicts) {
-        slots.push({
-          startTime: slotStart.toTimeString().slice(0, 5),
-          endTime: slotEnd.toTimeString().slice(0, 5)
-        });
+    if (slotEnd > end) break;
+
+    const conflict = await Appointment.findOne({
+      where: {
+        DoctorID: doctorId,
+        AppointmentDate: date,
+        [Op.or]: [
+          {
+            StartTime: { [Op.lt]: slotEnd.toTimeString().slice(0, 8) },
+            EndTime: { [Op.gt]: slotStart.toTimeString().slice(0, 8) }
+          }
+        ],
+        Status: { [Op.notIn]: ["Cancelled"] }
       }
+    });
+
+    if (!conflict) {
+      slots.push({
+        startTime: slotStart.toTimeString().slice(0, 5),
+        endTime: slotEnd.toTimeString().slice(0, 5)
+      });
     }
 
-    currentTime = new Date(currentTime.getTime() + slotDuration * 60000);
+    slotStart = new Date(slotStart.getTime() + slotDuration * 60000);
   }
 
   return slots;
 };
+
+
 
 module.exports = {
   checkAppointmentConflict,

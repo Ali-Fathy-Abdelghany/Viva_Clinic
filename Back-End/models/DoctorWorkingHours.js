@@ -11,9 +11,11 @@ const DoctorWorkingHours = sequelize.define('DoctorWorkingHours', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Doctors',
+      model: 'doctors',
       key: 'DoctorID'
-    }
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   DayOfWeek: {
     type: DataTypes.ENUM(
@@ -41,11 +43,14 @@ const DoctorWorkingHours = sequelize.define('DoctorWorkingHours', {
   timestamps: false,
   indexes: [
     {
-      unique: true,
       fields: ['DoctorID', 'DayOfWeek']
     },
     {
       fields: ['DayOfWeek', 'StartTime']
+    },
+    {
+      unique: true,
+      fields: ['DoctorID','DayOfWeek', 'StartTime']
     }
   ]
 });

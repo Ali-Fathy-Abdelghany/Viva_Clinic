@@ -3,23 +3,31 @@ const sequelize = require('../config/database');
 
 const MedicalRecord = sequelize.define('MedicalRecord', {
   
+  RecordID: {
+    type: DataTypes.INTEGER,
+    primaryKey:true,
+    autoIncrement: true
+    
+  },
   AppointmentID: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
+    uniqe: true,
     references: {
-      model: 'Appointments',
+      model: 'appointments',
       key: 'AppointmentID'
-    }
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   PatientID: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true,
     references: {
-      model: 'Patients',
+      model: 'patients',
       key: 'PatientsID'
-    }
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   DoctorID: {
     type: DataTypes.INTEGER,
@@ -27,7 +35,9 @@ const MedicalRecord = sequelize.define('MedicalRecord', {
     references: {
       model: 'Doctors',
       key: 'DoctorID'
-    }
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   Diagnosis: {
     type: DataTypes.TEXT,
@@ -43,7 +53,7 @@ const MedicalRecord = sequelize.define('MedicalRecord', {
   },
   
 }, {
-  tableName: 'medicalRecords',
+  tableName: 'medicalrecords',
   timestamps: false,
   indexes: [
     {

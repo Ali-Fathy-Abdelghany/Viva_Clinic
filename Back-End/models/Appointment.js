@@ -11,17 +11,21 @@ const Appointment = sequelize.define('Appointment', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Patients',
-      key: 'PatientID'
-    }
+      model: 'patients',
+      key: 'patientID'
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   DoctorID: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Doctors',
-      key: 'DoctorID'
-    }
+      model: 'doctors',
+      key: 'doctorID'
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   AppointmentDate: {
     type: DataTypes.DATEONLY,
@@ -36,9 +40,9 @@ const Appointment = sequelize.define('Appointment', {
     allowNull: false
   },
   Status: {
-    type: DataTypes.ENUM('Booked', 'Cancelled', 'Available', 'Completed',),
+    type: DataTypes.ENUM('Booked', 'Cancelled', 'Rescheduled', 'Completed',),
     allowNull: false,
-    defaultValue: 'Available'
+    defaultValue: 'Booked'
   },
   
 }, {
@@ -59,6 +63,10 @@ const Appointment = sequelize.define('Appointment', {
     },
     {
       fields: ['AppointmentDate', 'DoctorID']
+    },
+    {
+      unique: true,
+      fields: ['DoctorID','AppointmentDate', 'StartTime']
     }
   ]
 });

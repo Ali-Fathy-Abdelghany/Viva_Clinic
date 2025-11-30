@@ -4,24 +4,29 @@ const sequelize = require('../config/database');
 const Medical_info = sequelize.define('Medical_info', {
   PatientID: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+    references: {
+          model: 'patients',
+          key: 'PatientID',
+        }
   },
   Name: {
     type: DataTypes.ENUM(
       'Diabetes',
       'Hypertension',
       'Asthma',
+      'ChronicOther',
       'Medication',
       'Environmental',
       'Food',
-      'Other'
+      'AllergyOther'
     ),
-    primaryKey: true,
+    allownull: false,
+   
   },
   InfoType: {
-    type: DataTypes.ENUM('Chronic illness','Allergy'),
-    primaryKey: true
+    type: DataTypes.ENUM('ChronicDisease','Allergy'),
+    allownull: false,
+    
   },
 
   

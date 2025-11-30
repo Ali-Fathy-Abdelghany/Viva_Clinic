@@ -78,7 +78,7 @@ CREATE TABLE appointments (
     AppointmentDate DATE NOT NULL,
     StartTime TIME NOT NULL,
     EndTime TIME NOT NULL,
-    Status ENUM('Booked', 'Cancelled', 'Rescheduled', 'Completed') DEFAULT 'Rescheduled',
+    Status ENUM('Booked', 'Cancelled', 'Rescheduled', 'Completed') DEFAULT 'Booked',
     UNIQUE KEY unique_booking (DoctorID, AppointmentDate, StartTime),
     FOREIGN KEY (PatientID) REFERENCES patients(PatientID) ON DELETE CASCADE,
     FOREIGN KEY (DoctorID) REFERENCES doctors(DoctorID) ON DELETE CASCADE

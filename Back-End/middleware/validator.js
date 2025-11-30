@@ -96,15 +96,6 @@ const validateMedicalRecord = [
   validate
 ];
 
-// Lab Result validation rules
-const validateLabResult = [
-  body('RecordID').isInt().withMessage('Record ID must be a valid integer'),
-  body('TestName').trim().notEmpty().withMessage('Test name is required'),
-  body('ResultDetails').trim().notEmpty().withMessage('Result details are required'),
-  body('TestDate').optional().isISO8601().withMessage('Invalid date format'),
-  validate
-];
-
 // Doctor validation rules
 const validateDoctorProfile = [
   body('SpecialtyID').isInt().withMessage('Specialty ID must be a valid integer'),
@@ -114,7 +105,7 @@ const validateDoctorProfile = [
 
 const validateWorkingHours = [
   body('DoctorID').isInt().withMessage('Doctor ID must be a valid integer'),
-  body('DayOfWeek').isInt({ min: 0, max: 6 }).withMessage('Day of week must be 0-6'),
+  body('DayOfWeek').isIn(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']).withMessage('Day of week must be one of Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday'),
   body('StartTime').matches(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/).withMessage('Invalid time format'),
   body('EndTime').matches(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/).withMessage('Invalid time format'),
   validate
@@ -136,7 +127,6 @@ module.exports = {
   validateAppointmentBooking,
   validateAppointmentUpdate,
   validateMedicalRecord,
-  validateLabResult,
   validateDoctorProfile,
   validateWorkingHours,
   validateId

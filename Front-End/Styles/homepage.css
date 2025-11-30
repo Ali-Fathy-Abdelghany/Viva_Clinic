@@ -12,7 +12,9 @@ body {
   background: #f8fcfc;
   color: #333;
 }
-
+.hidden {
+  display: none !important;
+}
 /* Buttons */
 .btn {
   background: #007977;
@@ -36,7 +38,9 @@ body {
   font-size: 20px;
 }
 
-/* Navbar */
+/* ========================================================================= */
+/* Navbar                                                                    */
+/* ========================================================================= */
 .navbar {
   height: 70px;
   background: #14a2a0;
@@ -59,6 +63,7 @@ body {
   color: white;
   font-size: 26px;
   cursor: pointer;
+  display: block;
 }
 
 .logo {
@@ -80,23 +85,22 @@ body {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 15px;
+  direction: rtl;
 }
-
-.nav-right i {
-  color: white;
-  font-size: 20px;
+.nav-right > * {
+  direction: ltr;               /* يرجّع الأزرار والنصوص لليسار عادي */
 }
+ 
 
-.login-btn,
-.signup-btn {
+.login-btn, .signup-btn {
   color: white;
   text-decoration: none;
-  padding: 7px 18px;
-  border-radius: 25px;
+  padding: 8px 20px;
+  border-radius: 30px;
   font-weight: 600;
   font-size: 14px;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 
 .signup-btn {
@@ -104,10 +108,46 @@ body {
 }
 
 .signup-btn:hover {
-  background: #006361;
+  background: #00605e;
 }
 
-/* Sidebar (off-canvas for menu) */
+#userNav {
+  display: flex;
+  align-items: center;
+  gap: 15px;          
+  justify-content: flex-end;
+}
+
+
+.bell-container {
+  position: relative;
+  order: 1;
+}
+
+#bellIcon {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.bell-container, .profile-pic {
+  display: flex;
+  align-items: center;
+}
+
+
+.profile-pic {
+  order: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* ========================================================================= */
+/* Sidebar                                                                   */
+/* ========================================================================= */
 .sidebar {
   position: fixed;
   top: 0;
@@ -115,17 +155,103 @@ body {
   width: 300px;
   height: 100vh;
   background: white;
-  box-shadow: 5px 0 20px rgba(0,0,0,0.15);
-  padding: 100px 30px 30px;
-  transition: 0.4s;
+  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+  transition: left 0.4s ease;
   z-index: 999;
+  padding: 70px 10px;
 }
 
 .sidebar.active {
   left: 0;
 }
 
-/* Hero */
+/* Guest Sidebar */
+.sidebar-guest-content {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.sidebar-guest-content i {
+  font-size: 80px;
+  color: #007977;
+  margin-bottom: 20px;
+}
+
+.login-link {
+  color: #007977;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+/* User Sidebar */
+.user-info {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 30px;
+}
+
+.user-info img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.user-info h3 {
+  color: #007977;
+  font-size: 15px;
+  margin: 8px 0 4px;
+}
+
+.user-info p {
+  color: #666;
+  font-size: 14px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.sidebar-menu li {
+  padding: 16px 0px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sidebar-menu li:hover {
+  color: #007977;
+}
+
+.logout-item {
+  color: #d9534f !important;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+/* ========================================================================= */
+/* 4. Hero Section                                                           */
+/* ========================================================================= */
 .hero {
   margin-top: 70px;
   padding: 30px;
@@ -156,7 +282,9 @@ body {
   object-fit: cover;
 }
 
-/* Stats */
+/* ========================================================================= */
+/* 5. Stats Section                                                          */
+/* ========================================================================= */
 .stats {
   display: flex;
   justify-content: center;
@@ -183,7 +311,9 @@ body {
   color: #007977;
 }
 
-/* Doctors */
+/* ========================================================================= */
+/* 6. Doctors Section                                                        */
+/* ========================================================================= */
 .doctors-section {
   padding: 60px 20px;
   max-width: 1500px;
@@ -191,7 +321,7 @@ body {
 }
 
 .doctors-section h2 {
-  text-align: left;
+  text-align: center;
   margin-left: 60px;
   font-size: 28px;
   margin-bottom: 30px;
@@ -251,18 +381,20 @@ body {
 .arrow {
   position: absolute;
   right: 18px;
-  top: 50%;
+  top: 15%;
   transform: translateY(-50%);
   font-size: 26px;
-  color: #14a2a0;
+  color: #0b0c0c;
 }
-
+/* Explore More button area */
 .explore-more {
   margin: 60px 60px 0 auto;
   text-align: right;
 }
 
-/* Contact */
+/* ========================================================================= */
+/* 7. Contact Section                                                        */
+/* ========================================================================= */
 .contact-about {
     padding: 40px 20px; 
     max-width: 1500px;
@@ -319,7 +451,9 @@ body {
 }
 
 
-/* Footer */
+/* ========================================================================= */
+/* 8. Footer                                                                 */
+/* ========================================================================= */
 footer {
   background: #14A2A0;
   color: white;
@@ -335,8 +469,19 @@ footer .social a {
   font-size: 20px;
   margin: 0 10px;
 }
+.social a {
+    color: white;
+    font-size: 20px;
+    margin: 0 10px;
+    transition: opacity 0.3s;
+}
 
-/* Responsive */
+.social a:hover {
+    opacity: 0.7;
+}
+/* ========================================================================= */
+/* 9. Responsive Design                                                      */
+/* ========================================================================= */
 @media (max-width: 992px) {
   .hero {
     flex-direction: column;
@@ -361,3 +506,17 @@ footer .social a {
     text-align: center;
   }
 }
+/* #sidebarOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+#sidebarOverlay:not(.hidden) {
+  opacity: 1;
+  pointer-events: auto;
+} */

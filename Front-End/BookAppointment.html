@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="Styles/BookAppointment.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <!-- ==================================== NAVBAR ==================================== -->
+
+     <nav class="navbar">
+    <div class="nav-left">
+      <!-- Hamburger menu - opens sidebar -->
+      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      
+      <!-- Clinic logo -->
+      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
+      
+     <div class="nav-links">
+  <a href="homepage.html" class="nav-link">Home</a>
+   <a href="#doctors"  class="nav-link" data-section="doctors">Most Popular</a>
+    <a href="#contact"  class="nav-link" data-section="contact">Contact</a>
+</div>
+
+    </div>
+    
+    <div class="nav-right">
+      <!-- Notification bell with dropdown menu -->
+      <div class="bell-container">
+        <i class="fas fa-bell" id="bellIcon"></i>
+        <div class="notifications-menu" id="notificationsMenu"></div>
+      </div>
+      
+      <!-- User profile picture - clickable (goes to patient profile) -->
+      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+    </div>
+  </nav>
+
+  <!-- ==================================== SIDEBAR ==================================== -->
+  <div class="sidebar" id="sidebar">
+    <div>
+      <!-- Logged-in user info -->
+      <div class="user-info">
+        <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
+        <h3 id="sidebar-user-name">name</h3>
+        <p id="sidebar-user-email">email@demo.com</p>
+      </div>
+      
+      <!-- Sidebar navigation menu -->
+      <ul>
+        <li onclick="window.location.href='my-appointments.html'">
+          <i class="fas fa-calendar-check"></i> My Appointments
+        </li>
+        <li onclick="window.location.href='medical-record.html'">
+          <i class="fas fa-file-medical"></i> Medical Record
+        </li>
+        <li onclick="window.location.href='chats.html'">
+          <i class="fas fa-comments"></i> Chats
+        </li>
+        <li onclick="window.location.href='settings.html'">
+          <i class="fas fa-cog"></i> Settings
+        </li>
+        <li id="logoutBtn" class="logout-item">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </li>
+      </ul>
+    </div>
+  </div>
+
+    
+
+
+    <main class="container">
+        <a href="#" class="back-link">Back</a>
+        <h1 class="page-title">Book</h1>
+
+        <div class="appointment-card">
+            <div class="card-header">
+                <h2>Select Date And Time</h2>
+            </div>
+            <div class="card-content">
+                
+                <div class="date-selection">
+                    <div class="calendar-header">
+                        <span class="nav-arrow" id="prev-month-btn">&lt;</span>
+                        <span class="month-year" id="current-month-display"></span>
+                        <span class="nav-arrow" id="next-month-btn">&gt;</span>
+                    </div>
+                    <div class="calendar-grid" id="calendar-body">
+                        </div>
+                </div>
+
+                <div class="availability-selection">
+                    <h3>Availability</h3>
+                    <div class="day-columns">
+                        <div class="day-column">
+                            <span class="day-name">Monday</span>
+                            <button class="time-slot" data-status="booked">11:30 AM - 12:30 PM</button>
+                            <button class="time-slot" data-status="available">06:00 PM - 07:30 PM</button>
+                        </div>
+                        <div class="day-column">
+                            <span class="day-name">Tuesday</span>
+                            <button class="time-slot" data-status="available">12:30 PM - 01:30 PM</button>
+                            <button class="time-slot" data-status="available">07:00 PM - 08:30 PM</button>
+                        </div>
+                        <div class="day-column">
+                            <span class="day-name">Wednesday</span>
+                            <button class="time-slot" data-status="available">02:30 PM - 03:30 PM</button>
+                            <button class="time-slot" data-status="available">09:00 PM - 11:00 PM</button>
+                        </div>
+                        <div class="day-column">
+                            <span class="day-name">Thursday</span>
+                            <button class="time-slot" data-status="available">03:30 PM - 04:30 PM</button>
+                        </div>
+                        <div class="day-column">
+                            <span class="day-name">Friday</span>
+                            <button class="time-slot" data-status="available">04:30 PM - 05:30 PM</button>
+                            <button class="time-slot" data-status="available">11:00 PM - 11:30 PM</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <button class="submit-button" id="submit-btn">Submit</button>
+        </div>
+    </main>
+    
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                &#10003; 
+            </div>
+            <h3 class="modal-title">Added Successfully</h3>
+            <p class="modal-message">
+                Appointment has been added to your Schedule
+            </p>
+            <p class="modal-subtext">
+                <a href="#">Check your Email</a>
+            </p>
+            <button class="modal-button">View Details</button>
+        </div>
+    </div>
+
+    <script src="scripts/common-layout.js"></script>
+     <script src="scripts/BookAppointment.js"></script>
+</body>
+</html>

@@ -6,48 +6,49 @@ const Doctor = sequelize.define('Doctor', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'Users',
+      model: 'users',
       key: 'UserID'
-    }
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   },
   SpecialtyID: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true, 
     references: {
-      model: 'Specialties',
+      model: 'specialties',
       key: 'SpecialtyID'
-    }
+    },
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE'
   },
   Bio: {
     type: DataTypes.TEXT,
     allowNull: true
   },
   Image_url: {
-    type: DataTypes.TEXT,
-    allowNull:true
+    type: DataTypes.STRING(255),
+    allowNull: true
   },
-  Gender:{
-    type: DataTypes.ENUM('Male','Female'),
-    allowNull:false
+  Gender: {
+    type: DataTypes.ENUM('M', 'F'),
+    allowNull: true
   },
-  Fee:{
+  Fee: {
     type: DataTypes.INTEGER,
-    allowNull:false
+    allowNull: true
   },
-  Education:{
+  Education: {
     type: DataTypes.TEXT,
-    allowNull:true
+    allowNull: true
   },
-  YearsOfExperience:{
+  YearsOfExperience: {
     type: DataTypes.INTEGER,
-    allowNull:true
-  },
-
-
+    allowNull: true
+  }
 }, {
   tableName: 'doctors',
   timestamps: false
 });
 
 module.exports = Doctor;
-
