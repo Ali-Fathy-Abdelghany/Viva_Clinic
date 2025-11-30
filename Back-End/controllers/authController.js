@@ -77,12 +77,9 @@ const login = asyncHandler(async (req, res) => {
     throw new AppError('Invalid email or password', StatusCodes.UNAUTHORIZED);
   }
 
-  // Check if user is active
-  if (!user.isActive) {
-    throw new AppError('Account is deactivated', StatusCodes.FORBIDDEN);
-  }
 
   // Verify password
+  
   const isPasswordValid = await comparePassword(Password, user.PasswordHash);
   if (!isPasswordValid) {
     throw new AppError('Invalid email or password', StatusCodes.UNAUTHORIZED);

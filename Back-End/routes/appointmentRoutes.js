@@ -21,7 +21,8 @@ router
     .post(authorize("Patient"), validateAppointmentBooking, bookAppointment)
     .get(getAppointments);
 router
-    .route("/:id", validateId)
+    .route("/:id")
+    .all(validateId)
     .get(getAppointment)
     .put(validateAppointmentUpdate, updateAppointment)
     .patch(validateAppointmentUpdate, updateAppointment)

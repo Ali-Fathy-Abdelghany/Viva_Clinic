@@ -27,7 +27,7 @@ const Doctor = sequelize.define('Doctor', {
     allowNull:true
   },
   Gender:{
-    type: DataTypes.Enum('Male','Female'),
+    type: DataTypes.ENUM('Male','Female'),
     allowNull:false
   },
   Fee:{

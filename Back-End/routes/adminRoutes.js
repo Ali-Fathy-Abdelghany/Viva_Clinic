@@ -23,23 +23,16 @@ router.use(authenticate);
 router.use(authorize('Admin'));
 
 // Doctor Management
-router.post('/doctors', createDoctor);
-router.put('/doctors/:id', validateId, updateDoctor);
-router.patch('/doctors/:id', validateId, updateDoctor);
-router.delete('/doctors/:id', validateId, deleteDoctor);
+router.route('/doctors/').post(createDoctor);
+router.route('/doctors/:id').all(validateId).patch(updateDoctor).delete(deleteDoctor);
 
 // Patient Management
 router.get('/patients', getPatients);
-router.put('/patients/:id', validateId, updatePatient);
 router.patch('/patients/:id', validateId, updatePatient);
 
 // Specialty Management
-router.get('/specialties', getSpecialties);
-router.post('/specialties', createSpecialty);
-router.put('/specialties/:id', validateId, updateSpecialty);
-router.patch('/specialties/:id', validateId, updateSpecialty);
-router.delete('/specialties/:id', validateId, deleteSpecialty);
-
+router.route('/specialties').get(getSpecialties).post(createSpecialty);
+router.route('/specialties/:id').all(validateId).patch(updateSpecialty).delete(deleteSpecialty);
 // Working Hours Management
 router.post('/doctors/:doctorId/working-hours', validateId, setDoctorWorkingHours);
 

@@ -24,7 +24,7 @@ const authenticate = asyncHandler(async (req, res, next) => {
         const decoded = jwt.verify(token, config.JWT_SECRET);
         const user = await User.findByPk(decoded.userId);
 
-        if (!user || !user.isActive) {
+        if (!user ) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 success: false,
                 message: "Invalid token or user not active.",

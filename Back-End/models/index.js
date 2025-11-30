@@ -17,8 +17,8 @@ const Certification = require('./Certification');
 User.hasOne(Patient, { foreignKey: 'UserID', as: 'patientInfo' });
 Patient.belongsTo(User, { foreignKey: 'UserID', as: 'user' });
 
-User.hasOne(Doctor, { foreignKey: 'UserID', as: 'doctorInfo' });
-Doctor.belongsTo(User, { foreignKey: 'UserID', as: 'user' });
+User.hasOne(Doctor, { foreignKey: 'DoctorID', as: 'doctorInfo' });
+Doctor.belongsTo(User, { foreignKey: 'DoctorID', as: 'user' });
 
 Patient.hasMany(Appointment, { foreignKey: 'PatientID', as: 'patientAppointments' });
 Appointment.belongsTo(Patient, { foreignKey: 'PatientID', as: 'patient' });
