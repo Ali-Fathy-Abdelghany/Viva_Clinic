@@ -86,6 +86,7 @@ body {
   align-items: center;
   gap: 20px;
 }
+
   .login-btn, .signup-btn {
   color: white;
   text-decoration: none;
@@ -96,6 +97,12 @@ body {
   transition: all 0.3s;
 }
 
+#userNav {
+  display: flex;
+  align-items: center;
+  gap: 15px;          
+  justify-content: flex-end;
+}
 .signup-btn {
   background: #007977;
 }
