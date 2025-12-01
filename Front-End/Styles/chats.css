@@ -1,163 +1,4 @@
-/* ========================================================================= */
-/* 11. chats Styles                                   */
-/* ========================================================================= */
-/* Global */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Cairo', sans-serif;
-  background: #ffffff;
-  color: #333;
-}
-
-/* --- Layout & Navbar Styles --- */
-/* 2. Navbar (Header Navigation)                                             */
-/* ========================================================================= */
-.navbar {
-    height: 70px;
-    background: #14a2a0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.menu-icon {
-    color: white;
-    font-size: 26px;
-    cursor: pointer;
-}
-
-.logo {
-    height: 60px;
-}
-
-/* Main navigation links */
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: 600;
-    font-size: 15px;
-}
-
-.nav-links a.active {
-    text-decoration: underline;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.nav-right i {
-    color: white;
-    font-size: 20px;
-}
-
-
-/* User profile picture */
-.profile-pic2 {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-}
-
-/* Bell Notification Tooltip */
-#bellIcon {
-    cursor: pointer;
-    position: relative;
-}
-/* ========================================================================= */
-/* 3. Sidebar (Off-Canvas Menu)                                              */
-/* ========================================================================= */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -320px;
-    width: 300px;
-    height: 100vh;
-    background: white;
-    box-shadow: 5px 0 20px rgba(0,0,0,0.15);
-    padding: 100px 30px 30px;
-    transition: 0.4s;
-    z-index: 999;
-}
-
-/* Active state: slide into view */
-.sidebar.active {
-    left: 0;
-}
-
-/* User info block inside the sidebar */
-#sidebar .user-info {
-    text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
-}
-
-#sidebar .user-info img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 12px;
-}
-
-#sidebar .user-info h3 {
-    font-size: 15px;
-    color: #007977;
-    margin: 2px 0;
-}
-
-#sidebar .user-info p {
-    color: #666;
-    font-size: 14px;
-}
-
-/* Sidebar navigation links */
-#sidebar ul {
-    list-style: none;
-    padding: 5px 0;
-}
-
-#sidebar ul li {
-    padding: 15px 0;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-#sidebar ul li:hover {
-    color: #007977;
-}
-
-.logout-item {
-    color: #d9534f;
-}
-.chat-main-wrapper {
+ .chat-main-wrapper {
       margin-top: 70px;
       height: calc(100vh - 70px);
       display: flex;
@@ -178,12 +19,12 @@ body {
       border-bottom: 1px solid #eee;
     }
     .chat-search-box {
-      padding: 10px 20px;
+      padding: 15px 20px;
       border-bottom: 1px solid #eee;
     }
     .chat-search-box input {
       width: 100%;
-      padding: 8px 20px;
+      padding: 14px 20px;
       border: 1px solid #ddd;
       border-radius: 30px;
       background: #f9f9f9;
@@ -194,7 +35,7 @@ body {
       overflow-y: auto;
     }
     .doctor-item {
-      padding: 8px 20px;
+      padding: 16px 20px;
       display: flex;
       align-items: center;
       gap: 15px;
@@ -235,7 +76,7 @@ body {
       background: white;
     }
     .chat-conversation-header {
-      padding: 11px 10px;
+      padding: 20px 30px;
       border-bottom: 1px solid #eee;
       display: flex;
       align-items: center;
@@ -264,7 +105,7 @@ body {
       background: #f9f9f9;
     }
     .chat-input-wrapper {
-      padding: 2px 30px;
+      padding: 20px 30px;
       background: white;
       border-top: 1px solid #eee;
       display: flex;
@@ -273,7 +114,7 @@ body {
     }
     .chat-input-wrapper input {
       flex: 1;
-      padding: 12px 24px;
+      padding: 16px 24px;
       border: 1px solid #ddd;
       border-radius: 50px;
       background: #f5f5f5;
@@ -290,9 +131,65 @@ body {
       background: #14a2a0;
       color: white;
       border: none;
-      width:35px;
-      height: 35px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       font-size: 20px;
       cursor: pointer;
     }
+
+    .sidebar ul li:nth-child(3) {
+      color: #14a2a0;
+      font-weight: bold;
+    }
+.messages-container {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background: #f0f2f5;;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message-bubble {
+    max-width: 65%;
+    padding: 12px 18px;
+    border-radius: 18px;
+    position: relative;
+    word-wrap: break-word;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.my-message {
+    align-self: flex-end;
+    background: #14a2a0;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.other-message {
+    align-self: flex-start;
+    background: white;
+    color: #333;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.message-time {
+    font-size: 11px;
+    margin-top: 6px;
+    opacity: 0.7;
+    text-align: right;
+    color: inherit;
+}
+
+.my-message::after {
+    content: "✓✓";
+    font-size: 10px;
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    opacity: 0.7;
+}
