@@ -4,49 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patient Information</title>
-  <link rel="stylesheet" href="Styles/patient.css">
+  <link rel="stylesheet" href="Styles/patient-form.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel ="stylesheet" href="Styles/bell.css" />
 </head>
 <body class="patient-page">
 
-  <!-- ==================================== NAVBAR ==================================== -->
-  <nav class="navbar">
+<!-- ==================================== NAVBAR ==================================== -->
+
+     <nav class="navbar">
     <div class="nav-left">
-      <!-- Hamburger menu button (toggles sidebar) -->
+      <!-- Hamburger menu - opens sidebar -->
       <i class="fas fa-bars menu-icon" id="menuBtn"></i>
       
       <!-- Clinic logo -->
       <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
       
-      <!-- Navigation links (Single Page App style - uses data-section) -->
-      <div class="nav-links">
-        <a href="#home" class="nav-link active" data-section="home">Home</a>
-        <a href="#doctors" class="nav-link" data-section="doctors">Most Popular</a>
-        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-      </div>
+     <div class="nav-links">
+  <a href="homepage.html" class="nav-link">Home</a>
+   <a href="#doctors"  class="nav-link" data-section="doctors">Most Popular</a>
+    <a href="#contact"  class="nav-link" data-section="contact">Contact</a>
+</div>
+
     </div>
     
     <div class="nav-right">
-      <!-- Notification bell (dropdown will be added via JS) -->
+      <!-- Notification bell with dropdown menu -->
       <div class="bell-container">
         <i class="fas fa-bell" id="bellIcon"></i>
-        <!-- Dropdown menu will be injected here dynamically -->
         <div class="notifications-menu" id="notificationsMenu"></div>
       </div>
       
-      <!-- User profile picture (clickable → goes to patient profile) -->
-      <img src="images/assets/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+      <!-- User profile picture - clickable (goes to patient profile) -->
+      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
     </div>
   </nav>
 
   <!-- ==================================== SIDEBAR ==================================== -->
   <div class="sidebar" id="sidebar">
-    <div id="sidebarContent">
-      <!-- User info section -->
+    <div>
+      <!-- Logged-in user info -->
       <div class="user-info">
-        <img src="images/assets/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">User Name</h3>
-        <p id="sidebar-user-email">user@example.com</p>
+        <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
+        <h3 id="sidebar-user-name">name</h3>
+        <p id="sidebar-user-email">email@demo.com</p>
       </div>
       
       <!-- Sidebar navigation menu -->
@@ -171,6 +172,7 @@
   <!-- Main JavaScript file (includes auth, dashboard, and profile logic) -->
   <script src="scripts/auth-shared.js"></script>
   <script src="scripts/common-layout.js"></script>
-  <script src="scripts/patient.js"></script>
+  <script src="scripts/patient-form.js"></script>
+  <script src="scripts/bell.js"></script>
 </body>
 </html>

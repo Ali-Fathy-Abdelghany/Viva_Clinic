@@ -7,12 +7,6 @@ document.getElementById('overlay').addEventListener('click', function() {
   document.getElementById('sidebar').classList.remove('active');
   this.classList.remove('active');
 });
-
-// Notifications Toggle
-document.getElementById('bellIcon').addEventListener('click', function() {
-  document.getElementById('notificationsMenu').classList.toggle('show');
-});
-
 // Tabs
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', function() {

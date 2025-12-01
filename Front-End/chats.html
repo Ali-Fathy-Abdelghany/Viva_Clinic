@@ -7,36 +7,50 @@
 
   <link rel="stylesheet" href="Styles/chats.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-   
+  <link rel="stylesheet" href="Styles/bell.css" />
 </head>
-<body class="patient-page">
+<body>
 
-  <nav class="navbar">
+   <!-- ==================================== NAVBAR ==================================== -->
+
+     <nav class="navbar">
     <div class="nav-left">
+      <!-- Hamburger menu - opens sidebar -->
       <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      
+      <!-- Clinic logo -->
       <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
-      <div class="nav-links">
-        <a href="#home" class="nav-link active" data-section="home">Home</a>
-        <a href="#doctors" class="nav-link" data-section="doctors">Most Popular</a>
-        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-      </div>
+      
+     <div class="nav-links">
+  <a href="homepage.html" class="nav-link">Home</a>
+   <a href="#doctors"  class="nav-link" data-section="doctors">Most Popular</a>
+    <a href="#contact"  class="nav-link" data-section="contact">Contact</a>
+</div>
+
     </div>
+    
     <div class="nav-right">
+      <!-- Notification bell with dropdown menu -->
       <div class="bell-container">
         <i class="fas fa-bell" id="bellIcon"></i>
         <div class="notifications-menu" id="notificationsMenu"></div>
       </div>
-      <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+      
+      <!-- User profile picture - clickable (goes to patient profile) -->
+      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
     </div>
   </nav>
 
   <div class="sidebar" id="sidebar">
-    <div id="sidebarContent">
+    <div>
+      <!-- Logged-in user info -->
       <div class="user-info">
-        <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">Shimaa</h3>
-        <p id="sidebar-user-email">shimaa@demo.com</p>
+        <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
+        <h3 id="sidebar-user-name">name</h3>
+        <p id="sidebar-user-email">email@demo.com</p>
       </div>
+      
+      <!-- Sidebar navigation menu -->
       <ul>
         <li onclick="window.location.href='my-appointments.html'">
           <i class="fas fa-calendar-check"></i> My Appointments
@@ -99,7 +113,11 @@
     </div>
   </div>
 
-  <script src="web-app.js"></script>
+  <script src="scripts/bell.js"></script>
+  <script src="scripts/Dynamic Navigation Logic.js"></script>
+  <script src="scripts/common-layout.js"></script>
+  <script src="scripts/bell.js"></script>
+
 
 </body>
 </html>

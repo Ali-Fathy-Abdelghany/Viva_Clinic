@@ -234,11 +234,17 @@ body {
 /************************************************************************************/
 /************************************************************************************/
 /************************************************************************************/
+.h1, .page-title {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 2em;
+    color: #080808;
+}
 .appointment-card {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    padding: 55px 30px ;
     display: flex;
     flex-direction: column;
     position: relative;

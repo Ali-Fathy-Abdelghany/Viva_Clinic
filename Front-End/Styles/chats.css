@@ -14,151 +14,148 @@ body {
   color: #333;
 }
 
-/* Navbar */
+/* --- Layout & Navbar Styles --- */
+/* 2. Navbar (Header Navigation)                                             */
+/* ========================================================================= */
 .navbar {
-  height: 70px;
-  background: #14a2a0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
+    height: 70px;
+    background: #14a2a0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .nav-left {
-  display: flex;
-  align-items: center;
-  gap: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 .menu-icon {
-  color: white;
-  font-size: 26px;
-  cursor: pointer;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
 }
 
 .logo {
-  height: 60px;
+    height: 60px;
 }
 
+/* Main navigation links */
 .nav-links a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: 600;
-  font-size: 15px;
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    font-size: 15px;
 }
 
 .nav-links a.active {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .nav-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
-/* Bell container / icon */
-.bell-container {
-  position: relative;
+.nav-right i {
+    color: white;
+    font-size: 20px;
 }
 
+
+/* User profile picture */
+.profile-pic2 {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+/* Bell Notification Tooltip */
 #bellIcon {
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
+    cursor: pointer;
+    position: relative;
 }
-
-/* Profile picture */
-.profile-pic {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-/* Notifications menu placeholder */
-.notifications-menu {
-  position: absolute;
-  top: 55px;
-  right: 0;
-  background: white;
-  width: 260px;
-  border-radius: 10px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-  padding: 10px 0;
-  display: none;
-  z-index: 1000;
-}
-
-/* Sidebar */
+/* ========================================================================= */
+/* 3. Sidebar (Off-Canvas Menu)                                              */
+/* ========================================================================= */
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: -320px;
-  width: 300px;
-  height: 100vh;
-  background: white;
-  box-shadow: 5px 0 20px rgba(0,0,0,0.15);
-  padding: 100px 30px 30px;
-  transition: 0.4s;
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 100vh;
+    background: white;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.15);
+    padding: 100px 30px 30px;
+    transition: 0.4s;
+    z-index: 999;
 }
 
+/* Active state: slide into view */
 .sidebar.active {
-  left: 0;
+    left: 0;
 }
 
-.sidebar .user-info {
-  text-align: center;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
+/* User info block inside the sidebar */
+#sidebar .user-info {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
 }
 
-.sidebar .user-info img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
+#sidebar .user-info img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
 }
 
-.sidebar .user-info h3 {
-  font-size: 15px;
-  color: #007977;
+#sidebar .user-info h3 {
+    font-size: 15px;
+    color: #007977;
+    margin: 2px 0;
 }
 
-.sidebar .user-info p {
-  color: #666;
-  font-size: 14px;
+#sidebar .user-info p {
+    color: #666;
+    font-size: 14px;
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 5px 0;
+/* Sidebar navigation links */
+#sidebar ul {
+    list-style: none;
+    padding: 5px 0;
 }
 
-.sidebar ul li {
-  padding: 15px 0;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: color 0.3s;
+#sidebar ul li {
+    padding: 15px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
-.sidebar ul li:hover {
-  color: #007977;
+#sidebar ul li:hover {
+    color: #007977;
 }
 
 .logout-item {
-  color: #d9534f;
+    color: #d9534f;
 }
 .chat-main-wrapper {
       margin-top: 70px;
@@ -181,12 +178,12 @@ body {
       border-bottom: 1px solid #eee;
     }
     .chat-search-box {
-      padding: 15px 20px;
+      padding: 10px 20px;
       border-bottom: 1px solid #eee;
     }
     .chat-search-box input {
       width: 100%;
-      padding: 14px 20px;
+      padding: 8px 20px;
       border: 1px solid #ddd;
       border-radius: 30px;
       background: #f9f9f9;
@@ -197,7 +194,7 @@ body {
       overflow-y: auto;
     }
     .doctor-item {
-      padding: 16px 20px;
+      padding: 8px 20px;
       display: flex;
       align-items: center;
       gap: 15px;
@@ -238,7 +235,7 @@ body {
       background: white;
     }
     .chat-conversation-header {
-      padding: 20px 30px;
+      padding: 11px 10px;
       border-bottom: 1px solid #eee;
       display: flex;
       align-items: center;
@@ -267,7 +264,7 @@ body {
       background: #f9f9f9;
     }
     .chat-input-wrapper {
-      padding: 20px 30px;
+      padding: 2px 30px;
       background: white;
       border-top: 1px solid #eee;
       display: flex;
@@ -276,7 +273,7 @@ body {
     }
     .chat-input-wrapper input {
       flex: 1;
-      padding: 16px 24px;
+      padding: 12px 24px;
       border: 1px solid #ddd;
       border-radius: 50px;
       background: #f5f5f5;
@@ -293,14 +290,9 @@ body {
       background: #14a2a0;
       color: white;
       border: none;
-      width: 50px;
-      height: 50px;
+      width:35px;
+      height: 35px;
       border-radius: 50%;
       font-size: 20px;
       cursor: pointer;
-    }
-
-    .sidebar ul li:nth-child(3) {
-      color: #14a2a0;
-      font-weight: bold;
     }
