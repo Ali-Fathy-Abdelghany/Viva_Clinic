@@ -5,52 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chats - Viva Clinic</title>
 
-  <link rel="stylesheet" href="Styles/chats.css">
+  <link rel="stylesheet" href="web-app.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="Styles/bell.css" />
+  <link rel="stylesheet" href="chats.css">
+  
+   
 </head>
-<body>
+<body class="patient-page">
 
-   <!-- ==================================== NAVBAR ==================================== -->
-
-     <nav class="navbar">
+  <nav class="navbar">
     <div class="nav-left">
-      <!-- Hamburger menu - opens sidebar -->
       <i class="fas fa-bars menu-icon" id="menuBtn"></i>
-      
-      <!-- Clinic logo -->
-      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
-      
-     <div class="nav-links">
-  <a href="homepage.html" class="nav-link">Home</a>
-   <a href="#doctors"  class="nav-link" data-section="doctors">Most Popular</a>
-    <a href="#contact"  class="nav-link" data-section="contact">Contact</a>
-</div>
-
+      <img src="logo.png" alt="Viva Clinic Logo" class="logo">
+      <div class="nav-links">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#doctors" class="nav-link" data-section="doctors">Most Popular</a>
+        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      </div>
     </div>
-    
     <div class="nav-right">
-      <!-- Notification bell with dropdown menu -->
       <div class="bell-container">
         <i class="fas fa-bell" id="bellIcon"></i>
         <div class="notifications-menu" id="notificationsMenu"></div>
       </div>
-      
-      <!-- User profile picture - clickable (goes to patient profile) -->
-      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+      <img src="default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
     </div>
   </nav>
 
   <div class="sidebar" id="sidebar">
-    <div>
-      <!-- Logged-in user info -->
+    <div id="sidebarContent">
       <div class="user-info">
-        <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">name</h3>
-        <p id="sidebar-user-email">email@demo.com</p>
+        <img src="default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+        <h3 id="sidebar-user-name">Shimaa</h3>
+        <p id="sidebar-user-email">shimaa@demo.com</p>
       </div>
-      
-      <!-- Sidebar navigation menu -->
       <ul>
         <li onclick="window.location.href='my-appointments.html'">
           <i class="fas fa-calendar-check"></i> My Appointments
@@ -78,21 +66,16 @@
       <div class="chat-search-box">
         <input type="text" placeholder="Search doctors...">
       </div>
-      <div class="doctors-list">
-        <div class="doctor-item active">
-          <img src="images/doctor.png" alt="Dr. Sara Ali">
-          <div class="doctor-info">
-            <h4>Dr. Sara Ali</h4>
-            <p>You: Okay, I'll track my readings...</p>
-          </div>
-          <div class="doctor-time">8:16 PM</div>
-        </div>
-      </div>
+      <div class="doctors-list" id="doctorsList">
+    <div class="loading" style="text-align:center; padding:40px; color:#666;">
+        جاري تحميل الشاتات...
+    </div>
+</div>
     </div>
 
     <div class="chat-conversation">
       <div class="chat-conversation-header">
-        <img src="images/doctor.png" alt="Dr. Sara Ali">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Sara Ali">
         <div>
           <h3>Dr. Sara Ali</h3>
           <p>Last Seen at 07:15 PM</p>
@@ -113,11 +96,8 @@
     </div>
   </div>
 
-  <script src="scripts/bell.js"></script>
-  <script src="scripts/Dynamic Navigation Logic.js"></script>
-  <script src="scripts/common-layout.js"></script>
-  <script src="scripts/bell.js"></script>
-
-
+  <script src="web-app.js"></script>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="chats.js"></script>
 </body>
 </html>
