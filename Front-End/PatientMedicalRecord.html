@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Medical Record</title>
     <link rel="stylesheet" href="Styles/PatientMedicalRecord.css"> 
+    
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
@@ -21,8 +22,8 @@
       
      <div class="nav-links">
   <a href="homepage.html" class="nav-link">Home</a>
-  <a href="doctors.html" class="nav-link">Most Popular</a>
-  <a href="contact.html" class="nav-link">Contact</a>
+  <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+  <a href="homepage.html#contact" class="nav-link">Contact</a>
 </div>
 
     </div>
@@ -35,41 +36,45 @@
       </div>
       
       <!-- User profile picture - clickable (goes to patient profile) -->
+    <a href="PatientMedicalRecord.html">
       <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
-    </div>
+    </a>    </div>
   </nav>
-  <!-- ==================================== SIDEBAR ==================================== -->
-  <div class="sidebar" id="sidebar">
-    <div>
-      <!-- Logged-in user info -->
-      <div class="user-info">
-        <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">name</h3>
-        <p id="sidebar-user-email">email@demo.com</p>
-      </div>
-      
-      <!-- Sidebar navigation menu -->
-      <ul>
-        <li onclick="window.location.href='my-appointments.html'">
-          <i class="fas fa-calendar-check"></i> My Appointments
-        </li>
-        <li onclick="window.location.href='medical-record.html'">
-          <i class="fas fa-file-medical"></i> Medical Record
-        </li>
-        <li onclick="window.location.href='chats.html'">
-          <i class="fas fa-comments"></i> Chats
-        </li>
-        <li onclick="window.location.href='settings.html'">
-          <i class="fas fa-cog"></i> Settings
-        </li>
-        <li id="logoutBtn" class="logout-item">
-          <i class="fas fa-sign-out-alt"></i> Log Out
-        </li>
-      </ul>
-    </div>
-  </div>
+ <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
 
-    
+  <!-- User Sidebar (اللي لازم يظهر لما اليوزر مسجل دخوله) -->
+  <div id="userSidebar" class="hidden">   <!-- ملاحظة: hidden من الأول عشان الـ JS يتحكم فيه -->
+    <div class="user-info">
+      <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+      <h3 id="sidebar-user-name">Loading...</h3>
+      <p id="sidebar-user-email">loading@demo.com</p>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li onclick="window.location.href='my-appointments.html'">
+        <i class="fas fa-calendar-check"></i> My Appointments
+      </li>
+      <li onclick="window.location.href='medical-record.html'">
+        <i class="fas fa-file-medical"></i> Medical Record
+      </li>
+      <li onclick="window.location.href='chats.html'">
+        <i class="fas fa-comments"></i> Chats
+      </li>
+      <li onclick="window.location.href='settings.html'">
+        <i class="fas fa-cog"></i> Settings
+      </li>
+      <li id="logoutBtn" class="logout-item">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="sidebarOverlay" class="overlay hidden"></div>
+
+<!--****************************************Patient info***************************************************************-->
 
     <section class="patient-card">
         <div class="card-header">
@@ -85,9 +90,12 @@
                     </div>
                 </div>
             </div>
-            <div class="edit-btn">   
-                <button class="btn-edit">Edit Profile</button>
-            </div>
+           <div class="edit-btn">   
+              <button class="btn-edit" onclick="window.location.href='patient.html'">
+                           Edit Profile
+                </button>
+             </div>
+
         </div>
         <div class="card-body">
             <h3 class="about-title">About</h3>
@@ -118,21 +126,6 @@
             <p>CONFIDENTIAL PATIENT INFORMATION</p>
         </div>
 
-        <div class="form-section">
-            <div class="section-title patient-info-title">Patient Information</div>
-            <div class="form-fields">
-                <label><strong>Full Name:</strong> <input type="text"></label>
-                <label><strong>Date of Birth: </strong><input type="date"></label>
-         <label><strong>Gender</strong>: 
-             <span class="gender-space"></span>
-               <input type="radio" name="gender" value="male"> Male
-             <span class="gender-space"></span>
-             <input type="radio" name="gender" value="female"> Female
-          </label>                
-          <label><strong>Contact Details : </strong><input type="text"></label>
-               
-            </div>
-        </div>
 
 <div class="form-section">
     <div class="section-title medical-conditions-title">Medical Conditions</div>
@@ -156,29 +149,7 @@
         </div>
         
     </div>
-    <div class="form-section">
-            <div class="section-title lifestyle-habits-title">Lifestyle & Habits</div>
-            <div class="form-fields checkbox-group">
-            <label class="block-title"><strong>Habits:</strong></label>
-                <label>Smoking<input type="checkbox"></label>
-                <label>Alcohol Use <input type="checkbox"></label>
-        <div class="checkbox-block">
-            <label class="block-title"><strong>Exercise Routine:</strong></label>
-            <label>Regular <input type="checkbox" name="Exercise Routine" value="Regular"></label>
-            <label>Rarely <input type="checkbox" name="Exercise Routine" value="Rarely"></label>
-            <label>Never <input type="checkbox" name="Exercise Routine" value="Never"></label>
-        </div>         
-        </div>
-        </div>
-    <div class="form-section">
-            <div class="section-title immunization-title">Vaccination & Immunization</div>
-            <div class="form-fields">
-                <label>Completed Vaccines: <input type="text"></label>
-                <label>Pending Vaccinations: <input type="text"></label>
-            </div>
-            <div class="form-fields">
-            </div>
-        </div>
+
 </div>
 
     </section>
@@ -211,6 +182,7 @@
         </table>
     </section>
                  
-                 
+              <script src="scripts/common-layout.js"></script>
+     
 </body>
 </html>

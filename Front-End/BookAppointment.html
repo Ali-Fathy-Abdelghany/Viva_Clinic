@@ -21,8 +21,8 @@
       
      <div class="nav-links">
   <a href="homepage.html" class="nav-link">Home</a>
-   <a href="#doctors"  class="nav-link" data-section="doctors">Most Popular</a>
-    <a href="#contact"  class="nav-link" data-section="contact">Contact</a>
+  <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+  <a href="homepage.html#contact" class="nav-link">Contact</a>
 </div>
 
     </div>
@@ -35,41 +35,43 @@
       </div>
       
       <!-- User profile picture - clickable (goes to patient profile) -->
+    <a href="PatientMedicalRecord.html">
       <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
-    </div>
+    </a>    </div>
   </nav>
+ <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
 
-  <!-- ==================================== SIDEBAR ==================================== -->
-  <div class="sidebar" id="sidebar">
-    <div>
-      <!-- Logged-in user info -->
-      <div class="user-info">
-        <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">name</h3>
-        <p id="sidebar-user-email">email@demo.com</p>
-      </div>
-      
-      <!-- Sidebar navigation menu -->
-      <ul>
-        <li onclick="window.location.href='my-appointments.html'">
-          <i class="fas fa-calendar-check"></i> My Appointments
-        </li>
-        <li onclick="window.location.href='medical-record.html'">
-          <i class="fas fa-file-medical"></i> Medical Record
-        </li>
-        <li onclick="window.location.href='chats.html'">
-          <i class="fas fa-comments"></i> Chats
-        </li>
-        <li onclick="window.location.href='settings.html'">
-          <i class="fas fa-cog"></i> Settings
-        </li>
-        <li id="logoutBtn" class="logout-item">
-          <i class="fas fa-sign-out-alt"></i> Log Out
-        </li>
-      </ul>
+  <!-- User Sidebar (اللي لازم يظهر لما اليوزر مسجل دخوله) -->
+  <div id="userSidebar" class="hidden">   <!-- ملاحظة: hidden من الأول عشان الـ JS يتحكم فيه -->
+    <div class="user-info">
+      <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+      <h3 id="sidebar-user-name">Loading...</h3>
+      <p id="sidebar-user-email">loading@demo.com</p>
     </div>
-  </div>
 
+    <ul class="sidebar-menu">
+      <li onclick="window.location.href='my-appointments.html'">
+        <i class="fas fa-calendar-check"></i> My Appointments
+      </li>
+      <li onclick="window.location.href='medical-record.html'">
+        <i class="fas fa-file-medical"></i> Medical Record
+      </li>
+      <li onclick="window.location.href='chats.html'">
+        <i class="fas fa-comments"></i> Chats
+      </li>
+      <li onclick="window.location.href='settings.html'">
+        <i class="fas fa-cog"></i> Settings
+      </li>
+      <li id="logoutBtn" class="logout-item">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="sidebarOverlay" class="overlay hidden"></div>
     
 
 
