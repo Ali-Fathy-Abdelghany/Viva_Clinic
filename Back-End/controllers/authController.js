@@ -182,14 +182,6 @@ const forgotPassword = asyncHandler(async (req, res) => {
     });
   }
 
-  // Check if user is active
-  if (!user.isActive) {
-    return res.status(StatusCodes.OK).json({
-      success: true,
-      message: 'If an account with that email exists, a password reset link has been sent.'
-    });
-  }
-
   // Generate password reset token
   const resetToken = generatePasswordResetToken(user.UserID);
 
@@ -244,11 +236,6 @@ const resetPassword = asyncHandler(async (req, res) => {
   const user = await User.findByPk(decoded.userId);
   if (!user) {
     throw new AppError('User not found', StatusCodes.NOT_FOUND);
-  }
-
-  // Check if user is active
-  if (!user.isActive) {
-    throw new AppError('Account is deactivated', StatusCodes.FORBIDDEN);
   }
 
   // Hash new password

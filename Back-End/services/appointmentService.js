@@ -193,13 +193,26 @@ const getAvailableTimeSlots = async (doctorId, date, slotDuration = 30) => {
 
   return slots;
 };
-
+const getAvailableTimeSlotsAllWeek = async (doctorId, slotDuration = 30) => {
+    const availableSlots = {};
+    for (let i = 0; i < 7; i++) {
+        const date = new Date();
+        date.setDate(date.getDate() + i);
+        const dateString = date.toISOString().split('T')[0];
+        const dateDayIndex = date.getDay();
+        const dayName = DAY_NAMES[dateDayIndex];
+        const slots = await getAvailableTimeSlots(doctorId, dateString, slotDuration);
+        availableSlots[dayName] = slots;
+    }
+    return availableSlots;
+};
 
 
 module.exports = {
   checkAppointmentConflict,
   checkWorkingHours,
   validateAppointmentBooking,
-  getAvailableTimeSlots
+  getAvailableTimeSlots,
+  getAvailableTimeSlotsAllWeek
 };
 

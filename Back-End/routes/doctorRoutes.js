@@ -26,11 +26,11 @@ router.get('/:id/availability', validateId, getDoctorAvailability);
 // Protected routes
 router.use(authenticate);
 
-// Get doctor's appointments (Doctor only)
-router.get('/:id/appointments', authorize('Doctor'), validateId, getDoctorAppointments);
+// Get doctor's appointments (Doctor and Admin)
+router.get('/:id/appointments', authorize('Doctor','Admin'), validateId, getDoctorAppointments);
 
-// Update doctor profile (Doctor only)
-router.patch('/profile', authorize('Doctor'), validateDoctorProfile, updateDoctorProfile);
+// Update doctor profile (Doctor and Admin)
+router.patch('/profile', authorize('Doctor','Admin'), validateDoctorProfile, updateDoctorProfile);
 
 module.exports = router;
 

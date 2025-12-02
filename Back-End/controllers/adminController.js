@@ -8,7 +8,7 @@ const { hashPassword } = require('../utils/passwordUtils');
 
 // Create doctor
 const createDoctor = asyncHandler(async (req, res) => {
-  const { FirstName, LastName, Email, Password, Phone, SpecialtyID, Bio } = req.body;
+  const { FirstName, LastName, Email, Password, Phone, SpecialtyID, Bio , Image_url, Gender, Fee, Education, YearsOfExperience} = req.body;
 
   // Check if user already exists
   const existingUser = await User.findOne({ where: { Email } });
@@ -39,7 +39,12 @@ const createDoctor = asyncHandler(async (req, res) => {
   const doctor = await Doctor.create({
     DoctorID: user.UserID,
     SpecialtyID,
-    Bio
+    Bio,
+    Image_url,
+    Gender,
+    Fee,
+    Education,
+    YearsOfExperience
   });
 
   const doctorWithDetails = await Doctor.findByPk(doctor.DoctorID, {
@@ -66,7 +71,7 @@ const createDoctor = asyncHandler(async (req, res) => {
 // Update doctor
 const updateDoctor = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { FirstName, LastName, Email, Phone, SpecialtyID, Bio, isActive } = req.body;
+  const {  FirstName, LastName, Email, Phone, SpecialtyID, Bio , Image_url, Gender, Fee, Education, YearsOfExperience } = req.body;
 
   const doctor = await Doctor.findByPk(id, {
     include: [{ model: User, as: 'user' }]
@@ -86,8 +91,7 @@ const updateDoctor = asyncHandler(async (req, res) => {
     }
     doctor.user.Email = Email;
   }
-  if (Phone !== undefined) doctor.user.Phone = Phone;
-  if (isActive !== undefined) doctor.user.isActive = isActive;
+  if (Phone) doctor.user.Phone = Phone;
   await doctor.user.save();
 
   // Update doctor info
@@ -98,7 +102,12 @@ const updateDoctor = asyncHandler(async (req, res) => {
     }
     doctor.SpecialtyID = SpecialtyID;
   }
-  if (Bio !== undefined) doctor.Bio = Bio;
+  if (Bio ) doctor.Bio = Bio;
+  if (Image_url) doctor.Image_url = Image_url;
+  if (Gender) doctor.Gender = Gender;
+  if (Fee) doctor.Fee = Fee;
+  if (Education) doctor.Education = Education;
+  if (YearsOfExperience) doctor.YearsOfExperience = YearsOfExperience;
   await doctor.save();
 
   const updatedDoctor = await Doctor.findByPk(id, {
@@ -134,9 +143,8 @@ const deleteDoctor = asyncHandler(async (req, res) => {
     throw new AppError('Doctor not found', StatusCodes.NOT_FOUND);
   }
 
-  // Soft delete
-  doctor.user.isActive = false;
-  await doctor.user.save();
+  // Soft delete by removing user and cascading delete doctor profile
+  await doctor.user.destroy();
 
   res.status(StatusCodes.OK).json({
     success: true,
@@ -168,7 +176,7 @@ const getPatients = asyncHandler(async (req, res) => {
         as: 'patientInfo'
       }
     ],
-    order: [['createdAt', 'DESC']]
+    order: [['UserID', 'ASC']]
   });
 
   res.status(StatusCodes.OK).json({
@@ -181,7 +189,7 @@ const getPatients = asyncHandler(async (req, res) => {
 // Update patient (admin can update user info but not medical records)
 const updatePatient = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { FirstName, LastName, Email, Phone, isActive } = req.body;
+  const { FirstName, LastName, Email, Phone } = req.body;
 
   const user = await User.findByPk(id);
   if (!user || user.Role !== 'Patient') {
@@ -197,8 +205,7 @@ const updatePatient = asyncHandler(async (req, res) => {
     }
     user.Email = Email;
   }
-  if (Phone !== undefined) user.Phone = Phone;
-  if (isActive !== undefined) user.isActive = isActive;
+  if (Phone) user.Phone = Phone;
 
   await user.save();
 
@@ -261,7 +268,7 @@ const updateSpecialty = asyncHandler(async (req, res) => {
   }
 
   if (Name) specialty.Name = Name;
-  if (Description !== undefined) specialty.Description = Description;
+  if (Description ) specialty.Description = Description;
 
   await specialty.save();
 
@@ -299,24 +306,51 @@ const deleteSpecialty = asyncHandler(async (req, res) => {
 
 // Set doctor working hours
 const setDoctorWorkingHours = asyncHandler(async (req, res) => {
-  const { doctorId } = req.params;
-  const { workingHours } = req.body; // Array of { DayOfWeek, StartTime, EndTime }
+  const { id } = req.params;
+  const { workingHours } = req.body; //[ { DayOfWeek: 'Sunday', StartTime: '10:00', EndTime: '11:30' } ]
 
-  const doctor = await Doctor.findByPk(doctorId);
+  const doctor = await Doctor.findByPk(id);
+  if (!doctor) {
+    throw new AppError('Doctor not found', StatusCodes.NOT_FOUND);
+  }  
+  // Delete existing working hours
+  await DoctorWorkingHours.destroy({ where: { DoctorID: id } });
+
+  // Create new working hours
+  const createdHours = await DoctorWorkingHours.bulkCreate(
+    workingHours.map(day => ({
+      DoctorID: id,
+      DayOfWeek: day.DayOfWeek,
+      StartTime: day.StartTime,
+      EndTime: day.EndTime
+    }))
+  );
+
+  res.status(StatusCodes.OK).json({
+    success: true,
+    message: 'Working hours updated successfully',
+    data: { workingHours: createdHours }
+  });
+});
+
+const updateDoctorWorkingHours = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { workingHours } = req.body; //[ { DayOfWeek: 'Sunday', StartTime: '10:00', EndTime: '11:30' } ]
+  const doctor = await Doctor.findByPk(id);
   if (!doctor) {
     throw new AppError('Doctor not found', StatusCodes.NOT_FOUND);
   }
 
-  // Delete existing working hours
-  await DoctorWorkingHours.destroy({ where: { DoctorID: doctorId } });
-
+  //only delete existing working hours for the days being updated
+  const daysToUpdate = workingHours.map(day => day.DayOfWeek);
+  await DoctorWorkingHours.destroy({ where: { DoctorID: id, DayOfWeek: { [Op.in]: daysToUpdate } } });
   // Create new working hours
   const createdHours = await DoctorWorkingHours.bulkCreate(
-    workingHours.map(hour => ({
-      DoctorID: doctorId,
-      DayOfWeek: hour.DayOfWeek,
-      StartTime: hour.StartTime,
-      EndTime: hour.EndTime
+    workingHours.map(day => ({
+      DoctorID: id,
+      DayOfWeek: day.DayOfWeek,
+      StartTime: day.StartTime,
+      EndTime: day.EndTime
     }))
   );
 
@@ -518,6 +552,7 @@ module.exports = {
   // Reports
   getDailySchedule,
   getWeeklySummary,
-  getDoctorWorkload
+  getDoctorWorkload,
+  updateDoctorWorkingHours
 };
 

@@ -62,7 +62,7 @@ const validateResetPassword = [
 
 // Patient validation rules
 const validatePatientProfile = [
-  body('DateOfBirth').optional().isISO8601().withMessage('Invalid date format'),
+  body('DateOfBirth').optional().isISO8601().withMessage('Invalid date format enter as YYYY-MM-DD'),
   body('Gender').optional().isIn(['F', 'M']).withMessage('Gender must be F or M'),
   body('Address').optional().trim(),
   body('BloodType').optional().trim(),
@@ -98,8 +98,9 @@ const validateMedicalRecord = [
 
 // Doctor validation rules
 const validateDoctorProfile = [
-  body('SpecialtyID').isInt().withMessage('Specialty ID must be a valid integer'),
+  body('SpecialtyID').optional().isInt().withMessage('Specialty ID must be a valid integer'),
   body('Bio').optional().trim(),
+  body('Gender').optional().isIn(['M','F']).withMessage('Gender must be F or M'),
   validate
 ];
 

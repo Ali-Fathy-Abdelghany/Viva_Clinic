@@ -63,11 +63,11 @@ const updatePatientProfile = asyncHandler(async (req, res) => {
     patient = await Patient.create({ PatientID: requestedPatientId });
   }
 
-  if (DateOfBirth !== undefined) patient.DateOfBirth = DateOfBirth;
-  if (Gender !== undefined) patient.Gender = Gender;
-  if (Address !== undefined) patient.Address = Address;
-  if (BloodType !== undefined) patient.BloodType = BloodType;
-  if (ChronicDisease !== undefined) patient.ChronicDisease = ChronicDisease;
+  if (DateOfBirth ) patient.DateOfBirth = DateOfBirth;
+  if (Gender ) patient.Gender = Gender;
+  if (Address ) patient.Address = Address;
+  if (BloodType ) patient.BloodType = BloodType;
+  if (ChronicDisease ) patient.ChronicDisease = ChronicDisease;
 
   await patient.save();
 
@@ -100,12 +100,12 @@ const getPatientMedicalRecords = asyncHandler(async (req, res) => {
     throw new AppError('Access denied', StatusCodes.FORBIDDEN);
   }
 
-  const { MedicalRecord } = require('../models');
+    const { MedicalRecord, Appointment } = require('../models');
   const medicalRecords = await MedicalRecord.findAll({
     where: { PatientID: requestedPatientId },
     include: [
       {
-        model: require('../models/Appointment'),
+          model: Appointment,
         as: 'appointment',
         include: [
           {
@@ -127,7 +127,8 @@ const getPatientMedicalRecords = asyncHandler(async (req, res) => {
         ]
       }
     ],
-    order: [['createdAt', 'DESC']]
+      // Order by nested appointment date using nested include reference
+      order: [[{ model: Appointment, as: 'appointment' }, 'AppointmentDate', 'DESC']]
   });
 
   res.status(StatusCodes.OK).json({

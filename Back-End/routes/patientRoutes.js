@@ -18,6 +18,8 @@ router
     .route("/")
     .get(getPatientProfile)
     .patch(validatePatientProfile, updatePatientProfile);
+router.route("/medical-records").get(getPatientMedicalRecords);
+
 router
     .route("/:id")
     .all(validateId)

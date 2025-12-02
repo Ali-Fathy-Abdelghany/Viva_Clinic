@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const {
+    Patient,
     User,
     Doctor,
     Specialty,
@@ -8,8 +9,7 @@ const {
 } = require("../models");
 const { Op } = require("sequelize");
 const { asyncHandler, AppError } = require("../middleware/errorHandler");
-const { getAvailableTimeSlots } = require("../services/appointmentService");
-const Patient = require("../models/Patient");
+const { getAvailableTimeSlots ,getAvailableTimeSlotsAllWeek} = require("../services/appointmentService");
 
 // Get all doctors
 const getDoctors = asyncHandler(async (req, res) => {
@@ -94,19 +94,13 @@ const getDoctorAvailability = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { date } = req.query;
 
-    if (!date) {
-        throw new AppError(
-            "Date parameter is required",
-            StatusCodes.BAD_REQUEST
-        );
-    }
 
     const doctor = await Doctor.findByPk(id);
     if (!doctor) {
         throw new AppError("Doctor not found", StatusCodes.NOT_FOUND);
     }
 
-    const timeSlots = await getAvailableTimeSlots(id, date);
+    const timeSlots = date ? await getAvailableTimeSlots(id, date) : await getAvailableTimeSlotsAllWeek(id);
 
     res.status(StatusCodes.OK).json({
         success: true,
@@ -120,7 +114,7 @@ const getDoctorAvailability = asyncHandler(async (req, res) => {
 
 // Get doctor's appointments
 const getDoctorAppointments = asyncHandler(async (req, res) => {
-    const doctorId = req.userId;
+    const doctorId = req.userRole == "Doctor" ? req.userId : req.params.id;
     const { status, date } = req.query;
 
     const whereClause = { DoctorID: doctorId };
@@ -131,14 +125,14 @@ const getDoctorAppointments = asyncHandler(async (req, res) => {
         where: whereClause,
         include: [
             {
-                model: User,
+                model: Patient,
                 as: "patient",
-                attributes: ["FirstName", "LastName", "Email", "Phone"],
+                attributes: ["DateOfBirth", "Gender", "BloodType"],
                 include: [
                     {
-                        model: Patient,
-                        as: "patientInfo",
-                        attributes: ["DateOfBirth", "Gender", "BloodType"],
+                        model: User,
+                        as: "user",
+                        attributes: ["FirstName", "LastName", "Email", "Phone"],
                     },
                 ],
             },
@@ -159,21 +153,22 @@ const getDoctorAppointments = asyncHandler(async (req, res) => {
 // Update doctor profile
 const updateDoctorProfile = asyncHandler(async (req, res) => {
     const doctorId = req.userId;
-    const { Bio, SpecialtyID } = req.body;
+    const { Bio, SpecialtyID, Gender } = req.body;
 
     const doctor = await Doctor.findByPk(doctorId);
     if (!doctor) {
         throw new AppError("Doctor profile not found", StatusCodes.NOT_FOUND);
     }
 
-    if (Bio !== undefined) doctor.Bio = Bio;
-    if (SpecialtyID !== undefined) {
+    if (Bio) doctor.Bio = Bio;
+    if (SpecialtyID) {
         const specialty = await Specialty.findByPk(SpecialtyID);
         if (!specialty) {
             throw new AppError("Specialty not found", StatusCodes.NOT_FOUND);
         }
         doctor.SpecialtyID = SpecialtyID;
     }
+    if (Gender) doctor.Gender = Gender;
 
     await doctor.save();
 

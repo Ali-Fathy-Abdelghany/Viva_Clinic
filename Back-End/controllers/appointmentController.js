@@ -275,7 +275,7 @@ const updateAppointment = asyncHandler(async (req, res) => {
     if (AppointmentDate) appointment.AppointmentDate = AppointmentDate;
     if (StartTime) appointment.StartTime = StartTime;
     if (EndTime) appointment.EndTime = EndTime;
-    if (Notes !== undefined) appointment.Notes = Notes;
+    if (Notes ) appointment.Notes = Notes;
 
     await appointment.save();
 

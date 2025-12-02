@@ -30,11 +30,11 @@ router.route('/doctors/:id').all(validateId).patch(updateDoctor).delete(deleteDo
 router.get('/patients', getPatients);
 router.patch('/patients/:id', validateId, updatePatient);
 
+// Working Hours Management
+router.post('/doctors/:id/working-hours', validateId, setDoctorWorkingHours);
 // Specialty Management
 router.route('/specialties').get(getSpecialties).post(createSpecialty);
 router.route('/specialties/:id').all(validateId).patch(updateSpecialty).delete(deleteSpecialty);
-// Working Hours Management
-router.post('/doctors/:doctorId/working-hours', validateId, setDoctorWorkingHours);
 
 // Reports
 router.get('/reports/daily-schedule', getDailySchedule);
