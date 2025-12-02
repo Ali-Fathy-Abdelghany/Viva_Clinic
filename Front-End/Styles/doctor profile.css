@@ -1,0 +1,231 @@
+/* styles.css for doctor profile page */
+
+/* Global */
+
+* { 
+  margin:0; 
+  padding:0; 
+  box-sizing:border-box; 
+}
+
+body { 
+  font-family: 'Cairo', sans-serif;
+   background:#f8fbfd; 
+   color:#333; 
+   padding-top:70px; 
+   direction: ltr; 
+}
+
+a { 
+  text-decoration:none; 
+}
+
+section {
+    padding: 0 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+/* Navbar */
+.navbar {
+  height:70px; background:#14a2a0; display:flex; align-items:center; justify-content:space-between;
+  padding:0 30px; position:fixed; top:0; left:0; right:0; z-index:900; color:#fff;
+}
+.nav-left { display:flex; align-items:center; gap:30px; }
+.menu-icon { font-size:26px; cursor:pointer; }
+.logo { height:55px; }
+.nav-links a { color:#fff; margin:0 18px; font-weight:600; }
+.nav-links a.active { text-decoration:underline; }
+.nav-right { display:flex; align-items:center; gap:25px; }
+#bellIcon { font-size:22px; cursor:pointer; position:relative; }
+.notifications-menu {
+  position:absolute; top:55px; right:0; background:#fff; width:300px; border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15); padding:15px 0; display:none; z-index:1000; color:#333;
+}
+.notifications-menu.show { display:block; }
+.notif-header { padding:0 20px 10px; border-bottom:1px solid #eee; font-weight:700; }
+.notif-item { padding:10px 20px; }
+.profile-pic { width:44px; height:44px; border-radius:50%; object-fit:cover; border:3px solid #fff; cursor:pointer; }
+
+/* Sidebar */
+.sidebar {
+  position:fixed; top:0; left:-300px; width:280px; height:100vh; background:#fff;
+  box-shadow:4px 0 20px rgba(0,0,0,0.08); transition:left 0.35s ease; z-index:999;
+  padding:20px 0; overflow-y:auto;
+}
+.sidebar.active { left:0; }
+.sidebar-header { padding:20px 24px; border-bottom:1px solid #eee; }
+.admin-info { display:flex; align-items:center; gap:14px; }
+.admin-avatar {
+  width:48px; height:48px; border-radius:50%; background:#e6f4f4;
+  display:flex; align-items:center; justify-content:center; color:#14a2a0; font-size:26px;
+}
+.admin-name { font-weight:700; font-size:17px; color:#14a2a0; }
+.sidebar-menu a {
+  display:flex; align-items:center; gap:16px; padding:15px 24px; color:#555;
+  font-weight:600; transition:0.3s;
+}
+.sidebar-menu a:hover { background:#f0fafa; color:#14a2a0; }
+.sidebar-menu a.active { background:#e6f4f4; color:#14a2a0; font-weight:700; }
+.sidebar-menu i { font-size:24px; color:#14a2a0; width:30px; }
+.sidebar-user-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e6e6e6;
+}
+.logout-item, .logout-item i { color:#e74c3c !important; }
+.logout-item:hover { background:#ffeaea !important; }
+
+/* Overlay */
+.overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; z-index:998; }
+.overlay.active { display:block; }
+
+
+/**********************************************************************************/
+/**********************************************************************************/
+
+/* --- 2. Patient Information Card --- */
+
+.doctor-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    overflow: hidden;
+    margin-top: 30px;
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 30px;
+    /* Gradient Background matching the image's structure */
+    background-image: linear-gradient(to right, #ffffff 65%, #E0F7FA);
+    background-repeat: no-repeat;
+    background-position: right center;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-info {
+    display: flex;
+    align-items: flex-start;
+}
+
+.profile-pic {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+    border: 3px solid #14a2a0; 
+}
+
+.details h1 {
+    margin: 0 0 3px 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.doctor-id {
+    font-size: 11px;
+    color: #888;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.contact-info {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    color: #888;
+}
+
+.book-btn {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.book-btn .icon {
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+}
+
+.btn-book {
+    background-color: #007977; /* Primary Teal */
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    margin-left: 15px;
+}
+
+
+.card-body {
+    padding: 15px 30px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- 3. Medical History Form --- */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    margin-top: 30px;
+}
+
+
+.card-section {
+    border-bottom: 1px solid #eee;
+}
+
+
+.section-title {
+    background-color: #E0F2F1; /* Light Mint Green */
+    color: #004D40; 
+    padding: 10px 30px;
+    font-weight: bold;
+    border-left: 6px solid #00BFA5; /* Prominent left border */
+}
+
+.card-fields {
+    padding: 15px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px 30px;
+}
+
+.card-fields label {
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: #333;
+    padding: 12px 15px;
+    background: #f3fafa;
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+    border: 1px solid #e0eeee;
+}
