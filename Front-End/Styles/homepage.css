@@ -89,7 +89,7 @@ body {
   direction: rtl;
 }
 .nav-right > * {
-  direction: ltr;               /* يرجّع الأزرار والنصوص لليسار عادي */
+  direction: ltr;             
 }
  
 

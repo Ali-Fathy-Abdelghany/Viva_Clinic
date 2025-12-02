@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const name = selectedCard.querySelector("h3").textContent.trim();
 
             // Redirect to patient.html with name parameter
-            window.location.href = `patient.html?name=${encodeURIComponent(name)}`;
+            window.location.href = `patient-form.html?name=${encodeURIComponent(name)}`;
         }
 
         modal.style.display = "none";

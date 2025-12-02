@@ -8,7 +8,7 @@
     const cancelBtn = document.getElementById('cancel-btn');
 
     let currentObjectUrl = null;
-    const DEFAULT_IMAGE = profilePreview?.getAttribute('src') || 'images/assets/profile-placeholder.png';
+    const DEFAULT_IMAGE = profilePreview?.getAttribute('src') || 'images/default-avatar.png';
 
     function revokeCurrentObjectUrl() {
       if (currentObjectUrl) {

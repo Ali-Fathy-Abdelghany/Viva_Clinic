@@ -1,78 +1,127 @@
-// Shared navigation, sidebar, and notification behaviors
-(function () {
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('menuBtn');
-    const sidebar = document.getElementById('sidebar');
-    const bellIcon = document.getElementById('bellIcon');
-    const notificationsMenu = document.getElementById('notificationsMenu');
-    const profilePic = document.getElementById('profilePic');
-    const sidebarProfileImg = document.getElementById('sidebar-profile-img');
-    const sidebarUserName = document.getElementById('sidebar-user-name');
+// scripts/common-layout.js
+// Shared layout behaviors: Sidebar, Navbar active state, Profile clicks, Logout
+(() => {
+  document.addEventListener("DOMContentLoaded", () => {
+    // ==================== DOM Elements ====================
+    const menuBtn           = document.getElementById("menuBtn");           // Hamburger icon
+    const sidebar           = document.getElementById("sidebar");           // Sidebar container
+    const profilePic        = document.getElementById("profilePic");        // Navbar profile picture
+    const sidebarProfileImg = document.getElementById("sidebar-profile-img"); // Sidebar profile image
+    const sidebarUserName   = document.getElementById("sidebar-user-name");   // Sidebar user name
 
+    // ==================== 1. Sidebar Open/Close Logic ====================
     if (menuBtn && sidebar) {
-      menuBtn.addEventListener('click', () => sidebar.classList.toggle('active'));
-    }
-
-    document.addEventListener('click', (e) => {
-      if (sidebar?.classList.contains('active') && !sidebar.contains(e.target) && !menuBtn?.contains(e.target)) {
-        sidebar.classList.remove('active');
+      // Create overlay if it doesn't exist (dark background when sidebar is open)
+      let overlay = document.getElementById("sidebarOverlay");
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "sidebarOverlay";
+        overlay.className = "overlay";
+        document.body.appendChild(overlay);
       }
-      if (notificationsMenu?.classList.contains('active') &&
-          !notificationsMenu.contains(e.target) && !bellIcon?.contains(e.target)) {
-        notificationsMenu.classList.remove('active');
-      }
-    });
 
-    if (bellIcon && notificationsMenu) {
-      bellIcon.addEventListener('click', (e) => {
+      const openSidebar = () => {
+        sidebar.classList.add("active");
+        overlay.style.display = "block";
+        document.body.style.overflow = "hidden"; // Prevent background scrolling
+      };
+
+      const closeSidebar = () => {
+        sidebar.classList.remove("active");
+        overlay.style.display = "none";
+        document.body.style.overflow = "auto";
+      };
+
+      // Toggle sidebar when clicking the hamburger menu
+      menuBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        notificationsMenu.classList.toggle('active');
-        if (notificationsMenu.classList.contains('active') && notificationsMenu.innerHTML.trim() === '') {
-          notificationsMenu.innerHTML = '<div style=\"padding: 15px; text-align: center; color: #666; font-size: 14px;\">No notifications yet</div>';
+        sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
+      });
+
+      // Close sidebar when clicking on the overlay
+      overlay.addEventListener("click", closeSidebar);
+
+      // Close sidebar when clicking outside of it
+      document.addEventListener("click", (e) => {
+        if (
+          sidebar.classList.contains("active") &&
+          !sidebar.contains(e.target) &&
+          !menuBtn.contains(e.target)
+        ) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sidebar.classList.contains("active")) {
+          closeSidebar();
         }
       });
     }
+
+    // ==================== 2. Profile Picture / Name Click → Go to Profile ====================
+    const goToProfile = () => {
+      window.location.href = "PatientMedicalRecord.html";
+      sidebar?.classList.remove("active"); // Close sidebar if open
+    };
 
     if (profilePic) {
-      profilePic.style.cursor = 'pointer';
-      profilePic.addEventListener('click', () => window.location.href = 'patient.html');
+      profilePic.style.cursor = "pointer";
+      profilePic.addEventListener("click", goToProfile);
     }
 
-    [sidebarProfileImg, sidebarUserName].forEach(el => {
+    [sidebarProfileImg, sidebarUserName].forEach((el) => {
       if (el) {
-        el.style.cursor = 'pointer';
-        el.addEventListener('click', () => {
-          window.location.href = 'patient.html';
-          sidebar?.classList.remove('active');
-        });
+        el.style.cursor = "pointer";
+        el.addEventListener("click", goToProfile);
       }
     });
 
-    document.querySelectorAll('#sidebar ul li').forEach(item => {
-      item.addEventListener('click', function () {
+    // ==================== 3. Sidebar Menu Navigation ====================
+    document.querySelectorAll("#sidebar ul li").forEach((item) => {
+      item.addEventListener("click", function () {
         const text = this.textContent.trim();
-        if (text.includes('My Appointments')) window.location.href = 'my-appointments.html';
-        else if (text.includes('Medical Record')) window.location.href = 'medical-record.html';
-        else if (text.includes('Chats')) window.location.href = 'chats.html';
-        else if (text.includes('Settings')) window.location.href = 'settings.html';
-        else if (text.includes('Log Out') || this.id === 'logoutBtn') {
-          if (confirm('Are you sure you want to log out?')) {
+
+        // Navigate based on menu item text
+        if (text.includes("My Appointments")) {
+          window.location.href = "my-appointments.html";
+        } else if (text.includes("Medical Record")) {
+          window.location.href = "PatientMedicalRecord.html";
+        } else if (text.includes("Chats")) {
+          window.location.href = "chats.html";
+        } else if (text.includes("Settings")) {
+          window.location.href = "settings.html";
+        } else if (text.includes("Log Out") || this.id === "logoutBtn") {
+          // Logout confirmation
+          if (confirm("Are you sure you want to log out?")) {
             localStorage.clear();
             sessionStorage.clear();
-            window.location.href = 'homepage.html';
+            window.location.href = "homepage.html";
           }
+          return; // Prevent sidebar from closing before confirm dialog
         }
-        sidebar?.classList.remove('active');
+
+        // Close sidebar after navigation (except on logout to avoid flicker)
+        sidebar?.classList.remove("active");
       });
     });
 
-    const currentPage = window.location.pathname.split('/').pop();
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === currentPage ||
-          (currentPage === '' && link.getAttribute('href')?.includes('homepage'))) {
-        link.classList.add('active');
+    // ==================== 4. Highlight Active Page in Navbar ====================
+    const currentPage = window.location.pathname.split("/").pop() || "homepage.html";
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.classList.remove("active");
+      const href = link.getAttribute("href") || "";
+
+      if (
+        href === currentPage ||
+        (currentPage === "homepage.html" && href.includes("homepage"))
+      ) {
+        link.classList.add("active");
       }
     });
+
+    // Note: Notification bell logic is in scripts/bell.js (kept separate for clarity)
   });
 })();

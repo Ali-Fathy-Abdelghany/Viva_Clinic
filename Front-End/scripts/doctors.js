@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentFilter = 'name'; // Default filter type: search by doctor name
 
   // Close the filter dropdown when clicking outside of it
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => 
     {
     if (
       filterMenu?.classList.contains('show') &&

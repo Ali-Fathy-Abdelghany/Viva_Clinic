@@ -85,20 +85,6 @@ body.admin-page main {
   cursor: pointer;
 }
 
-/* Notifications menu placeholder */
-.notifications-menu {
-  position: absolute;
-  top: 55px;
-  right: 0;
-  background: white;
-  width: 260px;
-  border-radius: 10px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-  padding: 10px 0;
-  display: none;
-  z-index: 1000;
-}
-
 /* Sidebar */
 .sidebar {
   position: fixed;
