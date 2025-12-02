@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viva Clinic - My Appointment</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- External CSS File -->
+    <link rel="stylesheet" href="Styles/MyAppointments.css">
+
+    <!-- Tailwind Config (Required to be here for CDN) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3A8F86',
+                        statusBlue: '#4B7BEC',
+                        statusRed: '#FF6B6B',
+                        statusGreen: '#26DE81',
+                        statusOrange: '#F7B731',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-gray-800">
+
+    <!-- ==================================== NAVBAR ==================================== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+            <div class="logo">
+                <img src="images/logo.png" alt="Viva Clinic" onerror="this.style.display='none'; this.parentNode.innerText='VIVA CLINIC'" style="height: 100%;">
+            </div>
+            <div class="nav-links hidden md:flex">
+                <a href="homepage.html" class="nav-link">Home</a>
+                <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+                <a href="homepage.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+        
+        <div class="nav-right">
+            <div class="bell-container relative">
+                <i class="fas fa-bell" id="bellIcon"></i>
+            </div>
+            <a href="PatientMedicalRecord.html">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="profile-pic2" id="profilePic" alt="User Profile">
+            </a> 
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div id="userSidebar"> 
+            <div class="user-info">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" id="sidebar-profile-img" alt="User Avatar">
+                <h3 id="sidebar-user-name">John Doe</h3>
+                <p id="sidebar-user-email">john.doe@example.com</p>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li onclick="window.location.href='my-appointments.html'">
+                    <i class="fas fa-calendar-check"></i> My Appointments
+                </li>
+                <li onclick="window.location.href='medical-record.html'">
+                    <i class="fas fa-file-medical"></i> Medical Record
+                </li>
+                <li onclick="window.location.href='chats.html'">
+                    <i class="fas fa-comments"></i> Chats
+                </li>
+                <li onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i> Settings
+                </li>
+                <li id="logoutBtn" class="logout-item">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="sidebarOverlay" class="overlay"></div>
+
+    <!-- ==================================== DASHBOARD CONTENT ==================================== -->
+    <main class="dashboard-container max-w-7xl mx-auto px-4 sm:px-6 pb-8">
+        
+        <!-- Page Title & Action -->
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+            <h1 class="text-3xl font-bold text-darkText" style="font-family: 'Inter', sans-serif;">My Appointment</h1>
+            <button onclick="window.location.href='book-appointment.html'" class="bg-[#3A8F86] hover:bg-teal-700 text-white px-6 py-2.5 rounded-md font-medium shadow-sm transition flex items-center gap-2">
+                <i class="fa-solid fa-plus text-sm"></i> New Appointment
+            </button>
+        </div>
+
+        <!-- Dashboard Container -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            
+            <!-- Filters Row -->
+            <div class="flex flex-col md:flex-row gap-4 mb-8">
+                <!-- Search -->
+                <div class="relative flex-1 max-w-sm">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="searchInput" placeholder="Search Doctor or Specialty" class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-[#3A8F86] text-sm">
+                </div>
+                
+                <!-- Date Filter Indicator -->
+                <div onclick="resetDateFilter()" class="flex items-center gap-2 border border-gray-200 px-4 py-2 rounded-md text-sm text-gray-600 bg-white cursor-pointer hover:bg-gray-50 transition" title="Click to show all appointments">
+                    <i class="fa-regular fa-calendar text-gray-400"></i>
+                    <span id="dateFilterText">Show All Time</span>
+                    <i class="fa-solid fa-xmark text-xs ml-2 hidden" id="clearDateIcon"></i>
+                </div>
+
+                <!-- Sort Dropdown -->
+                <div class="relative">
+                    <select id="sortSelect" onchange="updateView()" class="appearance-none border border-gray-200 pl-4 pr-8 py-2 rounded-md text-sm text-gray-800 bg-white cursor-pointer focus:outline-none focus:border-[#3A8F86]">
+                        <option value="date-desc">Sort By: Recent</option>
+                        <option value="date-asc">Sort By: Oldest</option>
+                        <option value="fee-desc">Sort By: Fees (High-Low)</option>
+                        <option value="fee-asc">Sort By: Fees (Low-High)</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down text-xs absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Left Column: Appointment List -->
+                <div class="lg:col-span-2 overflow-x-auto custom-scrollbar">
+                    <table class="w-full min-w-[600px]">
+                        <thead>
+                            <tr class="text-left border-b border-gray-100">
+                                <th class="pb-4 font-semibold text-gray-800 text-sm">Date & Time</th>
+                                <th class="pb-4 font-semibold text-gray-800 text-sm">Doctor</th>
+                                <th class="pb-4 font-semibold text-gray-800 text-sm">Status</th>
+                                <th class="pb-4 font-semibold text-gray-800 text-sm pl-4">Consultation Fees</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm" id="appointmentTableBody">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                    <div id="emptyState" class="hidden py-10 text-center text-gray-400">
+                        No appointments found for this selection.
+                    </div>
+                </div>
+
+                <!-- Right Column: Calendar -->
+                <div class="lg:col-span-1">
+                    <h2 class="text-xl font-semibold mb-6 text-center" style="font-family: 'Inter', sans-serif;">My Calendar</h2>
+                    
+                    <div class="bg-white border border-gray-100 rounded-lg p-4 shadow-sm">
+                        <!-- Calendar Header -->
+                        <div class="flex items-center justify-between mb-4">
+                            <button onclick="changeMonth(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 transition">
+                                <i class="fa-solid fa-chevron-left text-xs"></i>
+                            </button>
+                            <h3 class="font-bold text-gray-800" id="currentMonthDisplay">November 2025</h3>
+                            <button onclick="changeMonth(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 transition">
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Days Header -->
+                        <div class="grid grid-cols-7 text-center text-xs font-medium text-gray-500 mb-2">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+
+                        <!-- Calendar Grid -->
+                        <div class="grid grid-cols-7 text-center text-sm gap-y-3" id="calendarGrid">
+                            <!-- Days injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="mt-6 space-y-3 pl-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded bg-[#26DE81]"></span>
+                            <span class="text-sm font-medium text-gray-700">Completed</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded bg-[#4B7BEC]"></span>
+                            <span class="text-sm font-medium text-gray-700">Schedule</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded bg-[#FF6B6B]"></span>
+                            <span class="text-sm font-medium text-gray-700">Canceled</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded bg-[#F7B731]"></span>
+                            <span class="text-sm font-medium text-gray-700">Rescheduled</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- POPUP MODAL -->
+    <div id="actionModal" class="fixed inset-0 hidden z-[2000] flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-800" style="font-family: 'Inter', sans-serif;">delete-change-appointment</h3>
+            </div>
+            
+            <div class="flex items-center justify-between px-4 mb-8">
+                <label class="flex items-center gap-3 cursor-pointer group">
+                    <input type="radio" name="actionType" value="delete" class="peer">
+                    <span class="text-teal-700 font-medium peer-checked:font-bold">Delete</span>
+                </label>
+
+                <label class="flex items-center gap-3 cursor-pointer group">
+                    <input type="radio" name="actionType" value="edit" class="peer" checked>
+                    <span class="text-teal-700 font-medium peer-checked:font-bold">Edit</span>
+                </label>
+            </div>
+
+            <div class="flex gap-4">
+                <button onclick="closeModal()" class="flex-1 border border-teal-600 text-teal-800 font-medium py-2.5 rounded-lg hover:bg-teal-50 transition">
+                    Cancel
+                </button>
+                <button onclick="confirmAction()" class="flex-1 bg-teal-700 text-white font-medium py-2.5 rounded-lg hover:bg-teal-800 shadow-md transition">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript File -->
+    <script src="MyAppointments.js"></script>
+</body>
+</html>
