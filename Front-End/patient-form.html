@@ -52,16 +52,16 @@
       
       <!-- Sidebar navigation menu -->
       <ul>
-        <li onclick="window.location.href='my-appointments.html'">
+        <li onclick="window.location.href='MyAppointments.html'">
           <i class="fas fa-calendar-check"></i> My Appointments
         </li>
-        <li onclick="window.location.href='medical-record.html'">
+        <li onclick="window.location.href='Medical.html'">
           <i class="fas fa-file-medical"></i> Medical Record
         </li>
-        <li onclick="window.location.href='chats.html'">
+        <li onclick="window.location.href='Chats.html'">
           <i class="fas fa-comments"></i> Chats
         </li>
-        <li onclick="window.location.href='settings.html'">
+        <li onclick="window.location.href='Settings.html'">
           <i class="fas fa-cog"></i> Settings
         </li>
         <li id="logoutBtn" class="logout-item">
@@ -120,7 +120,6 @@
             <option value="">Select</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="other">Other</option>
           </select>
         </div>
       </div>
@@ -135,13 +134,10 @@
 
       <!-- Address Lines -->
       <div class="form-group">
-        <label for="address1">Address Line 1</label>
+        <label for="address1">Address Line </label>
         <input type="text" id="address1" placeholder="Street, Building, Apartment">
       </div>
-      <div class="form-group">
-        <label for="address2">Address Line 2 <small>(Optional)</small></label>
-        <input type="text" id="address2" placeholder="Area, City, Governorate">
-      </div>
+
 
       <!-- Medical History -->
       <div class="form-group">
@@ -151,14 +147,6 @@
       <div class="form-group">
         <label for="allergies">Allergies</label>
         <input type="text" id="allergies" placeholder="e.g. Penicillin, Nuts">
-      </div>
-      <div class="form-group">
-        <label for="past-surgeries">Past Surgeries / Hospitalization</label>
-        <input type="text" id="past-surgeries" placeholder="e.g. Appendectomy 2020">
-      </div>
-      <div class="form-group">
-        <label for="current-medication">Current Medication</label>
-        <input type="text" id="current-medication" placeholder="e.g. Metformin 500mg daily">
       </div>
 
       <!-- Form action buttons -->
