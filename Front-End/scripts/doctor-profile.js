@@ -4,8 +4,10 @@
 
   Role must be stored as:
       localStorage.setItem("userRole", "admin");
+      location.reload();
       or
       localStorage.setItem("userRole", "doctor");
+      location.reload();
 */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="sidebar-header">
                 <div class="admin-info">
                     <div class="admin-avatar">
-                        <img src="images/doctor.png" id="sidebar-profile-img" alt="Dr. Sara Ali">                    </div>
+                        <img src="images/doctor.png" id="sidebar-profile-img" class="profile-pic" alt="Dr. Sara Ali">                    </div>
                         <span class="admin-name" id="sidebar-user-name">Dr. Sara Ali</span>
                 </div>
             </div>
@@ -122,9 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         editBtn.style.display = "none";
 
+        // ==================== NEW: Click to open doctor profile ====================
         // Sidebar image
         const newSidebarImg = document.getElementById("sidebar-profile-img");
-        const newUserName = document.getElementById("sidebar-user-name");
+        const newUserName = document.getElementById("sidebar-user-name")
         if (newSidebarImg) {
             newSidebarImg.style.cursor = "pointer";
             newSidebarImg.addEventListener("click", () => {
@@ -136,12 +139,15 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Navbar profile picture
+        // Navbar profile picture change + click to open doctor profile
         if (profilePic) {
+            profilePic.src = "doctor.png";
             profilePic.style.cursor = "pointer";
             profilePic.addEventListener("click", () => {
                 window.location.href = "doctor-profile.html";
             });
         }
     }
+
+    // If role is admin or missing → the original sidebar remains
 });
