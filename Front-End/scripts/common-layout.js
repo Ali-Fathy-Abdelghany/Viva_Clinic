@@ -8,6 +8,9 @@
     const profilePic        = document.getElementById("profilePic");        // Navbar profile picture
     const sidebarProfileImg = document.getElementById("sidebar-profile-img"); // Sidebar profile image
     const sidebarUserName   = document.getElementById("sidebar-user-name");   // Sidebar user name
+    const logoutModal       = document.getElementById("logoutModal");     // حاوية النافذة الرئيسية
+    const modalYesBtn       = document.getElementById("modalYesBtn");     // زر تأكيد الخروج (Yes)
+    const modalNoBtn        = document.getElementById("modalNoBtn");
 
     // ==================== 1. Sidebar Open/Close Logic ====================
     if (menuBtn && sidebar) {
@@ -41,16 +44,26 @@
       // Close sidebar when clicking on the overlay
       overlay.addEventListener("click", closeSidebar);
 
-      // Close sidebar when clicking outside of it
-      document.addEventListener("click", (e) => {
-        if (
-          sidebar.classList.contains("active") &&
-          !sidebar.contains(e.target) &&
-          !menuBtn.contains(e.target)
-        ) {
-          closeSidebar();
-        }
-      });
+    // Close sidebar when clicking outside of it
+  document.addEventListener("click", (e) => {
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  const isLogoutClick = logoutBtn && logoutBtn.contains(e.target);
+  const isModalOpen  = logoutModal && logoutModal.style.display === "flex";
+  const isModalClick = logoutModal && logoutModal.contains(e.target);
+
+  if (
+    sidebar.classList.contains("active") &&
+    !sidebar.contains(e.target) &&
+    !menuBtn.contains(e.target) &&
+    !isLogoutClick &&
+    !isModalClick &&
+    !isModalOpen
+  ) {
+    closeSidebar();
+  }
+});
+
 
       // Close sidebar with Escape key
       document.addEventListener("keydown", (e) => {
@@ -77,7 +90,45 @@
         el.addEventListener("click", goToProfile);
       }
     });
+    // ==================== Logout Modal Logic Functions ====================
+    const showLogoutModal = () => {
+      if (logoutModal) {
+        sidebar?.classList.remove("active");
+        logoutModal.style.display = "flex"; // أظهرها باستخدام flex لتوسيطها
+        document.body.style.overflow = "hidden"; // منع السكرول خلف البوب أب
+            }
+        };
 
+    const hideLogoutModal = () => {
+      if (logoutModal) {
+        logoutModal.style.display = "none";
+        // أعد السكرول مباشرة بعد إخفاء البوب أب
+        document.body.style.overflow = "auto"; 
+      }
+    };
+    const performLogout = () => {
+      hideLogoutModal();
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "homepage.html";
+        };
+
+    // ربط الأحداث بأزرار الـ Modal
+        if (modalYesBtn) {
+            modalYesBtn.addEventListener("click", performLogout); // عند الضغط على Yes قم بالخروج
+        }
+        if (modalNoBtn) {
+            modalNoBtn.addEventListener("click", hideLogoutModal); // عند الضغط على No قم بإخفاء البوب أب
+        }
+        
+        // إخفاء الـ Modal عند الضغط على الخلفية (Overlay)
+        if (logoutModal) {
+            logoutModal.addEventListener("click", (e) => {
+                if (e.target === logoutModal) {
+                    hideLogoutModal();
+                }
+            });
+        }
     // ==================== 3. Sidebar Menu Navigation ====================
     document.querySelectorAll("#sidebar ul li").forEach((item) => {
       item.addEventListener("click", function () {
@@ -92,20 +143,30 @@
           window.location.href = "chats.html";
         } else if (text.includes("Settings")) {
           window.location.href = "settings.html";
-        } else if (text.includes("Log Out") || this.id === "logoutBtn") {
-          // Logout confirmation
-          if (confirm("Are you sure you want to log out?")) {
-            localStorage.clear();
-            sessionStorage.clear();
-            window.location.href = "homepage.html";
-          }
-          return; // Prevent sidebar from closing before confirm dialog
         }
 
         // Close sidebar after navigation (except on logout to avoid flicker)
         sidebar?.classList.remove("active");
       });
     });
+    // في ملف scripts/common-layout.js - بعد نهاية حلقة الـ forEach وقبل القسم 4
+
+    // ==================== 3.5 Logout Button Handler ====================
+    const logoutBtn = document.getElementById("logoutBtn");
+    
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+            // 🛑 الخطوة الأكثر أهمية: إيقاف أي أحداث أخرى قد تغلق الـ Sidebar
+            e.stopPropagation(); 
+            e.preventDefault();
+            
+            // إغلاق Sidebar أولاً (كما اتفقنا في التعديل السابق)
+            sidebar?.classList.remove("active");
+            
+            // إظهار نافذة تأكيد الخروج
+            showLogoutModal(); 
+        });
+    }
 
     // ==================== 4. Highlight Active Page in Navbar ====================
     const currentPage = window.location.pathname.split("/").pop() || "homepage.html";

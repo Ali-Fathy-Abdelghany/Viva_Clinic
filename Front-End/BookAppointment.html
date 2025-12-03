@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="Styles/bell.css" />
+    <link rel="stylesheet" href="Styles/logout-modal.css" />
 </head>
 <body>
   <!-- ==================================== NAVBAR ==================================== -->
@@ -43,8 +44,7 @@
  <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
 
-  <!-- User Sidebar (اللي لازم يظهر لما اليوزر مسجل دخوله) -->
-  <div id="userSidebar" class="hidden">   <!-- ملاحظة: hidden من الأول عشان الـ JS يتحكم فيه -->
+  <div id="userSidebar" class="hidden">   
     <div class="user-info">
       <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
       <h3 id="sidebar-user-name">Loading...</h3>
@@ -52,7 +52,7 @@
     </div>
 
     <ul class="sidebar-menu">
-      <li onclick="window.location.href='my-appointments.html'">
+      <li onclick="window.location.href='MyAappointments.html'">
         <i class="fas fa-calendar-check"></i> My Appointments
       </li>
       <li onclick="window.location.href='medical-record.html'">
@@ -148,10 +148,21 @@
             <button class="modal-button">View Details</button>
         </div>
     </div>
+  <!-- ==================================== LOGOUT MODAL ==================================== -->
+    <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
 
     <script src="scripts/common-layout.js"></script>
      <script src="scripts/BookAppointment.js"></script>
        <script src="scripts/bell.js" ></script>
+       <script src="scripts/logout-modal.js" defer></script>
 
 </body>
 </html>
