@@ -151,6 +151,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
+      if (navLink) {
+            navLink.addEventListener("click", () => {
+                window.location.href = "doctor-profile.html";
+            });
+        }
       
     }
 
@@ -267,4 +272,5 @@ document.addEventListener("DOMContentLoaded", () => {
   filterAndSearch();
 
 });
+
 
