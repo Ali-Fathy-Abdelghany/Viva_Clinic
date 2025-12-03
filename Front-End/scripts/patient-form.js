@@ -49,12 +49,10 @@
           dob: document.getElementById('dob')?.value || '',
           gender: document.getElementById('gender')?.value || '',
           bloodGroup: document.getElementById('blood-group')?.value || '',
-          address1: document.getElementById('address1')?.value || '',
-          address2: document.getElementById('address2')?.value || '',
+          address1: document.getElementById('address')?.value || '',
           chronicIllness: document.getElementById('chronic')?.value || '',
           allergies: document.getElementById('allergies')?.value || '',
-          pastSurgeries: document.getElementById('past-surgeries')?.value || '',
-          currentMedication: document.getElementById('current-medication')?.value || ''
+
         };
         console.log('Patient Profile Saved (Demo):', payload);
         window.showMessage?.('Profile updated successfully!', 'success');
