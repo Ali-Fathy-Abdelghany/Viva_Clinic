@@ -8,7 +8,7 @@ const { User } = require("../models");
 const authenticate = asyncHandler(async (req, res, next) => {
         // Try to get token from Authorization header first (for Postman)
         let token = req.header("Authorization")?.replace("Bearer ", "");
-
+        
         // If no token in header, try to get from cookie (for client-side)
         if (!token) {
             token = req.cookies[config.JWT_COOKIE_NAME];

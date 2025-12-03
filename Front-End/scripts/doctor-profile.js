@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editBtn = document.querySelector(".book-btn");
     const menuBtn = document.getElementById("menuBtn");           // Hamburger icon
     const profilePic = document.getElementById("profilePic");        // Navbar profile picture
+    const navLink = document.getElementById("nav-link");
 
 
     // ==================== 1. Sidebar Open/Close Logic ====================
@@ -77,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="sidebar-header">
                 <div class="admin-info">
                     <div class="admin-avatar">
-                        <img src="images/doctor.png" id="sidebar-profile-img" class="profile-pic" alt="Dr. Sara Ali">                    </div>
+                        <img src="doctor.png" id="sidebar-profile-img" class="profile-pic" alt="Dr. Sara Ali">                    </div>
                         <span class="admin-name" id="sidebar-user-name">Dr. Sara Ali</span>
                 </div>
             </div>
@@ -144,6 +145,12 @@ document.addEventListener("DOMContentLoaded", () => {
             profilePic.src = "doctor.png";
             profilePic.style.cursor = "pointer";
             profilePic.addEventListener("click", () => {
+                window.location.href = "doctor-profile.html";
+            });
+        }
+
+        if (navLink) {
+            navLink.addEventListener("click", () => {
                 window.location.href = "doctor-profile.html";
             });
         }

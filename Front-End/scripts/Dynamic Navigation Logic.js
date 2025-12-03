@@ -1,12 +1,20 @@
 // Helper: get cookie value by name
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-  return null;
+async function checkAuth() {
+  try {
+    const res = await fetch("http://127.0.0.1:3000/api/auth/profile", {
+      credentials: "include" // SEND COOKIE AUTOMATICALLY
+    });
+    console.log(res);
+    if (!res.ok) throw new Error("Not logged in");
+
+    const data = await res.json();
+    return data.data;
+  } catch {
+    return null;
+  }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Elements
   const guestNav     = document.getElementById("guestNav");
   const userNav      = document.getElementById("userNav");
@@ -18,11 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn    = document.getElementById("logoutBtn");
 
   // Check authentication → using JWT cookie (you can also use localStorage if you prefer)
-  const token = getCookie("jwt");
-  const isLoggedIn = !!token;   // true if user is logged in
+  const data=await checkAuth();
+  console.log(data);
+  const isLoggedIn = !!data;   // true if user is logged in
 
   // Show / hide navbar & sidebar sections according to login status
-  if (true) {
+  if (isLoggedIn) {
     guestNav?.classList.add("hidden");
     userNav?.classList.remove("hidden");
 
