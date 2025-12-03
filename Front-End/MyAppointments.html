@@ -55,12 +55,12 @@
         </div>
         
         <div class="nav-right">
+              <a href="PatientMedicalRecord.html">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="profile-pic2" id="profilePic" alt="User Profile">
+            </a> 
             <div class="bell-container relative">
                 <i class="fas fa-bell" id="bellIcon"></i>
             </div>
-            <a href="PatientMedicalRecord.html">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="profile-pic2" id="profilePic" alt="User Profile">
-            </a> 
         </div>
     </nav>
 
@@ -74,22 +74,34 @@
             </div>
 
             <ul class="sidebar-menu">
-                <li onclick="window.location.href='my-appointments.html'">
-                    <i class="fas fa-calendar-check"></i> My Appointments
-                </li>
-                <li onclick="window.location.href='medical-record.html'">
-                    <i class="fas fa-file-medical"></i> Medical Record
-                </li>
-                <li onclick="window.location.href='chats.html'">
-                    <i class="fas fa-comments"></i> Chats
-                </li>
-                <li onclick="window.location.href='settings.html'">
-                    <i class="fas fa-cog"></i> Settings
-                </li>
-                <li id="logoutBtn" class="logout-item">
-                    <i class="fas fa-sign-out-alt"></i> Log Out
-                </li>
-            </ul>
+  <li>
+    <a href="MyAppointments.html">
+      <i class="fas fa-calendar-check"></i>
+      My Appointments
+    </a>
+  </li>
+
+  <li>
+    <a href="PatientMedicalRecord.html">
+      <i class="fas fa-file-medical"></i>
+      Medical Record
+    </a>
+  </li>
+
+  <li>
+    <a href="chats.html">
+      <i class="fas fa-comments"></i>
+      Chats
+    </a>
+  </li>
+
+  <li id="logoutBtn" class="logout-item">
+    <a href="#">
+      <i class="fas fa-sign-out-alt"></i>
+      Log Out
+    </a>
+  </li>
+</ul>
         </div>
     </div>
 
@@ -250,8 +262,7 @@
     </div>
 
     <!-- External JavaScript File -->
-    <script src="MyAppointments.js"></script>
-    <script src="scripts/common-layout.js"></script>
+    <script src="scripts/MyAppointments.js"></script>
 
 
 </body>

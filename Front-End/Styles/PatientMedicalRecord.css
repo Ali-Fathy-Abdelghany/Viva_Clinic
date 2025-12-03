@@ -503,3 +503,172 @@ section {
     color: #007977;
     font-size: 16px;
 }
+/* ========================================================================= */
+/* Prescription Modal/Popup Styles */
+/* ========================================================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px 30px;
+    width: 90%;
+    max-width: 400px; /* Constrain size */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    font-family: 'Cairo', sans-serif;
+}
+
+.modal-clinic-logo {
+    width: 40px;
+    margin-right: 15px;
+}
+
+.modal-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.doctor-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.doctor-profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.doctor-info p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.specialty-hashtag {
+    color: #888;
+    font-size: 12px !important;
+}
+
+.date-box {
+    background-color: #E0F2F1;
+    color: #007977;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.patient-details-modal p {
+    margin: 5px 0;
+    font-size: 15px;
+    color: #333;
+}
+
+.prescription-form {
+    margin-top: 20px;
+}
+
+.prescription-form label {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    color: #14a2a0;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.input-display-box {
+    width: 100%;
+    min-height: 50px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 15px;
+    color: #333;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.btn-cancel {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+.sidebar-menu li a {
+  display: flex; 
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: px 15px;
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ========================================================================= */
+/* Toast Notification Styles */
+/* ========================================================================= */
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007977;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.toast-message i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.toast-message.show {
+    opacity: 1;
+    visibility: visible;
+}

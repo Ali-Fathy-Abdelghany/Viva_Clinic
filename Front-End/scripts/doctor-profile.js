@@ -12,6 +12,61 @@ document.addEventListener("DOMContentLoaded", () => {
     const role = localStorage.getItem("userRole");  
     const sidebar = document.getElementById("sidebar");
     const editBtn = document.querySelector(".book-btn");
+    const menuBtn = document.getElementById("menuBtn");           // Hamburger icon
+    const profilePic = document.getElementById("profilePic");        // Navbar profile picture
+
+
+    // ==================== 1. Sidebar Open/Close Logic ====================
+    if (menuBtn && sidebar) {
+      // Create overlay if it doesn't exist (dark background when sidebar is open)
+      let overlay = document.getElementById("sidebarOverlay");
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "sidebarOverlay";
+        overlay.className = "overlay";
+        document.body.appendChild(overlay);
+      }
+
+      const openSidebar = () => {
+        sidebar.classList.add("active");
+        overlay.style.display = "block";
+        document.body.style.overflow = "hidden"; // Prevent background scrolling
+      };
+
+      const closeSidebar = () => {
+        sidebar.classList.remove("active");
+        overlay.style.display = "none";
+        document.body.style.overflow = "auto";
+      };
+
+      // Toggle sidebar when clicking the hamburger menu
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
+      });
+
+      // Close sidebar when clicking on the overlay
+      overlay.addEventListener("click", closeSidebar);
+
+      // Close sidebar when clicking outside of it
+      document.addEventListener("click", (e) => {
+        if (
+          sidebar.classList.contains("active") &&
+          !sidebar.contains(e.target) &&
+          !menuBtn.contains(e.target)
+        ) {
+          closeSidebar();
+        }
+      });
+
+      // Close sidebar with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sidebar.classList.contains("active")) {
+          closeSidebar();
+        }
+      });
+    }
+
 
     if (!sidebar) return;
 
@@ -20,8 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="sidebar-header">
                 <div class="admin-info">
                     <div class="admin-avatar">
-                        <img class="images/doctor.png" src="" alt="Dr. Sara Ali">                    </div>
-                        <span class="admin-name">Dr. Sara Ali</span>
+                        <img src="images/doctor.png" id="sidebar-profile-img" alt="Dr. Sara Ali">                    </div>
+                        <span class="admin-name" id="sidebar-user-name">Dr. Sara Ali</span>
                 </div>
             </div>
 
@@ -66,7 +121,27 @@ document.addEventListener("DOMContentLoaded", () => {
             </ul>
         `;
         editBtn.style.display = "none";
-    }
 
-    // If role is admin or missing → the original sidebar remains
+        // Sidebar image
+        const newSidebarImg = document.getElementById("sidebar-profile-img");
+        const newUserName = document.getElementById("sidebar-user-name");
+        if (newSidebarImg) {
+            newSidebarImg.style.cursor = "pointer";
+            newSidebarImg.addEventListener("click", () => {
+                window.location.href = "doctor-profile.html";
+            });
+            newUserName.style.cursor = "pointer";
+            newUserName.addEventListener("click", () => {
+                window.location.href = "doctor-profile.html";
+            });
+        }
+
+        // Navbar profile picture
+        if (profilePic) {
+            profilePic.style.cursor = "pointer";
+            profilePic.addEventListener("click", () => {
+                window.location.href = "doctor-profile.html";
+            });
+        }
+    }
 });
