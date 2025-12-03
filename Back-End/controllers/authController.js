@@ -43,11 +43,9 @@ const register = asyncHandler(async (req, res) => {
   // Generate token
   const token = generateToken(user.UserID);
 
-  // Set token as HttpOnly cookie (for client-side)
   res.cookie(config.JWT_COOKIE_NAME, token, {
-    httpOnly: true, // Prevents XSS attacks
-    secure: config.NODE_ENV === 'production', // HTTPS only in production
-    sameSite: 'lax', // CSRF protection
+    httpOnly: true,
+    secure: false, 
     maxAge: config.JWT_COOKIE_EXPIRE
   });
 
@@ -88,13 +86,15 @@ const login = asyncHandler(async (req, res) => {
   // Generate token
   const token = generateToken(user.UserID);
 
-  // Set token as HttpOnly cookie (for client-side)
-  res.cookie(config.JWT_COOKIE_NAME, token, {
-    httpOnly: true, // Prevents XSS attacks
-    secure: config.NODE_ENV === 'production', // HTTPS only in production
-    sameSite: 'lax', // CSRF protection
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: false, 
+    sameSite: 'lax',
     maxAge: config.JWT_COOKIE_EXPIRE
-  });
+  };
+
+  res.cookie(config.JWT_COOKIE_NAME, token, cookieOptions);
 
   res.status(StatusCodes.OK).json({
     success: true,
@@ -142,7 +142,7 @@ const getProfile = asyncHandler(async (req, res) => {
   if (!user) {
     throw new AppError('User not found', StatusCodes.NOT_FOUND);
   }
-
+  
   res.status(StatusCodes.OK).json({
     success: true,
     data: { user }
@@ -151,11 +151,14 @@ const getProfile = asyncHandler(async (req, res) => {
 
 // Logout user (clear cookie)
 const logout = asyncHandler(async (req, res) => {
-  // Clear the token cookie
+  // Clear the token cookie - must use same settings as when setting the cookie
+  const isCrossOrigin = config.FRONTEND_URL !== config.APP_URL;
+  const isProduction = config.NODE_ENV === 'production';
+  
   res.cookie(config.JWT_COOKIE_NAME, '', {
     httpOnly: true,
-    secure: config.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: isProduction,
+    sameSite: (isCrossOrigin || isProduction) ? 'none' : 'lax',
     expires: new Date(0) // Expire immediately
   });
 

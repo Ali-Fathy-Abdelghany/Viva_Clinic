@@ -8,28 +8,28 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = e.target.email.value.trim();
-      const password = e.target.password.value;
+      const Email = e.target.email.value.trim();
+      const Password = e.target.password.value;
       const remember = e.target.remember?.checked;
 
       try {
         const res = await fetch(`${apiBase}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
+          credentials: 'include',
+          body: JSON.stringify({ Email, Password })
         });
-        const data = await res.json();
+        const data = (await res.json()).data;
+        console.log(data);
+        
         if (!res.ok) throw new Error(data.message || 'Login failed');
 
-        const storage = remember ? localStorage : sessionStorage;
-        storage.setItem('token', data.token);
-        storage.setItem('user', JSON.stringify(data.user));
 
         window.showMessage?.('Login successful!', 'success');
         setTimeout(() => {
-          const role = data.user.role?.toLowerCase();
+          const role = data.user.Role?.toLowerCase();
           window.location.href = role === 'patient'
-            ? 'patient-dashboard.html'
+            ? 'homepage.html'
             : 'doctor-dashboard.html';
         }, 1200);
       } catch (err) {

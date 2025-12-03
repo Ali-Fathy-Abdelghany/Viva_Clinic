@@ -10,12 +10,13 @@
       e.preventDefault();
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-      data.role = localStorage.getItem('selectedRole') || 'patient';
-
+      data.role = localStorage.getItem('selectedRole') || 'Patient';
+      console.log(data);
       try {
         const res = await fetch(`${apiBase}/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify(data)
         });
         const result = await res.json();
