@@ -12,7 +12,6 @@ a { text-decoration:none; }
 .menu-icon { font-size:26px; cursor:pointer; }
 .logo { height:55px; }
 .nav-links a { color:#fff; margin:0 18px; font-weight:600; }
-.nav-links a.active { text-decoration:underline; }
 .nav-right { display:flex; align-items:center; gap:25px; }
 #bellIcon { font-size:22px; cursor:pointer; position:relative; }
 .notifications-menu {
