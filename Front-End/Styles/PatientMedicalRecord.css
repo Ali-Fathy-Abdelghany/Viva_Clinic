@@ -630,6 +630,16 @@ section {
     font-size: 14px;
     transition: background 0.3s;
 }
+.sidebar-menu li a {
+  display: flex; 
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: px 15px;
+  color: inherit;
+  text-decoration: none;
+}
+
 
 /* ========================================================================= */
 /* Toast Notification Styles */
