@@ -24,7 +24,6 @@ router
     .route("/:id")
     .all(validateId)
     .get(getAppointment)
-    .put(validateAppointmentUpdate, updateAppointment)
     .patch(validateAppointmentUpdate, updateAppointment)
     .delete(deleteAppointment);
 

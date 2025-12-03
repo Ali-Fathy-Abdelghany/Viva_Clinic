@@ -13,7 +13,11 @@ const {
   setDoctorWorkingHours,
   getDailySchedule,
   getWeeklySummary,
-  getDoctorWorkload
+  getDoctorWorkload,
+  getAdmins,
+  createAdmin,
+  updateAdmin,
+  deleteAdmin,
 } = require('../controllers/adminController');
 const { authenticate, authorize } = require('../middleware/auth');
 const { validateId } = require('../middleware/validator');
@@ -29,6 +33,13 @@ router.route('/doctors/:id').all(validateId).patch(updateDoctor).delete(deleteDo
 // Patient Management
 router.get('/patients', getPatients);
 router.patch('/patients/:id', validateId, updatePatient);
+
+// Admin Management
+
+router.get('/admins', getAdmins);
+router.post('/admins', createAdmin);
+router.patch('/admins/:id', validateId, updateAdmin);
+router.delete('/admins/:id', validateId, deleteAdmin);
 
 // Working Hours Management
 router.post('/doctors/:id/working-hours', validateId, setDoctorWorkingHours);
