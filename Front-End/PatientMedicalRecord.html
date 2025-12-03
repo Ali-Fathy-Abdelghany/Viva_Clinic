@@ -55,9 +55,9 @@
     </div>
 
     <ul class="sidebar-menu">
-      <li onclick="window.location.href='my-appointments.html'">
+      <li onclick="window.location.href='MyAppointments.html'">
         <i class="fas fa-calendar-check"></i> My Appointments
-      </li>
+  
       <li onclick="window.location.href='PatientMedicalRecord.html'">
         <i class="fas fa-file-medical"></i> Medical Record
       </li>
@@ -184,6 +184,8 @@
             </tbody>
         </table>
     </section>
+      <!-- ==================================== LOGOUT MODAL ==================================== -->
+
     <div id="logoutModal" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to Log out?</p>
@@ -194,12 +196,50 @@
     </div>
 </div>
                  
+    <div id="prescriptionModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header-info">
+                <img src="images/logo.png" alt="Viva Clinic Logo" class="modal-clinic-logo">
+                <div class="doctor-info">
+                    <img src="images/doctor.png" alt="Dr. Sarah Ali" class="doctor-profile-pic">
+                    <div>
+                        <p><strong>Dr. Sarah Ali</strong></p>
+                        <p class="specialty-hashtag">#Cardiologist</p>
+                    </div>
+                </div>
+                <div class="date-box">
+                    <span>27 May 2025</span>
+                </div>
+            </div>
+
+            <div class="patient-details-modal">
+                <p><strong>Patient Name:</strong> Maria Steive</p>
+                <p><strong>Age:</strong> 35</p>
+                <p><strong>Gender:</strong> Female</p>
+            </div>
+
+            <div class="prescription-form">
+                <label>Diagnosis</label>
+                <div class="input-display-box">Fever</div>
+
+                <label>Drug Name</label>
+                <div class="input-display-box">Panadol Extra (500mg)</div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="downloadToast" class="toast-message">
+        <i class="fas fa-check-circle"></i> Download Successful!
+    </div>
+
     <script src="scripts/common-layout.js"></script>
     <script src="scripts/bell.js"></script>
     <script src="scripts/role-control.js"></script>
+    <script src="scripts/prescription.js"></script> 
+    <script src="scripts/role-control.js"></script>
     <script src="scripts/logout-modal.js" defer></script>
-
-
-
 </body>
 </html>

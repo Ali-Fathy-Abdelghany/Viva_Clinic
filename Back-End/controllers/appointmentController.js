@@ -12,9 +12,11 @@ const {
 
 // Book new appointment
 const bookAppointment = asyncHandler(async (req, res) => {
-    const { DoctorID, AppointmentDate, StartTime, EndTime, Notes } = req.body;
+    const { DoctorID, AppointmentDate,StartTime } = req.body;
     const PatientID = req.userId;
-
+    const EndTime = new Date(
+        new Date(`1970-01-01T${StartTime}Z`).getTime() + 30 * 60000-(120*60000)
+    ).toTimeString().slice(0, 5)
     // Validate appointment booking
     await validateAppointmentBooking(
         PatientID,
@@ -32,7 +34,6 @@ const bookAppointment = asyncHandler(async (req, res) => {
         StartTime,
         EndTime,
         Status: "Booked",
-        Notes,
     });
 
     // Fetch appointment with related data for email
@@ -41,9 +42,15 @@ const bookAppointment = asyncHandler(async (req, res) => {
         {
             include: [
                 {
-                    model: User,
+                    model: Patient,
                     as: "patient",
-                    attributes: ["FirstName", "LastName", "Email"],
+                    include: [
+                        {
+                            model: User,
+                            as: "user",
+                            attributes: ["FirstName", "LastName", "Email"],
+                        },
+                    ],
                 },
                 {
                     model: Doctor,
@@ -68,8 +75,8 @@ const bookAppointment = asyncHandler(async (req, res) => {
     // Send confirmation email
     try {
         await sendAppointmentConfirmation(
-            appointmentWithDetails.patient.Email,
-            `${appointmentWithDetails.patient.FirstName} ${appointmentWithDetails.patient.LastName}`,
+            appointmentWithDetails.patient.user.Email,
+            `${appointmentWithDetails.patient.user.FirstName} ${appointmentWithDetails.patient.user.LastName}`,
             {
                 date: AppointmentDate,
                 startTime: StartTime,
@@ -122,9 +129,15 @@ const getAppointments = asyncHandler(async (req, res) => {
         where: whereClause,
         include: [
             {
-                model: User,
+                model: Patient,
                 as: "patient",
-                attributes: ["FirstName", "LastName", "Email", "Phone"],
+                include: [
+                    {
+                        model: User,
+                        as: "user",
+                        attributes: ["FirstName", "LastName", "Email", "Phone"],
+                    },
+                ],
             },
             {
                 model: Doctor,
@@ -165,9 +178,13 @@ const getAppointment = asyncHandler(async (req, res) => {
     const appointment = await Appointment.findByPk(id, {
         include: [
             {
-                model: User,
+                model: Patient,
                 as: "patient",
-                attributes: ["FirstName", "LastName", "Email", "Phone"],
+                include: {
+                    model: User,
+                    as: "user",
+                    attributes: ["FirstName", "LastName", "Email", "Phone"],
+                },
             },
             {
                 model: Doctor,
@@ -209,16 +226,23 @@ const getAppointment = asyncHandler(async (req, res) => {
 // Update appointment (cancel, reschedule, complete)
 const updateAppointment = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { Status, AppointmentDate, StartTime, EndTime, Notes } = req.body;
+    const { Status, AppointmentDate, StartTime } = req.body;
+    const EndTime =StartTime? new Date(
+        new Date(`1970-01-01T${StartTime}Z`).getTime() + 30 * 60000-(120*60000)
+    ).toTimeString().slice(0, 5): null;
     const userId = req.userId;
     const userRole = req.userRole;
 
     const appointment = await Appointment.findByPk(id, {
         include: [
             {
-                model: User,
+                model: Patient,
                 as: "patient",
-                attributes: ["FirstName", "LastName", "Email"],
+                include: {
+                    model: User,
+                    as: "user",
+                    attributes: ["FirstName", "LastName", "Email", "Phone"],
+                },
             },
         ],
     });
@@ -240,7 +264,7 @@ const updateAppointment = asyncHandler(async (req, res) => {
     }
 
     // Validate rescheduling
-    if (AppointmentDate || StartTime || EndTime) {
+    if (AppointmentDate || StartTime) {
         const newDate = AppointmentDate || appointment.AppointmentDate;
         const newStartTime = StartTime || appointment.StartTime;
         const newEndTime = EndTime || appointment.EndTime;
@@ -275,16 +299,14 @@ const updateAppointment = asyncHandler(async (req, res) => {
     if (AppointmentDate) appointment.AppointmentDate = AppointmentDate;
     if (StartTime) appointment.StartTime = StartTime;
     if (EndTime) appointment.EndTime = EndTime;
-    if (Notes ) appointment.Notes = Notes;
-
     await appointment.save();
 
     // Send cancellation email if cancelled
     if (Status === "Cancelled") {
         try {
             await sendAppointmentCancellation(
-                appointment.patient.Email,
-                `${appointment.patient.FirstName} ${appointment.patient.LastName}`,
+                appointment.patient.user.Email,
+                `${appointment.patient.user.FirstName} ${appointment.patient.user.LastName}`,
                 {
                     date: appointment.AppointmentDate,
                     startTime: appointment.StartTime,
@@ -324,6 +346,21 @@ const deleteAppointment = asyncHandler(async (req, res) => {
     // Cancel instead of delete
     appointment.Status = "Cancelled";
     await appointment.save();
+    // Send cancellation email
+    try {
+        await sendAppointmentCancellation(
+            appointment.patient.user.Email,
+            `${appointment.patient.user.FirstName} ${appointment.patient.user.LastName}`,
+            {                date: appointment.AppointmentDate,
+                startTime: appointment.StartTime,
+                endTime: appointment.EndTime,
+                doctorName: "Doctor",
+            }
+        );
+    } catch (error) {
+        console.error("Failed to send cancellation email:", error);
+    }
+    
 
     res.status(StatusCodes.OK).json({
         success: true,
