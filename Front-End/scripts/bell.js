@@ -1,10 +1,9 @@
-// bell.js - شغال 100% مع الكود اللي عندك دلوقتي
+
 document.addEventListener("DOMContentLoaded", function () {
   const bell = document.getElementById("bellIcon");
   const menu = document.getElementById("notificationsMenu"); // نفس الـ ID اللي في الـ HTML
   if (!bell || !menu) return;
 
-  // إضافة الـ badge لو مش موجود
   let badge = document.querySelector(".notification-badge");
   if (!badge) {
     badge = document.createElement("span");
@@ -23,14 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   async function load() {
     try {
-      // لو لسه معملتيش API حطي بيانات وهمية عشان تشوفي الشكل
+      // Dummy data for testing
       notifications = [
         { id: 1, title: "Dr. Sara Ali sent you your prescription.", is_read: false, type: "prescription", created_at: new Date() },
         { id: 2, title: "You have a new message from Dr. Ahmed.", is_read: true, type: "message", created_at: "2025-11-30T10:00:00" }
       ];
-      // لما تعملي الـ API غيري السطر ده لـ:
-      // const res = await fetch("/api/notifications"); notifications = await res.json();
-
+      
       render();
       updateBadge();
     } catch (e) { console.log(e); }
@@ -99,6 +96,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // تحميل أول مرة
   load();
 });

@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="Styles/bell.css" />
+  <link rel="stylesheet" href="Styles/logout-modal.css" />
 </head>
 <body>
 
@@ -134,9 +135,19 @@
         </div>
       </div>
     </section>
+    <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
 
     <script src="scripts/doctors.js"></script>
     <script src="scripts/Dynamic Navigation Logic.js"></script>
     <script src="scripts/common-layout.js"></script>
     <script src="scripts/bell.js"></script>
+    <script src="Styles/logout-modal.js" defer></script>
 </html>

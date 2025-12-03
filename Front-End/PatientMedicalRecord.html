@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="Styles/bell.css" />
+    <link rel="stylesheet" href="Styles/logout-modal.css" />
 </head>
 <body>
   <!-- ==================================== NAVBAR ==================================== -->
@@ -183,6 +184,18 @@
             </tbody>
         </table>
     </section>
+      <!-- ==================================== LOGOUT MODAL ==================================== -->
+
+    <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
+                 
     <div id="prescriptionModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header-info">
@@ -226,7 +239,7 @@
     <script src="scripts/bell.js"></script>
     <script src="scripts/role-control.js"></script>
     <script src="scripts/prescription.js"></script> 
+    <script src="scripts/role-control.js"></script>
+    <script src="scripts/logout-modal.js" defer></script>
 </body>
 </html>
-                 
- 

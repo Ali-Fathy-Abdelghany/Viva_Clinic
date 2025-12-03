@@ -17,6 +17,8 @@
     
     <!-- External CSS File -->
     <link rel="stylesheet" href="Styles/MyAppointments.css">
+    <link rel="stylesheet" href="Styles/bell.css" />
+    <link rel="stylesheet" href="Styles/logout-modal.css" />
 
     <!-- Tailwind Config (Required to be here for CDN) -->
     <script>
@@ -42,27 +44,33 @@
 
     <!-- ==================================== NAVBAR ==================================== -->
     <nav class="navbar">
-        <div class="nav-left">
-            <i class="fas fa-bars menu-icon" id="menuBtn"></i>
-            <div class="logo">
-                <img src="images/logo.png" alt="Viva Clinic" onerror="this.style.display='none'; this.parentNode.innerText='VIVA CLINIC'" style="height: 100%;">
-            </div>
-            <div class="nav-links hidden md:flex">
-                <a href="homepage.html" class="nav-link">Home</a>
-                <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
-                <a href="homepage.html#contact" class="nav-link">Contact</a>
-            </div>
-        </div>
-        
-        <div class="nav-right">
-              <a href="PatientMedicalRecord.html">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="profile-pic2" id="profilePic" alt="User Profile">
-            </a> 
-            <div class="bell-container relative">
-                <i class="fas fa-bell" id="bellIcon"></i>
-            </div>
-        </div>
-    </nav>
+    <div class="nav-left">
+      <!-- Hamburger menu - opens sidebar -->
+      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      
+      <!-- Clinic logo -->
+      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
+      
+     <div class="nav-links">
+  <a href="homepage.html" class="nav-link">Home</a>
+  <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+  <a href="homepage.html#contact" class="nav-link">Contact</a>
+</div>
+
+    </div>
+    
+    <div class="nav-right">
+      <!-- Notification bell with dropdown menu -->
+      <div class="bell-container">
+        <i class="fas fa-bell" id="bellIcon"></i>
+        <div class="notifications-menu" id="notificationsMenu"></div>
+      </div>
+      
+      <!-- User profile picture - clickable (goes to patient profile) -->
+    <a href="PatientMedicalRecord.html">
+      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+    </a>    </div>
+  </nav>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
@@ -77,10 +85,10 @@
                 <li onclick="window.location.href='MyAppointments.html'">
                     <i class="fas fa-calendar-check"></i> My Appointments
                 </li>
-                <li onclick="window.location.href='PatientMedicalRecord.html'">
+                <li onclick="window.location.href='PatientMedicalRecord.html.html'">
                     <i class="fas fa-file-medical"></i> Medical Record
                 </li>
-                <li onclick="window.location.href='Chats.html'">
+                <li onclick="window.location.href='chats.html'">n
                     <i class="fas fa-comments"></i> Chats
                 </li>
                 <li onclick="window.location.href='Settings.html'">
@@ -248,9 +256,23 @@
             </div>
         </div>
     </div>
+      <!-- ==================================== LOGOUT MODAL ==================================== -->
+
+    <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
 
     <!-- External JavaScript File -->
+    <script src="scripts/common-layout.js"></script>
     <script src="scripts/MyAppointments.js"></script>
+    <script src="scripts/bell.js" defer></script>
+    <script src="scripts/logout-modal.js" defer></script>
 
 
 </body>

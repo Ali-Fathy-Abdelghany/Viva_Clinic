@@ -53,11 +53,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.style.overflow = "auto";
   }
 
-  // Logout → delete JWT cookie and reload page
-  logoutBtn?.addEventListener("click", () => {
-    // Delete cookie by setting expired date in the past
-    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // Optional: also clear any other auth data (localStorage, etc.)
-    location.reload();
-  });
+  // // Logout → delete JWT cookie and reload page
+  // logoutBtn?.addEventListener("click", () => {
+  //   // Delete cookie by setting expired date in the past
+  //   document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  //   // Optional: also clear any other auth data (localStorage, etc.)
+  //   location.reload();
+  // });
 });
