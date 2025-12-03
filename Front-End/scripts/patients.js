@@ -1,4 +1,16 @@
 // patient-filter.js
+/* 
+  role-sidebar.js
+  Dynamically changes the sidebar depending on the user's role.
+
+  Role must be stored as:
+      localStorage.setItem("userRole", "admin");
+      location.reload();
+      or
+      localStorage.setItem("userRole", "doctor");
+      location.reload();
+*/
+
 document.addEventListener("DOMContentLoaded", () => {
   // DOM elements
   const filterIcon  = document.getElementById("filterIcon");
@@ -255,3 +267,4 @@ document.addEventListener("DOMContentLoaded", () => {
   filterAndSearch();
 
 });
+
