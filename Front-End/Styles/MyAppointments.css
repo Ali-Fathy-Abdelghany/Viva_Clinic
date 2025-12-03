@@ -208,6 +208,7 @@ body {
   transition: color 0.3s;
 }
 
+
 .sidebar-menu li:hover {
   color: #007977;
 }
