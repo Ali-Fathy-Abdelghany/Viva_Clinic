@@ -24,221 +24,187 @@ body {
 /* Navbar                                                                    */
 /* ========================================================================= */
 .navbar {
-  height: 70px;
-  background: #14a2a0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
+    height: 70px;
+    background: #14a2a0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
 }
 
 .nav-left {
-  display: flex;
-  align-items: center;
-  gap: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 .menu-icon {
-  color: white;
-  font-size: 26px;
-  cursor: pointer;
-  display: block;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    display: block;
 }
 
 .logo {
-  height: 60px;
+    height: 60px;
 }
 
 .nav-links a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: 600;
-  font-size: 15px;
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 600;
+    font-size: 15px;
 }
 
 .nav-links a.active {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .nav-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  direction: rtl;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    direction: rtl;
 }
 .nav-right > * {
-  direction: ltr;               /* يرجّع الأزرار والنصوص لليسار عادي */
+    direction: ltr;               /* يرجّع الأزرار والنصوص لليسار عادي */
 }
  
 
 .login-btn, .signup-btn {
-  color: white;
-  text-decoration: none;
-  padding: 8px 20px;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.3s;
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
 }
 
 .signup-btn {
-  background: #007977;
+    background: #007977;
 }
 
 .signup-btn:hover {
-  background: #00605e;
+    background: #00605e;
 }
 
 #userNav {
-  display: flex;
-  align-items: center;
-  gap: 15px;          
-  justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 15px;          
+    justify-content: flex-end;
 }
 
 
 .bell-container {
-  position: relative;
-  order: 1;
+    position: relative;
+    order: 1;
 }
 
 #bellIcon {
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .bell-container, .profile-pic {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 
 .profile-pic2 {
-  order: 2;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
+    order: 2;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
 }
 
 /* ========================================================================= */
-/* Sidebar                                                                   */
+/* Sidebar and Overlay (Unchanged) */
 /* ========================================================================= */
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: -320px;
-  width: 300px;
-  height: 100vh;
-  background: white;
-  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
-  transition: left 0.4s ease;
-  z-index: 999;
-  padding: 70px 10px;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 100vh;
+    background: white;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+    transition: left 0.4s ease;
+    z-index: 999;
+    padding: 70px 10px;
 }
 
 .sidebar.active {
-  left: 0;
+    left: 0;
 }
 
-/* Guest Sidebar */
-.sidebar-guest-content {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.sidebar-guest-content i {
-  font-size: 80px;
-  color: #007977;
-  margin-bottom: 20px;
-}
-
-.login-link {
-  color: #007977;
-  font-weight: bold;
-  font-size: 18px;
-  text-decoration: none;
-}
-
-/* User Sidebar */
 .user-info {
-  text-align: center;
-  padding: 20px;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 30px;
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
 }
 
 .user-info img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
 }
 
 .user-info h3 {
-  color: #007977;
-  font-size: 15px;
-  margin: 8px 0 4px;
+    color: #007977;
+    font-size: 15px;
+    margin: 8px 0 4px;
 }
 
 .user-info p {
-  color: #666;
-  font-size: 14px;
+    color: #666;
+    font-size: 14px;
 }
 
 .sidebar-menu {
-  list-style: none;
-  padding: 5px 0;
+    list-style: none;
+    padding: 5px 0;
 }
 
 .sidebar-menu li {
-  padding: 16px 0px;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-.sidebar-menu li a {
-  display: flex; 
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 10px 15px;
-  color: inherit;
-  text-decoration: none;
-}
-
-.sidebar-menu li:hover {
-  color: #007977;
+    padding: 16px 0px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
 .logout-item {
-  color: #d9534f !important;
+    color: #d9534f !important;
 }
 
-/* Overlay */
 .overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 998;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
 }
 
 .overlay.active {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 /************************************************************************************/
 /************************************************************************************/
@@ -257,6 +223,8 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
+    /* زياة الارتفاع لاستيعاب التوفر */
+    min-height: 500px; 
 }
 
 .card-header h2 {
@@ -267,9 +235,11 @@ body {
 .card-content {
     display: flex;
     gap: 40px;
+    /* زيادة العرض ليتناسب مع الشبكة */
+    width: 100%;
 }
 
-/* --- Calendar Styles --- */
+/* --- Calendar Styles (Unchanged) --- */
 .date-selection {
     flex: 0 0 350px;
 }
@@ -313,41 +283,95 @@ body {
     font-weight: bold;
 }
 
-/* --- Time Slot Status Styles --- */
-.day-columns {
+
+/* --------------------------------- */
+/* --- New/Modified Availability Layout --- */
+/* --------------------------------- */
+
+.availability-selection {
+    flex-grow: 1; 
+    min-width: 600px; /* لضمان وجود مساحة كافية للأعمدة الخمسة */
+}
+
+/* 1. تنسيق الأيام كعلامات تبويب (Day Tabs) */
+#day-tabs {
     display: flex;
-    flex-wrap: wrap; 
-    gap: 15px;
-    margin-bottom: 40px;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
 }
 
-.day-column {
-    flex: 1;
-    min-width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.day-tab {
+    flex: 1; /* لجعلهم متساويين في العرض */
+    text-align: center;
+    padding: 10px 5px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #666;
+    border: none;
+    background: none;
+    transition: color 0.2s;
+    font-size: 1em;
 }
 
-.day-name {
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 15px;
-    font-size: 0.95em;
+.day-tab.active-day {
+    color: #008080; /* لون التيل (Teal) */
+    /* border-bottom: 3px solid #008080; */
 }
 
+/* 2. تنسيق شبكة المواعيد (The Grid of Time Slots) */
+#availability-grid {
+    display: grid;
+    /* 5 أعمدة لـ Mon, Tue, Wed, Thu, Fri */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 15px; 
+    padding: 10px 0;
+}
+
+/* الأزرار داخل الشبكة */
 .time-slot {
     border-radius: 4px;
-    padding: 8px 12px;
+    padding: 8px 10px;
     margin-bottom: 10px;
     font-size: 0.9em;
-    transition: background-color 0.2s, border-color 0.2s;
-    width: 100%;
+    width: 100%; 
     text-align: center;
     border: none;
+    height: fit-content;
+    white-space: nowrap;
 }
 
-/* Status: Booked (Red) */
+/* --------------------------------- */
+/* --- Appointment Type Radio Buttons --- */
+/* --------------------------------- */
+
+.appointment-type-selection {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.appointment-type-selection h4 {
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.appointment-type-selection label {
+    margin-right: 25px;
+    font-size: 1em;
+    color: #555;
+}
+
+.appointment-type-selection input[type="radio"] {
+    margin-right: 8px;
+    accent-color: var(--primary-color);
+}
+
+/* --- Time Slot Status Styles --- */
+
+/* Status: Booked (Red/Yellow in your previous design) - الآن سنستخدم اللون الأخضر الباهت للشكل */
 .time-slot.booked-red {
     background-color: #ffcdd2;
     border: 1px solid #d32f2f;
@@ -356,18 +380,19 @@ body {
     opacity: 0.7;
 }
 
-/* Status: Available (Gray) */
+/* Status: Available (Gray) - اللون الأخضر الباهت كما في الصورة */
 .time-slot.available {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    color: var(--text-color);
+    background-color: #e8f5e9; /* Light Green */
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
     cursor: pointer;
+    font-weight: 600;
 }
 .time-slot.available:hover {
-    background-color: #e0e0e0;
+    background-color: #d4edda;
 }
 
-/* Status: Selected (Teal/008080) - Temporary selection color */
+/* Status: Selected (Teal/008080) - اللون الأخضر الداكن كما في الصورة */
 .time-slot.selected-teal {
     background-color: #008080; 
     color: white;
@@ -376,7 +401,7 @@ body {
     cursor: pointer;
 }
 
-/* Status: Permanently Booked (006666) - After submission */
+/* Status: Permanently Booked (006666) - بعد التأكيد */
 .time-slot.booked-permanent {
     background-color: var(--booked-perm); /* #006666 */
     color: white;
@@ -386,7 +411,8 @@ body {
     opacity: 1; 
 }
 
-/* --- Submit Button --- */
+
+/* --- Submit Button (Moved to bottom right) --- */
 .submit-button {
     background-color: #008080;
     color: white;
@@ -401,47 +427,48 @@ body {
     right: 30px;
     width: 150px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 .submit-button:hover {
     background-color: var(--booked-perm); /* #006666 */
 }
-
 /* ================================== */
 /* --- SUCCESS MODAL STYLES --- */
 /* ================================== */
 
-/* --- SUCCESS MODAL STYLES --- */
+/* 1. تنسيق طبقة التراكب (Overlay) - تخفي المحتوى وتجعله في المنتصف */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    display: none; 
+    background-color: rgba(0, 0, 0, 0.5); /* خلفية شبه شفافة */
+    display: none; /* يتم التحكم بها بواسطة JavaScript لإظهارها */
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(4px); 
+    backdrop-filter: blur(4px); /* إضافة تأثير ضبابي للخلفية */
     background-image: radial-gradient(circle at top left, rgba(255, 255, 255, 0.2), rgba(120, 255, 170, 0.1));
 }
 
+/* 2. تنسيق محتوى المودال نفسه (البطاقة البيضاء) */
 .modal-content {
     background-color: #fff;
     padding: 30px 40px;
-    border-radius: 18px; 
+    border-radius: 18px; /* حواف مستديرة */
     text-align: center;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 0 0 10px rgba(0, 0, 0, 0.03); 
     width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
- 
 }
 
+/* 3. تنسيق أيقونة النجاح (علامة الصح الخضراء) */
 .modal-icon {
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* أخضر فاتح */
     color: white;
     font-size: 2em;
     height: 60px;
@@ -453,6 +480,7 @@ body {
     margin-bottom: 20px;
 }
 
+/* 4. تنسيق العنوان الرئيسي */
 .modal-title {
     font-size: 1.5em;
     font-weight: 700;
@@ -460,24 +488,27 @@ body {
     margin-bottom: 10px;
 }
 
+/* 5. تنسيق الرسالة الأساسية */
 .modal-message {
     color: #666;
     margin-bottom: 5px;
 }
 
+/* 6. تنسيق النص الفرعي (Check your Email) */
 .modal-subtext {
     margin-bottom: 25px;
 }
 
 .modal-subtext a {
-    color: var(--primary-color);
+    color: var(--primary-color); /* يفترض أن يكون مفعّلًا في :root */
     text-decoration: none;
     font-weight: 500;
     border-bottom: 1px solid var(--primary-color);
 }
 
+/* 7. تنسيق زر View Details */
 .modal-button {
-    background-color: #008080; 
+    background-color: #008080; /* Teal Dark */
     color: white;
     border: none;
     border-radius: 4px;

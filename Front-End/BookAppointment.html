@@ -11,161 +11,143 @@
     <link rel="stylesheet" href="Styles/logout-modal.css" />
 </head>
 <body>
-  <!-- ==================================== NAVBAR ==================================== -->
-
-     <nav class="navbar">
-    <div class="nav-left">
-      <!-- Hamburger menu - opens sidebar -->
-      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
-      
-      <!-- Clinic logo -->
-      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
-      
-     <div class="nav-links">
-  <a href="homepage.html" class="nav-link">Home</a>
-  <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
-  <a href="homepage.html#contact" class="nav-link">Contact</a>
-</div>
-
-    </div>
-    
-    <div class="nav-right">
-      <!-- Notification bell with dropdown menu -->
-      <div class="bell-container">
-        <i class="fas fa-bell" id="bellIcon"></i>
-        <div class="notifications-menu" id="notificationsMenu"></div>
-      </div>
-      
-      <!-- User profile picture - clickable (goes to patient profile) -->
-    <a href="PatientMedicalRecord.html">
-      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
-    </a>    </div>
-  </nav>
- <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-
-  <div id="userSidebar" class="hidden">   
-    <div class="user-info">
-      <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-      <h3 id="sidebar-user-name">Loading...</h3>
-      <p id="sidebar-user-email">loading@demo.com</p>
-    </div>
-
-    <ul class="sidebar-menu">
-      <li onclick="window.location.href='MyAappointments.html'">
-        <i class="fas fa-calendar-check"></i> My Appointments
-      </li>
-      <li onclick="window.location.href='medical-record.html'">
-        <i class="fas fa-file-medical"></i> Medical Record
-      </li>
-      <li onclick="window.location.href='chats.html'">
-        <i class="fas fa-comments"></i> Chats
-      </li>
-      <li onclick="window.location.href='settings.html'">
-        <i class="fas fa-cog"></i> Settings
-      </li>
-      <li id="logoutBtn" class="logout-item">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- Overlay -->
-<div id="sidebarOverlay" class="overlay hidden"></div>
-    
-
-
-    <main class="container">
-  
-  <main class="container">
-        <a href="#" class="back-link">Back</a>
-        <div class="appointment-card">
-            <div class="card-header">
-               <h1 class="page-title">Book Appointment</h1>
-                <h2>Select Date And Time</h2>
+    <nav class="navbar">
+        <div class="nav-left">
+            <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+            
+            <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
+            
+            <div class="nav-links">
+                <a href="homepage.html" class="nav-link">Home</a>
+                <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+                <a href="homepage.html#contact" class="nav-link">Contact</a>
             </div>
-            <div class="card-content">
-                
-                <div class="date-selection">
-                    <div class="calendar-header">
-                        <span class="nav-arrow" id="prev-month-btn">&lt;</span>
-                        <span class="month-year" id="current-month-display"></span>
-                        <span class="nav-arrow" id="next-month-btn">&gt;</span>
-                    </div>
-                    <div class="calendar-grid" id="calendar-body">
-                        </div>
-                </div>
 
-                <div class="availability-selection">
-                    <h3>Availability</h3>
-                    <div class="day-columns">
-                        <div class="day-column">
-                            <span class="day-name">Monday</span>
-                            <button class="time-slot" data-status="booked">11:30 AM - 12:30 PM</button>
-                            <button class="time-slot" data-status="available">06:00 PM - 07:30 PM</button>
-                        </div>
-                        <div class="day-column">
-                            <span class="day-name">Tuesday</span>
-                            <button class="time-slot" data-status="available">12:30 PM - 01:30 PM</button>
-                            <button class="time-slot" data-status="available">07:00 PM - 08:30 PM</button>
-                        </div>
-                        <div class="day-column">
-                            <span class="day-name">Wednesday</span>
-                            <button class="time-slot" data-status="available">02:30 PM - 03:30 PM</button>
-                            <button class="time-slot" data-status="available">09:00 PM - 11:00 PM</button>
-                        </div>
-                        <div class="day-column">
-                            <span class="day-name">Thursday</span>
-                            <button class="time-slot" data-status="available">03:30 PM - 04:30 PM</button>
-                        </div>
-                        <div class="day-column">
-                            <span class="day-name">Friday</span>
-                            <button class="time-slot" data-status="available">04:30 PM - 05:30 PM</button>
-                            <button class="time-slot" data-status="available">11:00 PM - 11:30 PM</button>
-                        </div>
-                    </div>
-
-                </div>
+        </div>
+        
+        <div class="nav-right">
+            <div class="bell-container">
+                <i class="fas fa-bell" id="bellIcon"></i>
+                <div class="notifications-menu" id="notificationsMenu"></div>
             </div>
             
-            <button class="submit-button" id="submit-btn">Submit</button>
+            <a href="PatientMedicalRecord.html">
+                <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+            </a> 	
         </div>
-    </main>
-    
-    <div class="modal-overlay" id="success-modal">
-        <div class="modal-content">
-            <div class="modal-icon">
-                &#10003; 
-            </div>
-            <h3 class="modal-title">Added Successfully</h3>
-            <p class="modal-message">
-                Appointment has been added to your Schedule
-            </p>
-            <p class="modal-subtext">
-                <a href="#">Check your Email</a>
-            </p>
-            <button class="modal-button" onclick="window.location.href='MyAppointments.html'">
-              View Details
-            </button>
+    </nav>
+    <div class="sidebar" id="sidebar">
 
+        <div id="userSidebar" class="hidden">   
+            <div class="user-info">
+                <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+                <h3 id="sidebar-user-name">Loading...</h3>
+                <p id="sidebar-user-email">loading@demo.com</p>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li onclick="window.location.href='MyAappointments.html'">
+                    <i class="fas fa-calendar-check"></i> My Appointments
+                </li>
+                <li onclick="window.location.href='medical-record.html'">
+                    <i class="fas fa-file-medical"></i> Medical Record
+                </li>
+                <li onclick="window.location.href='chats.html'">
+                    <i class="fas fa-comments"></i> Chats
+                </li>
+                <li onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i> Settings
+                </li>
+                <li id="logoutBtn" class="logout-item">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                </li>
+            </ul>
         </div>
     </div>
-  <!-- ==================================== LOGOUT MODAL ==================================== -->
+
+    <div id="sidebarOverlay" class="overlay hidden"></div>
+    
+    <main class="container">
+  
+        <main class="container">
+            <a href="#" class="back-link">Back</a>
+            <div class="appointment-card">
+                <div class="card-header">
+                    <h1 class="page-title">Book Appointment</h1>
+                    <h2>Select Date And Time</h2>
+                </div>
+                <div class="card-content">
+                    
+                    <div class="date-selection">
+                        <div class="calendar-header">
+                            <span class="nav-arrow" id="prev-month-btn">&lt;</span>
+                            <span class="month-year" id="current-month-display"></span>
+                            <span class="nav-arrow" id="next-month-btn">&gt;</span>
+                        </div>
+                        <div class="calendar-grid" id="calendar-body">
+                        </div>
+                    </div>
+
+                    <div class="availability-selection">
+                        <h3>Availability</h3>
+                        
+                        <div class="day-tabs" id="day-tabs">
+                            </div>
+
+                        <div class="availability-grid" id="availability-grid">
+                            </div>
+                        
+                        <div class="appointment-type-selection">
+                            <h4>Type of appointment</h4>
+                            <label>
+                                <input type="radio" name="appointment-type" value="in-person" checked>
+                                In-person
+                            </label>
+                            <label>
+                                <input type="radio" name="appointment-type" value="video-call">
+                                Video call
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="submit-button" id="submit-btn">Submit</button>
+            </div>
+        </main>
+        
+        <div class="modal-overlay" id="success-modal">
+            <div class="modal-content">
+                <div class="modal-icon">
+                    &#10003; 
+                </div>
+                <h3 class="modal-title">Added Successfully</h3>
+                <p class="modal-message">
+                    Appointment has been added to your Schedule
+                </p>
+                <p class="modal-subtext">
+                    <a href="#">Check your Email</a>
+                </p>
+                <button class="modal-button" onclick="window.location.href='MyAppointments.html'">
+                    View Details
+                </button>
+
+            </div>
+        </div>
     <div id="logoutModal" class="modal">
-    <div class="modal-content">
-        <p>Are you sure you want to Log out?</p>
-        <div class="modal-buttons">
-            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
-            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        <div class="modal-content">
+            <p>Are you sure you want to Log out?</p>
+            <div class="modal-buttons">
+                <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+                <button id="modalNoBtn" class="modal-button no-btn">No</button>
+            </div>
         </div>
     </div>
-</div>
+    
 
     <script src="scripts/common-layout.js"></script>
-     <script src="scripts/BookAppointment.js"></script>
-       <script src="scripts/bell.js" ></script>
-       <script src="scripts/logout-modal.js" defer></script>
+    <script src="scripts/BookAppointment.js"></script>
+    <script src="scripts/bell.js" ></script>
+    <script src="scripts/lo.js" defer></script>
 
 </body>
 </html>
