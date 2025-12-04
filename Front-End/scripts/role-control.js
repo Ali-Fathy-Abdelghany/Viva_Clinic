@@ -18,54 +18,54 @@ document.addEventListener("DOMContentLoaded", () => {
     const isPatientPage = currentPage.includes("patient");
 
 
-    // ==================== 1. Sidebar Open/Close Logic ====================
-    // هذا الجزء مسؤول عن فتح وإغلاق الشريط الجانبي بالماوس والـ ESC
-    if (menuBtn && sidebar) {
-        let overlay = document.getElementById("sidebarOverlay");
-        if (!overlay) {
-            overlay = document.createElement("div");
-            overlay.id = "sidebarOverlay";
-            overlay.className = "overlay";
-            document.body.appendChild(overlay);
-        }
+    // // ==================== 1. Sidebar Open/Close Logic ====================
+    // // هذا الجزء مسؤول عن فتح وإغلاق الشريط الجانبي بالماوس والـ ESC
+    // if (menuBtn && sidebar) {
+    //     let overlay = document.getElementById("sidebarOverlay");
+    //     if (!overlay) {
+    //         overlay = document.createElement("div");
+    //         overlay.id = "sidebarOverlay";
+    //         overlay.className = "overlay";
+    //         document.body.appendChild(overlay);
+    //     }
 
-        const openSidebar = () => {
-            sidebar.classList.add("active");
-            overlay.style.display = "block";
-            document.body.style.overflow = "hidden";
-        };
+    //     const openSidebar = () => {
+    //         sidebar.classList.add("active");
+    //         overlay.style.display = "block";
+    //         document.body.style.overflow = "hidden";
+    //     };
 
-        const closeSidebar = () => {
-            sidebar.classList.remove("active");
-            overlay.style.display = "none";
-            document.body.style.overflow = "auto";
-        };
+    //     const closeSidebar = () => {
+    //         sidebar.classList.remove("active");
+    //         overlay.style.display = "none";
+    //         document.body.style.overflow = "auto";
+    //     };
 
-        menuBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
-        });
+    //     menuBtn.addEventListener("click", (e) => {
+    //         e.stopPropagation();
+    //         sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
+    //     });
 
-        overlay.addEventListener("click", closeSidebar);
+    //     overlay.addEventListener("click", closeSidebar);
 
-        document.addEventListener("click", (e) => {
-            if (
-                sidebar.classList.contains("active") &&
-                !sidebar.contains(e.target) &&
-                !menuBtn.contains(e.target)
-            ) {
-                closeSidebar();
-            }
-        });
+    //     document.addEventListener("click", (e) => {
+    //         if (
+    //             sidebar.classList.contains("active") &&
+    //             !sidebar.contains(e.target) &&
+    //             !menuBtn.contains(e.target)
+    //         ) {
+    //             closeSidebar();
+    //         }
+    //     });
 
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && sidebar.classList.contains("active")) {
-                closeSidebar();
-            }
-        });
-    }
+    //     document.addEventListener("keydown", (e) => {
+    //         if (e.key === "Escape" && sidebar.classList.contains("active")) {
+    //             closeSidebar();
+    //         }
+    //     });
+    // }
 
-    if (!sidebar) return;
+    // if (!sidebar) return;
 
     // ==================== 2. Role-Based Content Switching ====================
     
