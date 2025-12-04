@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="sidebar-header">
                 <div class="admin-info">
                     <div class="admin-avatar">
-                        <img src="doctor.png" id="sidebar-profile-img" class="profile-pic" alt="Dr. Sara Ali">                    </div>
+                        <img src="images/doctor.png" id="sidebar-profile-img" class="profile-pic" alt="Dr. Sara Ali">                    </div>
                         <span class="admin-name" id="sidebar-user-name">Dr. Sara Ali</span>
                 </div>
             </div>
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Navbar profile picture change + click to open doctor profile
         if (profilePic) {
-            profilePic.src = "doctor.png";
+            profilePic.src = "images/doctor.png";
             profilePic.style.cursor = "pointer";
             profilePic.addEventListener("click", () => {
                 window.location.href = "doctor-profile.html";
