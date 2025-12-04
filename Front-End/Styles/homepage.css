@@ -9,7 +9,7 @@
 
 body {
   font-family: 'Cairo', sans-serif;
-  background: #f8fcfc;
+  background: #fafafa;
   color: #333;
 }
 .hidden {
@@ -41,7 +41,7 @@ body {
 /* ========================================================================= */
 /* Navbar                                                                    */
 /* ========================================================================= */
-.navbar {
+/* .navbar {
   height: 70px;
   background: #14a2a0;
   display: flex;
@@ -143,12 +143,12 @@ body {
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-}
+} */
 
 /* ========================================================================= */
 /* Sidebar                                                                   */
 /* ========================================================================= */
-.sidebar {
+/* .sidebar {
   position: fixed;
   top: 0;
   left: -320px;
@@ -163,10 +163,10 @@ body {
 
 .sidebar.active {
   left: 0;
-}
+} */
 
 /* Guest Sidebar */
-.sidebar-guest-content {
+/* .sidebar-guest-content {
   text-align: center;
   padding: 40px 20px;
 }
@@ -182,10 +182,10 @@ body {
   font-weight: bold;
   font-size: 18px;
   text-decoration: none;
-}
+} */
 
 /* User Sidebar */
-.user-info {
+/* .user-info {
   text-align: center;
   padding: 20px;
   border-bottom: 1px solid #eee;
@@ -232,10 +232,10 @@ body {
 
 .logout-item {
   color: #d9534f !important;
-}
+} */
 
 /* Overlay */
-.overlay {
+/* .overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.5);
@@ -248,7 +248,7 @@ body {
 .overlay.active {
   opacity: 1;
   visibility: visible;
-}
+} */
 /* ========================================================================= */
 /* 4. Hero Section                                                           */
 /* ========================================================================= */

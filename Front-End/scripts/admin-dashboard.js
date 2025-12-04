@@ -138,3 +138,51 @@ new Chart(document.getElementById('completedChart'), { type: 'bar', data: { data
 new Chart(document.getElementById('cancelledChart'), { type: 'bar', data: { datasets: [{ data: [30,35,32,40,38,45,50], backgroundColor: '#f1c40f', borderRadius: 4 }] }, options: { responsive:true, plugins:{legend:{display:false},tooltip:{enabled:false}}, scales:{x:{display:false},y:{display:false}} } });
 
 new Chart(document.getElementById('rescheduledChart'), { type: 'bar', data: { datasets: [{ data: [20,18,22,15,25,20,18], backgroundColor: '#e74c3c', borderRadius: 4 }] }, options: { responsive:true, plugins:{legend:{display:false},tooltip:{enabled:false}}, scales:{x:{display:false},y:{display:false}} } });
+
+
+// Date Pickers Initialization
+
+// Initialize Flatpickr for Appointments Report date inputs
+flatpickr("#appointmentsStartDate", {
+  dateFormat: "m/d/Y",
+  altInput: true,
+  altFormat: "m/d/Y",
+  allowInput: true,
+});
+
+flatpickr("#appointmentsEndDate", {
+  dateFormat: "m/d/Y",
+  altInput: true,
+  altFormat: "m/d/Y",
+  allowInput: true,
+});
+// Initialize Flatpickr for Patients Report date inputs
+flatpickr("#patientsStartDate", {
+  dateFormat: "m/d/Y",
+  altInput: true,
+  altFormat: "m/d/Y",
+  allowInput: true,
+});
+
+flatpickr("#patientsEndDate", {
+  dateFormat: "m/d/Y",
+  altInput: true,
+  altFormat: "m/d/Y",
+  allowInput: true,
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(endDate.getDate() - 30);
+
+  flatpickr("#startDate", {}).setDate(startDate);
+  flatpickr("#endDate", {}).setDate(endDate);
+});
+
+function runReport() {
+  const start = document.getElementById("startDate").value;
+  const end = document.getElementById("endDate").value;
+  if (!start || !end) return alert("Please select date range");
+  alert(`Report from ${start} to ${end}`);
+}

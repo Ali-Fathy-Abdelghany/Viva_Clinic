@@ -9,13 +9,13 @@ body {
   font-family: 'Cairo', sans-serif;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background-color: #f0f7f7;
-  position: relative;
+  background-color: #ffffff;
   overflow-x: hidden;
 }
+
 
 body::before {
   content: '';
@@ -254,25 +254,3 @@ body::before {
   text-decoration: underline;
 }
 
-/* ========== Toast message ========== */
-#message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 14px 32px;
-  border-radius: 12px;
-  color: white;
-  font-weight: bold;
-  z-index: 9999;
-  opacity: 0;
-  transition: all 0.4s;
-}
-
-#message.show {
-  opacity: 1;
-  top: 30px;
-}
-
-#message.error { background: #e74c3c; }
-#message.success { background: #27ae60; }

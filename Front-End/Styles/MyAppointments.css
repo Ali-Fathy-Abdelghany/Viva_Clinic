@@ -19,157 +19,323 @@ body {
     background-color: #f0f2f5; 
 }
 
-/* --- NAVBAR STYLES --- */
-.navbar {
-    height: 70px;
-    background: #14a2a0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
+
+/* ========================================================================= */
+/* Navbar                                                                    */
+/* ========================================================================= */
+/* .navbar {
+  height: 70px;
+  background: #14a2a0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
 }
 
 .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 30px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 .menu-icon {
-    color: white;
-    font-size: 26px;
-    cursor: pointer;
-    display: block;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  display: block;
 }
 
 .logo {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    color: white;
-    font-weight: bold;
+  height: 60px;
 }
 
 .nav-links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: 600;
-    font-size: 15px;
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nav-links a.active {
+  text-decoration: underline;
 }
 
 .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    direction: rtl;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  direction: rtl;
 }
 .nav-right > * {
-    direction: ltr; 
+  direction: ltr;              
+}
+ 
+
+.login-btn, .signup-btn {
+  color: white;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.signup-btn {
+  background: #007977;
+}
+
+.signup-btn:hover {
+  background: #00605e;
+}
+
+#userNav {
+  display: flex;
+  align-items: center;
+  gap: 15px;          
+  justify-content: flex-end;
+}
+
+
+.bell-container {
+  position: relative;
+  order: 1;
 }
 
 #bellIcon {
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
 }
+
+.bell-container, .profile-pic {
+  display: flex;
+  align-items: center;
+}
+
 
 .profile-pic2 {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid white;
-}
+  order: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+} */
 
-/* --- SIDEBAR STYLES --- */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -320px;
-    width: 300px;
-    height: 100vh;
-    background: white;
-    box-shadow: 5px 0 25px rgba(0,0,0,0.15);
-    transition: left 0.4s ease;
-    z-index: 1001;
-    padding: 70px 10px;
+/* ========================================================================= */
+/* Sidebar                                                                   */
+/* ========================================================================= */
+/* .sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 300px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+  transition: left 0.4s ease;
+  z-index: 999;
+  padding: 70px 10px;
 }
 
 .sidebar.active {
-    left: 0;
+  left: 0;
+} */
+
+/* Guest Sidebar */
+/* .sidebar-guest-content {
+  text-align: center;
+  padding: 40px 20px;
 }
 
-.user-info {
-    text-align: center;
-    padding: 20px;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 30px;
+.sidebar-guest-content i {
+  font-size: 80px;
+  color: #007977;
+  margin-bottom: 20px;
+}
+
+.login-link {
+  color: #007977;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+} */
+
+/* User Sidebar */
+/* .user-info {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 30px;
 }
 
 .user-info img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 12px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
 }
 
 .user-info h3 {
-    color: #007977;
-    font-size: 15px;
-    margin: 8px 0 4px;
+  color: #007977;
+  font-size: 15px;
+  margin: 8px 0 4px;
 }
 
 .user-info p {
-    color: #666;
-    font-size: 14px;
+  color: #666;
+  font-size: 14px;
 }
 
 .sidebar-menu {
-    list-style: none;
-    padding: 5px 0;
+  list-style: none;
+  padding: 5px 0;
 }
 
 .sidebar-menu li {
-    padding: 16px 20px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    transition: color 0.3s;
+  padding: 16px 0px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
+
 .sidebar-menu li:hover {
-    color: #007977;
-    background-color: #f9f9f9;
+  color: #007977;
 }
 
 .logout-item {
-    color: #d9534f !important;
-}
+  color: #d9534f !important;
+} */
 
-/* --- OVERLAY STYLES --- */
-.overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s;
+/* Overlay */
+/* .overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
 }
 
 .overlay.active {
     opacity: 1;
     visibility: visible;
+} */
+/* ========================================================================= */
+/* Sidebar                                                                   */
+/* ========================================================================= */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 300px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+  transition: left 0.4s ease;
+  z-index: 999;
+  padding: 70px 10px;
 }
 
+.sidebar.active {
+  left: 0;
+}
+
+/* Guest Sidebar */
+.sidebar-guest-content {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.sidebar-guest-content i {
+  font-size: 80px;
+  color: #007977;
+  margin-bottom: 20px;
+}
+
+.login-link {
+  color: #007977;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+/* User Sidebar */
+.user-info {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 30px;
+}
+
+.user-info img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.user-info h3 {
+  color: #007977;
+  font-size: 15px;
+  margin: 8px 0 4px;
+}
+
+.user-info p {
+  color: #666;
+  font-size: 14px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.sidebar-menu li {
+  padding: 16px 0px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sidebar-menu li:hover {
+  color: #007977;
+}
+
+.logout-item {
+  color: #d9534f !important;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
 /* --- DASHBOARD SPECIFIC STYLES --- */
 main.dashboard-container {
     margin-top: 70px;

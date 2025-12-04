@@ -11,8 +11,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background-color: #f0f7f7;
+  background-color: #ffffff;
   position: relative;
   overflow-x: hidden;
 }

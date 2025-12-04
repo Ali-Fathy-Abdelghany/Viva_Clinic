@@ -1,0 +1,282 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f8fcfc; color: #333; }
+
+ .navbar {
+      height: 70px;
+      background: #14a2a0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+    }
+    .nav-left { display: flex; align-items: center; gap: 30px; }
+    .menu-icon { color: white; font-size: 26px; cursor: pointer; }
+    .logo { height: 60px; }
+    .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: 600; font-size: 15px; }
+    .nav-right { display: flex; align-items: center; gap: 25px; }
+    .nav-right i { color: white; font-size: 20px; cursor: pointer; }
+    .profile-pic { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; cursor: pointer; }
+    /* =================== SIDEBAR =================== */
+   /* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 300px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 20px rgba(0,0,0,0.15);
+  padding: 100px 30px 30px;
+  transition: 0.4s;
+  z-index: 999;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar .user-info {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebar .user-info img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.sidebar .user-info h3 {
+  font-size: 15px;
+  color: #007977;
+}
+
+.sidebar .user-info p {
+  color: #666;
+  font-size: 14px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.sidebar ul li {
+  padding: 15px 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sidebar ul li:hover {
+  color: #007977;
+}
+
+.logout-item {
+  color: #d9534f;
+}
+
+.main-content {
+  margin-top: 90px; padding: 40px; max-width: 1400px; margin-left: auto; margin-right: auto;
+}
+
+.appointments-header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
+}
+.appointments-header h1 { font-size: 28px; font-weight: 700; color: #1e293b; }
+.new-appointment-btn {
+  background: #14a2a0; color: white; padding: 12px 28px; border-radius: 12px;
+  font-weight: 600; border: none; cursor: pointer;
+}
+.filters-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;           /* مهم عشان يلف لو الشاشة صغيرة جدًا */
+      gap: 12px;               /* مسافة أقل شوية عشان يستحمل التابلت */
+      background: white;
+      padding: 16px 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+
+    .search-input {
+      padding: 12px 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 15px;
+      min-width: 240px;           /* عشان ميصغرش أوي */
+      flex: 1;                    /* ياخد أكبر مساحة ممكنة */
+    }
+
+    .date-range {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #1e293b;
+      white-space: nowrap;
+    }
+
+    .filter-btn, .sort-btn {
+      background: white;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      height: fit-content;
+    }
+
+    /* عشان على شاشات صغيرة جدًا (موبايل) يحصل لف بشكل حلو */
+    @media (max-width: 768px) {
+      .filters-bar {
+        gap: 10px;
+        padding: 14px;
+      }
+      .search-input {
+        min-width: 200px;
+      }
+      .date-range {
+        font-size: 13px;
+        padding: 10px 12px;
+      }
+      .filter-btn, .sort-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .filters-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-input, .date-range, .filter-btn, .sort-btn {
+        width: 100%;
+      }
+    }
+
+    /* Filter Dropdown */
+   /* تحسين الـ Dropdown عشان ما يتقفلش بسهولة */
+.filter-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  width: 340px;
+  padding: 20px;
+  z-index: 9999;
+  display: none;
+  margin-top: 8px;
+}
+.filter-dropdown.active { display: block; }
+
+/* الحقول داخل الفلتر */
+.filter-input, .date-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.date-input { padding: 10px; }
+
+/* ألوان الـ Status الجديدة بالظبط زي التصميم اللي بعتيه */
+.status-option {
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+.status-option.completed    { background: #d4edda; color: #155724; }
+.status-option.schedule     { background: #cce5ff; color: #004085; }
+.status-option.cancelled    { background: #f8d7da; color: #721c24; }
+.status-option.rescheduled   { background: #fff3cd; color: #856404; }
+
+.status-option.selected {
+  border-color: #14a2a0;
+  box-shadow: 0 0 0 3px rgba(20,162,160,0.2);
+}
+
+
+.appointments-table {
+  background: white; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.table-header {
+  background: #f8fafc; padding: 20px 28px; display: grid;
+  grid-template-columns: 180px 1fr 1fr 120px 120px 60px;
+  font-weight: 600; color: #475569; font-size: 14px;
+}
+
+.appointment-card {
+  padding: 20px 28px; border-bottom: 1px solid #f1f5f9;
+  display: grid; grid-template-columns: 180px 1fr 1fr 120px 120px 60px;
+  align-items: center; gap: 16px;
+}
+.appointment-card:last-child { border-bottom: none; }
+
+.person-info { display: flex; align-items: center; gap: 12px; }
+.person-info img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+.person-name { font-weight: 600; font-size: 15px; color: #1e293b; }
+.person-detail { color: #64748b; font-size: 13px; }
+
+.status {
+  padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 600;
+}
+.status.confirmed { background: #f0fdf4; color: #16a34a; }
+.status.schedule  { background: #dbeafe; color: #2563eb; }
+.status.cancelled { background: #fef2f2; color: #dc2626; }
+
+.actions { text-align: right; font-size: 20px; color: #94a3b8; }
+
+/* Mobile Cards - شكل الفيجما بالضبط */
+@media (max-width: 1024px) {
+  .table-header { display: none; }
+  .appointment-card {
+    grid-template-columns: 130px 1fr auto !important;
+    grid-template-areas:
+      "date patient actions"
+      "date doctor  actions"
+      "date mode    status";
+    gap: 20px; padding: 24px; background: white; border-radius: 16px;
+    margin-bottom: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border: 1px solid #f1f5f9;
+  }
+  .date-time { grid-area: date; font-weight: 600; }
+  .patient-info { grid-area: patient; }
+  .doctor-info { grid-area: doctor; }
+  .mode { grid-area: mode; text-align: right; color: #475569; margin-top: 8px; }
+  .status { grid-area: status; justify-self: end; margin-top: 8px; }
+  .actions { grid-area: actions; text-align: right; font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+  .filters-bar { flex-direction: column; align-items: stretch; }
+  .search-input, .date-range, .filter-btn, .sort-btn { width: 100%; }
+}

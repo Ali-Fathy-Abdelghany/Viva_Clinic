@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="Styles/patient-form.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel ="stylesheet" href="Styles/bell.css" />
+  <link rel="stylesheet" href="Styles/nav-side-logout.css" />
+  <link rel="stylesheet" href="Styles/message.css" />
 </head>
 <body class="patient-page">
 
@@ -22,8 +24,8 @@
       
      <div class="nav-links">
   <a href="homepage.html" class="nav-link">Home</a>
-   <a href="#doctors"  class="nav-link" data-section="doctors">Most Popular</a>
-    <a href="#contact"  class="nav-link" data-section="contact">Contact</a>
+  <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+  <a href="homepage.html#contact" class="nav-link">Contact</a>
 </div>
 
     </div>
@@ -36,40 +38,51 @@
       </div>
       
       <!-- User profile picture - clickable (goes to patient profile) -->
+    <a href="PatientMedicalRecord.html">
       <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+    </a>    </div>
+      <img src="images/default-avatar.png" class="profile-pic2 profilePic" alt="User Profile">
     </div>
   </nav>
 
   <!-- ==================================== SIDEBAR ==================================== -->
   <div class="sidebar" id="sidebar">
+
+        <div id="userSidebar" class="hidden"> 
+            <div class="user-info">
+                <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+                <h3 id="sidebar-user-name">Loading...</h3>
+                <p id="sidebar-user-email">loading@demo.com</p>
+            </div>
     <div>
       <!-- Logged-in user info -->
       <div class="user-info">
         <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">name</h3>
-        <p id="sidebar-user-email">email@demo.com</p>
+        <h3 class="sidebar-user-name">name</h3>
+        <p class="sidebar-user-email">email@demo.com</p>
       </div>
-      
-      <!-- Sidebar navigation menu -->
-      <ul>
-        <li onclick="window.location.href='my-appointments.html'">
-          <i class="fas fa-calendar-check"></i> My Appointments
-        </li>
-        <li onclick="window.location.href='medical-record.html'">
-          <i class="fas fa-file-medical"></i> Medical Record
-        </li>
-        <li onclick="window.location.href='chats.html'">
-          <i class="fas fa-comments"></i> Chats
-        </li>
-        <li onclick="window.location.href='settings.html'">
-          <i class="fas fa-cog"></i> Settings
-        </li>
-        <li id="logoutBtn" class="logout-item">
-          <i class="fas fa-sign-out-alt"></i> Log Out
-        </li>
-      </ul>
+
+            <ul class="sidebar-menu">
+                <li onclick="window.location.href='MyAappointments.html'">
+                    <i class="fas fa-calendar-check"></i> My Appointments
+                </li>
+                <li onclick="window.location.href='medical-record.html'">
+                    <i class="fas fa-file-medical"></i> Medical Record
+                </li>
+                <li onclick="window.location.href='chats.html'">
+                    <i class="fas fa-comments"></i> Chats
+                </li>
+                <li onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i> Settings
+                </li>
+                <li id="logoutBtn" class="logout-item">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
+
+    <div id="sidebarOverlay" class="overlay hidden"></div>
 
   <!-- ==================================== MAIN CONTENT ==================================== -->
   <main>
@@ -77,13 +90,12 @@
 
     <!-- Profile picture upload section -->
     <div class="profile-section">
-      <img id="profile-preview" src="images/assets/profile-placeholder.png" alt="Profile Preview">
-      <input type="file" id="profile-picture" accept="image/*">
+      <img id="profile-preview" src="images/default-avatar.png" alt="Profile Preview" >
+      <input type="file" class="profile-picture" accept="image/*">
     </div>
 
     <!-- Patient personal & medical information form -->
     <form id="patient-form" class="patient-form">
-
       <!-- Row: First & Last Name -->
       <div class="form-row">
         <div class="form-group">
@@ -120,7 +132,6 @@
             <option value="">Select</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="other">Other</option>
           </select>
         </div>
       </div>
@@ -129,36 +140,45 @@
       <div class="form-row">
         <div class="form-group">
           <label for="blood-group">Blood Group</label>
-          <input type="text" id="blood-group" placeholder="e.g. A+, O-, AB+">
+          <select id="blood-group">
+            <option value="">Select</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
         </div>
       </div>
 
       <!-- Address Lines -->
       <div class="form-group">
-        <label for="address1">Address Line 1</label>
+        <label for="address1">Address Line </label>
         <input type="text" id="address1" placeholder="Street, Building, Apartment">
       </div>
-      <div class="form-group">
-        <label for="address2">Address Line 2 <small>(Optional)</small></label>
-        <input type="text" id="address2" placeholder="Area, City, Governorate">
-      </div>
+
 
       <!-- Medical History -->
       <div class="form-group">
-        <label for="chronic">Chronic Illness</label>
-        <input type="text" id="chronic" placeholder="e.g. Diabetes, Hypertension">
-      </div>
-      <div class="form-group">
-        <label for="allergies">Allergies</label>
-        <input type="text" id="allergies" placeholder="e.g. Penicillin, Nuts">
-      </div>
-      <div class="form-group">
-        <label for="past-surgeries">Past Surgeries / Hospitalization</label>
-        <input type="text" id="past-surgeries" placeholder="e.g. Appendectomy 2020">
-      </div>
-      <div class="form-group">
-        <label for="current-medication">Current Medication</label>
-        <input type="text" id="current-medication" placeholder="e.g. Metformin 500mg daily">
+         <div class="checkbox-block">
+            
+            <label class="block-title"><strong>Chronic Illnesses:</strong></label>
+            <label>Diabetes <input type="checkbox" name="chronic" value="diabetes"></label>
+            <label>Hypertension <input type="checkbox" name="chronic" value="hypertension"></label>
+            <label>Asthma <input type="checkbox" name="chronic" value="asthma"></label>
+            <label>Other <input type="checkbox" name="chronic" value="other"></label>
+        </div>
+
+        <div class="checkbox-block">
+            <label class="block-title"><strong>Allergies:</strong></label>
+            <label>Medication <input type="checkbox" name="allergies" value="medication"></label>
+            <label>Environmental <input type="checkbox" name="allergies" value="environmental"></label>
+            <label>Food <input type="checkbox" name="allergies" value="food"></label>
+            <label>Other <input type="checkbox" name="allergies" value="other"></label>
+        </div>
       </div>
 
       <!-- Form action buttons -->
@@ -168,10 +188,24 @@
       </div>
     </form>
   </main>
+  <!-- ==================================== LOGOUT MODAL ==================================== -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
+
+  <div id="message"></div>
 
   <!-- Main JavaScript file (includes auth, dashboard, and profile logic) -->
+  <script src="scripts/loadData.js"></script>
   <script src="scripts/auth-shared.js"></script>
   <script src="scripts/common-layout.js"></script>
+  <script src="scripts/Dynamic Navigation Logic.js"></script>
   <script src="scripts/patient-form.js"></script>
   <script src="scripts/bell.js"></script>
 </body>

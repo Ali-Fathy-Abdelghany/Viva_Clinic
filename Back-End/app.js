@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const { errorHandler } = require("./middleware/errorHandler");
 const { apiLimiter, adminLimiter } = require("./middleware/rateLimit");
 const config = require("./config/config");
+const path = require("path");
 
 const authRoutes = require("./routes/authRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
@@ -38,6 +39,8 @@ app.get("/health", (req, res) => {
         timestamp: new Date().toISOString(),
     });
 });
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // API Routes with rate limiting
 app.use("/api/auth", authRoutes);

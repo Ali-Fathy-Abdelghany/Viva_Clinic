@@ -66,7 +66,18 @@ const validatePatientProfile = [
   body('Gender').optional().isIn(['F', 'M']).withMessage('Gender must be F or M'),
   body('Address').optional().trim(),
   body('BloodType').optional().trim(),
-  body('ChronicDisease').optional().trim(),
+  // ChronicDisease may be a string or an array of strings (from checkbox inputs)
+  body('ChronicDisease').optional().custom((value) => {
+    if (Array.isArray(value)) return true;
+    if (typeof value === 'string') return true;
+    throw new Error('ChronicDisease must be a string or array');
+  }),
+  // Allergies may be a string or an array of strings (from checkbox inputs)
+  body('Allergies').optional().custom((value) => {
+    if (Array.isArray(value)) return true;
+    if (typeof value === 'string') return true;
+    throw new Error('Allergies must be a string or array');
+  }),
   validate
 ];
 
@@ -75,7 +86,6 @@ const validateAppointmentBooking = [
   body('DoctorID').isInt().withMessage('Doctor ID must be a valid integer'),
   body('AppointmentDate').isISO8601().withMessage('Invalid date format'),
   body('StartTime').matches(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/).withMessage('Invalid time format (HH:MM)'),
-  body('EndTime').matches(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/).withMessage('Invalid time format (HH:MM)'),
   validate
 ];
 

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viva Clinic - Explore All Doctors</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Styles/ExploreAllDoctors.css">
+  <link rel="stylesheet" href="Styles/bell.css">
+  <link rel="stylesheet" href="Styles/nav-side-logout.css">
+
+
+  <script src="scripts/Dynamic Navigation Logic.js" defer></script>
+  <script src="scripts/ExploreAllDoctors.js" defer></script>
+  <script src="scripts/bell.js" defer></script>
+  <script src="scripts/common-layout.js" defer></script>
+  <script src="scripts/logout-modal.js" defer></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      <img src="images/logo.png" alt="Viva Clinic" class="logo">
+      <div class="nav-links">
+      <a href="homepage.html#home" class="nav-link">Home</a>        
+      <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+        <a href="homepage.html#contact" class="nav-link">Contact</a>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <div id="guestNav">
+        <a href="login.html" class="login-btn">Login</a>
+        <a href="medical.html" class="signup-btn">Sign Up</a>
+      </div>
+
+      <div id="userNav" class="hidden">
+        <div class="bell-container">
+          <i class="fas fa-bell" id="bellIcon"></i>
+          <div class="notifications-menu" id="notificationsMenu"></div>
+        </div>
+        <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <!-- Guest Sidebar -->
+    <div id="guestSidebar">
+      <div class="sidebar-guest-content">
+        <i class="fas fa-user-circle" style="font-size:80px;color:#007977;"></i><br><br>
+        <a href="login.html" style="color:#007977;font-weight:bold;font-size:18px;">Log in to your account</a>
+      </div>
+    </div>
+
+    <!-- User Sidebar -->
+    <div id="userSidebar" class="hidden">
+      <div class="user-info">
+        <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+        <h3 id="sidebar-user-name">Loading...</h3>
+        <p id="sidebar-user-email">loading@demo.com</p>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li onclick="window.location.href='Appointments.html'">
+          <i class="fas fa-calendar-check"></i> My Appointments
+        </li>
+        <li onclick="window.location.href='PatientMedicalRecord.html'">
+          <i class="fas fa-file-medical"></i> Medical Record
+        </li>
+        <li onclick="window.location.href='chats.html'">
+          <i class="fas fa-comments"></i> Chats
+        </li>
+        <li onclick="window.location.href='settings.html'">
+          <i class="fas fa-cog"></i> Settings
+        </li>
+        <li id="logoutBtn" class="logout-item">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="sidebarOverlay" class="overlay hidden"></div>
+
+  <!-- Explore All Doctors Page -->
+  <section class="explore-doctors-page">
+    <div class="container">
+      <h1 class="page-title">Explore All Doctors</h1>
+
+      <div class="search-container">
+        <div class="search-box">
+          <i class="fas fa-filter filter-icon" id="filterBtn"></i>
+          <input type="text" placeholder="Search For Doctor..." id="doctorSearch">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Filter Dropdown -->
+        <div class="filter-dropdown" id="filterDropdown">
+          <div class="filter-item active" data-type="name">
+            <i class="fas fa-user-md"></i>
+            <div class="filter-text">
+              <div class="filter-title">Search by Name</div>
+              <div class="filter-subtitle">Find doctors by their name</div>
+            </div>
+          </div>
+          <div class="filter-item" data-type="specialty">
+            <i class="fas fa-stethoscope"></i>
+            <div class="filter-text">
+              <div class="filter-title">Search by Specialty</div>
+              <div class="filter-subtitle">Cardiologist, Dentist, etc.</div>
+            </div>
+          </div>
+          <div class="filter-item" data-type="price">
+            <i class="fas fa-money-bill-wave"></i>
+            <div class="filter-text">
+              <div class="filter-title">Sort by Price</div>
+              <div class="filter-subtitle">From lowest to highest</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doctors-grid" id="doctorsGrid">
+        <div class="doctors-container">
+        <div class="doctor-card" onclick="window.location.href='doctor-profile.html'">
+          <img src="images/doctor.png" alt="Dr. Sara Ali">
+          <div class="doctor-details">
+            <h3>Dr. Sara Ali</h3>
+            <p class="specialty">Cardiologist</p>
+            <p class="price">Starts from: <strong>250 EGP</strong></p>
+          </div>
+          <span class="arrow">></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ==================================== LOGOUT MODAL ==================================== -->
+    <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

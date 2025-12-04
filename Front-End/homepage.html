@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="Styles/bell.css" />
   <script src="scripts/bell.js" defer></script>
+  <link rel="stylesheet" href="Styles/nav-side-logout.css" />
+  <link rel="stylesheet" href="Styles/message.css" />
 </head>
 <body>
 
@@ -37,14 +39,14 @@
       </div>
       
       <!-- User profile picture - clickable (goes to patient profile) -->
-      <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="User Profile">
+      <img src="images/default-avatar.png" class="profile-pic profilePic" alt="User Profile">
     </div>
    </div>
   </nav>
 
   <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-  <!-- Guest Sidebar (اللي بيظهر لما مفيش لوجن) -->
+  <!-- Guest Sidebar ) -->
   <div id="guestSidebar">
     <div class="sidebar-guest-content">
       <i class="fas fa-user-circle" style="font-size:80px;color:#007977;"></i><br><br>
@@ -52,12 +54,12 @@
     </div>
   </div>
 
-  <!-- User Sidebar (اللي لازم يظهر لما اليوزر مسجل دخوله) -->
-  <div id="userSidebar" class="hidden">   <!-- ملاحظة: hidden من الأول عشان الـ JS يتحكم فيه -->
+  <!-- User Sidebar  -->
+  <div id="userSidebar" class="hidden">   
     <div class="user-info">
       <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-      <h3 id="sidebar-user-name">Loading...</h3>
-      <p id="sidebar-user-email">loading@demo.com</p>
+      <h3 class="sidebar-user-name">Loading...</h3>
+      <p class="sidebar-user-email">loading@demo.com</p>
     </div>
 
     <ul class="sidebar-menu">
@@ -73,7 +75,7 @@
       <li onclick="window.location.href='settings.html'">
         <i class="fas fa-cog"></i> Settings
       </li>
-      <li id="logoutBtn" class="logout-item">
+      <li id="logoutBtn" class="logout-item" href="logout-modal.html">
         <i class="fas fa-sign-out-alt"></i> Log Out
       </li>
     </ul>
@@ -117,7 +119,7 @@
     <section class="doctors-section" id="doctors">
       <h2>Most Popular</h2>
       <div class="doctors-container">
-        <div class="doctor-card">
+        <div class="doctor-card" onclick="window.location.href='doctor-profile.html'">
           <img src="images/doctor.png" alt="Dr. Sara Ali">
           <div class="doctor-details">
             <h3>Dr. Sara Ali</h3>
@@ -128,7 +130,7 @@
         </div>
       </div>
       <div class="explore-more">
-        <a href="#" class="btn large">Explore All Doctors</a>
+        <a href="ExploreAllDoctors.html" class="btn large">Explore All Doctors</a>
       </div>
     </section>
 
@@ -155,8 +157,18 @@
     </section>
 
   </main>
+    <!-- ==================================== LOGOUT MODAL ==================================== -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
 
-  <!-- Footer تحت خالص دايمًا -->
+  <!-- Footer   -->
   <footer>
     <p>© 2025 Viva Clinic. All rights reserved.</p>
     <div class="social">
@@ -167,8 +179,8 @@
     </div>
   </footer>
 
+  <script src="scripts/loadData.js"></script>
   <script src="scripts/common-layout.js"></script>
   <script src="scripts/Dynamic Navigation Logic.js"></script>
-  <script src="scripts/web-app.js"></script>
 </body>
 </html>

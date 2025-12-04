@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Dashboard | Viva Clinic</title>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
@@ -197,8 +198,10 @@
               <strong>General Visit</strong>
               <div>Wed, 09 Apr 2025, 10:00 AM</div>
             </div>
-            <a href="#" class="view-all">View All Appointments</a>
-          </div>
+            <a href="Appointments.html" class="view-all">
+              View All Appointments
+              <i class="fas fa-arrow-right ml-2"></i>
+            </a>          </div>
         </div>
       </div>
 
@@ -247,8 +250,7 @@
       </div>
     </section>
 
-    <!-- Appointment Report Section -->
-      <!-- Appointment Report Cards (زي الصورة بالضبط) -->
+<!-- Appointment Report Section -->
 <div class="report-header">
   <h1 class="section-title">Appointment Report</h1>
   <button class="export-btn">
@@ -257,6 +259,7 @@
   </button>
 </div>
 
+<!-- Appointment Summary Cards -->
 <div class="report-stats-cards">
   <div class="report-card total">
     <div class="report-icon"><i class="material-icons-round">event_note</i></div>
@@ -299,55 +302,70 @@
   </div>
 </div>
 
-
-      <!-- Filters + Run Report (زي الصورة بالضبط) -->
-      <div class="report-filters">
-        <div class="filter-row">
-          <div class="filter-group">
-            <label>Date</label>
-            <input type="text" placeholder="dd/mm/yyyy - dd/mm/yyyy">
-          </div>
-          <div class="filter-group">
-            <label>Patient</label>
-            <select><option>Select</option></select>
-          </div>
-          <div class="filter-group">
-            <label>Location</label>
-            <select><option>Select</option></select>
-          </div>
-        </div>
-        <div class="filter-row">
-          <div class="filter-group">
-            <label>Practitioner</label>
-            <select><option>Select</option></select>
-          </div>
-          <div class="filter-group">
-            <label>Designation</label>
-            <select><option>Select</option></select>
-          </div>
-          <div class="filter-group status-group">
-            <label>Status</label>
-            <div class="status-tags">
-              <span class="tag">Pending <i class="fas fa-times"></i></span>
-              <span class="tag">Complete <i class="fas fa-times"></i></span>
-            </div>
-          </div>
-          <button class="run-report-btn"><i class="fas fa-play"></i> Run Report</button>
-        </div>
+<!-- Date Range + Run Report (Beautiful centered card - same as Patients Report) -->
+<div class="report-date-range">
+  <h3 class="date-range-title">Date Range</h3>
+  
+  <div class="date-inputs-row">
+    <div class="date-field">
+      <label>Start Date</label>
+      <div class="date-input-wrapper">
+        <input type="text" 
+               id="appointmentsStartDate" 
+               placeholder="mm/dd/yyyy" 
+               class="date-input flatpickr">
+        <i class="far fa-calendar-alt calendar-icon"></i>
       </div>
-
-      <div class="section">
-        <table class="report-table">
-          <thead><tr><th>Date & Time</th><th>Patient</th><th>Invoice ID</th><th>Practitioner</th><th>Location</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>May 27 2025 - 09:30 AM</td><td>Alberto Ripley</td><td>#INV0020</td><td>Dr. Mick Thompson</td><td>California</td><td><span class="status checked">Checked Out</span></td></tr>
-            <tr><td>May 27 2025 - 10:00 AM</td><td>Susan Babin</td><td>#INV0019</td><td>Dr. Sarah Johnson</td><td>Texas</td><td><span class="status cancelled">Cancelled</span></td></tr>
-          </tbody>
-        </table>
+    </div>
+    
+    <div class="date-field">
+      <label>End Date</label>
+      <div class="date-input-wrapper">
+        <input type="text" 
+               id="appointmentsEndDate" 
+               placeholder="mm/dd/yyyy" 
+               class="date-input flatpickr">
+        <i class="far fa-calendar-alt calendar-icon"></i>
       </div>
+    </div>
+  </div>
+
+  <button class="run-report-btn" onclick="runAppointmentsReport()">
+    <i class="fas fa-play"></i> Run Report
+  </button>
+</div>
+
+<!-- Appointments Table -->
+<div class="section">
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th>Date & Time</th>
+        <th>Patient</th>
+        <th>Practitioner</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>May 27 2025 - 09:30 AM</td>
+        <td>Alberto Ripley</td>
+        <td>Dr. Mick Thompson</td>
+        <td><span class="status rescheduled">Rescheduled</span></td>
+      </tr>
+      <tr>
+        <td>May 27 2025 - 10:00 AM</td>
+        <td>Susan Babin</td>
+        <td>Dr. Sarah Johnson</td>
+        <td><span class="status cancelled">Cancelled</span></td>
+      </tr>
+      <!-- Add more rows dynamically later -->
+    </tbody>
+  </table>
+</div>
     </section>
 
-    <!-- Patients Report Section -->
+   <!-- Patients Report Section -->
 <div class="report-header">
   <h1 class="section-title">Patients Report</h1>
   <button class="export-btn">
@@ -356,6 +374,7 @@
   </button>
 </div>
 
+<!-- Patients Summary Cards -->
 <div class="report-stats-cards patients">
   <div class="report-card total-patients">
     <div class="report-icon"><i class="material-icons-round">people</i></div>
@@ -394,54 +413,73 @@
   </div>
 </div>
 
-      <!-- نفس الفلاتر + Run Report -->
-      <div class="report-filters">
-        <div class="filter-row">
-          <div class="filter-group">
-            <label>Date</label>
-            <input type="text" placeholder="dd/mm/yyyy - dd/mm/yyyy">
-          </div>
-          <div class="filter-group">
-            <label>Patient</label>
-            <select><option>Select</option></select>
-          </div>
-          <div class="filter-group">
-            <label>Location</label>
-            <select><option>Select</option></select>
-          </div>
-        </div>
-        <div class="filter-row">
-          <div class="filter-group">
-            <label>Practitioner</label>
-            <select><option>Select</option></select>
-          </div>
-          <div class="filter-group">
-            <label>Designation</label>
-            <select><option>Select</option></select>
-          </div>
-          <div class="filter-group status-group">
-            <label>Status</label>
-            <div class="status-tags">
-              <span class="tag">Pending <i class="fas fa-times"></i></span>
-              <span class="tag">Complete <i class="fas fa-times"></i></span>
-            </div>
-          </div>
-          <button class="run-report-btn"><i class="fas fa-play"></i> Run Report</button>
-        </div>
+<!-- Date Range + Run Report (Same style as Appointment Report) -->
+<div class="report-date-range">
+  <h3 class="date-range-title">Date Range</h3>
+  
+  <div class="date-inputs-row">
+    <div class="date-field">
+      <label>Start Date</label>
+      <div class="date-input-wrapper">
+        <input type="text" 
+               id="patientsStartDate" 
+               placeholder="mm/dd/yyyy" 
+               class="date-input flatpickr">
+        <i class="far fa-calendar-alt calendar-icon"></i>
       </div>
-
-      <div class="section">
-        <table class="report-table">
-          <thead><tr><th>Patient</th><th>Age/Gender</th><th>Contact Info</th><th>Practitioner</th><th>Location</th><th>Last Visit</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Alberto Ripley</td><td>25/Male</td><td>+1 43554 5484</td><td>Dr. Mick Thompson</td><td>California</td><td>30 Apr 2025</td><td><span class="status available">Available</span></td></tr>
-            <tr><td>Susan Babin</td><td>27/Female</td><td>susan@example.com</td><td>Dr. Sarah Johnson</td><td>Texas</td><td>15 Apr 2025</td><td><span class="status unavailable">Unavailable</span></td></tr>
-          </tbody>
-        </table>
+    </div>
+    
+    <div class="date-field">
+      <label>End Date</label>
+      <div class="date-input-wrapper">
+        <input type="text" 
+               id="patientsEndDate" 
+               placeholder="mm/dd/yyyy" 
+               class="date-input flatpickr">
+        <i class="far fa-calendar-alt calendar-icon"></i>
       </div>
-    </section>
-
+    </div>
   </div>
+
+  <button class="run-report-btn" onclick="runPatientsReport()">
+    <i class="fas fa-play"></i> Run Report
+  </button>
+</div>
+
+<!-- Patients Table -->
+<div class="section">
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Age/Gender</th>
+        <th>Contact Info</th>
+        <th>Practitioner</th>
+        <th>Last Visit</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Alberto Ripley</td>
+        <td>25/Male</td>
+        <td>+1 43554 5484</td>
+        <td>Dr. Mick Thompson</td>
+        <td>30 Apr 2025</td>
+        <td><span class="status available">Available</span></td>
+      </tr>
+      <tr>
+        <td>Susan Babin</td>
+        <td>27/Female</td>
+        <td>susan@example.com</td>
+        <td>Dr. Sarah Johnson</td>
+        <td>15 Apr 2025</td>
+        <td><span class="status unavailable">Unavailable</span></td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="scripts/admin-dashboard.js"></script>

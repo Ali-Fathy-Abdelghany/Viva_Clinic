@@ -1,5 +1,5 @@
 /* ================= NAV/SIDEBAR LOGIC ================= */
-const menuBtn = document.getElementById('menuBtn');
+/* const menuBtn = document.getElementById('menuBtn');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('sidebarOverlay');
 const logoutBtn = document.getElementById('logoutBtn');
@@ -21,9 +21,7 @@ if (logoutBtn) {
             // window.location.href = 'login.html';
         }
     });
-}
-
-
+} */
 /* ================= DASHBOARD LOGIC ================= */
 
 // --- 1. DATA MODEL & STATE ---

@@ -1,5 +1,5 @@
 // Shared helpers for auth-related pages
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = 'http://127.0.0.1:3000/api';
 window.API_BASE = API_BASE;
 
 function showMessage(text, type = 'success') {
@@ -34,7 +34,7 @@ function setupRoleToggle() {
     btn.addEventListener('click', function () {
       buttons.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
-      localStorage.setItem('selectedRole', this.textContent.trim().toLowerCase());
+      localStorage.setItem('selectedRole', this.textContent.trim());
     });
   });
 }
@@ -43,7 +43,7 @@ function restoreRoleSelection() {
   const savedRole = localStorage.getItem('selectedRole');
   if (!savedRole) return;
   document.querySelectorAll('.toggle-btn').forEach(btn => {
-    if (btn.textContent.trim().toLowerCase() === savedRole) {
+    if (btn.textContent.trim() === savedRole) {
       btn.classList.add('active');
     }
   });

@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Medical Record</title>
     <link rel="stylesheet" href="Styles/PatientMedicalRecord.css"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="Styles/bell.css" />
+    <link rel="stylesheet" href="Styles/nav-side-logout.css" />
+    <link rel="stylesheet" href="Styles/message.css" />
 </head>
 <body>
   <!-- ==================================== NAVBAR ==================================== -->
@@ -38,7 +42,7 @@
       
       <!-- User profile picture - clickable (goes to patient profile) -->
     <a href="PatientMedicalRecord.html">
-      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+      <img src="images/default-avatar.png" class="profile-pic2 profilePic" alt="User Profile">
     </a>    </div>
   </nav>
 <!-- Sidebar -->
@@ -49,14 +53,14 @@
   <div id="userSidebar" class="hidden">   <!-- ملاحظة: hidden من الأول عشان الـ JS يتحكم فيه -->
     <div class="user-info">
       <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-      <h3 id="sidebar-user-name">Loading...</h3>
-      <p id="sidebar-user-email">loading@demo.com</p>
+      <h3 class="sidebar-user-name">Loading...</h3>
+      <p class="sidebar-user-email">loading@demo.com</p>
     </div>
 
     <ul class="sidebar-menu">
-      <li onclick="window.location.href='my-appointments.html'">
+      <li onclick="window.location.href='MyAppointments.html'">
         <i class="fas fa-calendar-check"></i> My Appointments
-      </li>
+  
       <li onclick="window.location.href='PatientMedicalRecord.html'">
         <i class="fas fa-file-medical"></i> Medical Record
       </li>
@@ -81,14 +85,13 @@
     <section class="patient-card">
         <div class="card-header">
             <div class="profile-info">
-                <img src="images/Profile2.jpeg" alt="Maria Steive" class="profile-pic">
+                <img src="images/Profile2.jpeg" alt="profile picture" class="profile-pic profilePic" >
                 <div class="details">
                     <p class="patient-id">Patient id</p>
-                    <h1>Maria Steive</h1>
+                    <h1 class="sidebar-user-name">Maria Steive</h1>
                     <p class="address">4150 Hincy Road, Las Vegas, NV 89109</p>
                     <div class="contact-info">
-                        <span>📞 Phone : +1 54546 45648</span>
-                        <span>📅 Last Visited: 30 Apr 2025</span>
+                       📞 Phone :  <span id="sidebar-user-phone">+1 54546 45648</span>
                     </div>
                 </div>
             </div>
@@ -104,19 +107,19 @@
             <div class="about-details">
                 <div>
                     <span class="icon fas fa-birthday-cake"></span>
-                    <p>DOB: 01 Jan 1990</p>
+                    <p>DOB: <span id="sidebar-user-dob">01 Jan 1990</span></p>
                 </div>
                 <div>
                     <span class="icon fas fa-tint"></span>
-                    <p>Blood Group: A+</p>
+                    <p>Blood Group: <span id="sidebar-user-blood-group">A+</span></p>
                 </div>
                 <div>
                     <span class="icon fas fa-venus-mars"></span>
-                    <p>Gender: Female</p>
+                    <p>Gender: <span id="sidebar-user-gender">Female</span></p>
                 </div>
                 <div>
                     <span class="icon fas fa-envelope"></span>
-                    <p>Email: Maria@example.com</p>
+                    <p>Email: <span class="sidebar-user-email">Maria@example.com</span></p>
                 </div>
             </div>
         </div>
@@ -183,12 +186,63 @@
             </tbody>
         </table>
     </section>
+    
+  <div id="message"></div>
+      <!-- ==================================== LOGOUT MODAL ==================================== -->
+
+    <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
                  
-    <script src="scripts/common-layout.js"></script>
+    <div id="prescriptionModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header-info">
+                <img src="images/logo.png" alt="Viva Clinic Logo" class="modal-clinic-logo">
+                <div class="doctor-info">
+                    <img src="images/doctor.png" alt="Dr. Sarah Ali" class="doctor-profile-pic">
+                    <div>
+                        <p><strong>Dr. Sarah Ali</strong></p>
+                        <p class="specialty-hashtag">#Cardiologist</p>
+                    </div>
+                </div>
+                <div class="date-box">
+                    <span>27 May 2025</span>
+                </div>
+            </div>
+
+            <div class="patient-details-modal">
+                <p><strong>Patient Name:</strong> Maria Steive</p>
+                <p><strong>Age:</strong> 35</p>
+                <p><strong>Gender:</strong> Female</p>
+            </div>
+
+            <div class="prescription-form">
+                <label>Diagnosis</label>
+                <div class="input-display-box">Fever</div>
+
+                <label>Drug Name</label>
+                <div class="input-display-box">Panadol Extra (500mg)</div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+    <div id="downloadToast" class="toast-message">
+        <i class="fas fa-check-circle"></i> Download Successful!
+    </div>
+
+    <script src="scripts/loadData.js"></script>
     <script src="scripts/bell.js"></script>
     <script src="scripts/role-control.js"></script>
-
-
+    <script src="scripts/prescription.js"></script>
 
 </body>
 </html>

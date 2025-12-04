@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viva Clinic - Appointments</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="Styles/Appointments-admin-view.css">
+    <link rel="stylesheet" href="Styles/bill.css">
+
+</head>
+<body class="bg-gray-50">
+
+<!-- Navbar بتاعك -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        
+      </div>
+    </div>
+    <div class="nav-right">
+      <i class="fas fa-bell"></i>
+      <img src="images/default-avatar.png" class="profile-pic" alt="User">
+    </div>
+  </nav>
+<!-- Sidebar navigation menu -->
+ <!-- Sidebar الكامل (اللي فعلاً هيشتغل) -->
+<div class="sidebar" id="sidebar">
+  <div class="user-info">
+    <img src="images/default-avatar.png" alt="Admin">
+    <h3>Admin User</h3>
+    <p>admin@vivaclinic.com</p>
+  </div>
+
+  <ul>
+    <li onclick="window.location.href='dashboard.html'">
+      <i class="fas fa-tachometer-alt"></i> Dashboard
+    </li>
+    <li onclick="window.location.href='doctor grid.html'">
+      <i class="fas fa-user-md"></i> Doctors
+    </li>
+    <li onclick="window.location.href='patient grid.html'">
+      <i class="fas fa-users"></i> Patients
+    </li>
+    <li onclick="window.location.href='register.html'">
+      <i class="fas fa-user-plus"></i> Register
+    </li>
+    <li onclick="window.location.href='settings.html'">
+      <i class="fas fa-cog"></i> Settings
+    </li>
+    <li id="logoutBtn" class="logout-item">
+      <i class="fas fa-sign-out-alt"></i> Log Out
+    </li>
+  </ul>
+</div>
+  <div class="main-content">
+
+    <div class="appointments-header">
+      <h1 class="text-3xl font-bold text-gray-800">Appointments</h1>
+    </div>
+
+    
+
+ <!-- Filters Bar -->
+<div class="filters-bar">
+  <div class="relative">
+    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+    <input type="text" id="searchInput" class="search-input pl-10" placeholder="Search">
+  </div>
+
+  <div class="date-range">27 May 2025 - 02 Jun 2025</div>
+
+  <!-- Filter Button + Dropdown -->
+  <div class="relative">
+    <button class="filter-btn" id="filterToggle">
+      <i class="fas fa-filter"></i> Filter
+    </button>
+
+    <!-- الـ Dropdown الجديد كله -->
+    <div class="filter-dropdown" id="filterMenu">
+      <div class="filter-group">
+        <label>Date Range</label>
+        <div class="flex items-center gap-2">
+          <input type="date" id="dateFrom" class="date-input">
+          <span class="text-gray-400">to</span>
+          <input type="date" id="dateTo" class="date-input">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Patient Name</label>
+        <input type="text" id="patientNameFilter" placeholder="Enter patient name" class="filter-input">
+      </div>
+
+      <div class="filter-group">
+        <label>Doctor</label>
+        <select id="doctorFilter" class="filter-input">
+          <option value="">All Doctors</option>
+          <option>Dr. Emily Carter</option>
+          <option>Dr. David Lee</option>
+          <option>Dr. John Smith</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Mode</label>
+        <select id="modeFilter" class="filter-input">
+          <option value="">All</option>
+          <option>Online</option>
+          <option>In-Person</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Status</label>
+        <div class="status-options">
+          <div class="status-option completed" data-status="completed">Completed</div>
+          <div class="status-option schedule" data-status="schedule">Schedule</div>
+          <div class="status-option cancelled" data-status="cancelled">Cancelled</div>
+          <div class="status-option rescheduled" data-status="rescheduled">Rescheduled</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <select id="sortSelect" class="sort-btn">
+    <option value="recent">Sort By: Recent</option>
+    <option value="oldest">Sort By: Oldest</option>
+    <option value="fee-high">Fees (High to Low)</option>
+    <option value="fee-low">Fees (Low to High)</option>
+  </select>
+</div>
+    <!-- Appointments Table / Cards -->
+    <div class="appointments-table" id="tableContainer">
+      <div class="table-header">
+        <div>Date & Time</div>
+        <div>Patient</div>
+        <div>Doctor</div>
+        <div>Mode</div>
+        <div>Status</div>
+        <div></div>
+      </div>
+
+      <!-- Appointment Cards (with data attributes) -->
+      <div class="appointment-card" data-date="2025-04-02" data-fee="150" data-mode="Online" data-status="cancelled">
+        <div class="date-time"><strong>02 Apr 2025</strong><br>08:15 AM</div>
+        <div class="patient-info person-info">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+          <div>
+            <div class="person-name">Carol Lam</div>
+            <div class="person-detail">+1 55654 56647</div>
+          </div>
+        </div>
+        <div class="doctor-info person-info">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+          <div>
+            <div class="person-name">Dr. Emily Carter</div>
+            <div class="person-detail">Pediatrician</div>
+          </div>
+        </div>
+        <div class="mode">Online</div>
+        <div class="status cancelled">Cancelled</div>
+        <div class="actions">⋮</div>
+      </div>
+
+      <div class="appointment-card" data-date="2025-03-27" data-fee="220" data-mode="In-Person" data-status="schedule">
+        <div class="date-time"><strong>27 Mar 2025</strong><br>02:00 PM</div>
+        <div class="patient-info person-info">
+          <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="">
+          <div>
+            <div class="person-name">Marsha Noland</div>
+            <div class="person-detail">+1 65668 54558</div>
+          </div>
+        </div>
+        <div class="doctor-info person-info">
+          <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="">
+          <div>
+            <div class="person-name">Dr. David Lee</div>
+            <div class="person-detail">Gynecologist</div>
+          </div>
+        </div>
+        <div class="mode">In-Person</div>
+        <div class="status schedule">Schedule</div>
+        <div class="actions">⋮</div>
+      </div>
+
+      <div class="appointment-card" data-date="2025-03-05" data-fee="350" data-mode="Online" data-status="confirmed">
+        <div class="date-time"><strong>05 Mar 2025</strong><br>11:15 AM</div>
+        <div class="patient-info person-info">
+          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="">
+          <div>
+            <div class="person-name">Jesus Adams</div>
+            <div class="person-detail">+1 41254 45214</div>
+          </div>
+        </div>
+        <div class="doctor-info person-info">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+          <div>
+            <div class="person-name">Dr. John Smith</div>
+            <div class="person-detail">Neurosurgeon</div>
+          </div>
+        </div>
+        <div class="mode">Online</div>
+        <div class="status confirmed">Rescheduled</div>
+        <div class="actions">⋮</div>
+      </div>
+
+      <!-- أضيفي مواعيد تانية بنفس الطريقة -->
+    </div>
+
+  </div>
+
+  <script src="scripts/Appointments-admin-view.js" defer></script>
+    <script src="scripts/bill.js" defer></script>
+
+</body>
+</html>

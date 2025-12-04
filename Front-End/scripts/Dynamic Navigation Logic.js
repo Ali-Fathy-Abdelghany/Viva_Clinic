@@ -1,12 +1,4 @@
-// Helper: get cookie value by name
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-  return null;
-}
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   // Elements
   const guestNav     = document.getElementById("guestNav");
   const userNav      = document.getElementById("userNav");
@@ -18,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn    = document.getElementById("logoutBtn");
 
   // Check authentication → using JWT cookie (you can also use localStorage if you prefer)
-  const token = getCookie("jwt");
-  const isLoggedIn = !!token;   // true if user is logged in
+  const data=await checkAuth();
+  console.log(data);
+  const isLoggedIn = !!data;   // true if user is logged in
 
   // Show / hide navbar & sidebar sections according to login status
   if (true) {
@@ -44,11 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "auto";
   }
 
-  // Logout → delete JWT cookie and reload page
-  logoutBtn?.addEventListener("click", () => {
-    // Delete cookie by setting expired date in the past
-    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // Optional: also clear any other auth data (localStorage, etc.)
-    location.reload();
-  });
-});
+  // // Logout → delete JWT cookie and reload page
+  // logoutBtn?.addEventListener("click", () => {
+  //   // Delete cookie by setting expired date in the past
+  //   document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  //   // Optional: also clear any other auth data (localStorage, etc.)
+  //   location.reload();
+  // });
+}); 
