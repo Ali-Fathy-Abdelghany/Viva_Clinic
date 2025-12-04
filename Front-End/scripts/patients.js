@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </li>
 
                 <li>
-                    <a href="Appointments.html">
+                    <a href="doctor_Appointment.html">
                         <i class="material-icons-round">event_available</i>
                         <span>Appointments</span>
                     </a>
@@ -272,5 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
   filterAndSearch();
 
 });
+
 
 
