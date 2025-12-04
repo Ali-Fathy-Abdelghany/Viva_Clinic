@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const isLoggedIn = !!data;   // true if user is logged in
 
   // Show / hide navbar & sidebar sections according to login status
-  if (true) {
+  if (isLoggedIn) {
     guestNav?.classList.add("hidden");
     userNav?.classList.remove("hidden");
 
