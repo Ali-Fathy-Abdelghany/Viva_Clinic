@@ -10,63 +10,79 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="stylesheet" href="Styles/Appointments-admin-view.css">
-    <link rel="stylesheet" href="Styles/bill.css">
+  <link rel="stylesheet" href="Styles/bill.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
 </head>
 <body class="bg-gray-50">
 
-<!-- Navbar بتاعك -->
+<!-- ==================================== NAVBAR ==================================== -->
   <nav class="navbar">
     <div class="nav-left">
+      <!-- Hamburger menu button (toggles sidebar) -->
       <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      
+      <!-- Clinic logo -->
       <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
+      
+      <!-- Navigation links (Single Page App style - uses data-section) -->
       <div class="nav-links">
-        <a href="#" class="active">Home</a>
-        
+        <a href="#admin-dashboard.html" class="nav-link active" data-section="home">Home</a>
       </div>
     </div>
+    
     <div class="nav-right">
-      <i class="fas fa-bell"></i>
-      <img src="images/default-avatar.png" class="profile-pic" alt="User">
+      <!-- Notification bell (dropdown will be added via JS) -->
+      <div class="bell-container">
+        <i class="fas fa-bell" id="bellIcon"></i>
+        <!-- Dropdown menu will be injected here dynamically -->
+        <div class="notifications-menu" id="notificationsMenu"></div>
+      </div>
+      
+      <!-- User profile picture (clickable → goes to patient profile) -->
+      <img src="images/assets/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
     </div>
   </nav>
-<!-- Sidebar navigation menu -->
- <!-- Sidebar الكامل (اللي فعلاً هيشتغل) -->
-<div class="sidebar" id="sidebar">
-  <div class="user-info">
-    <img src="images/default-avatar.png" alt="Admin">
-    <h3>Admin User</h3>
-    <p>admin@vivaclinic.com</p>
-  </div>
 
-  <ul>
-    <li onclick="window.location.href='dashboard.html'">
-      <i class="fas fa-tachometer-alt"></i> Dashboard
-    </li>
-    <li onclick="window.location.href='doctor grid.html'">
-      <i class="fas fa-user-md"></i> Doctors
-    </li>
-    <li onclick="window.location.href='patient grid.html'">
-      <i class="fas fa-users"></i> Patients
-    </li>
-    <li onclick="window.location.href='register.html'">
-      <i class="fas fa-user-plus"></i> Register
-    </li>
-    <li onclick="window.location.href='settings.html'">
-      <i class="fas fa-cog"></i> Settings
-    </li>
-    <li id="logoutBtn" class="logout-item">
-      <i class="fas fa-sign-out-alt"></i> Log Out
-    </li>
+  <!-- ==================================== SIDEBAR ==================================== -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="admin-info">
+      <div class="admin-avatar">
+        <i class="material-icons-round">person</i>
+      </div>
+      <span class="admin-name">ADMIN</span>
+    </div>
+  </div>
+  
+  <ul class="sidebar-menu">
+    <li><a href="admin-dashboard.html">
+      <i class="material-icons-round">dashboard</i>
+      <span>Dashboard</span>
+    </a></li>
+    <li><a href="doctors.html">
+      <i class="material-icons-round">health_and_safety</i>
+      <span>Doctors</span>
+    </a></li>
+    <li><a href="patients.html">
+      <i class="material-icons-round">groups</i>
+      <span>Patients</span>
+    </a></li>
+    <li><a href="register-doctor.html">
+      <i class="material-icons-round">person_add</i>
+      <span>Register</span>
+    </a></li>
+    <li><a href="settings.html">
+      <i class="material-icons-round">settings</i>
+      <span>Settings</span>
+    </a></li>
+    <li><a href="login.html" class="logout-item" onclick="return confirm('Are you sure you want to log out?')">
+      <i class="material-icons-round">logout</i>
+      <span>Log out</span>
+    </a></li>
   </ul>
 </div>
-  <div class="main-content">
-
-    <div class="appointments-header">
-      <h1 class="text-3xl font-bold text-gray-800">Appointments</h1>
-    </div>
-
-    
+<div class="overlay" id="overlay"></div>
 
  <!-- Filters Bar -->
 <div class="filters-bar">
