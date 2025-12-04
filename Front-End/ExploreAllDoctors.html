@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="Styles/ExploreAllDoctors.css">
   <link rel="stylesheet" href="Styles/bell.css">
-  <link rel="stylesheet" href="Styles/logout-modal.css">
+  <link rel="stylesheet" href="Styles/nav-side-logout.css">
 
 
   <script src="scripts/Dynamic Navigation Logic.js" defer></script>
@@ -43,7 +43,7 @@
           <i class="fas fa-bell" id="bellIcon"></i>
           <div class="notifications-menu" id="notificationsMenu"></div>
         </div>
-        <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="User Profile">
+        <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
       </div>
     </div>
   </nav>
@@ -128,8 +128,9 @@
       </div>
 
       <div class="doctors-grid" id="doctorsGrid">
-        <div class="doctor-card">
-          <img src="doctor.png" alt="Dr. Sara Ali">
+        <div class="doctors-container">
+        <div class="doctor-card" onclick="window.location.href='doctor-profile.html'">
+          <img src="images/doctor.png" alt="Dr. Sara Ali">
           <div class="doctor-details">
             <h3>Dr. Sara Ali</h3>
             <p class="specialty">Cardiologist</p>

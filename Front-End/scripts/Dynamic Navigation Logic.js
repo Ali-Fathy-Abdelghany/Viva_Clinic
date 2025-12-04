@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const isLoggedIn = !!data;   // true if user is logged in
 
   // Show / hide navbar & sidebar sections according to login status
-  if (isLoggedIn) {
+  if (true) {
     guestNav?.classList.add("hidden");
     userNav?.classList.remove("hidden");
 
@@ -44,4 +44,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   //   // Optional: also clear any other auth data (localStorage, etc.)
   //   location.reload();
   // });
-});
+}); 

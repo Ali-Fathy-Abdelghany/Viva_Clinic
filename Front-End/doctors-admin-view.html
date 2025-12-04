@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viva Clinic - Doctors</title>
+
+  <!-- Font Awesome + Google Fonts + Material Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="Styles/bell.css">
+  <link rel="stylesheet" href="Styles/doctors-admin-view.css">
+
+  <!-- JS -->
+  <script src="scripts/doctors-admin-view.js" defer></script>
+  <script src="scripts/bell.js" defer></script>
+  <!-- Modal Structure - ضيفيه قبل الـ </body> -->
+<!-- Action Modal - النسخة النهائية زي الصورة الجديدة -->
+<div class="action-modal" id="actionModal">
+  <div class="modal-content">
+    <!-- العنوان -->
+    <div class="modal-title">Are you sure you want to delete?</div>
+
+    <!-- الاختيارات جنب بعض -->
+    <div class="options-row">
+      <label class="option-item">
+        <input type="radio" name="action" value="delete">
+        <span class="radio-check"></span>
+        <i class="fas fa-trash"></i>
+        <span>Delete</span>
+      </label>
+
+      <label class="option-item">
+        <input type="radio" name="action" value="edit" checked>
+        <span class="radio-check filled"></span>
+        <i class="fas fa-edit"></i>
+        <span>Edit</span>
+      </label>
+    </div>
+
+    <!-- الأزرار -->
+    <div class="modal-actions">
+      <button class="cancel-btn">Cancel</button>
+      <button class="confirm-btn">Confirm</button>
+    </div>
+  </div>
+</div>
+</head>
+<body>
+
+  <!-- ==================================== NAVBAR ==================================== -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
+      <div class="nav-links">
+        <a href="admin-dashboard.html" class="nav-link active">Home</a>
+      </div>
+    </div>
+    
+    <div class="nav-right">
+      <div class="bell-container">
+        <i class="fas fa-bell" id="bellIcon"></i>
+        <div class="notifications-menu" id="notificationsMenu"></div>
+      </div>
+      <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+    </div>
+  </nav>
+
+  <!-- ==================================== SIDEBAR ==================================== -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="admin-info">
+        <div class="admin-avatar">
+          <i class="material-icons-round">person</i>
+        </div>
+        <span class="admin-name">ADMIN</span>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="admin-dashboard.html">
+        <i class="material-icons-round">dashboard</i>
+        <span>Dashboard</span>
+      </a></li>
+
+      <li class="active"><a href="doctors-admin-view.html">
+        <i class="material-icons-round">health_and_safety</i>
+        <span>Doctors</span>
+      </a></li>
+
+      <li><a href="patients.html">
+        <i class="material-icons-round">groups</i>
+        <span>Patients</span>
+      </a></li>
+
+      <li><a href="register-doctor.html">
+        <i class="material-icons-round">person_add</i>
+        <span>Register</span>
+      </a></li>
+
+      <li><a href="settings.html">
+        <i class="material-icons-round">settings</i>
+        <span>Settings</span>
+      </a></li>
+
+      <li class="logout-item"><a href="login.html" onclick="return confirm('Are you sure you want to log out?')">
+        <i class="material-icons-round">logout</i>
+        <span>Log out</span>
+      </a></li>
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- ==================================== MAIN CONTENT ==================================== -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Header -->
+      <div class="page-header">
+        <div class="header-left">
+          <h1>Doctor Grid</h1>
+          <span class="total">Total Doctors: <strong id="totalDoctors">565</strong></span>
+        </div>
+        <div class="header-right">
+          <button class="filter-btn"><i class="fas fa-filter"></i> Filter</button>
+          <a href="register-doctor.html" class="new-doctor-btn">
+            <i class="fas fa-plus"></i> New Doctor
+          </a>
+        </div>
+      </div>
+
+      <!-- Search Bar (مخفية دلوقتي بس هتشتغل لو حطيتي input) -->
+      <!-- لو عايزة البحث يظهر، أضيفي السيرش بار هنا -->
+
+      <!-- Filter Dropdown -->
+         <!-- Filter Dropdown -->
+        <div class="filter-dropdown" id="filterDropdown">
+          <div class="filter-item active" data-type="name">
+            <i class="fas fa-user-md"></i>
+            <div class="filter-text">
+              <div class="filter-title">Search by Name</div>
+              <div class="filter-subtitle">Find doctors by their name</div>
+            </div>
+          </div>
+          <div class="filter-item" data-type="specialty">
+            <i class="fas fa-stethoscope"></i>
+            <div class="filter-text">
+              <div class="filter-title">Search by Specialty</div>
+              <div class="filter-subtitle">Cardiologist, Dentist, etc.</div>
+            </div>
+          </div>
+          <div class="filter-item" data-type="price">
+            <i class="fas fa-money-bill-wave"></i>
+            <div class="filter-text">
+              <div class="filter-title">Sort by Price</div>
+              <div class="filter-subtitle">From lowest to highest</div>
+            </div>
+          </div>
+        </div>
+
+     <!-- 3 DOCTOR CARDS -->
+      <div class="doctors-grid" id="doctorsGrid">
+
+        <div class="doctor-card" data-id="101">
+          <img src="doctor.png" alt="Dr. Sara Ali">
+          <div class="doctor-info">
+            <h3>Dr. Sara Ali</h3>
+            <p class="specialty">Cardiologist</p>
+            <p class="status available">Available</p>
+            <p class="price">Starts from: <strong>250 EGP</strong></p>
+          </div>
+          <button class="more-btn"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+
+        <div class="doctor-card" data-id="102">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500" alt="Dr. Ahmed Mohamed">
+          <div class="doctor-info">
+            <h3>Dr. Ahmed Mohamed</h3>
+            <p class="specialty">Neurologist</p>
+            <p class="status available">Available</p>
+            <p class="price">Starts from: <strong>400 EGP</strong></p>
+          </div>
+          <button class="more-btn"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+
+        <div class="doctor-card" data-id="103">
+          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500" alt="Dr. Fatima Hassan">
+          <div class="doctor-info">
+            <h3>Dr. Fatima Hassan</h3>
+            <p class="specialty">Pediatrician</p>
+            <p class="status busy">Busy</p>
+            <p class="price">Starts from: <strong>300 EGP</strong></p>
+          </div>
+          <button class="more-btn"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+
+      </div>
+
+      <div class="load-more">
+        <button class="load-more-btn">Load More</button>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
