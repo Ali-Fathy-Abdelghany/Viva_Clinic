@@ -45,11 +45,11 @@ a { text-decoration:none; }
 .sidebar-menu a.active { background:#e6f4f4; color:#14a2a0; font-weight:700; }
 .sidebar-menu i { font-size:24px; color:#14a2a0; width:30px; }
 .logout-item, .logout-item i { color:#e74c3c !important; }
-.logout-item:hover { background:#ffeaea !important; }
+.logout-item:hover { background:#ffeaea !important; } 
 
 /* Overlay */
 .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; z-index:998; }
-.overlay.active { display:block; }
+.overlay.active { display:block; } 
 
 /* Main */
 .container { padding:30px; max-width:1500px; margin:0 auto; }

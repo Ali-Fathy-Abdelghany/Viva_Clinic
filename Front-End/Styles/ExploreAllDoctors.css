@@ -14,7 +14,7 @@ body {
   display: none !important;
 }
 /* Buttons */
-.btn {
+/* .btn {
   background: #007977;
   color: white;
   padding: 15px 35px;
@@ -34,12 +34,12 @@ body {
 .btn.large {
   padding: 18px 60px;
   font-size: 20px;
-}
+} */
 
 /* ========================================================================= */
 /* Navbar                                                                    */
 /* ========================================================================= */
-.navbar {
+/* .navbar {
   height: 70px;
   background: #14a2a0;
   display: flex;
@@ -141,12 +141,12 @@ body {
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-}
+} */
 
 /* ========================================================================= */
 /* Sidebar                                                                   */
 /* ========================================================================= */
-.sidebar {
+/* .sidebar {
   position: fixed;
   top: 0;
   left: -320px;
@@ -161,10 +161,10 @@ body {
 
 .sidebar.active {
   left: 0;
-}
+} */
 
 /* Guest Sidebar */
-.sidebar-guest-content {
+/* .sidebar-guest-content {
   text-align: center;
   padding: 40px 20px;
 }
@@ -180,10 +180,10 @@ body {
   font-weight: bold;
   font-size: 18px;
   text-decoration: none;
-}
+} */
 
 /* User Sidebar */
-.user-info {
+/* .user-info {
   text-align: center;
   padding: 20px;
   border-bottom: 1px solid #eee;
@@ -230,10 +230,10 @@ body {
 
 .logout-item {
   color: #d9534f !important;
-}
+} */
 
 /* Overlay */
-.overlay {
+/* .overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.5);
@@ -246,7 +246,7 @@ body {
 .overlay.active {
   opacity: 1;
   visibility: visible;
-}
+} */
 /* Page Content */
 .explore-doctors-page { padding: 120px 40px 100px; min-height: 100vh; }
 .container { max-width: 1400px; margin: 0 auto; }
@@ -327,25 +327,55 @@ body {
 }
 .doctor-card {
   width: 100%;
-  max-width: 360px;
+  max-width: 400px;
+  height: 160px;
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 18px;
+  transition: transform 0.3s;
+  position: relative;
+  margin: 0 auto;
+  border-radius: 14px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-.doctor-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
-.doctor-card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-.doctor-details { margin-left: 20px; flex-grow: 1; }
-.doctor-details h3 { font-size: 20px; font-weight: 600; color: #222; margin-bottom: 6px; }
-.doctor-details .specialty { color: #007977; font-size: 15px; margin-bottom: 8px; }
-.doctor-details .price { color: #555; font-size: 15px; }
-.doctor-details .price strong { color: #222; font-weight: 700; }
-.arrow { font-size: 28px; color: #ccc; transition: color 0.3s; }
-.doctor-card:hover .arrow { color: #14a2a0; }
+
+.doctor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.doctor-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 1px solid #ddd;
+}
+
+.specialty {
+  font-size: 16px;
+  color: #929292;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.price {
+  font-size: 16px;
+  color: #929292;
+  font-weight: 700;
+}
+
+.arrow {
+  position: absolute;
+  right: 18px;
+  top: 15%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  color: #0b0c0c;
+}
 
 @media (max-width: 768px) {
   .explore-doctors-page { padding: 100px 20px 60px; }

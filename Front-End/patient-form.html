@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="Styles/patient-form.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel ="stylesheet" href="Styles/bell.css" />
-  <link rel="stylesheet" href="Styles/logout-modal.css" />
+  <link rel="stylesheet" href="Styles/nav-side-logout.css" />
 </head>
 <body class="patient-page">
 
@@ -23,8 +23,8 @@
       
      <div class="nav-links">
   <a href="homepage.html" class="nav-link">Home</a>
-   <a href="homepage.html#doctors"  class="nav-link" data-section="doctors">Most Popular</a>
-    <a href="homepage.html#contact"  class="nav-link" data-section="contact">Contact</a>
+  <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+  <a href="homepage.html#contact" class="nav-link">Contact</a>
 </div>
 
     </div>
@@ -37,41 +37,42 @@
       </div>
       
       <!-- User profile picture - clickable (goes to patient profile) -->
+    <a href="PatientMedicalRecord.html">
       <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
-    </div>
+    </a>    </div>
   </nav>
 
   <!-- ==================================== SIDEBAR ==================================== -->
   <div class="sidebar" id="sidebar">
-    <div>
-      <!-- Logged-in user info -->
-      <div class="user-info">
-        <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">name</h3>
-        <p id="sidebar-user-email">email@demo.com</p>
-      </div>
 
+        <div id="userSidebar" class="hidden"> 
+            <div class="user-info">
+                <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+                <h3 id="sidebar-user-name">Loading...</h3>
+                <p id="sidebar-user-email">loading@demo.com</p>
+            </div>
 
-    <!-- Navigation Menu -->
-<ul class="sidebar-menu">
-      <li onclick="window.location.href='MyAppointments.html'">
-        <i class="fas fa-calendar-check"></i> My Appointments
-      </li>
-      <li onclick="window.location.href='PatientMedicalRecord.html'">
-        <i class="fas fa-file-medical"></i> Medical Record
-      </li>
-      <li onclick="window.location.href='chats.html'">
-        <i class="fas fa-comments"></i> Chats
-      </li>
-      <li onclick="window.location.href='Settings.html'">
-        <i class="fas fa-cog"></i> Settings
-      </li>
-      <li id="logoutBtn" class="logout-item">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </li>
-    </ul>
-  </div>
-</div>
+            <ul class="sidebar-menu">
+                <li onclick="window.location.href='MyAappointments.html'">
+                    <i class="fas fa-calendar-check"></i> My Appointments
+                </li>
+                <li onclick="window.location.href='medical-record.html'">
+                    <i class="fas fa-file-medical"></i> Medical Record
+                </li>
+                <li onclick="window.location.href='chats.html'">
+                    <i class="fas fa-comments"></i> Chats
+                </li>
+                <li onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i> Settings
+                </li>
+                <li id="logoutBtn" class="logout-item">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="sidebarOverlay" class="overlay hidden"></div>
 
   <!-- ==================================== MAIN CONTENT ==================================== -->
   <main>

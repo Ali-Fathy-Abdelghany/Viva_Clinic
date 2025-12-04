@@ -60,4 +60,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   //   // Optional: also clear any other auth data (localStorage, etc.)
   //   location.reload();
   // });
-});
+}); 

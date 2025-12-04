@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="Styles/bell.css" />
   <script src="scripts/bell.js" defer></script>
-  <link rel="stylesheet" href="Styles/logout-modal.css" />
+  <link rel="stylesheet" href="Styles/nav-side-logout.css" />
 </head>
 <body>
 
@@ -38,7 +38,7 @@
       </div>
       
       <!-- User profile picture - clickable (goes to patient profile) -->
-      <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="User Profile">
+      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
     </div>
    </div>
   </nav>
@@ -54,7 +54,7 @@
   </div>
 
   <!-- User Sidebar  -->
-  <div id="userSidebar" class="hidden">   <!-- ملاحظة: hidden من الأول عشان الـ JS يتحكم فيه -->
+  <div id="userSidebar" class="hidden">   
     <div class="user-info">
       <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
       <h3 id="sidebar-user-name">Loading...</h3>
@@ -118,7 +118,7 @@
     <section class="doctors-section" id="doctors">
       <h2>Most Popular</h2>
       <div class="doctors-container">
-        <div class="doctor-card">
+        <div class="doctor-card" onclick="window.location.href='doctor-profile.html'">
           <img src="images/doctor.png" alt="Dr. Sara Ali">
           <div class="doctor-details">
             <h3>Dr. Sara Ali</h3>
