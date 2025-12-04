@@ -11,7 +11,6 @@
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
       data.role = localStorage.getItem('selectedRole') || 'Patient';
-      console.log(data);
       try {
         const res = await fetch(`${apiBase}/auth/register`, {
           method: 'POST',

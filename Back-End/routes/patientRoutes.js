@@ -1,9 +1,11 @@
 const express = require("express");
+const upload = require("../middleware/upload");
 const router = express.Router();
 const {
     getPatientProfile,
     updatePatientProfile,
     getPatientMedicalRecords,
+    updateProfilePicture,
 } = require("../controllers/patientController");
 const { authenticate } = require("../middleware/auth");
 const {
@@ -13,7 +15,11 @@ const {
 
 // All routes require authentication
 router.use(authenticate);
-
+router.patch(
+    "/profile-picture",
+    upload.single("image"),
+    updateProfilePicture
+);
 router
     .route("/")
     .get(getPatientProfile)
@@ -25,5 +31,10 @@ router
     .all(validateId)
     .get(getPatientProfile)
     .patch(validatePatientProfile, updatePatientProfile);
-router.route("/:id/medical-records").all(validateId).get(getPatientMedicalRecords);
+router
+    .route("/:id/medical-records")
+    .all(validateId)
+    .get(getPatientMedicalRecords);
+
+
 module.exports = router;

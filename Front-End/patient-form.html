@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel ="stylesheet" href="Styles/bell.css" />
   <link rel="stylesheet" href="Styles/logout-modal.css" />
+  <link rel="stylesheet" href="Styles/message.css" />
 </head>
 <body class="patient-page">
 
@@ -37,7 +38,7 @@
       </div>
       
       <!-- User profile picture - clickable (goes to patient profile) -->
-      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
+      <img src="images/default-avatar.png" class="profile-pic2 profilePic" alt="User Profile">
     </div>
   </nav>
 
@@ -47,8 +48,8 @@
       <!-- Logged-in user info -->
       <div class="user-info">
         <img src="images/Profile2.jpeg" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">name</h3>
-        <p id="sidebar-user-email">email@demo.com</p>
+        <h3 class="sidebar-user-name">name</h3>
+        <p class="sidebar-user-email">email@demo.com</p>
       </div>
 
 
@@ -79,13 +80,12 @@
 
     <!-- Profile picture upload section -->
     <div class="profile-section">
-      <img id="profile-preview" src="images/assets/profile-placeholder.png" alt="Profile Preview">
-      <input type="file" id="profile-picture" accept="image/*">
+      <img id="profile-preview" src="images/default-avatar.png" alt="Profile Preview" >
+      <input type="file" class="profile-picture" accept="image/*">
     </div>
 
     <!-- Patient personal & medical information form -->
     <form id="patient-form" class="patient-form">
-
       <!-- Row: First & Last Name -->
       <div class="form-row">
         <div class="form-group">
@@ -130,7 +130,17 @@
       <div class="form-row">
         <div class="form-group">
           <label for="blood-group">Blood Group</label>
-          <input type="text" id="blood-group" placeholder="e.g. A+, O-, AB+">
+          <select id="blood-group">
+            <option value="">Select</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
         </div>
       </div>
 
@@ -143,12 +153,22 @@
 
       <!-- Medical History -->
       <div class="form-group">
-        <label for="chronic">Chronic Illness</label>
-        <input type="text" id="chronic" placeholder="e.g. Diabetes, Hypertension">
-      </div>
-      <div class="form-group">
-        <label for="allergies">Allergies</label>
-        <input type="text" id="allergies" placeholder="e.g. Penicillin, Nuts">
+         <div class="checkbox-block">
+            
+            <label class="block-title"><strong>Chronic Illnesses:</strong></label>
+            <label>Diabetes <input type="checkbox" name="chronic" value="diabetes"></label>
+            <label>Hypertension <input type="checkbox" name="chronic" value="hypertension"></label>
+            <label>Asthma <input type="checkbox" name="chronic" value="asthma"></label>
+            <label>Other <input type="checkbox" name="chronic" value="other"></label>
+        </div>
+
+        <div class="checkbox-block">
+            <label class="block-title"><strong>Allergies:</strong></label>
+            <label>Medication <input type="checkbox" name="allergies" value="medication"></label>
+            <label>Environmental <input type="checkbox" name="allergies" value="environmental"></label>
+            <label>Food <input type="checkbox" name="allergies" value="food"></label>
+            <label>Other <input type="checkbox" name="allergies" value="other"></label>
+        </div>
       </div>
 
       <!-- Form action buttons -->
@@ -169,11 +189,14 @@
     </div>
 </div>
 
+  <div id="message"></div>
+
   <!-- Main JavaScript file (includes auth, dashboard, and profile logic) -->
+  <script src="scripts/loadData.js"></script>
   <script src="scripts/auth-shared.js"></script>
   <script src="scripts/common-layout.js"></script>
+  <script src="scripts/Dynamic Navigation Logic.js"></script>
   <script src="scripts/patient-form.js"></script>
   <script src="scripts/bell.js"></script>
-  <script src="scripts/logout-modal.js" defer></script> 
 </body>
 </html>
