@@ -22,57 +22,57 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuBtn = document.getElementById("menuBtn");           // Hamburger icon
   const profilePic = document.getElementById("profilePic");        // Navbar profile picture
 
-    // ==================== 1. Sidebar Open/Close Logic ====================
-    if (menuBtn && sidebar) {
-      // Create overlay if it doesn't exist (dark background when sidebar is open)
-      let overlay = document.getElementById("sidebarOverlay");
-      if (!overlay) {
-        overlay = document.createElement("div");
-        overlay.id = "sidebarOverlay";
-        overlay.className = "overlay";
-        document.body.appendChild(overlay);
-      }
+    // // ==================== 1. Sidebar Open/Close Logic ====================
+    // if (menuBtn && sidebar) {
+    //   // Create overlay if it doesn't exist (dark background when sidebar is open)
+    //   let overlay = document.getElementById("sidebarOverlay");
+    //   if (!overlay) {
+    //     overlay = document.createElement("div");
+    //     overlay.id = "sidebarOverlay";
+    //     overlay.className = "overlay";
+    //     document.body.appendChild(overlay);
+    //   }
 
-      const openSidebar = () => {
-        sidebar.classList.add("active");
-        overlay.style.display = "block";
-        document.body.style.overflow = "hidden"; // Prevent background scrolling
-      };
+    //   const openSidebar = () => {
+    //     sidebar.classList.add("active");
+    //     overlay.style.display = "block";
+    //     document.body.style.overflow = "hidden"; // Prevent background scrolling
+    //   };
 
-      const closeSidebar = () => {
-        sidebar.classList.remove("active");
-        overlay.style.display = "none";
-        document.body.style.overflow = "auto";
-      };
+    //   const closeSidebar = () => {
+    //     sidebar.classList.remove("active");
+    //     overlay.style.display = "none";
+    //     document.body.style.overflow = "auto";
+    //   };
 
-      // Toggle sidebar when clicking the hamburger menu
-      menuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
-      });
+    //   // Toggle sidebar when clicking the hamburger menu
+    //   menuBtn.addEventListener("click", (e) => {
+    //     e.stopPropagation();
+    //     sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
+    //   });
 
-      // Close sidebar when clicking on the overlay
-      overlay.addEventListener("click", closeSidebar);
+    //   // Close sidebar when clicking on the overlay
+    //   overlay.addEventListener("click", closeSidebar);
 
-      // Close sidebar when clicking outside of it
-      document.addEventListener("click", (e) => {
-        if (
-          sidebar.classList.contains("active") &&
-          !sidebar.contains(e.target) &&
-          !menuBtn.contains(e.target)
-        ) {
-          closeSidebar();
-        }
-      });
+    //   // Close sidebar when clicking outside of it
+    //   document.addEventListener("click", (e) => {
+    //     if (
+    //       sidebar.classList.contains("active") &&
+    //       !sidebar.contains(e.target) &&
+    //       !menuBtn.contains(e.target)
+    //     ) {
+    //       closeSidebar();
+    //     }
+    //   });
 
-      // Close sidebar with Escape key
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && sidebar.classList.contains("active")) {
-          closeSidebar();
-        }
-      });
-    }
-
+    //   // Close sidebar with Escape key
+    //   document.addEventListener("keydown", (e) => {
+    //     if (e.key === "Escape" && sidebar.classList.contains("active")) {
+    //       closeSidebar();
+    //     }
+    //   });
+    // }
+    // ==================== 2. Role-Based Sidebar Content ====================
 
     if (!sidebar) return;
 

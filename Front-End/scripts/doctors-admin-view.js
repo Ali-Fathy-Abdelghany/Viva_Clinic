@@ -11,18 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentCard = null;
 
-  // ==================== Sidebar & Overlay ====================
-  menuBtn.onclick = () => {
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-  };
+  // // ==================== Sidebar & Overlay ====================
+  // menuBtn.onclick = () => {
+  //   sidebar.classList.toggle('active');
+  //   overlay.classList.toggle('active');
+  // };
 
-  overlay.onclick = () => {
-    sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-    modal.classList.remove('show');
-    filterDropdown.classList.remove('show');
-  };
+  // overlay.onclick = () => {
+  //   sidebar.classList.remove('active');
+  //   overlay.classList.remove('active');
+  //   modal.classList.remove('show');
+  //   filterDropdown.classList.remove('show');
+  // };
 
   // ==================== Action Modal (Edit / Delete) ====================
   document.querySelectorAll('.more-btn').forEach(btn => {

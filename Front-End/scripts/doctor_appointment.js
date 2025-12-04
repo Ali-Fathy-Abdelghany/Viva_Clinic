@@ -29,7 +29,7 @@ const formatTime = t => {
   return `${String(h).padStart(2,'0')}:${String(mm).padStart(2,'0')} ${ampm}`;
 };
 
-// Sidebar logic
+// // Sidebar logic
 const menuBtn = el('#menuBtn');
 const sidebar = el('#sidebar');
 const userSidebar = el('#userSidebar');

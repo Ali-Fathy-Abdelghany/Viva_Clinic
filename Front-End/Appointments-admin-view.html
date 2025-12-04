@@ -76,7 +76,7 @@
       <i class="material-icons-round">settings</i>
       <span>Settings</span>
     </a></li>
-    <li><a href="login.html" class="logout-item" onclick="return confirm('Are you sure you want to log out?')">
+    <li><a href="login.html" class="logout-item" id="logoutBtn">
       <i class="material-icons-round">logout</i>
       <span>Log out</span>
     </a></li>
@@ -245,7 +245,17 @@
     </div>
 
   </div>
-
+  <!-- ==================================== LOGOUT MODAL ==================================== -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
+    <script src="scripts/common-layout.js"></script>
   <script src="scripts/Appointments-admin-view.js" defer></script>
     <script src="scripts/bill.js" defer></script>
 

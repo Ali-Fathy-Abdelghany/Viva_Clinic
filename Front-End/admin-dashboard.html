@@ -79,9 +79,9 @@
             <span>Settings</span>
         </a></li>
 
-        <li><a href="login.html" class="logout-item" onclick="return confirm('Are you sure you want to log out?')">
-            <i class="material-icons-round">logout</i>
-            <span>Log out</span>
+         <li><a li id="logoutBtn" class="logout-item">            
+           <i class="material-icons-round">logout</i>
+           <span>Log out</span>
         </a></li>
     </ul>
 </div>
@@ -481,12 +481,21 @@
   </table>
 </div>
 
+<!-- ==================================== LOGOUT MODAL ==================================== -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="scripts/admin-dashboard.js"></script>
   <script src="scripts/bell.js"></script>
-
-
-
+  <script src="scripts/common-layout.js"></script>
 
 </body>
 </html>

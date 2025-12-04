@@ -1,21 +1,21 @@
-// Sidebar Toggle
-document.getElementById('menuBtn').addEventListener('click', function() {
-  document.getElementById('sidebar').classList.toggle('active');
-  document.getElementById('overlay').classList.toggle('active');
-});
-document.getElementById('overlay').addEventListener('click', function() {
-  document.getElementById('sidebar').classList.remove('active');
-  this.classList.remove('active');
-});
-// Tabs
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', function() {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    this.classList.add('active');
-    document.getElementById(this.dataset.tab).classList.add('active');
-  });
-});
+// // Sidebar Toggle
+// document.getElementById('menuBtn').addEventListener('click', function() {
+//   document.getElementById('sidebar').classList.toggle('active');
+//   document.getElementById('overlay').classList.toggle('active');
+// });
+// document.getElementById('overlay').addEventListener('click', function() {
+//   document.getElementById('sidebar').classList.remove('active');
+//   this.classList.remove('active');
+// });
+// // Tabs
+// document.querySelectorAll('.tab').forEach(tab => {
+//   tab.addEventListener('click', function() {
+//     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+//     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+//     this.classList.add('active');
+//     document.getElementById(this.dataset.tab).classList.add('active');
+//   });
+// });
 
 // Charts
 const barCtx = document.getElementById('barChart').getContext('2d');

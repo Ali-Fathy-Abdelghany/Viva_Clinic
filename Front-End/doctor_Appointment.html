@@ -42,7 +42,8 @@
         <li onclick="location.href='#'"><i class="fas fa-file-medical"></i> Medical Record</li>
         <li onclick="location.href='#'"><i class="fas fa-comments"></i> Chats</li>
         <li onclick="location.href='#'"><i class="fas fa-cog"></i> Settings</li>
-        <li id="logoutBtn" class="logout-item"><i class="fas fa-sign-out-alt"></i> Log Out</li>
+        <li id="logoutBtn" class="logout-item">
+          <i class="fas fa-sign-out-alt"></i> Log Out</li>
       </ul>
     </div>
   </aside>
@@ -176,7 +177,17 @@
       </footer>
     </div>
   </div>
-
+  <!-- ==================================== LOGOUT MODAL ==================================== -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <p>Are you sure you want to Log out?</p>
+        <div class="modal-buttons">
+            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
+            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        </div>
+    </div>
+</div>
+  <script src="scripts/common-layout.js"></script>
   <script src="scripts/doctor_appointment.js"></script>
 </body>
 </html>
