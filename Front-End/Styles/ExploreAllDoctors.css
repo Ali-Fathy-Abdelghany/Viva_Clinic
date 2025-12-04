@@ -248,24 +248,41 @@ body {
   visibility: visible;
 } */
 /* Page Content */
-.explore-doctors-page { padding: 120px 40px 100px; min-height: 100vh; }
+.explore-doctors-page { padding: 80px 40px 80px; min-height: 100vh; }
 .container { max-width: 1400px; margin: 0 auto; }
-.page-title { font-size: 48px; font-weight: 700; text-align: center; color: #222; margin-bottom: 50px; }
+.page-title { font-size: 36px; font-weight: 600; text-align: left; color: #222; margin-bottom: 10px; }
 
-.search-container { max-width: 700px; margin: 0 auto 70px; position: relative; }
-.search-box {
-  position: relative;
-  background: white;
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.search-container { 
+  display: flex;
+  justify-content: flex-end;
+ }
+
+   .search-box {
+ display: flex;
+  align-items: center;
   border-radius: 50px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-  overflow: hidden;
+  height: 35px;
+  position: relative;
+  width: 600px;
+  max-width: 600px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(65, 63, 63, 0.1);
+
 }
 .search-box input {
+  height: 100%;
   width: 100%;
-  padding: 20px 70px 20px 60px;
-  border: none;
+  padding: 15px 70px 20px 60px;
+  border-radius: 50px;
   font-size: 18px;
   outline: none;
+  border: 1px solid rgb(212, 206, 206);
 }
 .filter-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); color: #14A2A0; font-size: 20px; cursor: pointer; }
 .search-icon { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); color: #999; font-size: 22px; cursor: pointer; }
@@ -328,14 +345,14 @@ body {
 .doctor-card {
   width: 100%;
   max-width: 400px;
-  height: 160px;
+  height: 140px;
   background: white;
   display: flex;
   align-items: center;
   padding: 18px;
   transition: transform 0.3s;
   position: relative;
-  margin: 0 auto;
+  margin: 30px 0;
   border-radius: 14px;
   border: 1px solid #eee;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -347,8 +364,8 @@ body {
 }
 
 .doctor-card img {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 14px;
   object-fit: cover;
   margin-right: 20px;
@@ -377,10 +394,10 @@ body {
   color: #0b0c0c;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .explore-doctors-page { padding: 100px 20px 60px; }
   .page-title { font-size: 36px; margin-bottom: 40px; }
-}
+} */
 /* ========================================================================= */
 #sidebarOverlay {
   position: fixed;
