@@ -22,7 +22,7 @@
         const data = (await res.json()).data;
         console.log(data);
         
-        if (!res.ok) throw new Error(data.message || 'Login failed');
+        if (!res.ok) throw new Error('Login failed');
 
 
         window.showMessage?.('Login successful!', 'success');
@@ -33,7 +33,7 @@
             : 'doctor-dashboard.html';
         }, 1200);
       } catch (err) {
-        window.showMessage?.(err.message || 'Invalid credentials', 'error');
+        window.showMessage?.('Invalid credentials', 'error');
       }
     });
   });

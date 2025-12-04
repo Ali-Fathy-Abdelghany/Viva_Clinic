@@ -24,7 +24,7 @@ section {
 /* ========================================================================= */
 /* Navbar                                                                    */
 /* ========================================================================= */
-.navbar {
+/* .navbar {
   height: 70px;
   background: #14a2a0;
   display: flex;
@@ -72,11 +72,11 @@ section {
   direction: rtl;
 }
 .nav-right > * {
-  direction: ltr;               /* يرجّع الأزرار والنصوص لليسار عادي */
-}
+  direction: ltr;             
+} */
  
 
-.login-btn, .signup-btn {
+/* .login-btn, .signup-btn {
   color: white;
   text-decoration: none;
   padding: 8px 20px;
@@ -126,12 +126,12 @@ section {
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
-}
+} */
 
 /* ========================================================================= */
 /* Sidebar                                                                   */
 /* ========================================================================= */
-.sidebar {
+/* .sidebar {
   position: fixed;
   top: 0;
   left: -320px;
@@ -146,10 +146,10 @@ section {
 
 .sidebar.active {
   left: 0;
-}
+} */
 
 /* Guest Sidebar */
-.sidebar-guest-content {
+/* .sidebar-guest-content {
   text-align: center;
   padding: 40px 20px;
 }
@@ -165,10 +165,10 @@ section {
   font-weight: bold;
   font-size: 18px;
   text-decoration: none;
-}
+} */
 
 /* User Sidebar */
-.user-info {
+/* .user-info {
   text-align: center;
   padding: 20px;
   border-bottom: 1px solid #eee;
@@ -215,10 +215,10 @@ section {
 
 .logout-item {
   color: #d9534f !important;
-}
+} */
 
 /* Overlay */
-.overlay {
+/* .overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.5);
@@ -231,7 +231,7 @@ section {
 .overlay.active {
   opacity: 1;
   visibility: visible;
-}
+} */
 /**********************************************************************************/
 /**********************************************************************************/
 

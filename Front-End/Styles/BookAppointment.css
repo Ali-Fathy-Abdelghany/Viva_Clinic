@@ -1,11 +1,11 @@
-/* General Reset and Font */
-:root {
+/* /* General Reset and Font */
+ /* :root {
     --primary-color: #007bff; 
     --text-color: #333;
     --header-bg: #b2dfdb; 
     --viva-green: #388e3c; 
     --card-green: #4CAF50; 
-    --booked-perm: #006666; /* Permanent booked color: #006666 */
+    --booked-perm: #006666; 
 }
 
 * {
@@ -19,11 +19,11 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: #f0f2f5; 
-}
+}  */
 /* ========================================================================= */
 /* Navbar                                                                    */
 /* ========================================================================= */
-.navbar {
+/* .navbar {
     height: 70px;
     background: #14a2a0;
     display: flex;
@@ -71,7 +71,7 @@ body {
     direction: rtl;
 }
 .nav-right > * {
-    direction: ltr;               /* يرجّع الأزرار والنصوص لليسار عادي */
+    direction: ltr;            
 }
  
 
@@ -125,12 +125,12 @@ body {
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
-}
+} */
 
 /* ========================================================================= */
 /* Sidebar and Overlay (Unchanged) */
 /* ========================================================================= */
-.sidebar {
+/* .sidebar {
     position: fixed;
     top: 0;
     left: -320px;
@@ -205,7 +205,7 @@ body {
 .overlay.active {
     opacity: 1;
     visibility: visible;
-}
+}  */
 /************************************************************************************/
 /************************************************************************************/
 /************************************************************************************/
@@ -223,7 +223,6 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    /* زياة الارتفاع لاستيعاب التوفر */
     min-height: 500px; 
 }
 
@@ -235,7 +234,6 @@ body {
 .card-content {
     display: flex;
     gap: 40px;
-    /* زيادة العرض ليتناسب مع الشبكة */
     width: 100%;
 }
 

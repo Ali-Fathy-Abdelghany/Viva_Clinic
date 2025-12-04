@@ -1,7 +1,7 @@
 /* patient.css */
 
 /* Global */
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,10 +11,10 @@ body {
   font-family: 'Cairo', sans-serif;
   background: #ffffff;
   color: #333;
-}
+} */
 
 /* Navbar */
-.navbar {
+/* .navbar {
     height: 70px;
     background: #14a2a0;
     display: flex;
@@ -42,10 +42,10 @@ body {
 
 .logo {
     height: 60px;
-}
+} */
 
 /* Main navigation links */
-.nav-links a {
+/* .nav-links a {
     color: white;
     text-decoration: none;
     margin: 0 15px;
@@ -66,26 +66,26 @@ body {
 .nav-right i {
     color: white;
     font-size: 20px;
-}
+} */
 
 
 /* User profile picture */
-.profile-pic2 {
+/* .profile-pic2 {
     width: 44px;
     height: 44px;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
-}
+} */
 
 /* Bell Notification Tooltip */
-#bellIcon {
+/* #bellIcon {
     cursor: pointer;
     position: relative;
-}
+} */
 
 /* Sidebar */
-.sidebar {
+/* .sidebar {
     position: fixed;
     top: 0;
     left: -320px;
@@ -96,15 +96,15 @@ body {
     padding: 100px 30px 30px;
     transition: 0.4s;
     z-index: 999;
-}
+} */
 
 /* Active state: slide into view */
-.sidebar.active {
+/* .sidebar.active {
     left: 0;
-}
+} */
 
 /* User info block inside the sidebar */
-#sidebar .user-info {
+/* #sidebar .user-info {
     text-align: center;
     margin-bottom: 30px;
     padding-bottom: 20px;
@@ -128,10 +128,10 @@ body {
 #sidebar .user-info p {
     color: #666;
     font-size: 14px;
-}
+} */
 
 /* Sidebar navigation links */
-#sidebar ul {
+/* #sidebar ul {
     list-style: none;
     padding: 5px 0;
 }
@@ -152,7 +152,7 @@ body {
 
 .logout-item {
     color: #d9534f;
-}
+} */
 /* Patient page main layout */
 body.patient-page main {
   margin-top: 90px;

@@ -5,9 +5,9 @@
     // ==================== DOM Elements ====================
     const menuBtn           = document.getElementById("menuBtn");           // Hamburger icon
     const sidebar           = document.getElementById("sidebar");           // Sidebar container
-    const profilePic        = document.getElementById("profilePic");        // Navbar profile picture
+    const profilePic        = document.getElementsByClassName("profilePic");        // Navbar profile picture
     const sidebarProfileImg = document.getElementById("sidebar-profile-img"); // Sidebar profile image
-    const sidebarUserName   = document.getElementById("sidebar-user-name");   // Sidebar user name
+    const sidebarUserName   = document.getElementsByClassName("sidebar-user-name")[0];   // Sidebar user name
     const logoutModal       = document.getElementById("logoutModal");       // Logout modal container
     const modalYesBtn       = document.getElementById("modalYesBtn");       // Logout confirmation button (Yes)
     const modalNoBtn        = document.getElementById("modalNoBtn");        // Logout cancellation button (No)
@@ -80,8 +80,10 @@
     };
 
     if (profilePic) {
-      profilePic.style.cursor = "pointer";
-      profilePic.addEventListener("click", goToProfile);
+      Array.from(profilePic).forEach(element => {
+        element.style.cursor = "pointer";
+        element.addEventListener("click", goToProfile);
+      });
     }
 
     // Attach click event to sidebar profile image and user name
