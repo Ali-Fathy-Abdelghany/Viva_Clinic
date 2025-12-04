@@ -538,3 +538,75 @@ body.sidebar-open { overflow: hidden; }
   background: #c0392b;
   transform: scale(1.1);
 }
+
+
+
+
+/* ========================================================================= */
+/* Logout Modal                                                             */
+/* ========================================================================= */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    width: 90%; 
+    max-width: 400px; 
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px; 
+}
+
+.modal-button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    width: 100%;
+}
+
+.yes-btn {
+    background-color: #ffffff;
+    color: #008080; 
+    border: 1px solid #008080;
+}
+.yes-btn:hover {
+    background-color: #f0f8f8;
+}
+
+.no-btn {
+    background-color: #008080;
+    color: white;
+    border: 1px solid #008080;
+}
+.no-btn:hover {
+    background-color: #006666;
+}
