@@ -118,7 +118,7 @@ section {
     align-items: flex-start;
 }
 
-.profile-pic {
+.profile-pic-main {
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -228,4 +228,5 @@ section {
     border-radius: 10px;
     transition: 0.2s ease-in-out;
     border: 1px solid #e0eeee;
+
 }
