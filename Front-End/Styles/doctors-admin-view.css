@@ -162,7 +162,7 @@ a { text-decoration:none; }
 .notifications-menu.show { display:block; }
 .notif-header { padding:0 20px 10px; border-bottom:1px solid #eee; font-weight:700; }
 .notif-item { padding:10px 20px; }
-.profile-pic { width:44px; height:44px; border-radius:50%; object-fit:cover; border:3px solid #fff; cursor:pointer; }
+.profile-pic { width:44px; height:44px; border-radius:50%; object-fit:cover; border:3px; cursor:pointer; }
 
 /* Sidebar */
 .sidebar {
@@ -192,7 +192,7 @@ a { text-decoration:none; }
 .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; z-index:998; }
 .overlay.active { display:block; }
 
-.main-content { margin-top: 90px; padding: 30px; }
+.main-content { margin-top: 50px; padding: 30px; }
 .page-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 30px; flex-wrap: wrap; gap: 15px;
@@ -221,71 +221,71 @@ a { text-decoration:none; }
 }
 
 .doctor-card {
+  width: 100%;
+  max-width: 400px;
+  height: 160px;
   background: white;
-  border-radius: 32px;
-  padding: 32px 28px;
-  box-shadow: 0 10px 40px rgba(20,162,160,0.12);
-  border: 1px solid #e6f5f5;
   display: flex;
   align-items: center;
-  gap: 24px;
+  padding: 18px;
+  transition: transform 0.3s;
   position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease;
-  min-height: 190px;
-}
-
-.doctor-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(20,162,160,0.04), transparent);
-  border-radius: 32px; pointer-events: none;
+  margin: 0 auto;
+  border-radius: 14px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .doctor-card:hover {
-  transform: translateY(-16px) scale(1.03);
-  box-shadow: 0 28px 70px rgba(20,162,160,0.25);
-  border-color: #14a2a0;
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .doctor-card img {
-  width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
-  border: 6px solid #e8fff9; box-shadow: 0 12px 30px rgba(20,162,160,0.2); flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 14px;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 1px solid #ddd;
 }
 
-.doctor-info h3 { font-size: 24px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
-.specialty { color: #14a2a0; font-weight: 700; font-size: 17px; margin: 6px 0; }
-.status.available { color: #16a34a; }
-.status.busy { color: #dc2626; }
-.status { font-weight: 600; font-size: 15px; margin: 8px 0; }
-.price { color: #475569; font-size: 16px; margin-top: 10px; }
-.price strong { color: #0d8c8a; font-weight: 800; font-size: 20px; }
+.specialty {
+  font-size: 16px;
+  color: #929292;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
 
+.price {
+  font-size: 16px;
+  color: #929292;
+  font-weight: 700;
+}
 .more-btn {
-  position: absolute; top: 50%; right: 20px; transform: translateY(-50%);
-  width: 50px; height: 50px; background: #f1f5f9; border: none; border-radius: 16px;
-  color: #64748b; font-size: 20px; cursor: pointer; transition: 0.3s;
+  position: absolute; top: 20%; right:10px; transform: translateY(-40%);
+  width: 30px; height: 30px; background: #ffffff;border: none;
+  color: #080808; font-size: 25px; cursor: pointer; transition: 0.3s;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
-.more-btn:hover { background:#14a2a0; color:white; transform: translateY(-50%) scale(1.15); }
+.more-btn { width: 38px; height: 38px; font-size: 18px; right: 18px; }
 
 /* RESPONSIVE - تكبير الكروت */
-@media (min-width: 1024px) {
+/* @media (min-width: px) {
   .doctors-grid { grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 40px; }
   .doctor-card { padding: 40px 36px; min-height: 220px; }
   .doctor-card img { width: 140px; height: 140px; border-width: 8px; }
   .doctor-info h3 { font-size: 28px; }
   .specialty { font-size: 19px; }
   .price strong { font-size: 24px; }
-  .more-btn { width: 58px; height: 58px; font-size: 22px; right: 28px; }
-}
+} */
 
-@media (min-width: 1440px) {
+/* @media (min-width: 1440px) {
   .doctors-grid { grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); gap: 50px; }
   .doctor-card { padding: 48px; border-radius: 38px; }
   .doctor-card img { width: 160px; height: 160px; }
   .doctor-info h3 { font-size: 32px; }
-}
+} */
 
 .load-more { text-align: center; margin: 50px 0; }
 .load-more-btn {
