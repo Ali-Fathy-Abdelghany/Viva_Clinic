@@ -169,23 +169,92 @@ a { text-decoration:none; }
 .date-input { padding: 10px; }
 
 /* ألوان الـ Status الجديدة بالظبط زي التصميم اللي بعتيه */
-.status-option {
-  padding: 8px 18px;
-  border-radius: 30px;
-  font-size: 13px;
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
   font-weight: 600;
+  color: #333;
+}
+
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 15px;
+  color: #333;
   cursor: pointer;
-  border: 2px solid transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   transition: all 0.2s;
 }
-.status-option.completed    { background: #d4edda; color: #155724; }
-.status-option.schedule     { background: #cce5ff; color: #004085; }
-.status-option.cancelled    { background: #f8d7da; color: #721c24; }
-.status-option.rescheduled   { background: #fff3cd; color: #856404; }
 
-.status-option.selected {
-  border-color: #14a2a0;
-  box-shadow: 0 0 0 3px rgba(20,162,160,0.2);
+.dropdown-toggle:hover {
+  border-color: #aaa;
+}
+
+.dropdown-toggle:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+}
+
+.arrow {
+  transition: transform 0.3s;
+  color: #666;
+}
+
+.dropdown-toggle.open .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  display: none;                    /* مخفي في الأصل */
+}
+
+.dropdown-menu.open {
+  display: block !important;        /* يظهر لما نضيف كلاس open */
+}
+
+.dropdown-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+}
+
+.dropdown-item.selected {
+  background: #e3f2fd;
+  font-weight: 600;
+  color: #1976d2;
 }
 
 

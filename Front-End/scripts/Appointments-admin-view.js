@@ -23,14 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
     filterMenu.classList.toggle('active');
   });
 
-  // إغلاق الفلتر لما تضغطي بره
   document.addEventListener('click', (e) => {
-    if (!filterToggle.contains(e.target) && !filterMenu.contains(e.target)) {
-      filterMenu.classList.remove('active');
+    if (!filterToggle?.contains(e.target) && !filterMenu?.contains(e.target)) {
+      filterMenu?.classList.remove('active');
     }
   });
 
-  // منع إغلاق الفلتر لما تضغطي جواه
   filterMenu?.addEventListener('click', (e) => e.stopPropagation());
 
   // ==================== فلتر المواعيد + البحث + الترتيب ====================
@@ -41,17 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const patientNameFilter = document.getElementById('patientNameFilter');
   const doctorFilter = document.getElementById('doctorFilter');
   const modeFilter = document.getElementById('modeFilter');
-  const statusOptions = document.querySelectorAll('.status-option');
   const cards = document.querySelectorAll('.appointment-card');
   const container = document.getElementById('tableContainer');
 
+  // متغيّر عام نخزن فيه الحالة المختارة من الـ dropdown
+  let selectedStatus = 'all'; // في البداية كل الحالات مرئية
+
+  // دالة الفلترة والترتيب
   function applyFiltersAndSort() {
     const term = searchInput.value.toLowerCase().trim();
     const sortValue = sortSelect.value;
 
-    const selectedStatuses = Array.from(statusOptions)
-      .filter(opt => opt.classList.contains('selected'))
-      .map(opt => opt.dataset.status);
+    // لو اخترتي "All" → نعرض كل الحالات، غير كده نعرض الحالة المختارة بس
+    const selectedStatuses = selectedStatus === 'all' ? [] : [selectedStatus];
 
     const visibleCards = Array.from(cards).filter(card => {
       const patientName = card.querySelector('.patient-info .person-name')?.textContent.toLowerCase() || '';
@@ -61,15 +61,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const status = card.dataset.status || '';
       const cardDate = new Date(card.dataset.date);
 
-      // الفلاتر
+      // فلتر التاريخ
       if (dateFrom.value && cardDate < new Date(dateFrom.value)) return false;
       if (dateTo.value && cardDate > new Date(dateTo.value)) return false;
+
+      // فلتر باقي الحقول
       if (patientNameFilter.value && !patientName.includes(patientNameFilter.value.toLowerCase())) return false;
       if (doctorFilter.value && !doctorName.includes(doctorFilter.value)) return false;
       if (modeFilter.value && mode !== modeFilter.value) return false;
+
+      // فلتر الحالة (الجزء المهم)
       if (selectedStatuses.length > 0 && !selectedStatuses.includes(status)) return false;
 
-      // البحث
+      // البحث في الاسم أو الدكتور أو التليفون
       return patientName.includes(term) || doctorName.includes(term) || phone.includes(term);
     });
 
@@ -87,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return 0;
     });
 
-    // إعادة ترتيب الكروت
+    // إعادة ترتيب وإظهار/إخفاء الكروت
     visibleCards.forEach(card => container.appendChild(card));
     cards.forEach(card => {
       card.style.display = visibleCards.includes(card) ? '' : 'none';
@@ -103,14 +107,54 @@ document.addEventListener('DOMContentLoaded', () => {
   doctorFilter?.addEventListener('change', applyFiltersAndSort);
   modeFilter?.addEventListener('change', applyFiltersAndSort);
 
-  // Status Options (اختيار متعدد)
-  statusOptions.forEach(opt => {
-    opt.addEventListener('click', () => {
-      opt.classList.toggle('selected');
-      applyFiltersAndSort();
+  // ==================== Custom Status Dropdown (الجزء اللي كان ناقص) ====================
+  document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
+    const toggle = dropdown.querySelector('.dropdown-toggle');
+    const menu = dropdown.querySelector('.dropdown-menu');
+    const selectedText = dropdown.querySelector('.selected-text');
+    const items = dropdown.querySelectorAll('.dropdown-item');
+
+    // فتح/إغلاق القايمة
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = toggle.classList.toggle('open');
+      menu.classList.toggle('open', isOpen);
+    });
+
+    // لما نختار حالة
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const value = item.dataset.status;     // all / completed / schedule ...
+        const text = item.textContent.trim();
+
+        // تغيير النص في الـ button
+        selectedText.textContent = text;
+
+        // تحديد العنصر المختار بصريًا
+        items.forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+
+        // حفظ الحالة المختارة في المتغيّر العام
+        selectedStatus = value;
+
+        // إغلاق القايمة
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+
+        // تطبيق الفلترة فورًا
+        applyFiltersAndSort();
+      });
+    });
+
+    // إغلاق القايمة لما نضغط بره
+    document.addEventListener('click', (e) => {
+      if (!dropdown.contains(e.target)) {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+      }
     });
   });
 
-  // تشغيل الفلتر في البداية
+  // تشغيل الفلتر أول ما الصفحة تتحمل
   applyFiltersAndSort();
 });

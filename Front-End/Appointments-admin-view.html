@@ -60,7 +60,7 @@
       <i class="material-icons-round">dashboard</i>
       <span>Dashboard</span>
     </a></li>
-    <li><a href="doctors.html">
+    <li><a href="doctors-admin-view.html">
       <i class="material-icons-round">health_and_safety</i>
       <span>Doctors</span>
     </a></li>
@@ -134,15 +134,28 @@
         </select>
       </div>
 
+
       <div class="filter-group">
-        <label>Status</label>
-        <div class="status-options">
-          <div class="status-option completed" data-status="completed">Completed</div>
-          <div class="status-option schedule" data-status="schedule">Schedule</div>
-          <div class="status-option cancelled" data-status="cancelled">Cancelled</div>
-          <div class="status-option rescheduled" data-status="rescheduled">Rescheduled</div>
+      <label>Status</label>
+      
+      <div class="custom-dropdown">
+        <button class="dropdown-toggle" type="button">
+          <span class="selected-text">Select Status</span>
+          <svg class="arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <div class="dropdown-menu">
+          <div class="dropdown-item" data-status="all">All</div>
+          <div class="dropdown-item" data-status="completed">Completed</div>
+          <div class="dropdown-item" data-status="schedule">Scheduled</div>
+          <div class="dropdown-item" data-status="cancelled">Cancelled</div>
+          <div class="dropdown-item" data-status="rescheduled">Rescheduled</div>
         </div>
       </div>
+    </div>
+
     </div>
   </div>
 
