@@ -31,17 +31,17 @@ body{
   align-items:center;
   justify-content:space-between;
   padding:0 20px;
-  background:#fff;
+  background:#14a2a0;
   box-shadow:0 1px 0 rgba(0,0,0,0.03);
 }
 .nav-left{display:flex;align-items:center;gap:12px}
-.menu-icon{font-size:20px;color:var(--primary);cursor:pointer}
+.menu-icon{font-size:20px;color:var(--card);cursor:pointer}
 .logo{height:36px}
 .nav-links{display:flex;gap:16px;margin-left:8px}
-.nav-link{color:var(--primary);text-decoration:none;font-weight:600;padding:6px 10px;border-radius:8px}
+.nav-link{color:var(--card);text-decoration:none;font-weight:600;padding:6px 10px;border-radius:8px}
 .nav-right{display:flex;align-items:center;gap:14px}
 .profile-pic2{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #eaf9ff}
-
+.nav-links a{color: white;}
 /* SIDEBAR */
 .sidebar{
   position:fixed;left:0;top:0;height:100vh;width:260px;
@@ -122,6 +122,44 @@ body{
 .action-btn{border:1px solid #eff6f8;background:#fff;padding:6px;border-radius:8px;cursor:pointer}
 .action-btn:hover{background:#f5fdff}
 
+/* STATUS POPOVER (edit status) */
+.status-popover{
+  background:var(--card);
+  padding:10px;
+  border-radius:10px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.12);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:140;
+  min-width:140px;
+}
+.status-option{
+  padding:8px 10px;
+  border-radius:8px;
+  border:0;
+  cursor:pointer;
+  font-weight:700;
+  text-align:center;
+}
+.status-option.cancelled{background:var(--red);color:#fff}
+.status-option.booked{background:var(--yellow);color:#603b00}
+.status-option.completed{background:var(--green);color:#fff}
+
+/* Prescription inline panel (professional look) */
+.prescription-panel{
+  background:#fbfeff;
+  border:1px solid #eef6f8;
+  padding:12px;
+  border-radius:10px;
+  box-shadow:0 8px 24px rgba(7,30,33,0.06);
+}
+.pres-header{display:flex;align-items:center;gap:12px}
+.med-list{display:flex;flex-direction:column;gap:8px;margin-bottom:6px}
+.med-row{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:8px;border-radius:8px;background:#fff;border:1px solid #eef6f8}
+.med-item{font-size:14px;color:#153e47}
+.med-del-btn{background:#fff;border:1px solid #e8eef0;padding:6px 8px;border-radius:8px;cursor:pointer}
+
 /* MODALS */
 .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;max-width:920px;width:90%;display:flex;align-items:center;justify-content:center}
 .modal.hidden{display:none}
@@ -141,7 +179,7 @@ body{
 .field label{font-size:13px;color:#4a6a6f;margin-bottom:6px}
 .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
 .btn-add{background:#fff;border:1px solid #e8eef0}
-.btn-apply{background:#111;border:color:#fff;color:#fff}
+.btn-apply{background:#111;border:1px solid #fff;color:#fff;}
 .current-slots{padding:10px 0;display:flex;flex-wrap:wrap;gap:8px}
 
 /* Buttons */

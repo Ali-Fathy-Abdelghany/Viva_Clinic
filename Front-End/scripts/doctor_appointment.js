@@ -102,6 +102,60 @@ renderSlots();
 
 // Render appointments table
 const appointmentsList = el('#appointments-list');
+let currentStatusPopover = null;
+
+function closeStatusPopover(){
+  if(currentStatusPopover){
+    currentStatusPopover.remove();
+    currentStatusPopover = null;
+    document.removeEventListener('click', handleDocClickClosePopover);
+  }
+}
+function handleDocClickClosePopover(e){
+  if(currentStatusPopover && !currentStatusPopover.contains(e.target)){
+    closeStatusPopover();
+  }
+}
+
+function openStatusPopover(button, appointmentId){
+  closeStatusPopover();
+  const rect = button.getBoundingClientRect();
+  const pop = document.createElement('div');
+  pop.className = 'status-popover';
+  pop.setAttribute('role','menu');
+  pop.innerHTML = `
+    <button class="status-option cancelled" data-status="cancelled">Cancelled</button>
+    <button class="status-option booked" data-status="booked">Booked</button>
+    <button class="status-option completed" data-status="completed">Completed</button>
+  `;
+  // position
+  pop.style.position = 'absolute';
+  pop.style.top = (window.scrollY + rect.bottom + 6) + 'px';
+  pop.style.left = (window.scrollX + rect.left) + 'px';
+  document.body.appendChild(pop);
+  currentStatusPopover = pop;
+
+  // stop clicks inside from bubbling to document
+  pop.addEventListener('click', e=>e.stopPropagation());
+
+  pop.querySelectorAll('.status-option').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const st = btn.getAttribute('data-status');
+      const app = state.appointments.find(a=>a.id===appointmentId);
+      if(app){
+        app.status = st;
+      }
+      closeStatusPopover();
+      renderAppointments();
+    });
+  });
+
+  // close when clicking anywhere else
+  setTimeout(()=>{ // setTimeout to avoid immediate close from the click that opened it
+    document.addEventListener('click', handleDocClickClosePopover);
+  }, 0);
+}
+
 function renderAppointments(){
   appointmentsList.innerHTML = '';
   state.appointments.forEach(app => {
@@ -117,9 +171,8 @@ function renderAppointments(){
       <td><span class="badge ${app.status==='booked'?'booked':app.status==='cancelled'?'cancelled':app.status==='completed'?'completed':'booked'}">${capitalize(app.status)}</span></td>
       <td>
         <div class="actions">
-          <button class="action-btn view-btn" data-id="${app.id}" title="View">👁️</button>
+          <button class="action-btn status-btn" data-id="${app.id}" title="Edit status">⚙️</button>
           <button class="action-btn pres-btn" data-id="${app.id}" title="Add prescription">📝</button>
-          <button class="action-btn more-btn" data-id="${app.id}" title="More">⋯</button>
         </div>
       </td>
     `;
@@ -127,17 +180,17 @@ function renderAppointments(){
   });
 
   // attach handlers
-  els('.view-btn').forEach(b=>b.addEventListener('click', e=>{
-    const id=+e.currentTarget.dataset.id;
-    openAppointmentModal(id);
-  }));
+  els('.status-btn').forEach(b=>{
+    b.addEventListener('click', e=>{
+      e.stopPropagation();
+      const id = +e.currentTarget.dataset.id;
+      openStatusPopover(e.currentTarget, id);
+    });
+  });
+
   els('.pres-btn').forEach(b=>b.addEventListener('click', e=>{
     const id=+e.currentTarget.dataset.id;
-    openPrescriptionUI(id);
-  }));
-  els('.more-btn').forEach(b=>b.addEventListener('click', e=>{
-    const id=+e.currentTarget.dataset.id;
-    openAppointmentModal(id,true);
+    openPrescriptionInline(id);
   }));
 }
 function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
@@ -153,6 +206,7 @@ const closeAppBtn = el('#closeAppBtn');
 function openAppointmentModal(id, showMore=false){
   const app = state.appointments.find(a=>a.id===id);
   if(!app) return;
+  // main content: patient details + status area + buttons
   appointmentModalBody.innerHTML = `
     <div style="display:flex;gap:14px;align-items:center">
       <img src="${app.avatar}" style="width:72px;height:72px;border-radius:10px;object-fit:cover">
@@ -163,7 +217,7 @@ function openAppointmentModal(id, showMore=false){
       </div>
     </div>
     <hr style="margin:12px 0">
-    <div>
+    <div id="statusSection">
       <label style="font-weight:700;margin-bottom:6px;display:block">Status</label>
       <select id="modalStatusSelect">
         <option value="booked">Booked</option>
@@ -172,13 +226,10 @@ function openAppointmentModal(id, showMore=false){
       </select>
       <div style="margin-top:12px">
         <button class="btn btn-primary" id="saveStatusBtn">Save status</button>
-        <button class="btn btn-secondary" id="togglePrescriptionBtn" style="margin-left:8px">Add prescription</button>
-      </div>
-      <div id="prescriptionArea" style="margin-top:12px;display:none">
-        <textarea id="prescriptionText" rows="4" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e6f1f4"></textarea>
-        <div style="margin-top:8px"><button class="btn btn-primary" id="savePrescriptionBtn">Save Prescription</button></div>
+        <button class="btn btn-secondary" id="addPrescriptionInlineBtn" style="margin-left:8px">Add prescription</button>
       </div>
     </div>
+    <div id="prescriptionInlineContainer" style="margin-top:12px"></div>
   `;
   // set current status
   const sel = el('#modalStatusSelect');
@@ -188,17 +239,8 @@ function openAppointmentModal(id, showMore=false){
     app.status = sel.value;
     closeAppointmentModalAndRefresh();
   });
-  el('#togglePrescriptionBtn').addEventListener('click', ()=>{
-    const area = el('#prescriptionArea');
-    area.style.display = area.style.display === 'none' ? 'block' : 'none';
-  });
-  el('#savePrescriptionBtn')?.addEventListener('click', ()=>{
-    const text = el('#prescriptionText').value.trim();
-    if(text===''){ alert('Please enter prescription text.'); return; }
-    // In real app: send to API. For now, fake
-    alert('Prescription saved (mock): ' + text);
-    el('#prescriptionText').value='';
-    el('#prescriptionArea').style.display='none';
+  el('#addPrescriptionInlineBtn').addEventListener('click', ()=>{
+    openPrescriptionPanelInModal(app);
   });
 
   showModal(appointmentModal);
@@ -223,6 +265,118 @@ function closeAllModals(){
   appointmentModal.classList.add('hidden');
   editAvailabilityModal.classList.add('hidden');
   document.body.style.overflow='';
+  closeStatusPopover();
+}
+
+// Prescription inline panel (inside appointment modal)
+// This is the "professional" UI injected into the same modal and it does NOT show status controls while visible.
+function openPrescriptionPanelInModal(app){
+  const container = el('#prescriptionInlineContainer');
+  // hide the status section while prescription panel is open
+  const statusSection = el('#statusSection');
+  if(statusSection) statusSection.style.display = 'none';
+
+  container.innerHTML = `
+    <div class="prescription-panel">
+      <div class="pres-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div>
+          <div style="font-weight:700">Prescription for ${app.name}</div>
+          <div style="color:#6b8b90;font-size:13px">${app.datetime}</div>
+        </div>
+        <button class="btn btn-secondary" id="closePrescriptionPanelBtn">Close</button>
+      </div>
+
+      <label style="font-weight:700;margin-bottom:6px;display:block">Prescription Notes</label>
+      <textarea id="prescriptionNotesInline" rows="4" placeholder="Write instructions, notes, or diagnosis here..." style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f1f4;margin-bottom:12px"></textarea>
+
+      <label style="font-weight:700;margin-bottom:6px;display:block">Medications</label>
+      <div id="medListInline" class="med-list"></div>
+
+      <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
+        <input id="medNameInline" placeholder="Medication name" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6f1f4">
+        <input id="medDoseInline" placeholder="Dose / instructions" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6f1f4">
+        <button class="btn btn-primary" id="addMedInlineBtn">Add</button>
+      </div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+        <button class="btn btn-primary" id="savePrescriptionInlineBtn">Save Prescription</button>
+      </div>
+    </div>
+  `;
+
+  // add med row helper
+  function renderMedList(){
+    const list = el('#medListInline');
+    list.innerHTML = '';
+    const meds = app._prescription?.meds || [];
+    if(meds.length===0){
+      list.innerHTML = '<div style="color:#6b8b90">No medications added yet.</div>';
+      return;
+    }
+    meds.forEach((m, idx)=>{
+      const row = document.createElement('div');
+      row.className = 'med-row';
+      row.innerHTML = `<div class="med-item"><strong>${m.name}</strong> — <span>${m.dose}</span></div>
+                       <button class="btn btn-secondary med-del-btn" data-idx="${idx}">Delete</button>`;
+      list.appendChild(row);
+    });
+    // attach delete
+    list.querySelectorAll('.med-del-btn').forEach(b=>{
+      b.addEventListener('click', e=>{
+        const i = +e.currentTarget.dataset.idx;
+        app._prescription.meds.splice(i,1);
+        renderMedList();
+      });
+    });
+  }
+
+  // initialize prescription storage on appointment object (mock)
+  if(!app._prescription) app._prescription = {notes:'', meds:[]};
+  el('#prescriptionNotesInline').value = app._prescription.notes || '';
+  renderMedList();
+
+  // add med
+  el('#addMedInlineBtn').addEventListener('click', ()=>{
+    const name = el('#medNameInline').value.trim();
+    const dose = el('#medDoseInline').value.trim();
+    if(!name){ alert('Please enter medication name'); return; }
+    app._prescription.meds.push({name,dose});
+    el('#medNameInline').value=''; el('#medDoseInline').value='';
+    renderMedList();
+  });
+
+  // save prescription
+  el('#savePrescriptionInlineBtn').addEventListener('click', ()=>{
+    const notes = el('#prescriptionNotesInline').value.trim();
+    app._prescription.notes = notes;
+    // In a real app: send to API
+    alert('Prescription saved (mock).');
+    // close prescription UI and show status again
+    container.innerHTML = '';
+    if(statusSection) statusSection.style.display = '';
+    // optionally close modal:
+    // closeAllModals();
+  });
+
+  // close prescription panel (closes whole modal so status won't re-appear unexpectedly)
+  el('#closePrescriptionPanelBtn').addEventListener('click', ()=>{
+    closeAllModals();
+  });
+}
+
+// Open prescription UI directly (keeps it inline)
+function openPrescriptionInline(id){
+  // if modal not open, open modal first with appointment details
+  const alreadyOpen = !appointmentModal.classList.contains('hidden');
+  if(!alreadyOpen){
+    openAppointmentModal(id);
+    // wait for modal to render then open inline panel
+    setTimeout(()=>{ const app = state.appointments.find(a=>a.id===id); openPrescriptionPanelInModal(app); }, 140);
+    return;
+  }
+  // if modal is already open, just inject panel
+  const app = state.appointments.find(a=>a.id===id);
+  if(app) openPrescriptionPanelInModal(app);
 }
 
 // Edit Availability modal logic
@@ -333,15 +487,6 @@ saveAvailBtn.addEventListener('click', ()=>{
 cancelAvailBtn.addEventListener('click', closeAllModals);
 closeEditAvail.addEventListener('click', closeAllModals);
 editAvailabilityBtn.addEventListener('click', openEditAvail);
-
-// Open prescription UI directly (small quick flow)
-function openPrescriptionUI(id){
-  const app = state.appointments.find(a=>a.id===id);
-  if(!app) return;
-  openAppointmentModal(id);
-  // open prescription area after modal rendered
-  setTimeout(()=>{ el('#togglePrescriptionBtn')?.click(); }, 150);
-}
 
 // Modal overlay click closes modals
 modalOverlay.addEventListener('click', closeAllModals);
