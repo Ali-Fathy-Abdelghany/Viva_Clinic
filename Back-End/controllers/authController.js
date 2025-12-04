@@ -187,8 +187,8 @@ const logout = asyncHandler(async (req, res) => {
 
     res.cookie(config.JWT_COOKIE_NAME, "", {
         httpOnly: true,
-        secure: isProduction,
-        sameSite: isCrossOrigin || isProduction ? "none" : "lax",
+        secure: false,
+        sameSite: "lax",
         expires: new Date(0), // Expire immediately
     });
 

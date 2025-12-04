@@ -113,8 +113,7 @@
 
     const performLogout = () => {
       hideLogoutModal();
-      localStorage.clear(); // Clear local storage data
-      sessionStorage.clear(); // Clear session storage data
+      fetch()
       window.location.href = "homepage.html"; // Redirect to homepage
     };
 
