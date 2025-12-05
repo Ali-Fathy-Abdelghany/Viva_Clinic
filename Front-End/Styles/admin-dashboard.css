@@ -1,5 +1,10 @@
+/* admin-dashboard.css */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Cairo', sans-serif; background:#f8fbfd; color:#333; padding-top:70px; direction: ltr; }
+a { text-decoration:none; }
+
 /* Main */
-.container {max-width:1500px; margin-top:80px; }
+.container { padding:30px; max-width:1500px; margin:0 auto; }
 
 /* Tabs */
 .tabs { display:flex; gap:10px; margin-bottom:25px; border-bottom:2px solid #eee; }

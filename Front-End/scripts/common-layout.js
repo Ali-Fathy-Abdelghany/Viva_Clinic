@@ -74,11 +74,11 @@
       });
     }
 
-    // ==================== 2. Profile Picture / Name Click → Go to Profile ====================
-    const goToProfile = () => {
-      window.location.href = "PatientMedicalRecord.html";
-      sidebar?.classList.remove("active"); // Close sidebar if open
-    };
+    // // ==================== 2. Profile Picture / Name Click → Go to Profile ====================
+    // const goToProfile = () => {
+    //   window.location.href = "PatientMedicalRecord.html";
+    //   sidebar?.classList.remove("active"); // Close sidebar if open
+    // };
 
     // if (profilePic) {
     //   Array.from(profilePic).forEach(element => {
