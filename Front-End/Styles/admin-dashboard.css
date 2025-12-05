@@ -1,5 +1,5 @@
 /* Main */
-.container { padding:30px; max-width:1500px; margin-top:80px; }
+.container {max-width:1500px; margin-top:80px; }
 
 /* Tabs */
 .tabs { display:flex; gap:10px; margin-bottom:25px; border-bottom:2px solid #eee; }
