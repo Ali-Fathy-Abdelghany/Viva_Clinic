@@ -23,7 +23,7 @@ if (logoutBtn) {
     });
 } */
 /* ================= DASHBOARD LOGIC ================= */
-let API_BASE = window.API_BASE || 'http://localhost:3000/api';
+let API_BASE = window.API_BASE || 'http://127.0.0.1:3000/api';
 
 // --- 1. DATA MODEL & STATE ---
 async function getAppointments(){

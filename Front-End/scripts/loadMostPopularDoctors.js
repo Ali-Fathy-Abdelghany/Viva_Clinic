@@ -1,5 +1,5 @@
 async function loadMostPopularDoctors() {
-    const apiBase = window.API_BASE || "http://localhost:3000/api";
+    const apiBase = window.API_BASE || "http://127.0.0.1:3000/api";
     try {
         const res = await fetch(`${apiBase}/doctors`, {
             method: "GET",

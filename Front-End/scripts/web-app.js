@@ -3,7 +3,7 @@
 // Organized
 // ==================================================================
 
-const API_BASE = 'http://localhost:3000/api'; // Backend API base URL
+const API_BASE = 'http://127.0.0.1:3000/api'; // Backend API base URL
 
 // ==================================================================
 // Utility: Show toast message (success / error)
