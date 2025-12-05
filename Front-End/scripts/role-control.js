@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // تحديد الصفحة
     const currentPage = window.location.pathname.toLowerCase();
     const isPatientPage = currentPage.includes("patient");
-    const isDoctorProfilePage = currentPage.includes("doctor");
+    const isDoctorProfilePage = currentPage.includes("doctor-profile");
 
 
     // // ==================== 1. Sidebar Open/Close Logic ====================

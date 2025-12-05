@@ -81,3 +81,96 @@ function searchAndFilter() {
 }
 
 searchInput?.addEventListener('input', searchAndFilter);
+
+// ---------------------------------------------
+// Replace Sidebar in ExploreAllDoctors Page
+// with the Admin Sidebar (from doctor profile page)
+// ---------------------------------------------
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("sidebarOverlay") || document.getElementById("overlay");
+    const menuBtn = document.getElementById("menuBtn");
+    const role = localStorage.getItem("role"); 
+
+    if (!sidebar) return;
+
+  
+    if (role === "admin") {
+    // ---------------------------------------------
+    // 1. Inject ADMIN SIDEBAR HTML
+    // ---------------------------------------------
+    sidebar.innerHTML = `
+      <div class="sidebar-header">
+        <div class="admin-info">
+          <div class="admin-avatar">
+            <img src="images/default-avatar.png" alt="Profile">
+          </div>
+          <span class="admin-name">ADMIN</span>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li onclick="window.location.href='admin-dashboard.html'">
+          <i class="fas fa-bar-chart"></i> Dashboard
+        </li>
+        <li onclick="window.location.href='ExploreAllDoctors.html'">
+          <i class="fas fa-user-md"></i> Doctors
+        </li>
+        <li onclick="window.location.href='patients.html'">
+          <i class="fas fa-heartbeat"></i> Patients
+        </li>
+        <li onclick="window.location.href='register-doctor.html'">
+          <i class="fas fa-user-plus"></i> Register
+        </li>
+        <li onclick="window.location.href='settings.html'">
+          <i class="fas fa-cog"></i> Settings
+        </li>
+        <li id="logoutBtn" class="logout-item">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </li>
+      </ul>
+    `;
+
+    // ---------------------------------------------
+    // 2. Sidebar Open/Close Logic
+    // ---------------------------------------------
+    if (menuBtn) {
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("open");
+            overlay.classList.toggle("active");
+        });
+    }
+
+    if (overlay) {
+        overlay.addEventListener("click", () => {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("active");
+        });
+    }
+
+    // ---------------------------------------------
+    // 3. Logout Modal Trigger
+    // ---------------------------------------------
+    const logoutBtn = document.getElementById("logoutBtn");
+    const logoutModal = document.getElementById("logoutModal");
+    const modalYes = document.getElementById("modalYesBtn");
+    const modalNo = document.getElementById("modalNoBtn");
+
+    if (logoutBtn && logoutModal) {
+        logoutBtn.addEventListener("click", () => {
+            logoutModal.style.display = "flex";
+        });
+
+        modalNo.addEventListener("click", () => {
+            logoutModal.style.display = "none";
+        });
+
+        modalYes.addEventListener("click", () => {
+            localStorage.clear();
+            window.location.href = "login.html";
+        });
+    }
+  }
+});
