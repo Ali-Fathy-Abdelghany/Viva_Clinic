@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
   <link rel="stylesheet" href="Styles/admin-dashboard.css"/>
+  <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css">
   <link rel="stylesheet" href="Styles/bell.css" />
 </head>
 <body>
@@ -47,42 +48,31 @@
   <div class="sidebar-header">
     <div class="admin-info">
       <div class="admin-avatar">
-        <i class="material-icons-round">person</i>
+        <img src="images/default-avatar.png" alt="Profile">
       </div>
       <span class="admin-name">ADMIN</span>
     </div>
   </div>
 
     <ul class="sidebar-menu">
-        <li><a href="admin-dashboard.html">
-            <i class="material-icons-round">dashboard</i>
-            <span>dashboard</span>
-        </a></li>
-
-        <li><a href="doctors-admin-view.html">
-            <i class="material-icons-round">health_and_safety</i>
-            <span>Doctors</span>
-        </a></li>
-
-        <li><a href="patients.html">
-            <i class="material-icons-round">groups</i>
-            <span>Patients</span>
-        </a></li>
-
-        <li><a href="register-doctor.html" class="active">
-            <i class="material-icons-round">person_add</i>
-            <span>Register</span>
-        </a></li>
-
-        <li><a href="settings.html">
-            <i class="material-icons-round">settings</i>
-            <span>Settings</span>
-        </a></li>
-
-         <li><a li id="logoutBtn" class="logout-item">            
-           <i class="material-icons-round">logout</i>
-           <span>Log out</span>
-        </a></li>
+      <li onclick="window.location.href='admin-dashboard.html'">
+        <i class="fas fa-bar-chart"></i> Dashboard
+      </li>
+      <li onclick="window.location.href='ExploreAllDoctors.html'">
+        <i class="fas fa-user-md"></i> Doctors
+      </li>
+      <li onclick="window.location.href='patients.html'">
+        <i class="fas fa-heartbeat"></i> Patients
+      </li>
+      <li onclick="window.location.href='register-doctor.html'">
+        <i class="fas fa-user-plus"></i> Register
+      </li>
+      <li onclick="window.location.href='settings.html'">
+        <i class="fas fa-cog"></i> Settings
+      </li>
+      <li id="logoutBtn" class="logout-item" href="logout-modal.html">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </li>
     </ul>
 </div>
 

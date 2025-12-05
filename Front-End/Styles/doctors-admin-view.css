@@ -143,6 +143,8 @@
 }
 
 .main-content { margin-top: 50px; padding: 30px; }
+.container { max-width: 1400px; margin: 0 auto; }
+
 .page-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 30px; flex-wrap: wrap; gap: 15px;
@@ -164,23 +166,21 @@
 .doctors-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 32px;
-  padding: 10px 0;
-  max-width: 1700px;
-  margin: 0 auto;
+  gap: 30px;
+  justify-items: center;
 }
 
 .doctor-card {
   width: 100%;
   max-width: 400px;
-  height: 160px;
+  height: 140px;
   background: white;
   display: flex;
   align-items: center;
   padding: 18px;
   transition: transform 0.3s;
   position: relative;
-  margin: 0 auto;
+  margin: 30px 0;
   border-radius: 14px;
   border: 1px solid #eee;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -192,8 +192,8 @@
 }
 
 .doctor-card img {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 14px;
   object-fit: cover;
   margin-right: 20px;
@@ -212,6 +212,16 @@
   color: #929292;
   font-weight: 700;
 }
+
+.arrow {
+  position: absolute;
+  right: 18px;
+  top: 15%;
+  transform: translateY(-50%);
+  font-size: 26px;
+  color: #0b0c0c;
+}
+
 .more-btn {
   position: absolute; top: 20%; right:10px; transform: translateY(-40%);
   width: 30px; height: 30px; background: #ffffff;border: none;

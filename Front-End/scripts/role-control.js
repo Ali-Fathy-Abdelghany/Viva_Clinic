@@ -35,58 +35,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // تحديد الصفحة
     const currentPage = window.location.pathname.toLowerCase();
     const isPatientPage = currentPage.includes("patient");
-    const isDoctorProfilePage = currentPage.includes("doctor");
+    const isDoctorProfilePage = currentPage.includes("doctor-profile");
+    // ==================== 1. Logout Button Binding Function ====================
+    function bindLogout() {
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (!logoutBtn) return;
 
-
-    // // ==================== 1. Sidebar Open/Close Logic ====================
-    // // هذا الجزء مسؤول عن فتح وإغلاق الشريط الجانبي بالماوس والـ ESC
-    // if (menuBtn && sidebar) {
-    //     let overlay = document.getElementById("sidebarOverlay");
-    //     if (!overlay) {
-    //         overlay = document.createElement("div");
-    //         overlay.id = "sidebarOverlay";
-    //         overlay.className = "overlay";
-    //         document.body.appendChild(overlay);
-    //     }
-
-    //     const openSidebar = () => {
-    //         sidebar.classList.add("active");
-    //         overlay.style.display = "block";
-    //         document.body.style.overflow = "hidden";
-    //     };
-
-    //     const closeSidebar = () => {
-    //         sidebar.classList.remove("active");
-    //         overlay.style.display = "none";
-    //         document.body.style.overflow = "auto";
-    //     };
-
-    //     menuBtn.addEventListener("click", (e) => {
-    //         e.stopPropagation();
-    //         sidebar.classList.contains("active") ? closeSidebar() : openSidebar();
-    //     });
-
-    //     overlay.addEventListener("click", closeSidebar);
-
-    //     document.addEventListener("click", (e) => {
-    //         if (
-    //             sidebar.classList.contains("active") &&
-    //             !sidebar.contains(e.target) &&
-    //             !menuBtn.contains(e.target)
-    //         ) {
-    //             closeSidebar();
-    //         }
-    //     });
-
-    //     document.addEventListener("keydown", (e) => {
-    //         if (e.key === "Escape" && sidebar.classList.contains("active")) {
-    //             closeSidebar();
-    //         }
-    //     });
-    // }
-
-    // if (!sidebar) return;
-
+    logoutBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const logoutModal = document.getElementById("logoutModal");
+    if (logoutModal) {
+      logoutModal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
+  });
+}
     // ==================== 2. Role-Based Content Switching ====================
     
     // لو الدكتور داخل صفحة المريض → غيّري الـ sidebar وشيلي زرار Edit
@@ -118,6 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 </li>
             </ul>
         `;
+        bindLogout();
+
 
         // B. إخفاء زر التعديل (Edit) أو الحجز (Book)
         if (editBtn) {
@@ -207,6 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 </li>
             </ul>
         `;
+        bindLogout();
+
 
         navBar.innerHTML = `
             <a href="homepage.html" class="nav-link">Home</a>
@@ -224,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <!-- Edit Button BELOW -->
                 <a href="BookAppointment.html" class="btn-book" style="text-decoration: none;">Book Appointment</a>
         `;
+
 
         // ==================== Click to open patient profile ====================
         // Sidebar image
@@ -251,3 +220,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 });
+

@@ -81,3 +81,4 @@ function searchAndFilter() {
 }
 
 searchInput?.addEventListener('input', searchAndFilter);
+
