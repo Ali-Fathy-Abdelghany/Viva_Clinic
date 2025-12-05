@@ -10,11 +10,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="stylesheet" href="Styles/Appointments-admin-view.css">
-  <link rel="stylesheet" href="Styles/bill.css">
+  <link rel="stylesheet" href="Styles/bell.css">
+  <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
 </head>
-<body class="bg-gray-50">
+<body>
 
 <!-- ==================================== NAVBAR ==================================== -->
   <nav class="navbar">
@@ -40,7 +41,7 @@
       </div>
       
       <!-- User profile picture (clickable → goes to patient profile) -->
-      <img src="images/assets/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+      <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
     </div>
   </nav>
 
@@ -49,41 +50,37 @@
   <div class="sidebar-header">
     <div class="admin-info">
       <div class="admin-avatar">
-        <i class="material-icons-round">person</i>
+        <img src="images/default-avatar.png" alt="Profile">
       </div>
       <span class="admin-name">ADMIN</span>
     </div>
   </div>
-  
-  <ul class="sidebar-menu">
-    <li><a href="admin-dashboard.html">
-      <i class="material-icons-round">dashboard</i>
-      <span>Dashboard</span>
-    </a></li>
-    <li><a href="doctors-admin-view.html">
-      <i class="material-icons-round">health_and_safety</i>
-      <span>Doctors</span>
-    </a></li>
-    <li><a href="patients.html">
-      <i class="material-icons-round">groups</i>
-      <span>Patients</span>
-    </a></li>
-    <li><a href="register-doctor.html">
-      <i class="material-icons-round">person_add</i>
-      <span>Register</span>
-    </a></li>
-    <li><a href="settings.html">
-      <i class="material-icons-round">settings</i>
-      <span>Settings</span>
-    </a></li>
-    <li><a href="login.html" class="logout-item" id="logoutBtn">
-      <i class="material-icons-round">logout</i>
-      <span>Log out</span>
-    </a></li>
-  </ul>
+
+    <ul class="sidebar-menu">
+      <li onclick="window.location.href='admin-dashboard.html'">
+        <i class="fas fa-bar-chart"></i> Dashboard
+      </li>
+      <li onclick="window.location.href='ExploreAllDoctors.html'">
+        <i class="fas fa-user-md"></i> Doctors
+      </li>
+      <li onclick="window.location.href='patients.html'">
+        <i class="fas fa-heartbeat"></i> Patients
+      </li>
+      <li onclick="window.location.href='register-doctor.html'">
+        <i class="fas fa-user-plus"></i> Register
+      </li>
+      <li onclick="window.location.href='settings.html'">
+        <i class="fas fa-cog"></i> Settings
+      </li>
+      <li id="logoutBtn" class="logout-item" href="logout-modal.html">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </li>
+    </ul>
 </div>
+
 <div class="overlay" id="overlay"></div>
 
+<div class="main-content">
  <!-- Filters Bar -->
 <div class="filters-bar">
   <div class="relative">
@@ -257,7 +254,8 @@
 </div>
     <script src="scripts/common-layout.js"></script>
   <script src="scripts/Appointments-admin-view.js" defer></script>
-    <script src="scripts/bill.js" defer></script>
+    <script src="scripts/bell.js" defer></script>
 
+</div>
 </body>
 </html>
