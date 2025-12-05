@@ -97,41 +97,25 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="sidebar-header">
                 <div class="admin-info">
                     <div class="admin-avatar">
-                        <img src="images/doctor.png" id="sidebar-profile-img" class="profile-pic" alt="Dr. Sara Ali">                    </div>
-                        <span class="admin-name" id="sidebar-user-name">Dr. Sara Ali</span>
+                        <img src="images/doctor.png" id="sidebar-profile-img" alt="Dr. Sara Ali"> 
+                    </div>
+                    <span class="admin-name" id="sidebar-user-name">Dr. Sara Ali</span>
                 </div>
             </div>
 
             <ul class="sidebar-menu">
-
-                <li>
-                    <a href="doctor-profile.html" class="active">
-                        <i class="material-icons-round">person</i>
-                        <span>My Profile</span>
-                    </a>
+                <li onclick="window.location.href='doctor-profile'">
+                    <i class="fas fa-user"></i> My Profile
                 </li>
-
-                <li>
-                    <a href="doctor_Appointment.html">
-                        <i class="material-icons-round">event_available</i>
-                        <span>Appointments</span>
-                    </a>
+                <li onclick="window.location.href='doctor_Appointment.html'">
+                    <i class="fas fa-calendar"></i> Appointments
                 </li>
-
-                <li>
-                    <a href="settings.html">
-                        <i class="material-icons-round">settings</i>
-                        <span>Settings</span>
-                    </a>
+                <li onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i> Settings
                 </li>
-
-                <li>
-                    <a href="login.html" class="logout-item">
-                        <i class="material-icons-round">logout</i>
-                        <span>Log out</span>
-                    </a>
+                <li id="logoutBtn" class="logout-item" href="logout-modal.html">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
                 </li>
-
             </ul>
         `;
 
@@ -206,43 +190,21 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
 
             <ul class="sidebar-menu">
-
-                <li>
-                    <a href="MyAppointments.html">
-                        <i class="fas fa-calendar-check"></i>
-                        <span>My Appointments</span>
-                    </a>
+                <li onclick="window.location.href='MyAppointments.html'">
+                    <i class="fas fa-calendar-check"></i> My Appointments
+            
+                <li onclick="window.location.href='PatientMedicalRecord.html'">
+                    <i class="fas fa-file-medical"></i> Medical Record
                 </li>
-
-                <li>
-                    <a href="PatientMedicalRecord.html">
-                        <i class="fas fa-file-medical"></i>
-                        <span>Medical Record</span>
-                    </a>
+                <li onclick="window.location.href='chats.html'">
+                    <i class="fas fa-comments"></i> Chats
                 </li>
-
-                <li>
-                    <a href="chats.html">
-                        <i class="fas fa-comments"></i>
-                        <span>Chats</span>
-                    </a>
+                <li onclick="window.location.href='settings.html'">
+                    <i class="fas fa-cog"></i> Settings
                 </li>
-
-
-                <li>
-                    <a href="settings.html">
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
-                    </a>
+                <li id="logoutBtn" class="logout-item">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
                 </li>
-
-                <li>
-                    <a href="login.html" class="logout-item">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Log out</span>
-                    </a>
-                </li>
-
             </ul>
         `;
 
