@@ -72,37 +72,45 @@
     </a>    </div>
   </nav>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div id="userSidebar"> 
-            <div class="user-info">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" id="sidebar-profile-img" alt="User Avatar">
-                <h3 id="sidebar-user-name">John Doe</h3>
-                <p id="sidebar-user-email">john.doe@example.com</p>
-            </div>
+    <!-- Sidebar --> <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <!-- Guest Sidebar ) -->
+  <div id="guestSidebar">
+    <div class="sidebar-guest-content">
+      <i class="fas fa-user-circle" style="font-size:80px;color:#007977;"></i><br><br>
+      <a href="login.html" style="color:#007977;font-weight:bold;font-size:18px;">Log in to your account</a>
+    </div>
+  </div>
 
-            <ul class="sidebar-menu">
-                <li onclick="window.location.href='MyAppointments.html'">
-                    <i class="fas fa-calendar-check"></i> My Appointments
-                </li>
-                <li onclick="window.location.href='PatientMedicalRecord.html.html'">
-                    <i class="fas fa-file-medical"></i> Medical Record
-                </li>
-                <li onclick="window.location.href='chats.html'">
-                    <i class="fas fa-comments"></i> Chats
-                </li>
-                <li onclick="window.location.href='Settings.html'">
-                    <i class="fas fa-cog"></i> Settings
-                </li>
-                <li id="logoutBtn" class="logout-item" >
-                    <i class="fas fa-sign-out-alt"></i> Log Out
-                </li>
-            </ul>
-        </div>
+  <!-- User Sidebar  -->
+  <div id="userSidebar" class="hidden">   
+    <div class="user-info">
+      <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
+      <h3 class="sidebar-user-name">Loading...</h3>
+      <p class="sidebar-user-email">loading@demo.com</p>
     </div>
 
+    <ul class="sidebar-menu">
+      <li onclick="window.location.href='Appointments.html'">
+        <i class="fas fa-calendar-check"></i> My Appointments
+      </li>
+      <li onclick="window.location.href='PatientMedicalRecord.html'">
+        <i class="fas fa-file-medical"></i> Medical Record
+      </li>
+      <li onclick="window.location.href='chats.html'">
+        <i class="fas fa-comments"></i> Chats
+      </li>
+      <li onclick="window.location.href='settings.html'">
+        <i class="fas fa-cog"></i> Settings
+      </li>
+      <li id="logoutBtn" class="logout-item">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </li>
+    </ul>
+  </div>
+</div>
     <!-- Overlay -->
-    <div id="sidebarOverlay" class="overlay"></div>
+    <div id="sidebarOverlay" class="overlay hidden"></div>
 
     <!-- ==================================== DASHBOARD CONTENT ==================================== -->
     <main class="dashboard-container max-w-7xl mx-auto px-4 sm:px-6 pb-8">
@@ -211,7 +219,7 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="w-5 h-5 rounded bg-[#4B7BEC]"></span>
-                            <span class="text-sm font-medium text-gray-700">Schedule</span>
+                            <span class="text-sm font-medium text-gray-700">Booked</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="w-5 h-5 rounded bg-[#FF6B6B]"></span>
@@ -269,10 +277,10 @@
 </div>
 
     <!-- External JavaScript File -->
+    <script src="scripts/loadData.js"></script>
     <script src="scripts/common-layout.js"></script>
     <script src="scripts/MyAppointments.js"></script>
     <script src="scripts/bell.js" defer></script>
-    <script src="scripts/logout-modal.js" defer></script>
     <script src="scripts/Dynamic Navigation Logic.js"></script>
 
 

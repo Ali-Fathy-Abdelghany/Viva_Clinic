@@ -8,7 +8,7 @@
 }
 
 body {
-    font-family: 'Cairo', sans-serif;
+    font-family: "Cairo", sans-serif;
     background: #f8fcfc;
     color: #333;
     padding-top: 70px; /* Space for fixed navbar */
@@ -19,7 +19,6 @@ section {
     margin: 20px auto;
     max-width: 1200px;
 }
-
 
 /* ========================================================================= */
 /* Navbar                                                                    */
@@ -74,7 +73,6 @@ section {
 .nav-right > * {
   direction: ltr;             
 } */
- 
 
 /* .login-btn, .signup-btn {
   color: white;
@@ -251,7 +249,7 @@ section {
     align-items: flex-start;
     padding: 20px 30px;
     /* Gradient Background matching the image's structure */
-    background-image: linear-gradient(to right, #ffffff 65%, #E0F7FA);
+    background-image: linear-gradient(to right, #ffffff 65%, #e0f7fa);
     background-repeat: no-repeat;
     background-position: right center;
     border-bottom: 1px solid #eee;
@@ -268,7 +266,7 @@ section {
     border-radius: 50%;
     margin-right: 20px;
     object-fit: cover;
-    border: 3px solid #14a2a0; 
+    border: 3px solid #14a2a0;
 }
 
 .details h1 {
@@ -322,7 +320,6 @@ section {
     margin-left: 15px;
 }
 
-
 .card-body {
     padding: 15px 30px;
     background-color: #fafafa;
@@ -340,7 +337,7 @@ section {
 .about-details {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two columns */
-    gap: 15px 50px; 
+    gap: 15px 50px;
 }
 
 .about-details > div {
@@ -387,7 +384,7 @@ section {
     font-size: 10px;
     color: #007977;
     font-weight: bold;
-    background-color: #E0F2F1;
+    background-color: #e0f2f1;
     padding: 5px 10px;
     border-radius: 4px;
 }
@@ -397,23 +394,22 @@ section {
 }
 .gender-space {
     display: inline-block;
-    width: 10px; 
+    width: 10px;
 }
 
-
 .section-title {
-    background-color: #E0F2F1; /* Light Mint Green */
-    color: #004D40; 
+    background-color: #e0f2f1; /* Light Mint Green */
+    color: #004d40;
     padding: 10px 30px;
     font-weight: bold;
-    border-left: 6px solid #00BFA5; /* Prominent left border */
+    border-left: 6px solid #00bfa5; /* Prominent left border */
 }
 
 /* Special styling for the first section to match the image */
 .patient-info-title {
-    background-color: #E0F2F1;
-    color: #004D40;
-    border-left-color: #00BFA5;
+    background-color: #e0f2f1;
+    color: #004d40;
+    border-left-color: #00bfa5;
 }
 
 .form-fields {
@@ -443,25 +439,63 @@ section {
 }
 
 /* Styling for specific labels in Patient Info to enforce column structure */
-.form-section:nth-child(2) .form-fields label:nth-child(-n+2) {
+.form-section:nth-child(2) .form-fields label:nth-child(-n + 2) {
     width: calc(50% - 15px);
 }
 .form-section:nth-child(2) .form-fields label:nth-child(3) {
     width: 100%; /* Gender takes full width */
 }
 
-
 .checkbox-group label {
     width: auto;
     margin-right: 25px;
     font-size: 13px;
     display: inline-flex;
-}
-.checkbox-group input[type="checkbox"] {
-    margin-left: 5px;
-    margin-right: 5px;
+    align-items: center;
+    cursor: pointer;
 }
 
+.checkbox-group input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    margin-right: 5px;
+    border: 2px solid #007977;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: #007977;
+    border-color: #007977;
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.checkbox-group input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.checkbox-group input[type="checkbox"]:disabled:checked {
+    background-color: #007977;
+    border-color: #007977;
+}
 
 /* --- 4. Medical Records Table --- */
 .medical-records-table {
@@ -494,7 +528,7 @@ section {
 
 /* Highlight row styling */
 .highlight-row {
-    background-color: #E0F2F1; 
+    background-color: #e0f2f1;
 }
 
 .action-icon {
@@ -531,7 +565,7 @@ section {
     max-width: 400px; /* Constrain size */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     position: relative;
-    font-family: 'Cairo', sans-serif;
+    font-family: "Cairo", sans-serif;
 }
 
 .modal-clinic-logo {
@@ -573,7 +607,7 @@ section {
 }
 
 .date-box {
-    background-color: #E0F2F1;
+    background-color: #e0f2f1;
     color: #007977;
     padding: 8px 10px;
     border-radius: 6px;
@@ -631,15 +665,14 @@ section {
     transition: background 0.3s;
 }
 .sidebar-menu li a {
-  display: flex; 
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: px 15px;
-  color: inherit;
-  text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: px 15px;
+    color: inherit;
+    text-decoration: none;
 }
-
 
 /* ========================================================================= */
 /* Toast Notification Styles */

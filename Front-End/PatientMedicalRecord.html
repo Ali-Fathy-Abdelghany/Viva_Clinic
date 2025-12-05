@@ -60,7 +60,7 @@
     <ul class="sidebar-menu">
       <li onclick="window.location.href='MyAppointments.html'">
         <i class="fas fa-calendar-check"></i> My Appointments
-  
+      </li>
       <li onclick="window.location.href='PatientMedicalRecord.html'">
         <i class="fas fa-file-medical"></i> Medical Record
       </li>
@@ -85,7 +85,7 @@
     <section class="patient-card">
         <div class="card-header">
             <div class="profile-info">
-                <img src="images/Profile2.jpeg" alt="profile picture" class="profile-pic profilePic" >
+                <img src="images/Profile2.jpeg" alt="profile picture" class="profile-pic" id="profilePicPreview" >
                 <div class="details">
                     <p class="patient-id">Patient id</p>
                     <h1 class="sidebar-user-name">Maria Steive</h1>
@@ -137,20 +137,19 @@
     
     <div class="form-fields checkbox-group">
         <div class="checkbox-block">
-            
             <label class="block-title"><strong>Chronic Illnesses:</strong></label>
-            <label>Diabetes <input type="checkbox" name="chronic" value="diabetes"></label>
-            <label>Hypertension <input type="checkbox" name="chronic" value="hypertension"></label>
-            <label>Asthma <input type="checkbox" name="chronic" value="asthma"></label>
-            <label>Other <input type="checkbox" name="chronic" value="other"></label>
+            <label>Diabetes <input type="checkbox" name="chronic" value="diabetes" disabled checked></label>
+            <label>Hypertension <input type="checkbox" name="chronic" value="hypertension" disabled></label>
+            <label>Asthma <input type="checkbox" name="chronic" value="asthma" disabled></label>
+            <label>Other <input type="checkbox" name="chronic" value="other" disabled></label>
         </div>
 
         <div class="checkbox-block">
             <label class="block-title"><strong>Allergies:</strong></label>
-            <label>Medication <input type="checkbox" name="allergies" value="medication"></label>
-            <label>Environmental <input type="checkbox" name="allergies" value="environmental"></label>
-            <label>Food <input type="checkbox" name="allergies" value="food"></label>
-            <label>Other <input type="checkbox" name="allergies" value="other"></label>
+            <label>Medication <input type="checkbox" name="allergies" value="medication" disabled></label>
+            <label>Environmental <input type="checkbox" name="allergies" value="environmental" disabled></label>
+            <label>Food <input type="checkbox" name="allergies" value="food" disabled></label>
+            <label>Other <input type="checkbox" name="allergies" value="other" disabled></label>
         </div>
         
     </div>
@@ -244,6 +243,7 @@
     <script src="scripts/role-control.js"></script>
     <script src="scripts/prescription.js"></script>
     <script src="scripts/Dynamic Navigation Logic.js"></script>
+    <script src="scripts/loadMedicalRecords.js"></script>
 
 
 </body>

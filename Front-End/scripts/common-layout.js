@@ -1,11 +1,14 @@
 // scripts/common-layout.js
 // Shared layout behaviors: Sidebar, Navbar active state, Profile clicks, Logout
+
+const API_BASE = 'http://127.0.0.1:3000/api';
+
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
     // ==================== DOM Elements ====================
     const menuBtn           = document.getElementById("menuBtn");           // Hamburger icon
     const sidebar           = document.getElementById("sidebar");           // Sidebar container
-    const profilePic        = document.getElementsByClassName("profilePic");        // Navbar profile picture
+    const profilePic        = document.getElementById("profilePic");        // Navbar profile picture
     const sidebarProfileImg = document.getElementById("sidebar-profile-img"); // Sidebar profile image
     const sidebarUserName   = document.getElementsByClassName("sidebar-user-name")[0];   // Sidebar user name
     const logoutModal       = document.getElementById("logoutModal");       // Logout modal container
@@ -79,11 +82,15 @@
       sidebar?.classList.remove("active"); // Close sidebar if open
     };
 
+    // if (profilePic) {
+    //   Array.from(profilePic).forEach(element => {
+    //     element.style.cursor = "pointer";
+    //     element.addEventListener("click", goToProfile);
+    //   });
+    // }
     if (profilePic) {
-      Array.from(profilePic).forEach(element => {
-        element.style.cursor = "pointer";
-        element.addEventListener("click", goToProfile);
-      });
+      profilePic.style.cursor = "pointer";
+      profilePic.addEventListener("click", goToProfile);
     }
 
     // Attach click event to sidebar profile image and user name
@@ -113,8 +120,13 @@
 
     const performLogout = () => {
       hideLogoutModal();
-      fetch()
-      window.location.href = "homepage.html"; // Redirect to homepage
+      fetch(`${API_BASE}/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      }).finally(() => {
+        // Redirect to homepage after logout
+        window.location.href = "homepage.html"; // Redirect to homepage
+      });
     };
 
     // Attach events to the Modal buttons

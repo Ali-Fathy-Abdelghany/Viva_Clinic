@@ -153,7 +153,7 @@ const getDoctorAppointments = asyncHandler(async (req, res) => {
 // Update doctor profile
 const updateDoctorProfile = asyncHandler(async (req, res) => {
     const doctorId = req.userId;
-    const { Bio, SpecialtyID, Gender } = req.body;
+    const { Bio, SpecialtyID, Gender ,Image_url,Fee,Education,YearsOfExperience} = req.body;
 
     const doctor = await Doctor.findByPk(doctorId);
     if (!doctor) {
@@ -169,7 +169,10 @@ const updateDoctorProfile = asyncHandler(async (req, res) => {
         doctor.SpecialtyID = SpecialtyID;
     }
     if (Gender) doctor.Gender = Gender;
-
+    if (Image_url) doctor.Image_url = Image_url;
+    if (Fee) doctor.Fee = Fee;
+    if (Education) doctor.Education = Education;
+    if (YearsOfExperience) doctor.YearsOfExperience = YearsOfExperience;
     await doctor.save();
 
     const updatedDoctor = await Doctor.findByPk(doctorId, {
