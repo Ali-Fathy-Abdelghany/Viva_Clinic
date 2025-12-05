@@ -28,9 +28,12 @@
         window.showMessage?.('Login successful!', 'success');
         setTimeout(() => {
           const role = data.user.Role?.toLowerCase();
+          window.role = role;
           window.location.href = role === 'patient'
             ? 'homepage.html'
-            : 'doctor-dashboard.html';
+            : role === 'doctor'
+            ? 'doctor-profile.html'
+            : 'admin-dashboard.html';
         }, 1200);
       } catch (err) {
         window.showMessage?.('Invalid credentials', 'error');

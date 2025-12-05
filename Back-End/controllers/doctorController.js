@@ -6,6 +6,8 @@ const {
     Specialty,
     DoctorWorkingHours,
     Appointment,
+    Certification,
+    Award
 } = require("../models");
 const { Op } = require("sequelize");
 const { asyncHandler, AppError } = require("../middleware/errorHandler");
@@ -46,6 +48,16 @@ const getDoctors = asyncHandler(async (req, res) => {
                 as: "workingHours",
                 attributes: ["DayOfWeek", "StartTime", "EndTime"],
             },
+            {
+                model: Certification,
+                as: "doctorCertifications",
+                attributes  : ["Title", "Description"],
+            },
+            {
+                model: Award,
+                as: "doctorAwards",
+                attributes: ["Award_name", "Award_description"],
+            }
         ],
     });
 
@@ -76,6 +88,14 @@ const getDoctor = asyncHandler(async (req, res) => {
                 as: "workingHours",
                 order: [["DayOfWeek", "ASC"]],
             },
+            {
+                model: Certification,
+                as: "doctorCertifications",
+            },
+            {
+                model: Award,
+                as: "doctorAwards",
+            }
         ],
     });
 
@@ -153,7 +173,7 @@ const getDoctorAppointments = asyncHandler(async (req, res) => {
 // Update doctor profile
 const updateDoctorProfile = asyncHandler(async (req, res) => {
     const doctorId = req.userId;
-    const { Bio, SpecialtyID, Gender ,Image_url,Fee,Education,YearsOfExperience} = req.body;
+    const { Bio, SpecialtyID, Gender ,Image_url,Fee,Education,YearsOfExperience, Awards, Certifications } = req.body;
 
     const doctor = await Doctor.findByPk(doctorId);
     if (!doctor) {
@@ -173,6 +193,8 @@ const updateDoctorProfile = asyncHandler(async (req, res) => {
     if (Fee) doctor.Fee = Fee;
     if (Education) doctor.Education = Education;
     if (YearsOfExperience) doctor.YearsOfExperience = YearsOfExperience;
+    if (Awards) await Award.bulkCreate(Awards.map(award => ({ DoctorID: doctorId,Award_name: award.name,Award_description: award.description })));
+    if (Certifications) await Certification.bulkCreate(Certifications.map(certification => ({ DoctorID: doctorId, Title: certification.name ,Description: certification.description })));
     await doctor.save();
 
     const updatedDoctor = await Doctor.findByPk(doctorId, {
