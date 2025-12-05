@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         editBtn.style.display = "none";
 
-        // ==================== NEW: Click to open doctor profile ====================
+        // ==================== Click to open doctor profile ====================
         // Sidebar image
         const newSidebarImg = document.getElementById("sidebar-profile-img");
         const newUserName = document.getElementById("sidebar-user-name")
@@ -250,3 +250,4 @@ document.addEventListener("DOMContentLoaded", () => {
     // If role is admin or missing → the original sidebar remains
 
 });
+
