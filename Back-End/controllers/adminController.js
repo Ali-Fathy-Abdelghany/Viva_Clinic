@@ -6,6 +6,8 @@ const {
     DoctorWorkingHours,
     Appointment,
     Patient,
+    Award,
+    Certification
 } = require("../models");
 const { Op } = require("sequelize");
 const { asyncHandler, AppError } = require("../middleware/errorHandler");
@@ -28,6 +30,8 @@ const createDoctor = asyncHandler(async (req, res) => {
         Fee,
         Education,
         YearsOfExperience,
+        Awards,
+        Certifications,
     } = req.body;
 
     // Check if user already exists
@@ -70,6 +74,23 @@ const createDoctor = asyncHandler(async (req, res) => {
         YearsOfExperience,
     });
 
+    if (Awards)
+        await Award.bulkCreate(
+            Awards.map((award) => ({
+                DoctorID: doctor.DoctorID,
+                Award_name: award.name,
+                Award_description: award.description,
+            }))
+        );
+    if (Certifications)
+        await Certification.bulkCreate(
+            Certifications.map((certification) => ({
+                DoctorID: doctor.DoctorID,
+                Title: certification.name,
+                Description: certification.description,
+            }))
+        );
+
     const doctorWithDetails = await Doctor.findByPk(doctor.DoctorID, {
         include: [
             {
@@ -106,6 +127,7 @@ const updateDoctor = asyncHandler(async (req, res) => {
         Fee,
         Education,
         YearsOfExperience,
+        password, // just for testing
     } = req.body;
 
     const doctor = await Doctor.findByPk(id, {
@@ -145,6 +167,10 @@ const updateDoctor = asyncHandler(async (req, res) => {
     if (Fee) doctor.Fee = Fee;
     if (Education) doctor.Education = Education;
     if (YearsOfExperience) doctor.YearsOfExperience = YearsOfExperience;
+    if (password) {
+        doctor.user.PasswordHash = await hashPassword(password);
+        await doctor.user.save();
+    }
     await doctor.save();
 
     const updatedDoctor = await Doctor.findByPk(id, {

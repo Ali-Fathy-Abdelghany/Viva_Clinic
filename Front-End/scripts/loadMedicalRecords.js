@@ -171,6 +171,10 @@ function openPrescriptionModal(recordId) {
     }
 
     // Populate modal with data
+    const doctorImageUrl = record.appointment.doctor.Image_url ||
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            record.appointment.doctor.user.FirstName + " " + record.appointment.doctor.user.LastName
+        )}&background=random&size=128`;
     const doctorName = `${record.appointment.doctor.user.FirstName} ${record.appointment.doctor.user.LastName}`;
     const specialty = record.appointment.doctor.specialty?.Name || "N/A";
     const appointmentDate = new Date(
@@ -182,6 +186,9 @@ function openPrescriptionModal(recordId) {
     });
 
     // Update modal content
+    modal.querySelector(
+        ".doctor-profile-pic"
+    ).src=doctorImageUrl
     modal.querySelector(
         ".doctor-info p strong"
     ).textContent = `Dr. ${doctorName}`;

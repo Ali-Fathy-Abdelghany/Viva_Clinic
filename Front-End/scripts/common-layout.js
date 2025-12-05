@@ -1,8 +1,6 @@
 // scripts/common-layout.js
 // Shared layout behaviors: Sidebar, Navbar active state, Profile clicks, Logout
 
-const API_BASE = 'http://127.0.0.1:3000/api';
-
 (() => {
   document.addEventListener("DOMContentLoaded", () => {
     // ==================== DOM Elements ====================
@@ -120,7 +118,7 @@ const API_BASE = 'http://127.0.0.1:3000/api';
 
     const performLogout = () => {
       hideLogoutModal();
-      fetch(`${API_BASE}/auth/logout`, {
+      fetch(`${window.API_BASE||'http://127.0.0.1:3000/api'}/auth/logout`, {
         method: "POST",
         credentials: "include",
       }).finally(() => {

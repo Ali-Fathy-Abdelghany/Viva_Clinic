@@ -23,7 +23,7 @@ if (logoutBtn) {
     });
 } */
 /* ================= DASHBOARD LOGIC ================= */
-
+let API_BASE = window.API_BASE || 'http://localhost:3000/api';
 
 // --- 1. DATA MODEL & STATE ---
 async function getAppointments(){
@@ -46,7 +46,7 @@ return {
             specialty: appt.doctor.specialty.Name,
             status: appt.Status,
             fee: appt.doctor.Fee,
-            img: appt.doctor.user.Image_url
+            img: appt.doctor.Image_url
         };
     }),
     searchTerm: '',

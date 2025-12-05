@@ -22,7 +22,7 @@
 
         if (res.ok) {
           window.showMessage?.('Registered successfully! Redirecting...', 'success');
-          setTimeout(() => window.location.href = 'login.html', 1500);
+          setTimeout(() => window.location.href = 'patient-form.html', 1500);
         } else {
           window.showMessage?.(result.message || 'Registration failed', 'error');
         }

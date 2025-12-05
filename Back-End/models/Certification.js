@@ -25,4 +25,7 @@ const Certification = sequelize.define('Certification', {
   timestamps: false
 });
 
+  // Table has no primary key column; prevent Sequelize from expecting default `id`.
+  Certification.removeAttribute('id');
+
 module.exports = Certification;
