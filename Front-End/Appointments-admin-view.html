@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="Styles/bell.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
    
   <!-- CSS -->  
@@ -33,15 +34,16 @@
         <i class="fas fa-bell" id="bellIcon"></i>
         <div class="notifications-menu" id="notificationsMenu"></div>
       </div>
+      <!-- User profile picture (clickable → goes to patient profile) -->
       <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
     </div>
   </nav>
 
   <!-- ==================================== SIDEBAR ==================================== -->
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="admin-info">
-        <div class="admin-avatar">
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="admin-info">
+      <div class="admin-avatar">
         <img src="images/default-avatar.png" alt="Profile">
       </div>
       <span class="admin-name">ADMIN</span>
@@ -75,6 +77,7 @@
 
   <!-- ==================================== MAIN CONTENT ==================================== -->
 
+<div class="main-content">
  <!-- Filters Bar -->
 <div class="filters-bar">
   <div class="relative">
@@ -247,9 +250,10 @@
     </div>
 </div>
   <!-- ==================================== SCRIPTS ==================================== -->
-    <script src="scripts/common-layout.js"></script>
     <script src="scripts/Appointments-admin-view.js"></script>
+    <script src="scripts/common-layout.js"></script>
     <script src="scripts/bill.js"></script>
 
+</div>
 </body>
 </html>

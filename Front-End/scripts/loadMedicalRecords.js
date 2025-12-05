@@ -65,9 +65,19 @@
 // }
 
 async function loadMedicalRecords() {
-    const apiBase = window.API_BASE || "http://localhost:3000/api";
+    const apiBase = window.API_BASE || "http://127.0.0.1:3000/api";
+    
+    // Get patient ID from URL if admin/doctor is viewing specific patient
+    const params = new URLSearchParams(window.location.search);
+    const specificPatientId = params.get("patientId");
+    
     try {
-        const res = await fetch(`${apiBase}/patients/medical-records`, {
+        // Determine endpoint based on whether viewing specific patient
+        const endpoint = specificPatientId 
+            ? `${apiBase}/patients/${specificPatientId}/medical-records`
+            : `${apiBase}/patients/medical-records`;
+            
+        const res = await fetch(endpoint, {
             method: "GET",
             credentials: "include",
         });

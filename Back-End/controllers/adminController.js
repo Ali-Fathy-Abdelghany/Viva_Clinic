@@ -127,7 +127,6 @@ const updateDoctor = asyncHandler(async (req, res) => {
         Fee,
         Education,
         YearsOfExperience,
-        password, // just for testing
     } = req.body;
 
     const doctor = await Doctor.findByPk(id, {
@@ -167,10 +166,6 @@ const updateDoctor = asyncHandler(async (req, res) => {
     if (Fee) doctor.Fee = Fee;
     if (Education) doctor.Education = Education;
     if (YearsOfExperience) doctor.YearsOfExperience = YearsOfExperience;
-    if (password) {
-        doctor.user.PasswordHash = await hashPassword(password);
-        await doctor.user.save();
-    }
     await doctor.save();
 
     const updatedDoctor = await Doctor.findByPk(id, {
@@ -241,6 +236,17 @@ const getPatients = asyncHandler(async (req, res) => {
         ],
         order: [["UserID", "ASC"]],
     });
+    // Fetch last appointment date for each patient
+    for (const patient of patients) {
+        const lastAppointment = await Appointment.findOne({
+            where: {
+                PatientID: patient.UserID,
+            },
+            order: [["AppointmentDate", "DESC"]],
+        });
+        patient.dataValues.lastAppointmentDate = lastAppointment ? lastAppointment.AppointmentDate : null;
+    }
+
 
     res.status(StatusCodes.OK).json({
         success: true,
@@ -252,7 +258,7 @@ const getPatients = asyncHandler(async (req, res) => {
 // Update patient (admin can update user info but not medical records)
 const updatePatient = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { FirstName, LastName, Email, Phone } = req.body;
+    const { FirstName, LastName, Email, Phone, Password } = req.body;
 
     const user = await User.findByPk(id);
     if (!user || user.Role !== "Patient") {
@@ -269,6 +275,9 @@ const updatePatient = asyncHandler(async (req, res) => {
             throw new AppError("Email already in use", StatusCodes.BAD_REQUEST);
         }
         user.Email = Email;
+    }
+    if (Password) {
+        user.PasswordHash = await hashPassword(Password);
     }
     if (Phone) user.Phone = Phone;
 

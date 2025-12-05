@@ -1,10 +1,20 @@
 const { StatusCodes } = require("http-status-codes");
 const rateLimit = require("express-rate-limit");
-
+// disable rate limiting in development  environment
+if (true) {
+    module.exports = {
+        apiLimiter: (req, res, next) => next(),
+        authLimiter: (req, res, next) => next(),
+        passwordResetLimiter: (req, res, next) => next(),
+        registerLimiter: (req, res, next) => next(),
+        adminLimiter: (req, res, next) => next(),
+    };
+    return;
+}
 // General API rate limiter - 100 requests per 15 minutes
 const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100000, // Limit each IP to 100 requests per windowMs
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 200, // Limit each IP to 200 requests per windowMs
     message: {
         success: false,
         message: "Too many requests from this IP, please try again later.",

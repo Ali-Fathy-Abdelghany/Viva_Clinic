@@ -1,6 +1,6 @@
 // Login page logic
 (function () {
-  const apiBase = window.API_BASE || 'http://localhost:3000/api';
+  const apiBase = window.API_BASE || 'http://127.0.0.1:3000/api';
 
   document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('loginForm');
@@ -28,7 +28,8 @@
         window.showMessage?.('Login successful!', 'success');
         setTimeout(() => {
           const role = data.user.Role?.toLowerCase();
-          window.role = role;
+          window.userRole = role;
+          localStorage.setItem('userRole', role);
           window.location.href = role === 'patient'
             ? 'homepage.html'
             : role === 'doctor'
