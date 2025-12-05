@@ -99,7 +99,7 @@ section {
   cursor: pointer;
 }
 
-.profile-pic { width:44px; height:44px; border-radius:50%; object-fit:cover; border:3px solid #fff; cursor:pointer; }
+.profile-pic { width:44px; height:44px; border-radius:50%; object-fit:cover;cursor:pointer; }
 
 /* Sidebar */
 .sidebar {
@@ -112,16 +112,12 @@ section {
   box-shadow: 5px 0 25px rgba(0,0,0,0.15);
   transition: left 0.4s ease;
   z-index: 999;
-  padding: 70px 10px;
+  padding: 70px 15px;
 }
 
 .sidebar.active {
   left: 0;
 }
-
-.sidebar-header { 
-    padding:20px 24px; 
-    border-bottom:1px solid #eee; }
 
 .admin-info {  
     text-align: center;
@@ -150,11 +146,11 @@ section {
 }
 
 .sidebar-menu li {
-  padding: 16px 0px;
+  padding: 15px 0px;
   font-size: 16px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   cursor: pointer;
   transition: color 0.3s;
 }
