@@ -1,83 +1,165 @@
-const menuBtn        = document.getElementById('menuBtn');
-const sidebar        = document.getElementById('sidebar');
-const overlay        = document.getElementById('sidebarOverlay');
-const filterBtn      = document.getElementById('filterBtn');
+const API_BASE_URL = 'http://localhost:3000/api';
+
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebarOverlay');
+const filterBtn = document.getElementById('filterBtn');
 const filterDropdown = document.getElementById('filterDropdown');
-const searchInput    = document.getElementById('doctorSearch');
+const searchInput = document.getElementById('doctorSearch');
+const doctorsGrid = document.getElementById('doctorsGrid'); 
+const specialtyFilterItem = document.getElementById('specialtyFilterItem'); 
 
 let currentFilter = 'name';
+let allDoctors = []; 
+let specialties = []; 
+let selectedSpecialtyId = null; 
 
-/* menuBtn?.addEventListener("click", () => {
-  sidebar.classList.toggle("active");
-  overlay.classList.toggle("active");
-  document.body.style.overflow = sidebar.classList.contains("active") ? "hidden" : "auto";
-});
+async function showData() {
+    response = await fetch("http://localhost:3000/api/doctors")
+    data = await response.json()
+    console.log(data)
+}
+showData()
 
-overlay?.addEventListener("click", () => {
-  sidebar.classList.remove("active");
-  overlay.classList.remove("active");
-  document.body.style.overflow = "auto";
-});
+async function fetchSpecialties() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/doctors/specialties`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch specialties');
+        }
+        const data = await response.json();
+        specialties = data.data.specialties; 
+        console.log('Specialties loaded:', specialties);
+        
+    } catch (error) {
+        console.error('Error loading specialties:', error);
+    }
+}
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && sidebar.classList.contains("active")) {
-    sidebar.classList.remove("active");
-    overlay.classList.remove("active");
-    document.body.style.overflow = "auto";
-  }
-}); */
 
-// ================= فتح وإغلاق الفلتر (الحل المضمون) =================
+
+async function fetchDoctors(searchQuery = '', specialtyId = null) {
+    doctorsGrid.innerHTML = '<h2>Loading Doctors...</h2>';
+    const params = new URLSearchParams();
+
+    if (specialtyId) {
+        params.append('specialtyId', specialtyId);
+    }
+    
+    if (searchQuery && (currentFilter === 'name' || currentFilter === 'specialty')) {
+        params.append('search', searchQuery);
+    }
+    
+    const url = `${API_BASE_URL}/doctors?${params.toString()}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Failed to fetch doctors');
+        }
+        const data = await response.json();
+        
+        allDoctors = data.data.doctors;
+        renderDoctors(allDoctors);
+    } catch (error) {
+        console.error('Error fetching doctors:', error);
+        doctorsGrid.innerHTML = '<h2>Failed to load doctors. Please try again.</h2>';
+    }
+}
+
+function renderDoctors(doctors) {
+    if (doctors.length === 0) {
+        doctorsGrid.innerHTML = '<h2>No doctors found matching your criteria.</h2>';
+        return;
+    }
+
+    doctorsGrid.innerHTML = ''; 
+
+    doctors.forEach(doctor => {
+        const name = `${doctor.user.FirstName} ${doctor.user.LastName}`;
+        const specialtyName = doctor.specialty ? doctor.specialty.Name : 'General Practitioner';
+        const price = doctor.Fee; 
+
+        const cardHTML = `
+            <div class="doctor-card" onclick="window.location.href='doctor-profile.html?id=${doctor.DoctorID}'">
+                <img src="images/doctor.png" alt="Dr. ${name}">
+                <div class="doctor-details">
+                    <h3>Dr. ${name}</h3>
+                    <p class="specialty">${specialtyName}</p>
+                    <p class="price" data-price="${price}">Starts from: <strong>${price} EGP</strong></p>
+                </div>
+                <span class="arrow">></span>
+            </div>
+        `;
+        doctorsGrid.insertAdjacentHTML('beforeend', cardHTML);
+    });
+}
+
 filterBtn?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  filterDropdown.classList.toggle('show');
+    e.stopPropagation();
+    filterDropdown.classList.toggle('show');
 });
 
 document.addEventListener('click', (e) => {
-  if (filterDropdown.classList.contains('show') && 
-      !filterDropdown.contains(e.target) && 
-      e.target !== filterBtn) {
-    filterDropdown.classList.remove('show');
-  }
+    if (filterDropdown.classList.contains('show') && 
+        !filterDropdown.contains(e.target) && 
+        e.target !== filterBtn) {
+        filterDropdown.classList.remove('show');
+    }
 });
 
 filterDropdown?.addEventListener('click', (e) => {
-  e.stopPropagation();
+    e.stopPropagation();
 });
 
-// ================= تغيير نوع الفلتر =================
+
 document.querySelectorAll('.filter-item').forEach(item => {
-  item.addEventListener('click', () => {
-    document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-    currentFilter = item.dataset.type;
-    filterDropdown.classList.remove('show');
-  });
+    item.addEventListener('click', () => {
+        document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        currentFilter = item.dataset.type;
+        filterDropdown.classList.remove('show');
+        
+        searchInput.value = '';
+        selectedSpecialtyId = null; 
+        if (currentFilter === 'price') {
+             fetchDoctors(''); 
+        } else {
+             fetchDoctors();
+        }
+    });
 });
 
-// ================= البحث والفلترة =================
 function searchAndFilter() {
-  const query = searchInput.value.trim().toLowerCase();
-  document.querySelectorAll('.doctor-card').forEach(card => {
-    const name      = card.querySelector('h3').textContent.toLowerCase();
-    const specialty = card.querySelector('.specialty').textContent.toLowerCase();
-    const priceText = card.querySelector('.price').textContent;
-    const price     = parseInt(priceText.replace(/[^0-9]/g, '')) || 0;
+    const query = searchInput.value.trim();
 
-    let show = true;
+    if (currentFilter === 'name' || currentFilter === 'specialty') {
+        fetchDoctors(query);
+    } else if (currentFilter === 'price') {
+        const priceQuery = parseInt(query);
 
-    if (query) {
-      if (currentFilter === 'name') {
-        show = name.includes(query);
-      } else if (currentFilter === 'specialty') {
-        show = specialty.includes(query);
-      } else if (currentFilter === 'price') {
-        show = price <= parseInt(query);
-      }
+        let filteredAndSortedDoctors = [...allDoctors];
+
+        if (query && !isNaN(priceQuery)) {
+            filteredAndSortedDoctors = filteredAndSortedDoctors.filter(doctor => {
+                const price = doctor.Fee; 
+                return price <= priceQuery;
+            });
+        }
+        
+        filteredAndSortedDoctors.sort((a, b) => {
+            const priceA = a.Fee;
+            const priceB = b.Fee;
+            return priceA - priceB;
+        });
+
+        renderDoctors(filteredAndSortedDoctors);
     }
-
-    card.style.display = show ? 'flex' : 'none';
-  });
 }
 
 searchInput?.addEventListener('input', searchAndFilter);
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchSpecialties(); 
+    fetchDoctors(); 
+});

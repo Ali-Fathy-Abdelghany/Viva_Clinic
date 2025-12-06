@@ -1,13 +1,15 @@
-// --- GLOBAL STATE ---
+const API_BASE_URL = 'http://localhost:3000/api'; 
+
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let currentActiveDate = new Date(); // التاريخ النشط حالياً (الذي يحدد بدء عرض الأيام الخمسة)
+let currentActiveDate = new Date(); 
 let currentDisplayDate = new Date(currentActiveDate.getFullYear(), currentActiveDate.getMonth(), 1); 
 
 let isBookingConfirmed = false; 
 let selectedSlotElement = null; 
-let selectedDateTime = null; // لتخزين التاريخ والوقت المختارين
+let selectedDateTime = null; 
+let DOCTOR_ID = null; 
 
-// --- DOM ELEMENTS ---
+
 const monthDisplay = document.getElementById('current-month-display');
 const calendarBody = document.getElementById('calendar-body');
 const prevBtn = document.getElementById('prev-month-btn');
@@ -18,158 +20,99 @@ const submitBtn = document.getElementById('submit-btn');
 const successModal = document.getElementById('success-modal');
 
 
-// ===================================================================================
-// ========================= DYNAMIC AVAILABILITY LOGIC (NEW GRID) ===================
-// ===================================================================================
+function getDoctorIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('doctorId');
+}
 
-/**
- * محاكاة لجلب بيانات التوفر من API (يجب استبدالها بطلب HTTP حقيقي)
- */
-function getAvailabilityForDay(date) {
-    const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
-    const dayKey = date.getDay(); // 0 (Sun) to 6 (Sat)
-    
-    // محاكاة لأوقات مختلفة بناءً على يوم الأسبوع
-    const availabilityData = {
-        // الأحد = 0، السبت = 6
-        0: [], 6: [], 
-        1: [ // Monday
-            { time: "11:30 AM - 12:30 PM", status: "available" }, // تم تغييرها إلى متوفر
-            { time: "06:00 PM - 07:30 PM", status: "available" }
-        ],
-        2: [ // Tuesday
-            { time: "12:30 PM - 01:30 PM", status: "available" },
-            { time: "07:00 PM - 08:30 PM", status: "available" }
-        ],
-        3: [ // Wednesday
-            { time: "02:30 PM - 03:30 PM", status: "available" },
-            { time: "09:00 PM - 11:00 PM", status: "available" }
-        ],
-        4: [ // Thursday
-            { time: "03:30 PM - 04:30 PM", status: "available" }
-        ],
-        5: [ // Friday
-            { time: "04:30 PM - 05:30 PM", status: "available" },
-            { time: "11:00 PM - 11:30 PM", status: "available" }
-        ],
-    };
-
-    return {
-        dayName: dayName,
-        slots: availabilityData[dayKey] || []
-    };
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 
-/**
- * دالة لتحديد الأيام الخمسة القادمة وعرضها في شكل شبكة
- */
-function renderAvailabilityGrid(startDate) {
-    availabilityGrid.innerHTML = '';
-    dayTabsContainer.innerHTML = ''; 
-    selectedSlotElement = null; // إعادة تعيين التحديد عند تغيير اليوم
-    selectedDateTime = null;
+async function fetchDoctorAvailability(dateString) {
+    if (!DOCTOR_ID) {
+        console.error("Doctor ID is missing for availability fetch.");
+        return [];
+    }
 
-    // لضمان عرض 5 أيام متتالية فقط (Mon-Fri) أو 5 أيام من تاريخ البدء
-    for (let i = 0; i < 5; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
-        
-        const data = getAvailabilityForDay(date);
-        
-        // 1. إنشاء زر اليوم في التبويبات (Tabs)
-        const dayTab = document.createElement('button');
-        dayTab.classList.add('day-tab');
-        dayTab.textContent = data.dayName;
-        // إضافة فئة active-day على اليوم المختار في التقويم
-        if (i === 0) dayTab.classList.add('active-day'); 
-        dayTabsContainer.appendChild(dayTab);
+    try {
+        const url = `${API_BASE_URL}/doctors/${DOCTOR_ID}/availability?date=${dateString}`;
+        const response = await fetch(url);
 
-        // 2. إنشاء عمود الأوقات (Slots Column)
-        const dayColumn = document.createElement('div');
-        dayColumn.classList.add('day-column-grid-content'); 
-        
-        // إدخال الأزرار الزمنية في العمود
-        if (data.slots.length === 0) {
-            const msg = document.createElement('p');
-            msg.textContent = date.getDay() === 0 || date.getDay() === 6 ? "Weekend" : "Fully Booked";
-            msg.style.color = '#ccc';
-            msg.style.padding = '10px 0';
-            dayColumn.appendChild(msg);
-        } else {
-            data.slots.forEach(slot => {
-                const slotElement = document.createElement('button');
-                slotElement.classList.add('time-slot');
-                slotElement.textContent = slot.time;
-                
-                // تخزين بيانات التاريخ الكاملة والوقت
-                slotElement.setAttribute('data-date', date.toISOString().split('T')[0]); 
-                slotElement.setAttribute('data-time-range', slot.time); 
-
-                let status = slot.status === 'booked' ? 'booked' : 'available';
-
-                // تطبيق الفئات CSS
-                if (status === 'booked') {
-                    slotElement.classList.add('booked-red');
-                    slotElement.setAttribute('data-status', 'booked');
-                } else {
-                    slotElement.classList.add('available');
-                    slotElement.setAttribute('data-status', 'available');
-                    slotElement.addEventListener('click', handleSlotClick);
-                }
-                
-                dayColumn.appendChild(slotElement);
-            });
+        if (!response.ok) {
+            throw new Error(`Failed to fetch availability. Status: ${response.status}`);
         }
-        availabilityGrid.appendChild(dayColumn);
+
+        const data = await response.json();
+        
+        return data.data.availableSlots || [];
+    } catch (error) {
+        console.error('Error fetching doctor availability:', error);
+        alert("Error fetching availability. Please try again later.");
+        return [];
     }
 }
 
-/**
- * دالة لمعالجة النقر على الفتحات الزمنية
- */
-function handleSlotClick(event) {
-    const clickedSlot = event.currentTarget;
-    const status = clickedSlot.getAttribute('data-status');
 
-    if (isBookingConfirmed) {
-        alert("You have already booked an appointment. Submission is blocked.");
+async function submitBooking() {
+    if (!DOCTOR_ID || !selectedDateTime) {
+        alert("Please select a valid time slot before submitting.");
         return;
     }
-    if (status === 'booked') return;
 
-    // 1. إلغاء تحديد الفتحة الزمنية السابقة
-    if (selectedSlotElement && selectedSlotElement !== clickedSlot) {
-        selectedSlotElement.classList.remove('selected-teal');
-        selectedSlotElement.classList.add('available');
-        selectedSlotElement.setAttribute('data-status', 'available');
+    
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+        alert("You must be logged in to book an appointment.");
+        window.location.href = "login.html"; 
+        return;
     }
 
-    // 2. تحديد الفتحة الزمنية الجديدة
-    if (status === 'available') {
-        clickedSlot.classList.remove('available'); 
-        clickedSlot.classList.add('selected-teal');
-        clickedSlot.setAttribute('data-status', 'selected');
-        selectedSlotElement = clickedSlot;
+   
+    const [datePart, timePart] = selectedDateTime.split('T');
+
+    const bookingData = {
+        DoctorID: DOCTOR_ID,
+        AppointmentDate: datePart,
+        StartTime: timePart.substring(0, 5) // Send only HH:MM 
+    };
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/appointments`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Pass the token for authentication
+            },
+            body: JSON.stringify(bookingData)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || `Booking failed. Status: ${response.status}`);
+        }
         
-        // حفظ التاريخ والوقت المختارين عالميًا
-        selectedDateTime = {
-            date: clickedSlot.getAttribute('data-date'),
-            time: clickedSlot.getAttribute('data-time-range')
-        };
-    } else if (status === 'selected') {
-        // إلغاء تحديد
-        clickedSlot.classList.remove('selected-teal');
-        clickedSlot.classList.add('available');
-        clickedSlot.setAttribute('data-status', 'available');
-        selectedSlotElement = null;
-        selectedDateTime = null;
+        // Success actions:
+        if(selectedSlotElement) {
+            selectedSlotElement.classList.remove('selected-teal', 'available'); 
+            selectedSlotElement.classList.add('booked-permanent'); 
+            selectedSlotElement.setAttribute('data-status', 'booked'); 
+        }
+
+        isBookingConfirmed = true; 
+        successModal.style.display = 'flex';
+
+    } catch (error) {
+        console.error('Booking submission error:', error);
+        alert(`Failed to book appointment: ${error.message}`);
     }
 }
-// ===================================================================================
 
 
-// --- CALENDAR FUNCTIONS ---
 function renderCalendar() { 
     const year = currentDisplayDate.getFullYear();
     const month = currentDisplayDate.getMonth();
@@ -200,45 +143,37 @@ function renderCalendar() {
 
     // Current Month's Days (Main Logic)
     for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const dateString = formatDate(date);
+
         const dateCell = document.createElement('div');
         dateCell.classList.add('date-cell');
         dateCell.textContent = day;
-        dateCell.dataset.date = `${year}-${month + 1}-${day}`;
+        dateCell.dataset.date = dateString;
         
-        // تحديد اليوم النشط (Selected Day)
+        //  (Selected Day)
         if (currentActiveDate && year === currentActiveDate.getFullYear() && 
             month === currentActiveDate.getMonth() && 
             day === currentActiveDate.getDate()) {
             dateCell.classList.add('selected-day');
         }
         
-        // ربط النقر بتحديث التوفر
+        
         dateCell.addEventListener('click', (e) => {
-            // إزالة التحديد من اليوم القديم
+            
             document.querySelectorAll('.calendar-grid .selected-day').forEach(cell => {
                 cell.classList.remove('selected-day');
             });
-            // تحديد اليوم الجديد
+            
             e.target.classList.add('selected-day');
             
-            // تحديث التاريخ الفعال
+           
             currentActiveDate = new Date(year, month, day);
             
-            // **NEW**: عرض شبكة المواعيد بدءًا من التاريخ المختار
-            renderAvailabilityGrid(currentActiveDate);
+            
+            renderDayTabs(); 
         });
 
-        calendarBody.appendChild(dateCell);
-    }
-    
-    // Next Month's Days (Faded)
-    const totalCells = firstDayOfMonth + daysInMonth;
-    const remainingCells = 42 - totalCells;
-
-    for (let i = 1; i <= remainingCells; i++) {
-        const dateCell = document.createElement('div');
-        dateCell.classList.add('date-cell', 'faded');
-        dateCell.textContent = i;
         calendarBody.appendChild(dateCell);
     }
 }
@@ -252,46 +187,178 @@ function changeMonth(monthChange) {
     renderCalendar();
 }
 
-// --- SUBMIT BUTTON LOGIC ---
-submitBtn.addEventListener('click', () => {
+/**
+ * Renders the 5-day view tabs and calls renderAvailabilityGrid for the first day.
+ */
+function renderDayTabs() {
+    dayTabsContainer.innerHTML = '';
     
+    // Start from the current active date
+    const startDate = new Date(currentActiveDate);
+
+    // Limit to 5 days from the active date
+    for (let i = 0; i < 5; i++) {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+        
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const dateString = formatDate(date);
+        
+        // Mark the very first tab as active by default
+        const tabClass = i === 0 ? 'day-tab active' : 'day-tab';
+
+        const tab = document.createElement('div');
+        tab.className = tabClass;
+        tab.dataset.date = dateString;
+        tab.innerHTML = `
+            <div class="day-name">${dayName}</div>
+            <div class="day-number">${date.getDate()}</div>
+        `;
+        dayTabsContainer.appendChild(tab);
+
+        // Render availability for the first active tab immediately
+        if (i === 0) {
+            renderAvailabilityGrid(dateString);
+        }
+    }
+}
+
+
+
+async function renderAvailabilityGrid(dateString) {
+    // Reset selection state
+    selectedSlotElement = null;
+    selectedDateTime = null;
+    submitBtn.disabled = true;
+
+    if (isBookingConfirmed) {
+        availabilityGrid.innerHTML = '<p class="booking-confirmed-message">Booking confirmed. Reload to start a new booking.</p>';
+        return;
+    }
+    
+    availabilityGrid.innerHTML = '<div class="loading-spinner"></div>'; 
+
+    const slots = await fetchDoctorAvailability(dateString);
+    
+    availabilityGrid.innerHTML = ''; 
+
+    if (slots.length === 0) {
+        availabilityGrid.innerHTML = '<p class="no-availability">No slots available for this date.</p>';
+        return;
+    }
+
+    slots.forEach(slot => { 
+        const { startTime, endTime } = slot;
+        
+        const timeRangeDisplay = `${startTime} - ${endTime}`; 
+        
+       
+        const dateTimeString = `${dateString}T${startTime}:00`; 
+        
+        const slotHTML = `
+            <div 
+                class="time-slot available" 
+                data-time-range="${timeRangeDisplay}" 
+                data-date-time="${dateTimeString}" 
+                data-status="available"
+            >
+                ${timeRangeDisplay} 
+            </div>
+        `;
+        availabilityGrid.insertAdjacentHTML('beforeend', slotHTML);
+    });
+
+    
+    attachSlotListeners();
+}
+
+
+function attachSlotListeners() {
+    document.querySelectorAll('.time-slot.available').forEach(slot => {
+        slot.addEventListener('click', handleSlotClick);
+    });
+}
+
+
+function handleSlotClick(event) {
+    const clickedSlot = event.currentTarget;
+    const status = clickedSlot.getAttribute('data-status');
+
     if (isBookingConfirmed) {
         alert("You have already booked an appointment. Submission is blocked.");
         return;
     }
-    
-    // البحث عن الموعد المختار في الحاوية الديناميكية
-    const selectedSlot = document.querySelector('.time-slot[data-status="selected"]');
-    
-    if (!selectedSlot || !selectedDateTime) {
-        alert("Please select a time slot first.");
-        return;
-    }
-    
-    // 1. Permanently update the selected slot
-    selectedSlot.classList.remove('selected-teal', 'available'); 
-    selectedSlot.classList.add('booked-permanent'); 
-    selectedSlot.setAttribute('data-status', 'booked'); 
-    
-    // 2. Lock the global state immediately after successful pseudo-booking
-    isBookingConfirmed = true; 
+    if (status === 'booked') return;
 
-    // 3. Show the success modal
-    successModal.style.display = 'flex';
+    if (selectedSlotElement && selectedSlotElement !== clickedSlot) {
+        selectedSlotElement.classList.remove('selected-teal');
+        selectedSlotElement.classList.add('available');
+        selectedSlotElement.setAttribute('data-status', 'available');
+    }
+
+    
+    if (status === 'available') {
+        clickedSlot.classList.remove('available'); 
+        clickedSlot.classList.add('selected-teal');
+        clickedSlot.setAttribute('data-status', 'selected');
+        selectedSlotElement = clickedSlot;
+        
+        
+        selectedDateTime = clickedSlot.getAttribute('data-date-time');
+        submitBtn.disabled = false;
+
+    } else if (status === 'selected') {
+       
+        clickedSlot.classList.remove('selected-teal');
+        clickedSlot.classList.add('available');
+        clickedSlot.setAttribute('data-status', 'available');
+        selectedSlotElement = null;
+        selectedDateTime = null;
+        submitBtn.disabled = true;
+    }
+}
+
+
+
+
+prevBtn.addEventListener('click', () => changeMonth(-1));
+nextBtn.addEventListener('click', () => changeMonth(1));
+
+
+dayTabsContainer.addEventListener('click', (e) => {
+    const dayTab = e.target.closest('.day-tab');
+    if (dayTab && !dayTab.classList.contains('active')) {
+        // Update active tab class
+        document.querySelector('.day-tab.active')?.classList.remove('active');
+        dayTab.classList.add('active');
+
+        // Render the new availability grid
+        const dateString = dayTab.getAttribute('data-date');
+        renderAvailabilityGrid(dateString);
+    }
 });
+
+
+
+submitBtn.addEventListener('click', submitBooking);
 
 // Hide the modal 
 document.querySelector('.modal-button').addEventListener('click', () => {
     successModal.style.display = 'none';
+    window.location.href='MyAppointments.html'; // Navigate to appointments after closing modal
 });
 
-// --- Initialization ---
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    DOCTOR_ID = getDoctorIdFromUrl();
+    if (!DOCTOR_ID) {
+       
+        console.warn("Doctor ID is missing in URL. Using default for testing: 2");
+        DOCTOR_ID = '2'; 
+    }
+    
     renderCalendar();
     
-    // عرض شبكة المواعيد بدءًا من اليوم النشط عند تحميل الصفحة
-    renderAvailabilityGrid(currentActiveDate);
+    
 });
-
-prevBtn.addEventListener('click', () => changeMonth(-1));
-nextBtn.addEventListener('click', () => changeMonth(1));
