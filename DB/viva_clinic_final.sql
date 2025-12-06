@@ -78,7 +78,7 @@ CREATE TABLE appointments (
     AppointmentDate DATE NOT NULL,
     StartTime TIME NOT NULL,
     EndTime TIME NOT NULL,
-    Status ENUM('Booked', 'Cancelled', 'Rescheduled', 'Completed') DEFAULT 'Booked',
+    Status ENUM('Booked', 'Cancelled', 'Completed') DEFAULT 'Booked',
     UNIQUE KEY unique_booking (DoctorID, AppointmentDate, StartTime),
     FOREIGN KEY (PatientID) REFERENCES patients(PatientID) ON DELETE CASCADE,
     FOREIGN KEY (DoctorID) REFERENCES doctors(DoctorID) ON DELETE CASCADE
@@ -364,11 +364,11 @@ INSERT INTO appointments (PatientID, DoctorID, AppointmentDate, StartTime, EndTi
 (36, 1, '2024-11-08', '09:00:00', '09:30:00', 'Completed'), -- Fri 9:00
 
 -- Other Statuses (10)
-(15, 1, '2024-11-08', '10:00:00', '10:30:00', 'Rescheduled'), -- Fri 10:00
+(15, 1, '2024-11-08', '10:00:00', '10:30:00', 'Booked'), -- Fri 10:00
 (22, 2, '2024-11-07', '13:00:00', '13:30:00', 'Booked'),      -- Thu 13:00
 (26, 1, '2024-11-11', '09:00:00', '09:30:00', 'Cancelled'),   -- Mon 9:00
-(32, 4, '2024-11-07', '14:30:00', '15:00:00', 'Rescheduled'), -- Thu 14:30
-(33, 5, '2024-11-04', '09:00:00', '09:30:00', 'Rescheduled'), -- Mon 9:00
+(32, 4, '2024-11-07', '14:30:00', '15:00:00', 'Cancelled'), -- Thu 14:30
+(33, 5, '2024-11-04', '09:00:00', '09:30:00', 'Cancelled'), -- Mon 9:00
 (35, 9, '2024-11-10', '15:00:00', '15:30:00', 'Booked'),      -- Sun 15:00
 (38, 2, '2024-11-12', '14:00:00', '14:30:00', 'Booked'),      -- Tue 14:00
 (39, 8, '2024-11-13', '09:00:00', '09:30:00', 'Booked'),      -- Wed 9:00
