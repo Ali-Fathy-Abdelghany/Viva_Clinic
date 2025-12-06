@@ -1,3 +1,5 @@
+const path = require("path");
+const fs = require("fs");
 const { StatusCodes } = require("http-status-codes");
 const { User, Patient, Medical_info } = require("../models");
 const { asyncHandler, AppError } = require("../middleware/errorHandler");
@@ -225,7 +227,7 @@ const getPatientMedicalRecords = asyncHandler(async (req, res) => {
 });
 
 const updateProfilePicture = asyncHandler(async (req, res) => {
-    const userId = req.userId; // Logged in user
+    const userId = req.params.id || req.userId;
     const userRole = req.userRole;
 
     // Multer ensures req.file exists
@@ -244,9 +246,15 @@ const updateProfilePicture = asyncHandler(async (req, res) => {
         throw new AppError("Patient not found", StatusCodes.NOT_FOUND);
     }
 
-    // Update image url
+    // Update image url and delete old file
+    const oldImageUrl = patient.Image_url;
     patient.Image_url = imageUrl;
-    console.log(imageUrl);
+    if (oldImageUrl) {
+        const oldImagePath = path.join(__dirname, "..", "uploads", path.basename(oldImageUrl));
+        fs.unlink(oldImagePath, (err) => {
+            if (err) console.error("Failed to delete old image:", err);
+        });
+    }
 
     await patient.save();
 

@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viva Clinic - Patient Grid</title>
+    <link rel="icon" type="image/png" href="images/ico.png"/>
   <link rel="stylesheet" href="Styles/patients.css">
+  <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
@@ -35,7 +37,7 @@
         <div class="notifications-menu" id="notificationsMenu"></div>
       </div>
       
-      <img src="images/assets/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+      <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
     </div>
   </nav>
 
@@ -44,42 +46,31 @@
   <div class="sidebar-header">
     <div class="admin-info">
       <div class="admin-avatar">
-        <i class="material-icons-round">person</i>
+        <img src="images/default-avatar.png" alt="Profile">
       </div>
       <span class="admin-name">ADMIN</span>
     </div>
   </div>
 
     <ul class="sidebar-menu">
-        <li><a href="admin-dashboard.html">
-            <i class="material-icons-round">dashboard</i>
-            <span>Dashboard</span>
-        </a></li>
-
-        <li><a href="doctors-admin-view.html">
-            <i class="material-icons-round">health_and_safety</i>
-            <span>Doctors</span>
-        </a></li>
-
-        <li><a href="patients.html">
-            <i class="material-icons-round">groups</i>
-            <span>Patients</span>
-        </a></li>
-
-        <li><a href="register-doctor.html" class="active">
-            <i class="material-icons-round">person_add</i>
-            <span>Register</span>
-        </a></li>
-
-        <li><a href="settings.html">
-            <i class="material-icons-round">settings</i>
-            <span>Settings</span>
-        </a></li>
-
-        <li><a href="login.html" class="logout-item" id="logoutBtn">
-            <i class="material-icons-round">logout</i>
-            <span>Log out</span>
-        </a></li>
+      <li onclick="window.location.href='admin-dashboard.html'">
+        <i class="fas fa-bar-chart"></i> Dashboard
+      </li>
+      <li onclick="window.location.href='doctors-admin-view.html'">
+        <i class="fas fa-user-md"></i> Doctors
+      </li>
+      <li onclick="window.location.href='patients.html'">
+        <i class="fas fa-heartbeat"></i> Patients
+      </li>
+      <li onclick="window.location.href='register-doctor.html'">
+        <i class="fas fa-user-plus"></i> Register
+      </li>
+      <li onclick="window.location.href='settings.html'">
+        <i class="fas fa-cog"></i> Settings
+      </li>
+      <li id="logoutBtn" class="logout-item" href="logout-modal.html">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </li>
     </ul>
 </div>
 
@@ -90,13 +81,13 @@
         <div class="container">
             <h1 class="page-title">Explore All Patients</h1>
 
-            <div class="search-container">
+            <div class="search-container" id="search-container">
                 <div class="search-box">
                     <i class="fas fa-filter filter-icon" id="filterIcon"></i>
                     <input type="text" id="searchInput" placeholder="Search For Patient...">
                     <i class="fas fa-search search-icon"></i>
                 </div>
-
+                
                 <div class="filter-menu" id="filterMenu">
                     <div class="filter-item active" data-type="name">
                         <i class="fas fa-user-md"></i>
@@ -106,12 +97,12 @@
                         </div>
                     </div>
 
-                    <div class="filter-item" data-type="specialty">
-                        <i class="fas fa-stethoscope"></i>
-                        <div class="filter-text">
-                            <div class="filter-title">Search by Last Appointment</div>
-                            <div class="filter-subtitle">Thu, 30 Oct 2025, etc.</div>
-                        </div>
+                    <div class="filter-item" data-type="appointment">
+                      <i class="fas fa-stethoscope"></i>
+                      <div class="filter-text">
+                        <div class="filter-title">Search by Last Appointment</div>
+                        <div class="filter-subtitle">Thu, 30 Oct 2025, etc.</div>
+                      </div>
                     </div>
 
                 </div>
@@ -135,9 +126,10 @@
       </div>
     </section>
 
+
     <!-- Popup Action Modal -->
-    <div id="actionModal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0004; display:none; justify-content:center; align-items:center; z-index:2000;">
-    <div style="background:white; width:350px; padding:25px; border-radius:20px; box-shadow:0 4px 20px #0003; text-align:center;">
+    <div id="actionModal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); display:none; z-index:2000;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:white; width:350px; padding:25px; border-radius:20px; box-shadow:0 4px 20px rgba(0,0,0,0.2); text-align:center;">
         <h3 style="margin-bottom:20px; color:#006b6a;">Choose Action</h3>
 
         <div style="display:flex; justify-content:space-around; margin-bottom:25px;">
@@ -155,7 +147,7 @@
         </div>
     </div>
     </div>
-  </main>
+
   <!-- ==================================== LOGOUT MODAL ==================================== -->
   <div id="logoutModal" class="modal">
     <div class="modal-content">

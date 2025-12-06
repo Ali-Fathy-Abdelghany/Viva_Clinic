@@ -3,6 +3,13 @@ const genderMap = {
     M: "male",
     F: "female",
 };
+
+// Get patient ID from URL query parameter
+function getPatientIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("patientId");
+}
+
 function showMessage(text, type = "success") {
     const msg = document.getElementById("message");
     if (!msg) return;
@@ -14,15 +21,8 @@ function showMessage(text, type = "success") {
 }
 
 (function () {
-    document.addEventListener("DOMContentLoaded", () => {
-        const data = window
-            .checkAuth()
-            .then((data) => {
-                if (!data) return;
-                return data;
-            })
-            .catch(() => null);
-
+    document.addEventListener("DOMContentLoaded", async () => {
+        const specificPatientId = getPatientIdFromURL();
         const profileInput =
             document.getElementsByClassName("profile-picture")[0];
         const profilePreview = document.getElementById("profile-preview");
@@ -32,12 +32,27 @@ function showMessage(text, type = "success") {
         const form = document.getElementById("patient-form");
         const cancelBtn = document.getElementById("cancel-btn");
 
-        //fill input with existing data
+        // Wait for userData to be loaded by loadData.js
         let user = {};
         let patient = {};
-        data.then((data) => {
-            if (!data) return;
-            user = data.user || {};
+        
+        // Poll for window.userData to be set by loadData.js
+        const waitForUserData = () => {
+            return new Promise((resolve) => {
+                const checkData = () => {
+                    if (window.userData) {
+                        resolve(window.userData);
+                    } else {
+                        setTimeout(checkData, 100);
+                    }
+                };
+                checkData();
+            });
+        };
+
+        try {
+            const userData = await waitForUserData();
+            user = userData || {};
             patient = user.patientInfo || {};
             document.getElementById("first-name").value = user.FirstName || "";
             document.getElementById("last-name").value = user.LastName || "";
@@ -93,11 +108,15 @@ function showMessage(text, type = "success") {
             } catch (err) {
                 console.warn("Failed to populate medical info checkboxes", err);
             }
-        });
+        } catch (err) {
+            console.error("Failed to load patient data", err);
+            window.showMessage?.("Failed to load patient data", "error");
+            return;
+        }
 
         let currentObjectUrl = null;
         const DEFAULT_IMAGE =
-            data.user?.patientInfo?.Image_url || "images/default-avatar.png";
+            patient.Image_url || "images/default-avatar.png";
         function revokeCurrentObjectUrl() {
             if (currentObjectUrl) {
                 URL.revokeObjectURL(currentObjectUrl);
@@ -115,8 +134,13 @@ function showMessage(text, type = "success") {
 
                 const formData = new FormData();
                 formData.append("image", file);
-                // update user data in the api
-                fetch(`${window.API_BASE}/patients/profile-picture`, {
+                
+                // Determine endpoint based on whether viewing specific patient
+                const endpoint = specificPatientId 
+                    ? `${window.API_BASE}/patients/${specificPatientId}/profile-picture`
+                    : `${window.API_BASE}/patients/profile-picture`;
+                
+                fetch(endpoint, {
                     method: "PATCH",
                     credentials: "include",
                     body: formData,
@@ -134,7 +158,13 @@ function showMessage(text, type = "success") {
 
         if (cancelBtn) {
             cancelBtn.addEventListener("click", () => {
-                window.location.href = "PatientMedicalRecord.html";
+                if (specificPatientId) {
+                    // Admin/Doctor - go back to patients list
+                    window.location.href = "patients.html";
+                } else {
+                    // Patient - go to their medical record
+                    window.location.href = "PatientMedicalRecord.html";
+                }
             });
         }
 
@@ -198,22 +228,36 @@ function showMessage(text, type = "success") {
                     payload.Allergies = allergiesChecked;
                 console.log(payload);
 
-                fetch(`${window.API_BASE}/patients`, {
+                // Determine endpoint based on whether viewing specific patient
+                const endpoint = specificPatientId 
+                    ? `${window.API_BASE}/patients/${specificPatientId}`
+                    : `${window.API_BASE}/patients`;
+
+                fetch(endpoint, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
                     body: JSON.stringify(payload),
-                }).catch(() => {
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error("Failed to update profile");
+                    window.showMessage?.(
+                        "Profile updated successfully!",
+                        "success"
+                    );
+                    setTimeout(() => {
+                        if (specificPatientId) {
+                            // Admin/Doctor - go back to patients list
+                            window.location.href = "patients.html";
+                        } else {
+                            // Patient - go to their medical record
+                            window.location.href = "PatientMedicalRecord.html";
+                        }
+                    }, 1500);
+                })
+                .catch(() => {
                     window.showMessage?.("Failed to update profile", "error");
                 });
-                window.showMessage?.(
-                    "Profile updated successfully!",
-                    "success"
-                );
-
-                setTimeout(() => {
-                    window.location.href = "PatientMedicalRecord.html";
-                }, 1500);
             });
         }
     });

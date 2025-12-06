@@ -36,5 +36,6 @@ router
     .all(validateId)
     .get(getPatientMedicalRecords);
 
+router.patch("/:id/profile-picture", validateId, upload.single("image"), updateProfilePicture);
 
 module.exports = router;

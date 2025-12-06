@@ -1,0 +1,249 @@
+/* styles.css for doctor profile page */
+
+/* Global */
+
+:root {
+    --primary-color: #007bff; 
+    --text-color: #333;
+    --header-bg: #b2dfdb; 
+    --viva-green: #388e3c; 
+    --card-green: #4CAF50; 
+    --booked-perm: #006666; /* Permanent booked color: #006666 */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #ffffff; 
+}
+
+a { 
+  text-decoration:none; 
+}
+
+section {
+    padding: 0 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Navbar */
+.navbar {
+  height: 70px;
+  background: #14a2a0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.menu-icon {
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.logo {
+  height: 60px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.nav-links a.active {
+  text-decoration: underline;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  direction: rtl;
+}
+
+.nav-right > * {
+  direction: ltr;             
+}
+
+.bell-container {
+  position: relative;
+  order: 1;
+  display: flex;
+  align-items: center;
+}
+
+#bellIcon {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.profile-pic { width:44px; height:44px; border-radius:50%; object-fit:cover;cursor:pointer; }
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 300px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+  transition: left 0.4s ease;
+  z-index: 999;
+  padding: 70px 15px;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.admin-info {  
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+ }
+
+.admin-avatar img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.admin-name {  
+  color: #007977;
+  font-size: 15px;
+  margin: 8px 0 4px;
+ }
+
+.sidebar-menu {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.sidebar-menu li {
+  padding: 15px 0px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.sidebar-menu li:hover {
+  color: #007977;
+}
+
+.logout-item, .logout-item i { color:#e74c3c !important; }
+
+.logout-item:hover { background:#ffeaea !important; }
+
+/* Overlay */
+.overlay {   
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.overlay.active { 
+  opacity: 1;
+  visibility: visible;
+ }
+
+/* ========================================================================= */
+/* Logout Modal                                                             */
+/* ========================================================================= */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    width: 90%; 
+    max-width: 400px; 
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px; 
+}
+
+.modal-button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    width: 100%;
+}
+
+.yes-btn {
+    background-color: #ffffff;
+    color: #008080; 
+    border: 1px solid #008080;
+}
+.yes-btn:hover {
+    background-color: #f0f8f8;
+}
+
+.no-btn {
+    background-color: #008080;
+    color: white;
+    border: 1px solid #008080;
+}
+.no-btn:hover {
+    background-color: #006666;
+}

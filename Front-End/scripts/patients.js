@@ -12,15 +12,16 @@
 */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM elements
-  const filterIcon  = document.getElementById("filterIcon");
-  const filterMenu  = document.getElementById("filterMenu");
-  const searchInput = document.getElementById("searchInput");
-  const role = localStorage.getItem("userRole");  
-  const sidebar = document.getElementById("sidebar");
-  const navbar = document.getElementById("navbar");
-  const menuBtn = document.getElementById("menuBtn");           // Hamburger icon
-  const profilePic = document.getElementById("profilePic");        // Navbar profile picture
+    // DOM elements
+    const filterIcon = document.getElementById("filterIcon");
+    const filterMenu = document.getElementById("filterMenu");
+    const searchInput = document.getElementById("searchInput");
+    const role = localStorage.getItem("userRole");
+    const sidebar = document.getElementById("sidebar");
+    const navbar = document.getElementById("navbar");
+    const menuBtn = document.getElementById("menuBtn"); // Hamburger icon
+    const profilePic = document.getElementById("profilePic"); // Navbar profile picture
+    const navLink = document.getElementById("nav-link");
 
     // // ==================== 1. Sidebar Open/Close Logic ====================
     // if (menuBtn && sidebar) {
@@ -130,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // ==================== NEW: Click to open doctor profile ====================
         // Sidebar image
         const newSidebarImg = document.getElementById("sidebar-profile-img");
-        const newUserName = document.getElementById("sidebar-user-name")
+        const newUserName = document.getElementById("sidebar-user-name");
         if (newSidebarImg) {
             newSidebarImg.style.cursor = "pointer";
             newSidebarImg.addEventListener("click", () => {
@@ -151,127 +152,160 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-      if (navLink) {
+        if (navLink) {
             navLink.addEventListener("click", () => {
                 window.location.href = "doctor-profile.html";
             });
         }
-      
     }
 
+    // If key elements missing → stop script
+    if (!filterIcon || !searchInput || !filterMenu) return;
 
-  // If key elements missing → stop script
-  if (!filterIcon || !searchInput || !filterMenu) return;
+    let currentFilter = "name";
 
-  let currentFilter = 'name';
+    const apiBase = window.API_BASE || "http://127.0.0.1:3000/api";
+    let patientsCache = [];
 
-  // Close dropdown when clicking outside
-  document.addEventListener("click", (e) => {
-    if (
-      filterMenu.classList.contains("show") &&
-      !filterMenu.contains(e.target) &&
-      e.target !== filterIcon
-    ) {
-      filterMenu.classList.remove("show");
-    }
-  });
+    const formatDate = (dateString) => {
+        if (!dateString) return "No recent appointment";
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "No recent appointment";
+        return date.toLocaleDateString(undefined, {
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+        });
+    };
 
-  // Toggle dropdown
-  filterIcon.addEventListener("click", (e) => {
-    e.stopPropagation();
-    filterMenu.classList.toggle("show");
-  });
+    const renderPatients = (patients) => {
+        const container = document.querySelector(".patient-container");
+        if (!container) return;
 
-  // Filter item click
-  document.querySelectorAll(".filter-item").forEach(item => {
-    item.addEventListener("click", () => {
-      document.querySelectorAll(".filter-item").forEach(i => i.classList.remove("active"));
-      item.classList.add("active");
+        container.innerHTML = "";
 
-      currentFilter = item.dataset.type;
-      filterMenu.classList.remove("show");
+        if (!patients || patients.length === 0) {
+            container.innerHTML =
+                '<p style="text-align:center;color:#666;width:100%;">No patients found</p>';
+            return;
+        }
 
-      filterAndSearch();
+        patients.forEach((patient) => {
+            const name = `${patient.FirstName} ${patient.LastName}`;
+            const avatar =
+                patient.patientInfo?.Image_url ||
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    name
+                )}&background=random&size=128`;
+
+            const lastAppt = formatDate(patient?.lastAppointmentDate);
+
+            const card = document.createElement("div");
+            card.className = "patient-card";
+            card.dataset.name = name.toLowerCase();
+            card.dataset.appointment = lastAppt.toLowerCase();
+            card.dataset.patientId = patient.UserID;
+            card.innerHTML = `
+          <img src="${avatar}" alt="${name}">
+          <div class="patient-details">
+            <h3>${name}</h3>
+            <div class="card-info">
+                <p class="last-app">Last Appt: ${lastAppt}</p>
+            </div>
+          </div>
+          <button class="more">⋮</button>
+      `;
+            container.appendChild(card);
+        });
+
+        // Reinitialize edit-delete popup after rendering new cards
+        initializeEditDeletePopup();
+    };
+
+    const loadPatients = async () => {
+        const container = document.querySelector(".patient-container");
+        if (container) {
+            container.innerHTML =
+                '<p style="text-align:center;color:#666;width:100%;">Loading patients...</p>';
+        }
+
+        try {
+            const res = await fetch(`${apiBase}/admin/patients`, {
+                credentials: "include",
+            });
+            const data = await res.json();
+            if (!res.ok)
+                throw new Error(data.message || "Failed to load patients");
+
+            patientsCache = data.data?.patients || [];
+            renderPatients(patientsCache);
+            filterAndSearch();
+        } catch (err) {
+            console.error("Error loading patients:", err);
+            if (container) {
+                container.innerHTML =
+                    '<p style="text-align:center;color:#d9534f;width:100%;">Failed to load patients</p>';
+            }
+        }
+    };
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (
+            filterMenu.classList.contains("show") &&
+            !filterMenu.contains(e.target) &&
+            e.target !== filterIcon
+        ) {
+            filterMenu.classList.remove("show");
+        }
     });
-  });
 
-  // Main filtering function
-  function filterAndSearch() {
-    const query = searchInput.value.trim().toLowerCase();
-    const cards = document.querySelectorAll(".doctor-card");
-
-    cards.forEach(card => {
-      const name      = card.querySelector("h3")?.textContent.toLowerCase() || "";
-      const specialty = card.querySelector(".specialty")?.textContent.toLowerCase() || "";
-      const priceText = card.querySelector(".price")?.textContent || "";
-      const price     = parseInt(priceText.replace(/[^0-9]/g, "")) || 0;
-
-      let shouldShow = false;
-
-      if (currentFilter === "name") {
-        shouldShow = name.includes(query);
-      } else if (currentFilter === "specialty") {
-        shouldShow = specialty.includes(query);
-      } else if (currentFilter === "price") {
-        shouldShow = query === "" || price === Number(query);
-      }
-
-      card.style.display = shouldShow ? "flex" : "none";
-    });
-
-    if (currentFilter === "price" && query === "") {
-      sortByPrice();
-    }
-  }
-
-  // Sorting by price
-  function sortByPrice() {
-    const container = document.querySelector(".doctors-container");
-    const cards = Array.from(document.querySelectorAll(".doctor-card"));
-
-    cards.sort((a, b) => {
-      const priceA = parseInt(a.querySelector(".price")?.textContent.replace(/[^0-9]/g, "")) || 0;
-      const priceB = parseInt(b.querySelector(".price")?.textContent.replace(/[^0-9]/g, "")) || 0;
-      return priceA - priceB;
-    });
-
-    cards.forEach(c => container.appendChild(c));
-  }
-
-  
-    // Three dots action menu
-    const actionMenu = document.getElementById("actionMenu");
-    let activeButton = null;
-
-    document.querySelectorAll('.more').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    // Toggle dropdown
+    filterIcon.addEventListener("click", (e) => {
         e.stopPropagation();
-        const rect = btn.getBoundingClientRect();
-        actionMenu.style.left = rect.right - 100 + 'px';
-        actionMenu.style.top = rect.bottom + 'px';
-        actionMenu.style.display = 'block';
-        activeButton = btn;
-    });
+        filterMenu.classList.toggle("show");
     });
 
-    // Close when clicking outside
-    window.addEventListener('click', () => {
-    actionMenu.style.display = 'none';
+    // Filter item click
+    document.querySelectorAll(".filter-item").forEach((item) => {
+        item.addEventListener("click", () => {
+            document
+                .querySelectorAll(".filter-item")
+                .forEach((i) => i.classList.remove("active"));
+            item.classList.add("active");
+
+            currentFilter = item.dataset.type;
+            filterMenu.classList.remove("show");
+
+            filterAndSearch();
+        });
     });
 
-    // Menu actions
-    const items = actionMenu.querySelectorAll('.menu-item');
-    items[0].onclick = () => alert('Edit clicked');
-    items[1].onclick = () => alert('Delete clicked');
+    // Main filtering function
+    function filterAndSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        const cards = document.querySelectorAll(".patient-card");
 
+        cards.forEach((card) => {
+            const name = card.dataset.name || "";
+            const appointment = card.dataset.appointment || "";
 
-  // Trigger search on input
-  searchInput.addEventListener("input", filterAndSearch);
+            let shouldShow = false;
 
-  // Run once on load
-  filterAndSearch();
+            if (currentFilter === "name") {
+                shouldShow = name.includes(query);
+            } else if (currentFilter === "appointment") {
+                shouldShow = appointment.includes(query);
+            }
 
+            card.style.display = shouldShow ? "flex" : "none";
+        });
+    }
+
+    // Trigger search on input
+    searchInput.addEventListener("input", filterAndSearch);
+
+    // Run once on load
+    loadPatients();
 });
-
-
-

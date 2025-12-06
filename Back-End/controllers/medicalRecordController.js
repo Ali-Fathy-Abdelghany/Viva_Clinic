@@ -1,11 +1,11 @@
 const { StatusCodes } = require('http-status-codes');
 const { asyncHandler, AppError } = require('../middleware/errorHandler');
 const { sendPrescriptionUpdate } = require('../services/notificationService');
-const { MedicalRecord, Appointment } = require('../models');
+const { MedicalRecord, Appointment, Patient,User } = require('../models');
 
 // Create medical record
 const createMedicalRecord = asyncHandler(async (req, res) => {
-  const { AppointmentID, Diagnosis, Notes, Prescription } = req.body;
+  const { AppointmentID, Diagnosis, Notes, Prescription,Drug } = req.body;
   const doctorId = req.userId;
 
   // Verify appointment exists and belongs to this doctor
@@ -25,6 +25,7 @@ const createMedicalRecord = asyncHandler(async (req, res) => {
   // Check if record already exists
   const existingRecord = await MedicalRecord.findOne({ where: { AppointmentID } });
   if (existingRecord) {
+    console.log(existingRecord);
     throw new AppError('Medical record already exists for this appointment', StatusCodes.BAD_REQUEST);
   }
 
@@ -35,7 +36,8 @@ const createMedicalRecord = asyncHandler(async (req, res) => {
     DoctorID: doctorId,
     Diagnosis,
     Notes,
-    Prescription
+    Prescription,
+    Drug
   });
 
   // Fetch with related data
@@ -46,9 +48,15 @@ const createMedicalRecord = asyncHandler(async (req, res) => {
         as: 'appointment'
       },
       {
-        model: require('../models/User'),
+        model: Patient,
         as: 'patient',
-        attributes: ['FirstName', 'LastName', 'Email']
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['FirstName', 'LastName', 'Email']
+          }
+        ]
       }
     ]
   });
@@ -129,7 +137,7 @@ const getMedicalRecord = asyncHandler(async (req, res) => {
 // Update medical record
 const updateMedicalRecord = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { Diagnosis, Notes, Prescription } = req.body;
+  const {  Diagnosis, Notes, Prescription,Drug } = req.body;
   const doctorId = req.userId;
 
   const medicalRecord = await MedicalRecord.findByPk(id);
@@ -144,7 +152,7 @@ const updateMedicalRecord = asyncHandler(async (req, res) => {
   if (Diagnosis ) medicalRecord.Diagnosis = Diagnosis;
   if (Notes) medicalRecord.Notes = Notes;
   if (Prescription ) medicalRecord.Prescription = Prescription;
-
+  if (Drug ) medicalRecord.Drug = Drug;
   await medicalRecord.save();
 
   // Send notification if prescription was updated
@@ -153,9 +161,15 @@ const updateMedicalRecord = asyncHandler(async (req, res) => {
       const recordWithPatient = await MedicalRecord.findByPk(id, {
         include: [
           {
-            model: require('../models/User'),
+            model: Patient,
             as: 'patient',
-            attributes: ['FirstName', 'LastName', 'Email']
+            include: [
+              {
+                model: User,
+                as: 'user',
+                attributes: ['FirstName', 'LastName', 'Email']
+              }
+            ]
           }
         ]
       });

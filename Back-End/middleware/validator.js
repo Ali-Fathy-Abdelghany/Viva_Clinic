@@ -99,10 +99,11 @@ const validateAppointmentUpdate = [
 
 // Medical Record validation rules
 const validateMedicalRecord = [
-  body('AppointmentID').isInt().withMessage('Appointment ID must be a valid integer'),
+  body('AppointmentID').optional().isInt().withMessage('Appointment ID must be a valid integer'),
   body('Diagnosis').optional().trim(),
   body('Notes').optional().trim(),
   body('Prescription').optional().trim(),
+  body('Drug').optional().trim(),
   validate
 ];
 

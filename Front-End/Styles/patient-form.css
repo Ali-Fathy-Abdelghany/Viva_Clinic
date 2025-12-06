@@ -68,7 +68,6 @@ body {
     font-size: 20px;
 } */
 
-
 /* User profile picture */
 /* .profile-pic2 {
     width: 44px;
@@ -155,101 +154,154 @@ body {
 } */
 /* Patient page main layout */
 body.patient-page main {
-  margin-top: 90px;
-  width: 100%;
-  padding: 30px 50px;
-  box-sizing: border-box;
+    margin-top: 90px;
+    width: 100%;
+    padding: 30px 50px;
+    box-sizing: border-box;
 }
 
 body.patient-page h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #007977;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #007977;
 }
 
 /* Profile section */
 .profile-section {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
 }
 
 #profile-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 /* Form */
 .patient-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .patient-form .form-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .patient-form .form-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 250px;
 }
 
 .patient-form label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #444;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
 }
 
 .patient-form input,
 .patient-form select {
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
 }
 
 /* Buttons */
 .form-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: flex-end;
-  margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 20px;
 }
 
 .btn {
-  padding: 12px 25px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .btn.save {
-  background-color: #007973;
-  color: #fff;
+    background-color: #007973;
+    color: #fff;
 }
 
 .btn.cancel {
-  background-color: #d3d3d3;
-  color: #000;
+    background-color: #d3d3d3;
+    color: #000;
 }
+
+/* Checkbox Styling */
+.checkbox-block {
+    margin-bottom: 20px;
+}
+
+.checkbox-block .block-title {
+    display: block;
+    margin-bottom: 10px;
+    color: #007977;
+    font-size: 15px;
+}
+
+.checkbox-block label {
+    width: auto;
+    margin-right: 25px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-block input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    margin-right: 5px;
+    border: 2px solid #007977;
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.checkbox-block input[type="checkbox"]:checked {
+    background-color: #007977;
+    border-color: #007977;
+}
+
+.checkbox-block input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
 
 /* Responsive */
 @media (max-width: 992px) {
-  body.patient-page main {
-    padding: 30px 20px;
-  }
+    body.patient-page main {
+        padding: 30px 20px;
+    }
 
-  .patient-form .form-group {
-    min-width: 100%;
-  }
+    .patient-form .form-group {
+        min-width: 100%;
+    }
 }
-

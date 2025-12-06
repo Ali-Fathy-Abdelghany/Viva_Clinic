@@ -24,5 +24,7 @@ const Award = sequelize.define('Award', {
   tableName: 'award',
   timestamps: false
 });
+  // Table has no primary key column; prevent Sequelize from expecting default `id`.
+  Award.removeAttribute('id');
 
 module.exports = Award;

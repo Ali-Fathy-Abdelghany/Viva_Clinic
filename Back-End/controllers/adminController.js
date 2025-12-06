@@ -6,6 +6,8 @@ const {
     DoctorWorkingHours,
     Appointment,
     Patient,
+    Award,
+    Certification
 } = require("../models");
 const { Op } = require("sequelize");
 const { asyncHandler, AppError } = require("../middleware/errorHandler");
@@ -28,6 +30,8 @@ const createDoctor = asyncHandler(async (req, res) => {
         Fee,
         Education,
         YearsOfExperience,
+        Awards,
+        Certifications,
     } = req.body;
 
     // Check if user already exists
@@ -69,6 +73,23 @@ const createDoctor = asyncHandler(async (req, res) => {
         Education,
         YearsOfExperience,
     });
+
+    if (Awards)
+        await Award.bulkCreate(
+            Awards.map((award) => ({
+                DoctorID: doctor.DoctorID,
+                Award_name: award.name,
+                Award_description: award.description,
+            }))
+        );
+    if (Certifications)
+        await Certification.bulkCreate(
+            Certifications.map((certification) => ({
+                DoctorID: doctor.DoctorID,
+                Title: certification.name,
+                Description: certification.description,
+            }))
+        );
 
     const doctorWithDetails = await Doctor.findByPk(doctor.DoctorID, {
         include: [
@@ -215,6 +236,17 @@ const getPatients = asyncHandler(async (req, res) => {
         ],
         order: [["UserID", "ASC"]],
     });
+    // Fetch last appointment date for each patient
+    for (const patient of patients) {
+        const lastAppointment = await Appointment.findOne({
+            where: {
+                PatientID: patient.UserID,
+            },
+            order: [["AppointmentDate", "DESC"]],
+        });
+        patient.dataValues.lastAppointmentDate = lastAppointment ? lastAppointment.AppointmentDate : null;
+    }
+
 
     res.status(StatusCodes.OK).json({
         success: true,
@@ -226,7 +258,7 @@ const getPatients = asyncHandler(async (req, res) => {
 // Update patient (admin can update user info but not medical records)
 const updatePatient = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { FirstName, LastName, Email, Phone } = req.body;
+    const { FirstName, LastName, Email, Phone, Password } = req.body;
 
     const user = await User.findByPk(id);
     if (!user || user.Role !== "Patient") {
@@ -243,6 +275,9 @@ const updatePatient = asyncHandler(async (req, res) => {
             throw new AppError("Email already in use", StatusCodes.BAD_REQUEST);
         }
         user.Email = Email;
+    }
+    if (Password) {
+        user.PasswordHash = await hashPassword(Password);
     }
     if (Phone) user.Phone = Phone;
 

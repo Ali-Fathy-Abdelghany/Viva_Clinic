@@ -23,74 +23,43 @@ if (logoutBtn) {
     });
 } */
 /* ================= DASHBOARD LOGIC ================= */
+let API_BASE = window.API_BASE || 'http://127.0.0.1:3000/api';
 
 // --- 1. DATA MODEL & STATE ---
-const initialData = [
-    { 
-        id: 1, 
-        dateObj: new Date(2025, 10, 5, 0, 0), 
-        dateStr: '5 Nov 2025 - 12:00 AM', 
-        doctor: 'Dr. Sarah Ali', 
-        specialty: 'Cardiologist', 
-        imgSeed: 'Sarah', 
-        status: 'Schedule', 
-        fee: 370 
-    },
-    { 
-        id: 2, 
-        dateObj: new Date(2025, 10, 1, 11, 20), 
-        dateStr: '01 Nov 2025 - 11:20 AM', 
-        doctor: 'Dr. David Lee', 
-        specialty: 'Gynecologist', 
-        imgSeed: 'David', 
-        status: 'Cancelled', 
-        fee: 450 
-    },
-    { 
-        id: 3, 
-        dateObj: new Date(2025, 3, 2, 8, 15), 
-        dateStr: '02 Apr 2025 - 08:15 AM', 
-        doctor: 'Dr. Anna Kim', 
-        specialty: 'Psychiatrist', 
-        imgSeed: 'Anna', 
-        status: 'Completed', 
-        fee: 310 
-    },
-    { 
-        id: 4, 
-        dateObj: new Date(2025, 9, 15, 14, 0), 
-        dateStr: '15 Oct 2025 - 02:00 PM', 
-        doctor: 'Dr. Robert Fox', 
-        specialty: 'Dermatologist', 
-        imgSeed: 'Robert', 
-        status: 'Rescheduled', 
-        fee: 290 
-    },
-    { 
-        id: 5, 
-        dateObj: new Date(2025, 1, 24, 9, 20), 
-        dateStr: '24 Feb 2025 - 09:20 AM', 
-        doctor: 'Dr. Rachel Green', 
-        specialty: 'Urologist', 
-        imgSeed: 'Rachel', 
-        status: 'Cancelled', 
-        fee: 400 
-    }
-];
-
-let state = {
-    data: [...initialData],
-    filterDate: null, 
+async function getAppointments(){
+    
+const data = await fetch(`${API_BASE}/appointments`, {
+    method: 'GET',
+    credentials: 'include'
+});
+const res = await data.json();
+const appointments = res.data.appointments;
+return {
+    data: appointments.map(appt => {
+        const dateObj = new Date(appt.AppointmentDate);
+        const dateStr = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        return {
+            id: appt.AppointmentID,
+            dateObj,
+            dateStr,
+            doctor: `${appt.doctor.user.FirstName} ${appt.doctor.user.LastName}`,
+            specialty: appt.doctor.specialty.Name,
+            status: appt.Status,
+            fee: appt.doctor.Fee,
+            img: appt.doctor.Image_url
+        };
+    }),
     searchTerm: '',
-    sortBy: 'date-desc'
-};
+    filterDate: null
+}}
+let state = { data: [], searchTerm: '', filterDate: null };
+
 
 let currentCalendarDate = new Date(2025, 10, 1); 
 
 // --- 2. FILTER & RENDER LOGIC ---
 function updateView() {
     let processed = [...state.data];
-
     // Apply Search
     if (state.searchTerm) {
         const term = state.searchTerm.toLowerCase();
@@ -99,6 +68,7 @@ function updateView() {
             item.specialty.toLowerCase().includes(term)
         );
     }
+    
 
     // Apply Date Filter
     if (state.filterDate) {
@@ -142,7 +112,7 @@ function updateView() {
             processed.sort((a, b) => a.fee - b.fee);
         }
     }
-
+    
     renderTable(processed);
     renderCalendar(); 
 }
@@ -167,18 +137,18 @@ function renderTable(data) {
         row.id = `row-${appt.id}`;
 
         let statusClasses = '';
-        if(appt.status === 'Schedule') statusClasses = 'border-blue-200 text-[#4B7BEC] bg-blue-50';
+        if(appt.status === 'Booked') statusClasses = 'border-blue-200 text-[#4B7BEC] bg-blue-50';
         else if(appt.status === 'Cancelled') statusClasses = 'border-red-200 text-[#FF6B6B] bg-white';
         else if(appt.status === 'Completed') statusClasses = 'border-green-200 text-[#26DE81] bg-white uppercase';
         else if(appt.status === 'Rescheduled') statusClasses = 'border-yellow-300 text-yellow-600 bg-yellow-50 capitalize';
 
-        const showDots = appt.status === 'Schedule'; 
-
+        const showDots = appt.status === 'Booked'; 
+        const avatarUrl = appt.img || 'images/default-avatar.png';
         row.innerHTML = `
             <td class="py-6 text-gray-600 font-medium">${appt.dateStr}</td>
             <td class="py-6">
                 <div class="flex items-center gap-3">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${appt.imgSeed}" alt="Dr" class="w-10 h-10 rounded-full bg-gray-100">
+                    <img src="${avatarUrl}" alt="Dr" class="w-10 h-10 rounded-full bg-gray-100">
                     <div>
                         <div class="font-bold text-gray-800">${appt.doctor}</div>
                         <div class="text-xs text-gray-500">${appt.specialty}</div>
@@ -248,7 +218,7 @@ function renderCalendar() {
             const latestAppt = apptsOnDay[0];
             let bgClass = '';
             if (latestAppt.status === 'Completed') bgClass = 'bg-[#26DE81]';
-            else if (latestAppt.status === 'Schedule') bgClass = 'bg-[#4B7BEC]';
+            else if (latestAppt.status === 'Booked') bgClass = 'bg-[#4B7BEC]';
             else if (latestAppt.status === 'Cancelled') bgClass = 'bg-[#FF6B6B]';
             else if (latestAppt.status === 'Rescheduled') bgClass = 'bg-[#F7B731]';
 
@@ -292,6 +262,8 @@ let currentTargetId = null;
 
 function openModal(rowId) {
     currentTargetId = rowId;
+    console.log(currentTargetId);
+    
     if (modal) {
         modal.classList.remove('hidden');
         setTimeout(() => {
@@ -320,8 +292,13 @@ function confirmAction() {
     
     const action = actionInput.value;
     if (action === 'delete' && currentTargetId) {
-        state.data = state.data.filter(a => a.id !== currentTargetId);
-        updateView();
+        fetch(`${API_BASE}/appointments/${currentTargetId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(async () => {
+            state = await getAppointments();
+            updateView();
+        });
     } else if (action === 'edit') {
         window.location.href = 'book-appointment.html';
     }
@@ -335,7 +312,8 @@ if (modal) {
 }
 
 // --- 5. INITIALIZATION ---
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    state = await getAppointments();
     updateView();
     
     const searchInput = document.getElementById('searchInput');
