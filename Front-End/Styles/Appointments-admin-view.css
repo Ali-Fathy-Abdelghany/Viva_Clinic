@@ -1,16 +1,19 @@
-<<<<<<< HEAD
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Cairo', sans-serif; background:#f8fbfd; color:#333; padding-top:70px; direction: ltr; }
+body { font-family: 'Cairo', sans-serif; background:#f8fbfd; color:#333; padding-top:70px;}
 a { text-decoration:none; }
-=======
-
->>>>>>> b8fd8d09d52c3f7ba9c1c5af9ce890b98f19127c
 /*=================== MAIN CONTENT =================== */
 
 .main-content {
-  margin-top: 80px; padding: 40px; max-width: 1400px; margin-left: auto; margin-right: auto;
+  margin-top: 6px; padding: 20px; max-width: 1400px; margin-left: auto; margin-right: auto;
 }
-
+.page-header {
+  margin-bottom: 10px;
+}
+.page-header h1 {
+  font-size: 28px;
+  color: #0d0e0e;
+  font-weight: 700;
+}
 .filters-bar {
       display: flex;
       align-items: center;

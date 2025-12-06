@@ -1,10 +1,13 @@
 /* admin-dashboard.css */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Cairo', sans-serif; background:#f8fbfd; color:#333; padding-top:70px; direction: ltr; }
+body { font-family: 'Cairo', sans-serif; background:#f8fbfd; color:#333; padding-top:70px;}
 a { text-decoration:none; }
-
+/*=================== MAIN CONTENT =================== */
 /* Main */
-.container { padding:30px; max-width:1500px; margin:0 auto; }
+
+.container {
+  margin-top: 6px; padding: 20px; max-width: 1400px; margin-left: auto; margin-right: auto;
+}
 
 /* Tabs */
 .tabs { display:flex; gap:10px; margin-bottom:25px; border-bottom:2px solid #eee; }
