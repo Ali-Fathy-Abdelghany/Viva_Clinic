@@ -11,16 +11,13 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link rel="icon" type="image/png" href="images/ico.png"/>
 
-   
-  <!-- CSS -->  
+  <!-- CSS -->
   <link rel="stylesheet" href="Styles/bell.css">
   <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css">
   <link rel="stylesheet" href="Styles/Appointments-admin-view.css">
-
 </head>
 <body>
-
-   <!-- ==================================== NAVBAR ==================================== -->
+  <!-- ==================================== NAVBAR ==================================== -->
   <nav class="navbar">
     <div class="nav-left">
       <i class="fas fa-bars menu-icon" id="menuBtn"></i>
@@ -29,31 +26,31 @@
         <a href="admin-dashboard.html" class="nav-link">Home</a>
       </div>
     </div>
-    
     <div class="nav-right">
       <div class="bell-container">
         <i class="fas fa-bell" id="bellIcon"></i>
         <div class="notifications-menu" id="notificationsMenu"></div>
       </div>
-      <!-- User profile picture (clickable → goes to patient profile) -->
       <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
     </div>
   </nav>
 
   <!-- ==================================== SIDEBAR ==================================== -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <div class="admin-info">
-      <div class="admin-avatar">
-        <img src="images/default-avatar.png" alt="Profile">
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="admin-info">
+        <div class="admin-avatar">
+          <img src="images/default-avatar.png" alt="Profile">
+        </div>
+        <span class="admin-name">ADMIN</span>
       </div>
-      <span class="admin-name">ADMIN</span>
     </div>
-  </div>
-
     <ul class="sidebar-menu">
       <li onclick="window.location.href='admin-dashboard.html'">
         <i class="fas fa-bar-chart"></i> Dashboard
+      </li>
+      <li onclick="window.location.href='Appointments-admin-view.html'">
+        <i class="fas fa-calendar-check"></i> Appointments
       </li>
       <li onclick="window.location.href='doctors-admin-view.html'">
         <i class="fas fa-user-md"></i> Doctors
@@ -71,100 +68,93 @@
         <i class="fas fa-sign-out-alt"></i> Log Out
       </li>
     </ul>
-</div>
+  </div>
 
-  <!-- Overlay -->
   <div class="overlay" id="overlay"></div>
 
   <!-- ==================================== MAIN CONTENT ==================================== -->
-
-
-<div class="main-content">
+  <div class="main-content">
     <div class="page-header">
       <h1>Appointments</h1>
     </div>
- <!-- Filters Bar -->
-<div class="filters-bar">
-  <div class="relative">
-    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-    <input type="text" id="searchInput" class="search-input pl-10" placeholder="Search">
-  </div>
 
-  <div class="date-range">27 May 2025 - 02 Jun 2025</div>
-
-  <!-- Filter Button + Dropdown -->
-  <div class="relative">
-    <button class="filter-btn" id="filterToggle">
-      <i class="fas fa-filter"></i> Filter
-    </button>
-
-    <!-- الـ Dropdown الجديد كله -->
-    <div class="filter-dropdown" id="filterMenu">
-      <div class="filter-group">
-        <label>Date Range</label>
-        <div class="flex items-center gap-2">
-          <input type="date" id="dateFrom" class="date-input">
-          <span class="text-gray-400">to</span>
-          <input type="date" id="dateTo" class="date-input">
-        </div>
+    <!-- Filters Bar -->
+    <div class="filters-bar">
+      <div class="relative">
+        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+        <input type="text" id="searchInput" class="search-input pl-10" placeholder="Search">
       </div>
 
-      <div class="filter-group">
-        <label>Patient Name</label>
-        <input type="text" id="patientNameFilter" placeholder="Enter patient name" class="filter-input">
-      </div>
+      <div class="date-range" id="dateRangeLabel">All dates</div>
 
-      <div class="filter-group">
-        <label>Doctor</label>
-        <select id="doctorFilter" class="filter-input">
-          <option value="">All Doctors</option>
-          <option>Dr. Emily Carter</option>
-          <option>Dr. David Lee</option>
-          <option>Dr. John Smith</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label>Mode</label>
-        <select id="modeFilter" class="filter-input">
-          <option value="">All</option>
-          <option>Online</option>
-          <option>In-Person</option>
-        </select>
-      </div>
-
-
-      <div class="filter-group">
-      <label>Status</label>
-      
-      <div class="custom-dropdown">
-        <button class="dropdown-toggle" type="button">
-          <span class="selected-text">Select Status</span>
-          <svg class="arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
-            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+      <div class="relative">
+        <button class="filter-btn" id="filterToggle">
+          <i class="fas fa-filter"></i> Filter
         </button>
 
-        <div class="dropdown-menu">
-          <div class="dropdown-item" data-status="all">All</div>
-          <div class="dropdown-item" data-status="completed">Completed</div>
-          <div class="dropdown-item" data-status="schedule">Scheduled</div>
-          <div class="dropdown-item" data-status="cancelled">Cancelled</div>
-          <div class="dropdown-item" data-status="rescheduled">Rescheduled</div>
+        <div class="filter-dropdown" id="filterMenu">
+          <div class="filter-group">
+            <label>Date Range</label>
+            <div class="flex items-center gap-2">
+              <input type="date" id="dateFrom" class="date-input">
+              <span class="text-gray-400">to</span>
+              <input type="date" id="dateTo" class="date-input">
+            </div>
+            <div class="filter-quick-dates">
+              <button type="button" id="quickThisWeek" class="filter-chip">This Week</button>
+              <button type="button" id="quickThisMonth" class="filter-chip">This Month</button>
+              <button type="button" id="clearDates" class="filter-chip secondary">Clear</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label>Patient Name</label>
+            <input type="text" id="patientNameFilter" placeholder="Enter patient name" class="filter-input">
+          </div>
+
+          <div class="filter-group">
+            <label>Doctor</label>
+            <select id="doctorFilter" class="filter-input">
+              <option value="">All Doctors</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Mode</label>
+            <select id="modeFilter" class="filter-input">
+              <option value="">All</option>
+              <option>Online</option>
+              <option>In-Person</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Status</label>
+            <div class="custom-dropdown">
+              <button class="dropdown-toggle" type="button">
+                <span class="selected-text">Select Status</span>
+                <svg class="arrow" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                  <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                <div class="dropdown-item" data-status="all">All</div>
+                <div class="dropdown-item" data-status="booked">Booked</div>
+                <div class="dropdown-item" data-status="completed">Completed</div>
+                <div class="dropdown-item" data-status="cancelled">Cancelled</div>
+                <div class="dropdown-item" data-status="rescheduled">Rescheduled</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <select id="sortSelect" class="sort-btn">
+        <option value="recent">Sort By: Recent</option>
+        <option value="oldest">Sort By: Oldest</option>
+      </select>
     </div>
 
-    </div>
-  </div>
-
-  <select id="sortSelect" class="sort-btn">
-    <option value="recent">Sort By: Recent</option>
-    <option value="oldest">Sort By: Oldest</option>
-    <option value="fee-high">Fees (High to Low)</option>
-    <option value="fee-low">Fees (Low to High)</option>
-  </select>
-</div>
     <!-- Appointments Table / Cards -->
     <div class="appointments-table" id="tableContainer">
       <div class="table-header">
@@ -175,75 +165,12 @@
         <div>Status</div>
         <div></div>
       </div>
-
-      <!-- Appointment Cards (with data attributes) -->
-      <div class="appointment-card" data-date="2025-04-02" data-fee="150" data-mode="Online" data-status="cancelled">
-        <div class="date-time"><strong>02 Apr 2025</strong><br>08:15 AM</div>
-        <div class="patient-info person-info">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
-          <div>
-            <div class="person-name">Carol Lam</div>
-            <div class="person-detail">+1 55654 56647</div>
-          </div>
-        </div>
-        <div class="doctor-info person-info">
-          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
-          <div>
-            <div class="person-name">Dr. Emily Carter</div>
-            <div class="person-detail">Pediatrician</div>
-          </div>
-        </div>
-        <div class="mode">Online</div>
-        <div class="status cancelled">Cancelled</div>
-        <div class="actions">⋮</div>
+      <div id="appointmentsContainer">
+        <div class="empty-state">Loading appointments...</div>
       </div>
-
-      <div class="appointment-card" data-date="2025-03-27" data-fee="220" data-mode="In-Person" data-status="schedule">
-        <div class="date-time"><strong>27 Mar 2025</strong><br>02:00 PM</div>
-        <div class="patient-info person-info">
-          <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="">
-          <div>
-            <div class="person-name">Marsha Noland</div>
-            <div class="person-detail">+1 65668 54558</div>
-          </div>
-        </div>
-        <div class="doctor-info person-info">
-          <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="">
-          <div>
-            <div class="person-name">Dr. David Lee</div>
-            <div class="person-detail">Gynecologist</div>
-          </div>
-        </div>
-        <div class="mode">In-Person</div>
-        <div class="status schedule">Schedule</div>
-        <div class="actions">⋮</div>
-      </div>
-
-      <div class="appointment-card" data-date="2025-03-05" data-fee="350" data-mode="Online" data-status="confirmed">
-        <div class="date-time"><strong>05 Mar 2025</strong><br>11:15 AM</div>
-        <div class="patient-info person-info">
-          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="">
-          <div>
-            <div class="person-name">Jesus Adams</div>
-            <div class="person-detail">+1 41254 45214</div>
-          </div>
-        </div>
-        <div class="doctor-info person-info">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
-          <div>
-            <div class="person-name">Dr. John Smith</div>
-            <div class="person-detail">Neurosurgeon</div>
-          </div>
-        </div>
-        <div class="mode">Online</div>
-        <div class="status confirmed">Rescheduled</div>
-        <div class="actions">⋮</div>
-      </div>
-
-      <!-- أضيفي مواعيد تانية بنفس الطريقة -->
     </div>
-
   </div>
+
   <!-- ==================================== LOGOUT MODAL ==================================== -->
   <div id="logoutModal" class="modal">
     <div class="modal-content">
@@ -253,12 +180,11 @@
             <button id="modalNoBtn" class="modal-button no-btn">No</button>
         </div>
     </div>
-</div>
-  <!-- ==================================== SCRIPTS ==================================== -->
-    <script src="scripts/common-layout.js"></script>
-    <script src="scripts/Appointments-admin-view.js"></script>
-    <script src="scripts/bill.js"></script>
+  </div>
 
-</div>
+  <!-- ==================================== SCRIPTS ==================================== -->
+  <script src="scripts/common-layout.js"></script>
+  <script src="scripts/Appointments-admin-view.js"></script>
+  <script src="scripts/bill.js"></script>
 </body>
 </html>

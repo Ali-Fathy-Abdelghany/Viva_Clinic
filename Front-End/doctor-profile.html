@@ -27,7 +27,11 @@
       
       <!-- Navigation links (Single Page App style - uses data-section) -->
       <div class="nav-links" id="nav-links">
-        <a href="admin-dashboard.html" class="nav-link" id="nav-link" data-section="home">Home</a>
+        <a href="homepage.html#home" class="nav-link" id="nav-link" data-section="home">Home</a>
+        <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+        <a href="homepage.html#contact" class="nav-link">Contact</a>
+        <a href="ExploreAllDoctors.html" class="nav-link">Explore Doctors</a>
+        <a href="doctor_Appointment.html" class="nav-link">My Appointments</a>
       </div>
     </div>
     
@@ -80,8 +84,10 @@
 
 <!-- ====================================  ==================================== -->
 
-<!----DOCTOR PROFILE CARD
-  =============================== -->
+<!-- Simple back link to list view -->
+<a href="ExploreAllDoctors.html" class="nav-link" style="margin:20px;display:inline-block;">&#8592; Back to all doctors</a>
+
+<!----DOCTOR PROFILE CARD =============================== -->
 <section class="doctor-card"> 
         <div class="card-header">
             <div class="profile-info">
@@ -99,14 +105,11 @@
             </div>
 
             <div class="book-btn" id="book-btn">
-                <!-- Consultation Charge FIRST -->
                 <div style="text-align:right; margin-bottom:10px;">
                     <p style="margin:0; font-weight:bold; font-size:14px; color:#666;">Consultation Charge</p>
-                    <p style="margin:0; font-size:15px; font-weight:700; color:#007977;">250 EGP / 30 Minutes</p>
+                    <p style="margin:0; font-size:15px; font-weight:700; color:#007977;">-- EGP / 30 Minutes</p>
                 </div>
-
-                <!-- Edit Button BELOW -->
-                <a href="register-doctor.html" class="btn-book" style="text-decoration: none;">Edit Profile</a>
+                <a href="BookAppointment.html" class="btn-book" style="text-decoration: none;">Book Appointment</a>
             </div>
         </div>
 </section>
@@ -208,7 +211,7 @@
     </div>
 </section>
 <!-- ==================================== LOGOUT MODAL ==================================== -->
-  <div id="logoutModal" class="modal">
+     <div id="logoutModal" class="modal">
     <div class="modal-content">
         <p>Are you sure you want to Log out?</p>
         <div class="modal-buttons">
@@ -217,9 +220,12 @@
         </div>
     </div>
 </div>
-     <script src="scripts/common-layout.js"></script>
-    <script src="scripts/bell.js"></script>
+    <script src="scripts/Dynamic Navigation Logic.js" defer></script>
+    <script src="scripts/common-layout.js" defer></script>
     <script src="scripts/role-control.js"></script>
+    <script src="scripts/bell.js" defer></script>
+    <script src="scripts/doctor-profile.js" defer></script>
+
 </body>
 </html>
 

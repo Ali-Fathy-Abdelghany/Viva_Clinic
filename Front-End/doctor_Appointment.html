@@ -7,7 +7,6 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="icon" type="image/png" href="images/ico.png"/>
   <link rel="stylesheet" href="Styles/doctor_Appointment.css">
 </head>
 <body>
@@ -17,9 +16,10 @@
       <i class="fas fa-bars menu-icon" id="menuBtn" aria-label="Open menu"></i>
       <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
       <div class="nav-links">
-        <a href="#" class="nav-link">Home</a>
-        <a href="#" class="nav-link">Most Popular</a>
-        <a href="#" class="nav-link">Contact</a>
+        <a href="homepage.html#home" class="nav-link">Home</a>
+        <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
+        <a href="homepage.html#contact" class="nav-link">Contact</a>
+        <a href="doctor-profile.html" class="nav-link">My Profile</a>
       </div>
     </div>
     <div class="nav-right">
@@ -64,6 +64,8 @@
         <button class="day-tab" data-day="Wednesday">Wednesday</button>
         <button class="day-tab" data-day="Thursday">Thursday</button>
         <button class="day-tab" data-day="Friday">Friday</button>
+        <button class="day-tab" data-day="Saturday">Saturday</button>
+        <button class="day-tab" data-day="Sunday">Sunday</button>
       </div>
 
       <div class="slots-area" id="slotsArea">
@@ -116,7 +118,7 @@
     <div class="modal-inner">
       <header class="modal-header">
         <h3 id="appointmentModalTitle">Appointment Details</h3>
-        <button class="modal-close" id="closeAppointmentModal" aria-label="Close">✕</button>
+        <button class="modal-close" id="closeAppointmentModal" aria-label="Close">�</button>
       </header>
       <div class="modal-body" id="appointmentModalBody">
         <!-- injected by JS: patient details + status area + (prescription injected inline when requested) -->
@@ -132,7 +134,7 @@
     <div class="modal-inner large">
       <header class="modal-header">
         <h3 id="editAvailTitle">Appointment Schedule</h3>
-        <button class="modal-close" id="closeEditAvail" aria-label="Close">✕</button>
+        <button class="modal-close" id="closeEditAvail" aria-label="Close">�</button>
       </header>
       <div class="modal-body">
         <div class="days-row" id="editDays">
@@ -189,6 +191,7 @@
     </div>
 </div>
   <script src="scripts/common-layout.js"></script>
+  <script src="scripts/Dynamic Navigation Logic.js"></script>
   <script src="scripts/doctor_appointment.js"></script>
 </body>
 </html>

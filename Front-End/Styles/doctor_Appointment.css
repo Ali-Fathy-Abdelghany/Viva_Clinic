@@ -119,8 +119,10 @@ body{
 .badge.cancelled{background:var(--red);color:#fff}
 
 .actions{display:flex;gap:8px;justify-content:flex-end}
-.action-btn{border:1px solid #eff6f8;background:#fff;padding:6px;border-radius:8px;cursor:pointer}
-.action-btn:hover{background:#f5fdff}
+.action-btn{border:1px solid #eff6f8;background:#fff;padding:6px;border-radius:8px;cursor:pointer;transition:all .15s ease}
+.action-btn:hover{background:#f5fdff;transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,0.06)}
+.icon-btn{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#1f5962;border-radius:10px;}
+.icon-btn .fa-solid{pointer-events:none;}
 
 /* STATUS POPOVER (edit status) */
 .status-popover{

@@ -19,15 +19,29 @@
           credentials: 'include',
           body: JSON.stringify({ Email, Password })
         });
-        const data = (await res.json()).data;
-        console.log(data);
-        
-        if (!res.ok) throw new Error('Login failed');
+        const payload = await res.json();
+        const data = payload?.data || {};
+
+        if (!res.ok) throw new Error(payload?.message || 'Login failed');
+
+        const token = data.token || data.accessToken;
+        const user = data.user;
+
+        // Persist token for API calls that need Authorization header
+        if (token) {
+          if (remember) {
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(user || {}));
+          } else {
+            sessionStorage.setItem('token', token);
+            sessionStorage.setItem('user', JSON.stringify(user || {}));
+          }
+        }
 
 
         window.showMessage?.('Login successful!', 'success');
         setTimeout(() => {
-          const role = data.user.Role?.toLowerCase();
+          const role = user?.Role?.toLowerCase();
           window.userRole = role;
           localStorage.setItem('userRole', role);
           window.location.href = role === 'patient'

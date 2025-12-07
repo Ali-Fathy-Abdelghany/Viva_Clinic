@@ -53,6 +53,9 @@
       <li onclick="window.location.href='admin-dashboard.html'">
         <i class="fas fa-bar-chart"></i> Dashboard
       </li>
+      <li onclick="window.location.href='Appointments-admin-view.html'">
+        <i class="fas fa-calendar-check"></i> Appointments
+      </li>
       <li onclick="window.location.href='doctors-admin-view.html'">
         <i class="fas fa-user-md"></i> Doctors
       </li>
@@ -93,55 +96,54 @@
 
       <div class="form-grid">
         <div class="input-group">
-          <label>Name *</label>
-          <input type="text" placeholder="Enter doctor name" required>
+          <label>First Name *</label>
+          <input type="text" id="firstName" placeholder="Enter first name" required>
         </div>
         <div class="input-group">
-          <label>Username *</label>
-          <input type="text" placeholder="Enter username" required>
+          <label>Last Name *</label>
+          <input type="text" id="lastName" placeholder="Enter last name" required>
         </div>
         <div class="input-group">
           <label>Phone Number *</label>
-          <input type="tel" placeholder="Enter phone number" required>
+          <input type="tel" id="phone" placeholder="Enter phone number" required>
         </div>
         <div class="input-group">
           <label>Email Address *</label>
-          <input type="email" placeholder="Enter email address" required>
+          <input type="email" id="email" placeholder="Enter email address" required>
         </div>
         <div class="input-group">
           <label>DOB</label>
-          <input type="date">
+          <input type="date" id="dob">
         </div>
         <div class="input-group">
           <label>Year Of Experience</label>
-          <input type="number" placeholder="e.g. 12" min="0">
+          <input type="number" id="experience" placeholder="e.g. 12" min="0">
         </div>
         <div class="input-group">
           <label>Specialty</label>
-          <select>
-            <option>Select</option>
-            <option>Cardiologist</option>
-            <option>Dermatologist</option>
-            <option>Neurologist</option>
-            <option>Pediatrician</option>
-            <option>Orthopedic</option>
+          <select id="specialtySelect">
+            <option value="">Select</option>
           </select>
         </div>
         <div class="input-group">
           <label>Consultation Charge</label>
-          <input type="number" placeholder="e.g. 500">
+          <input type="number" id="fee" placeholder="e.g. 500">
         </div>
         <div class="input-group">
           <label>Gender</label>
-          <select>
-            <option>Select</option>
-            <option>Male</option>
-            <option>Female</option>
+          <select id="gender">
+            <option value="">Select</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
           </select>
+        </div>
+        <div class="input-group">
+          <label>Temporary Password *</label>
+          <input type="password" id="password" placeholder="Set a password" required>
         </div>
         <div class="input-group full-width">
           <label>Bio</label>
-          <textarea rows="4" placeholder="Short bio about the doctor..."></textarea>
+          <textarea rows="4" id="bio" placeholder="Short bio about the doctor..."></textarea>
         </div>
       </div>
     </section>
@@ -160,20 +162,13 @@
           </div>
 
           <div class="time-slots">
-            <select class="time-select">
-              <option>Select</option>
-              <option>09:00 AM</option>
-              <option>10:00 AM</option>
-              <option>11:00 AM</option>
-              <option>03:05 AM</option>
-              <option>04:00 PM</option>
-            </select>
+            <input type="time" id="startTimeInput" class="time-input">
             <span class="to-text">To</span>
-            <input type="text" class="time-input" placeholder="-- : --">
-            <button class="add-time">+</button>
-            <button class="remove-time">−</button>
+            <input type="time" id="endTimeInput" class="time-input">
+            <button class="add-time" id="addSlotBtn" type="button">+</button>
+            <button class="remove-time" id="clearDayBtn" type="button">Clear Day</button>
           </div>
-          <button class="apply-all">Apply All</button>
+          <div id="slotsList" class="slots-list"></div>
         </div>
       </section>
 
@@ -334,3 +329,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </body>
 </html>
+

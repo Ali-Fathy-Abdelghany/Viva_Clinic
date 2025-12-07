@@ -137,13 +137,6 @@ Back-End/
 - `GET /api/medical-records/:id` - Get medical record
 - `PUT /api/medical-records/:id` - Update medical record (Doctor only)
 
-### Lab Results
-- `POST /api/lab-results` - Create lab result (Doctor/Admin)
-- `GET /api/lab-results/record/:recordId` - Get lab results for a record
-- `GET /api/lab-results/:id` - Get single lab result
-- `PUT /api/lab-results/:id` - Update lab result (Doctor/Admin)
-- `DELETE /api/lab-results/:id` - Delete lab result (Doctor/Admin)
-
 ### Admin
 - `POST /api/admin/doctors` - Create doctor
 - `PUT /api/admin/doctors/:id` - Update doctor

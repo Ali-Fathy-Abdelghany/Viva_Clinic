@@ -45,7 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
     e.stopPropagation();
     e.preventDefault();
     const logoutModal = document.getElementById("logoutModal");
-    if (logoutModal) {
+    if (typeof window.startLogoutFlow === "function") {
+      window.startLogoutFlow();
+    } else if (logoutModal) {
       logoutModal.style.display = "flex";
       document.body.style.overflow = "hidden";
     }

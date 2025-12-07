@@ -18,6 +18,7 @@ const dayTabsContainer = document.getElementById('day-tabs');
 const availabilityGrid = document.getElementById('availability-grid'); 
 const submitBtn = document.getElementById('submit-btn');
 const successModal = document.getElementById('success-modal');
+const backLink = document.getElementById('back-link');
 
 
 function getDoctorIdFromUrl() {
@@ -64,11 +65,10 @@ async function submitBooking() {
         return;
     }
 
-    
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token'); 
     if (!token) {
-        alert("You must be logged in to book an appointment.");
-        window.location.href = "login.html"; 
+        alert("Please log in first to book an appointment.");
+        window.location.href = "login.html";
         return;
     }
 
@@ -86,8 +86,9 @@ async function submitBooking() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Pass the token for authentication
+                'Authorization': `Bearer ${token}`
             },
+            credentials: 'include',
             body: JSON.stringify(bookingData)
         });
 
@@ -352,6 +353,9 @@ document.querySelector('.modal-button').addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     DOCTOR_ID = getDoctorIdFromUrl();
+    if (backLink) {
+        backLink.href = DOCTOR_ID ? `doctor-profile.html?id=${DOCTOR_ID}` : 'ExploreAllDoctors.html';
+    }
     if (!DOCTOR_ID) {
        
         console.warn("Doctor ID is missing in URL. Using default for testing: 2");

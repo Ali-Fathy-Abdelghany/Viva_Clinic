@@ -80,18 +80,23 @@ function renderDoctors(doctors) {
         const specialtyName = doctor.specialty ? doctor.specialty.Name : 'General Practitioner';
         const price = doctor.Fee; 
 
-        const cardHTML = `
-            <div class="doctor-card" onclick="window.location.href='doctor-profile.html?id=${doctor.DoctorID}'">
-                <img src="images/doctor.png" alt="Dr. ${name}">
-                <div class="doctor-details">
-                    <h3>Dr. ${name}</h3>
-                    <p class="specialty">${specialtyName}</p>
-                    <p class="price" data-price="${price}">Starts from: <strong>${price} EGP</strong></p>
-                </div>
-                <span class="arrow">></span>
+        const card = document.createElement('div');
+        card.className = 'doctor-card';
+        card.addEventListener('click', () => {
+            window.location.href = `doctor-profile.html?id=${doctor.DoctorID}`;
+        });
+
+        card.innerHTML = `
+            <img src="images/doctor.png" alt="Dr. ${name}">
+            <div class="doctor-details">
+                <h3>Dr. ${name}</h3>
+                <p class="specialty">${specialtyName}</p>
+                <p class="price" data-price="${price}">Starts from: <strong>${price} EGP</strong></p>
             </div>
+            <span class="arrow">></span>
         `;
-        doctorsGrid.insertAdjacentHTML('beforeend', cardHTML);
+
+        doctorsGrid.appendChild(card);
     });
 }
 
