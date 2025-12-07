@@ -5,16 +5,28 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Appointment Dashboard</title>
 
+  <!-- Icons & Fonts -->
+  <link rel="icon" type="image/png" href="images/ico.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link rel="stylesheet" href="Styles/doctor_Appointment.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css"> 
+  <link rel="stylesheet" href="Styles/doctor_app.css">
+  <link rel="stylesheet" href="Styles/bell.css" />
 </head>
 <body>
-  <!-- NAVBAR -->
+  <!-- ==================================== NAVBAR ==================================== -->
   <nav class="navbar">
     <div class="nav-left">
-      <i class="fas fa-bars menu-icon" id="menuBtn" aria-label="Open menu"></i>
+      <!-- Hamburger menu button (toggles sidebar) -->
+      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+      
+      <!-- Clinic logo -->
       <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
+
       <div class="nav-links">
         <a href="homepage.html#home" class="nav-link">Home</a>
         <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
@@ -22,39 +34,54 @@
         <a href="doctor-profile.html" class="nav-link">My Profile</a>
       </div>
     </div>
+    
     <div class="nav-right">
-      <div class="bell-container" id="bellContainer" title="Notifications">
+      <!-- Notification bell (dropdown will be added via JS) -->
+      <div class="bell-container">
         <i class="fas fa-bell" id="bellIcon"></i>
+        <!-- Dropdown menu will be injected here dynamically -->
+        <div class="notifications-menu" id="notificationsMenu"></div>
       </div>
-      <a href="#"><img src="https://randomuser.me/api/portraits/men/11.jpg" class="profile-pic2" alt="User"></a>
+      <a href="doctor-profile.html">
+        <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
+      </a> 
     </div>
   </nav>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar" aria-hidden="true">
-    <div id="userSidebar" class="hidden">
-      <div class="user-info">
-        <img src="https://randomuser.me/api/portraits/men/11.jpg" id="sidebar-profile-img" alt="User">
-        <h3 id="sidebar-user-name">Dr. Ahmed</h3>
-        <p id="sidebar-user-email">ahmed@example.com</p>
+  <!-- ==================================== SIDEBAR ==================================== -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="admin-info">
+        <div class="admin-avatar">
+          <img src="images/doctor.png" alt="Profile">
+        </div>
+        <span class="admin-name">Doctor Name</span>
       </div>
-      <ul class="sidebar-menu">
-        <li onclick="location.href='#'"><i class="fas fa-calendar-check"></i> My Appointments</li>
-        <li onclick="location.href='#'"><i class="fas fa-file-medical"></i> Medical Record</li>
-        <li onclick="location.href='#'"><i class="fas fa-comments"></i> Chats</li>
-        <li onclick="location.href='#'"><i class="fas fa-cog"></i> Settings</li>
-        <li id="logoutBtn" class="logout-item">
-          <i class="fas fa-sign-out-alt"></i> Log Out</li>
-      </ul>
     </div>
-  </aside>
+
+    <ul class="sidebar-menu">
+      <li onclick="window.location.href='doctor-profile.html'">
+        <i class="fas fa-user"></i> My Profile
+      </li>
+      <li onclick="window.location.href='doctor_Appointment.html'">
+        <i class="fas fa-calendar"></i> Appointments
+      </li>
+      <li onclick="window.location.href='settings.html'">
+        <i class="fas fa-cog"></i> Settings
+      </li>
+      <li id="logoutBtn" class="logout-item" href="logout-modal.html">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </li>
+    </ul>
+  </div>
+
+  <!-- ==================================== MAIN ==================================== -->
+
   <div id="sidebarOverlay" class="overlay hidden" tabindex="-1"></div>
 
-  <!-- MAIN -->
   <main class="main">
-    <h1 class="page-title">Appointment</h1>
+    <h1 class="page-title">Doctor's Availability & Appointments</h1>
 
-    <!-- Availability Card -->
     <section class="card availability-card" aria-labelledby="avail-heading">
       <div class="card-head" id="avail-heading">Availability</div>
 
@@ -68,9 +95,7 @@
         <button class="day-tab" data-day="Sunday">Sunday</button>
       </div>
 
-      <div class="slots-area" id="slotsArea">
-        <!-- slot buttons injected by JS -->
-      </div>
+      <div class="slots-area" id="slotsArea"></div>
 
       <div class="edit-availability-bar" id="editAvailabilityBtn" tabindex="0">Edit Availability</div>
 
@@ -82,14 +107,9 @@
       </div>
     </section>
 
-    <!-- Recent Appointments -->
     <section class="card appointments-card" aria-labelledby="recent-heading">
       <div class="appointments-toolbar">
         <div class="card-head" id="recent-heading">Recent Appointments</div>
-        <select class="dropdown" id="filter-dropdown" aria-label="Filter appointments">
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-        </select>
       </div>
 
       <div class="table-wrap">
@@ -102,39 +122,32 @@
               <th></th>
             </tr>
           </thead>
-          <tbody id="appointments-list">
-            <!-- injected by JS -->
-          </tbody>
+          <tbody id="appointments-list"></tbody>
         </table>
       </div>
     </section>
   </main>
 
-  <!-- MODALS -->
   <div id="modalOverlay" class="overlay hidden"></div>
 
-  <!-- View / Actions Modal -->
   <div id="appointmentModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="appointmentModalTitle">
     <div class="modal-inner">
       <header class="modal-header">
         <h3 id="appointmentModalTitle">Appointment Details</h3>
-        <button class="modal-close" id="closeAppointmentModal" aria-label="Close">�</button>
+        <button class="modal-close" id="closeAppointmentModal" aria-label="Close">&times;</button>
       </header>
-      <div class="modal-body" id="appointmentModalBody">
-        <!-- injected by JS: patient details + status area + (prescription injected inline when requested) -->
-      </div>
+      <div class="modal-body" id="appointmentModalBody"></div>
       <footer class="modal-footer">
         <button class="btn btn-secondary" id="closeAppBtn">Close</button>
       </footer>
     </div>
   </div>
 
-  <!-- Edit Availability Modal -->
   <div id="editAvailabilityModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="editAvailTitle">
     <div class="modal-inner large">
       <header class="modal-header">
         <h3 id="editAvailTitle">Appointment Schedule</h3>
-        <button class="modal-close" id="closeEditAvail" aria-label="Close">�</button>
+        <button class="modal-close" id="closeEditAvail" aria-label="Close">&times;</button>
       </header>
       <div class="modal-body">
         <div class="days-row" id="editDays">
@@ -169,10 +182,7 @@
           <button class="btn btn-apply" id="applyAllBtn">Apply All</button>
         </div>
 
-        <div class="current-slots" id="currentSlots">
-          <!-- current slots for selected day -->
-        </div>
-
+        <div class="current-slots" id="currentSlots"></div>
       </div>
       <footer class="modal-footer">
         <button class="btn btn-primary" id="saveAvailBtn">Save</button>
@@ -180,18 +190,10 @@
       </footer>
     </div>
   </div>
-  <!-- ==================================== LOGOUT MODAL ==================================== -->
-  <div id="logoutModal" class="modal">
-    <div class="modal-content">
-        <p>Are you sure you want to Log out?</p>
-        <div class="modal-buttons">
-            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
-            <button id="modalNoBtn" class="modal-button no-btn">No</button>
-        </div>
-    </div>
-</div>
+  
   <script src="scripts/common-layout.js"></script>
   <script src="scripts/Dynamic Navigation Logic.js"></script>
   <script src="scripts/doctor_appointment.js"></script>
+  <script src="scripts/bell.js"></script>
 </body>
 </html>

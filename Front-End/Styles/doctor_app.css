@@ -16,53 +16,13 @@
 
 *{box-sizing:border-box}
 body{
-  margin:0;
+  margin-top: 100px; 
   font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background:var(--bg);
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
-
-/* NAVBAR */
-.navbar{
-  height:64px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 20px;
-  background:#14a2a0;
-  box-shadow:0 1px 0 rgba(0,0,0,0.03);
-}
-.nav-left{display:flex;align-items:center;gap:12px}
-.menu-icon{font-size:20px;color:var(--card);cursor:pointer}
-.logo{height:36px}
-.nav-links{display:flex;gap:16px;margin-left:8px}
-.nav-link{color:var(--card);text-decoration:none;font-weight:600;padding:6px 10px;border-radius:8px}
-.nav-right{display:flex;align-items:center;gap:14px}
-.profile-pic2{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #eaf9ff}
-.nav-links a{color: white;}
-/* SIDEBAR */
-.sidebar{
-  position:fixed;left:0;top:0;height:100vh;width:260px;
-  background:var(--card);box-shadow:2px 0 16px rgba(0,0,0,0.06);
-  transform:translateX(-110%);transition:transform .28s ease;
-  z-index:120;
-}
-.sidebar.open{transform:translateX(0)}
-#userSidebar{padding:22px}
-.user-info{display:flex;flex-direction:column;align-items:center;margin-bottom:18px}
-#sidebar-profile-img{width:72px;height:72px;border-radius:50%;object-fit:cover;margin-bottom:10px}
-.sidebar-menu{list-style:none;padding:0;margin:0}
-.sidebar-menu li{padding:10px;border-radius:8px;color:var(--primary);cursor:pointer;display:flex;align-items:center;gap:10px}
-.sidebar-menu li:hover{background:#f3fbff}
-
-/* Overlay */
-.overlay{
-  position:fixed;left:0;top:0;width:100vw;height:100vh;background:rgba(9,30,31,0.18);
-  z-index:110;opacity:1;transition:opacity .2s;
-}
-.overlay.hidden{display:none;opacity:0}
 
 /* MAIN CONTENT */
 .main{
@@ -83,7 +43,8 @@ body{
 /* AVAILABILITY */
 .weekdays{display:flex;gap:10px;border-bottom:1px solid #eef6f8;padding-bottom:10px;margin-bottom:12px;align-items:center;flex-wrap:wrap}
 .day-tab{background:transparent;border:0;padding:8px 12px;border-radius:8px;color:#234;cursor:pointer}
-.day-tab.active{border-bottom:3px solid #2aa7a0;color:var(--accent);background:transparent;font-weight:700}
+/* UPDATED BORDER COLOR */
+.day-tab.active{border-bottom:3px solid var(--accent);color:var(--accent);background:transparent;font-weight:700} 
 .slots-area{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
 .slot-btn{
   padding:10px 14px;border-radius:8px;border:0;background:#f3f6f7;color:#154049;font-weight:700;cursor:pointer;box-shadow:inset 0 -2px 0 rgba(0,0,0,0.02)
@@ -94,7 +55,8 @@ body{
 .slot-btn.completed{background:var(--green);color:#fff}
 
 /* Edit bar and legend */
-.edit-availability-bar{background:#f0f6f7;color:var(--primary);padding:10px;border-radius:8px;text-align:center;margin:12px 0;cursor:pointer}
+/* UPDATED BACKGROUND COLOR */
+.edit-availability-bar{background:var(--muted);color:var(--primary);padding:10px;border-radius:8px;text-align:center;margin:12px 0;cursor:pointer} 
 .legend-row{display:flex;gap:18px;align-items:center;margin-top:6px;flex-wrap:wrap}
 .legend-item{display:flex;align-items:center;gap:8px;color:#3b5a60}
 .legend-dot{width:14px;height:14px;border-radius:4px;display:inline-block}
@@ -167,26 +129,48 @@ body{
 .modal.hidden{display:none}
 .modal-inner{background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);width:100%;overflow:hidden}
 .modal-inner.large{max-width:920px;padding:0}
-.modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #f1f7f8}
+/* MODAL HEADER BORDER COLOR */
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--muted)}
 .modal-body{padding:16px 18px}
-.modal-footer{padding:12px 18px;border-top:1px solid #f1f7f8;display:flex;gap:10px;justify-content:flex-end}
+/* MODAL FOOTER BORDER COLOR */
+.modal-footer{padding:12px 18px;border-top:1px solid var(--muted);display:flex;gap:10px;justify-content:flex-end}
 .modal-close{background:transparent;border:0;font-size:18px;cursor:pointer}
 
 /* Edit Availability internals */
 .days-row{display:flex;gap:8px;padding:10px 0;border-bottom:1px solid #f2f7f8}
 .small-day{padding:8px 12px;border-radius:8px;border:1px solid #e7eef0;background:#fff;cursor:pointer}
-.small-day.active{background:#2a8f88;color:#fff}
+/* UPDATED ACTIVE COLOR */
+.small-day.active{background:var(--primary);color:#fff} 
 .schedule-row{display:flex;gap:10px;align-items:center;padding:12px 0}
 .field{display:flex;flex-direction:column}
 .field label{font-size:13px;color:#4a6a6f;margin-bottom:6px}
-.btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+
+/* Buttons (Standardized) */
+.btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+.btn-primary{background:var(--accent);color:#fff;padding:9px 14px;}
+.btn-secondary{background:var(--muted);color:var(--text);padding:9px 14px;}
+
 .btn-add{background:#fff;border:1px solid #e8eef0}
-.btn-apply{background:#111;border:1px solid #fff;color:#fff;}
+/* UPDATED TO PRIMARY COLOR FOR CONSISTENCY */
+.btn-apply{background:var(--primary);border:1px solid var(--primary);color:#fff;} 
 .current-slots{padding:10px 0;display:flex;flex-wrap:wrap;gap:8px}
 
-/* Buttons */
-.btn-primary{background:var(--accent);color:#fff;padding:9px 14px;border-radius:8px;border:0;cursor:pointer}
-.btn-secondary{background:#f5f7f8;border:0;padding:9px 14px;border-radius:8px;cursor:pointer}
+
+/* ========================================================================= */
+/* LOGOUT MODAL STYLES (INTEGRATED)                                          */
+/* ========================================================================= */
+#logoutModal .modal-body {
+    text-align: center;
+}
+#logoutModal .modal-body p {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 10px 0 10px 0;
+    color: var(--text);
+}
+#logoutModal .modal-footer.modal-buttons {
+    justify-content: space-around;
+}
 
 /* RESPONSIVE */
 @media (max-width:720px){
@@ -195,79 +179,4 @@ body{
   .appointments-table tr{display:block;margin-bottom:10px}
   .appointments-table td{display:flex;justify-content:space-between;align-items:center}
   .patient-avatar{width:42px;height:42px}
-}
-
-
-
-
-
-
-
-/* ========================================================================= */
-/* Logout Modal                                                             */
-/* ========================================================================= */
-.modal {
-    position: fixed;
-    z-index: 1000;
-    inset: 0;
-
-    display: none;
-
-    background-color: rgba(0, 0, 0, 0.4);
-
-    align-items: center;
-    justify-content: center;
-}
-
-
-.modal-content {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 10px;
-    width: 90%; 
-    max-width: 400px; 
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content p {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: space-around;
-    gap: 15px; 
-}
-
-.modal-button {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-    width: 100%;
-}
-
-.yes-btn {
-    background-color: #ffffff;
-    color: #008080; 
-    border: 1px solid #008080;
-}
-.yes-btn:hover {
-    background-color: #f0f8f8;
-}
-
-.no-btn {
-    background-color: #008080;
-    color: white;
-    border: 1px solid #008080;
-}
-.no-btn:hover {
-    background-color: #006666;
 }
