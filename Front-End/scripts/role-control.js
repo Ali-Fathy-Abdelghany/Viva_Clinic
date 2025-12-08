@@ -16,7 +16,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     // 1. تعريف العناصر الأساسية ودور المستخدم
-    const role = localStorage.getItem("role"); 
+    const role = localStorage.getItem("userRole") || "patient"; // افتراضياً مريض
     
     // عناصر الشريط الجانبي والأزرار
     const sidebar = document.querySelector(".sidebar");
