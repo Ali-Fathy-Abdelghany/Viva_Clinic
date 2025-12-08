@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return acc;
   }, {});
   let currentDay = "Monday";
+  let uploadedImageDataUrl = "";
 
   uploadBtn?.addEventListener("click", () => photoInput.click());
   photoInput?.addEventListener("change", (e) => {
@@ -36,6 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (file) {
       const url = URL.createObjectURL(file);
       preview.src = url;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        uploadedImageDataUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
   });
 
@@ -172,7 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
       Phone: phone.value.trim(),
       SpecialtyID: Number(specialtySelect.value) || null,
       Bio: bio.value.trim(),
-      Image_url: preview?.src && !preview.src.includes("doctor-placeholder") ? preview.src : "",
+      Image_url:
+        uploadedImageDataUrl ||
+        (preview?.src && !preview.src.includes("doctor-placeholder") ? preview.src : ""),
       Gender: gender.value || null,
       Fee: fee.value ? Number(fee.value) : null,
       Education: buildEducation(),

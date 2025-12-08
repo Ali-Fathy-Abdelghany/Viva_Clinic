@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Doctor</title>
+  <title>New Admin</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/ico.png"/>
   <link rel="stylesheet" href="styles/common.css">
@@ -11,11 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
    <!-- CSS -->
   <link rel="stylesheet" href="Styles/bell.css">
-  <link rel="stylesheet" href="styles/register-doctor.css">
+  <link rel="stylesheet" href="styles/Add New Admin.css">
   <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css">
   <!-- JS -->
   <script src="scripts/bell.js" defer></script>
-  <script src="scripts/register-doctor.js" defer></script>
+  <script src="scripts/Add New Admin.js" defer></script>
 </head>
 <body>
 
@@ -80,19 +80,13 @@
     <!-- ==================================== MAIN CONTENT ==================================== -->
     <main class="full-width-page">
         <div class="page-header">
-            <h1>New Doctor</h1>
+            <h1>New Admin</h1>
         </div>
 
   <div class="form-wrapper">
     <!-- ==== Contact Information ==== -->
     <section class="info-section">
       <h3>Contact Information</h3>
-
-      <div class="profile-upload">
-        <img id="profile-preview-img" src="images/assets/doctor-placeholder.png" alt="Doctor Photo">
-        <input type="file" id="doctor-photo" accept="image/*" style="display:none;">
-        <button type="button" class="upload-btn">Upload Photo</button>
-      </div>
 
       <div class="form-grid">
         <div class="input-group">
@@ -112,142 +106,18 @@
           <input type="email" id="email" placeholder="Enter email address" required>
         </div>
         <div class="input-group">
-          <label>DOB</label>
-          <input type="date" id="dob">
-        </div>
-        <div class="input-group">
-          <label>Year Of Experience</label>
-          <input type="number" id="experience" placeholder="e.g. 12" min="0">
-        </div>
-        <div class="input-group">
-          <label>Specialty</label>
-          <select id="specialtySelect">
-            <option value="">Select</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label>Consultation Charge</label>
-          <input type="number" id="fee" placeholder="e.g. 500">
-        </div>
-        <div class="input-group">
-          <label>Gender</label>
-          <select id="gender">
-            <option value="">Select</option>
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-          </select>
-        </div>
-        <div class="input-group">
           <label>Temporary Password *</label>
           <input type="password" id="password" placeholder="Set a password" required>
         </div>
-        <div class="input-group full-width">
-          <label>Bio</label>
-          <textarea rows="4" id="bio" placeholder="Short bio about the doctor..."></textarea>
-        </div>
-      </div>
-    </section>
-      <!-- Appointment Schedule -->
-      <section class="section">
-        <h3>Appointment Schedule</h3>
-        <div class="schedule-grid">
-          <div class="day-tabs">
-            <button class="day-tab active" data-day="Monday">Monday</button>
-            <button class="day-tab" data-day="Tuesday">Tuesday</button>
-            <button class="day-tab" data-day="Wednesday">Wednesday</button>
-            <button class="day-tab" data-day="Thursday">Thursday</button>
-            <button class="day-tab" data-day="Friday">Friday</button>
-            <button class="day-tab" data-day="Saturday">Saturday</button>
-            <button class="day-tab" data-day="Sunday">Sunday</button>
-          </div>
 
-          <div class="time-slots">
-            <input type="time" id="startTimeInput" class="time-input">
-            <span class="to-text">To</span>
-            <input type="time" id="endTimeInput" class="time-input">
-            <button class="add-time" id="addSlotBtn" type="button">+</button>
-            <button class="remove-time" id="clearDayBtn" type="button">Clear Day</button>
-          </div>
-          <div id="slotsList" class="slots-list"></div>
-        </div>
-      </section>
-
-    <!-- Educational Information -->
-<section class="info-section">
-  <h3>Educational Information</h3>
-  <div class="repeatable-container" id="education-container">
-    <div class="repeat-row">
-      <div class="input-row">
-        <label>Educational Degree</label>
-        <input type="text" placeholder="e.g. MBBCh, MD, PhD">
-      </div>
-      <div class="input-row">
-        <label>University</label>
-        <input type="text" placeholder="e.g. Cairo University">
-      </div>
-      <div class="input-row half">
-        <label>From</label>
-        <input type="date">
-      </div>
-      <div class="input-row half">
-        <label>To</label>
-        <input type="date">
-      </div>
-    </div>
-  </div>
-  <button type="button" class="add-row-btn" data-target="education-container">
-    + Add Another Degree
-  </button>
-</section>
-
-<!-- Awards & Recognition -->
-<section class="info-section">
-  <h3>Awards & Recognition</h3>
-  <div class="repeatable-container" id="awards-container">
-    <div class="repeat-row">
-      <div class="input-row">
-        <label>Name</label>
-        <input type="text" placeholder="Award name">
-      </div>
-      <div class="input-row half">
-        <label>Date</label>
-        <input type="date">
-      </div>
-    </div>
-  </div>
-  <button type="button" class="add-row-btn" data-target="awards-container">
-    + Add Another Award
-  </button>
-</section>
-
-<!-- Certifications -->
-<section class="info-section">
-  <h3>Certifications</h3>
-  <div class="repeatable-container" id="certifications-container">
-    <div class="repeat-row">
-      <div class="input-row">
-        <label>Name</label>
-        <input type="text" placeholder="Certification name">
-      </div>
-      <div class="input-row half">
-        <label>Date</label>
-        <input type="date">
-      </div>
-    </div>
-  </div>
-  <button type="button" class="add-row-btn" data-target="certifications-container">
-    + Add Another Certification
-  </button>
-</section>
       <!-- Buttons -->
       <div class="form-actions">
         <button type="button" class="btn-cancel">Cancel</button>
-        <button type="submit" class="btn-add">Add Doctor</button>
+        <button type="submit" class="btn-add">Add Admin</button>
       </div>
     </div>
   </main>
 
-  <script src="scripts/register-doctor.js"></script>
   <script src="scripts/common-layout.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {

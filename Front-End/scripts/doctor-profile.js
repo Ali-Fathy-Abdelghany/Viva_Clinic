@@ -86,6 +86,22 @@ function renderListIntoSection(sectionTitle, items, formatter, emptyText) {
   });
 }
 
+function getDoctorPhoto(doctor, fullName) {
+  const user = doctor?.user || {};
+  const nameForAvatar = encodeURIComponent(fullName || 'Doctor');
+  return (
+    doctor?.Image_url ||
+    doctor?.ImageUrl ||
+    doctor?.image_url ||
+    doctor?.imageUrl ||
+    user.Image_url ||
+    user.ImageUrl ||
+    user.image_url ||
+    user.imageUrl ||
+    `https://ui-avatars.com/api/?name=${nameForAvatar}&background=random&size=256`
+  );
+}
+
 function renderDoctorData(doctor) {
   if (!doctor) return;
 
@@ -108,10 +124,11 @@ function renderDoctorData(doctor) {
   const feeValue = Fee ?? 'N/A';
   const yearsText = YearsOfExperience ? `${YearsOfExperience}+ Years` : 'N/A';
 
+  const photoUrl = getDoctorPhoto(doctor, fullName);
   const profileImgElement = document.querySelector('.doctor-card img.profile-pic-main');
-  if (profileImgElement) {
-    profileImgElement.src = Image_url || 'images/doctor.png';
-  }
+  if (profileImgElement) profileImgElement.src = photoUrl;
+  const navPic = document.getElementById('profilePic');
+  if (navPic) navPic.src = photoUrl;
 
   const idElem = document.querySelector('.doctor-id');
   if (idElem) idElem.textContent = `Doctor ID: ${DoctorID}`;

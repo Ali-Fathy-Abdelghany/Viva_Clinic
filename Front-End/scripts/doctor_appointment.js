@@ -10,12 +10,25 @@
     appointments: [],
     doctor: null
   };
+  const prescriptionCache = new Set();
   let currentDay = 'Monday';
   let currentStatusPopover = null;
 
   // DOM helpers
   const el = (sel) => document.querySelector(sel);
   const els = (sel) => Array.from(document.querySelectorAll(sel));
+  const fetchMedicalRecordId = async (patientId, appointmentId) => {
+    if (!patientId || !appointmentId) return null;
+    try {
+      const res = await apiFetch(`/patients/${patientId}/medical-records`);
+      const records = res.data?.medicalRecords || [];
+      const match = records.find((r) => r.AppointmentID === appointmentId);
+      return match?.RecordID || null;
+    } catch (err) {
+      console.warn('Lookup medical record failed', err);
+      return null;
+    }
+  };
 
   // Elements
   const slotsArea = el('#slotsArea');
@@ -147,7 +160,7 @@
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>
-          <div class="patient-cell">
+          <div class="patient-cell" data-patient-id="${app.patientId || ''}" role="button" tabindex="0">
             <img class="patient-avatar" src="${app.avatar}" alt="${app.name}">
             <div class="patient-info">
               <span class="patient-name">${app.name}</span>
@@ -162,13 +175,27 @@
             <button class="action-btn icon-btn status-btn" data-id="${app.id}" title="Edit status">
               <i class="fa-solid fa-gear"></i>
             </button>
-            <button class="action-btn icon-btn pres-btn" data-id="${app.id}" title="Add prescription">
-              <i class="fa-solid fa-file-medical"></i>
+            <button class="action-btn icon-btn pres-btn ${app.hasPrescription ? 'filled' : ''}" data-id="${app.id}" title="${app.hasPrescription ? 'View / update prescription' : 'Add prescription'}">
+              <i class="fa-solid ${app.hasPrescription ? 'fa-file-circle-check' : 'fa-file-medical'}"></i>
             </button>
           </div>
         </td>
       `;
       appointmentsList.appendChild(tr);
+    });
+
+    els('.patient-cell').forEach((cell) => {
+      cell.addEventListener('click', () => {
+        const pid = cell.dataset.patientId;
+        if (!pid) return;
+        window.location.href = `PatientMedicalRecord.html?patientId=${pid}`;
+      });
+      cell.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          cell.click();
+        }
+      });
     });
 
     els('.status-btn').forEach((b) => {
@@ -320,75 +347,89 @@
     if (statusSection) statusSection.style.display = 'none';
     container.innerHTML = `
       <div class="prescription-panel">
-        <div class="pres-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div class="pres-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
           <div>
             <div style="font-weight:700">Prescription for ${app.name}</div>
-            <div style="color:#6b8b90;font-size:13px">${app.datetime}</div>
+            <div style="color:#6b8b90;font-size:12px">${app.datetime}</div>
           </div>
           <button class="btn btn-secondary" id="closePrescriptionPanelBtn">Close</button>
         </div>
-        <label style="font-weight:700;margin-bottom:6px;display:block">Prescription Notes</label>
-        <textarea id="prescriptionNotesInline" rows="4" placeholder="Write instructions, notes, or diagnosis here..." style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6f1f4;margin-bottom:12px"></textarea>
-        <label style="font-weight:700;margin-bottom:6px;display:block">Medications</label>
-        <div id="medListInline" class="med-list"></div>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:10px">
-          <input id="medNameInline" placeholder="Medication name" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6f1f4">
-          <input id="medDoseInline" placeholder="Dose / instructions" style="flex:1;padding:8px;border-radius:8px;border:1px solid #e6f1f4">
-          <button class="btn btn-primary" id="addMedInlineBtn">Add</button>
+        <div class="pres-body" style="display:flex;flex-direction:column;gap:8px">
+          <div>
+            <label style="font-weight:700;margin-bottom:4px;display:block">Diagnosis</label>
+            <input id="diagInput" type="text" placeholder="e.g. Seasonal flu" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e6f1f4;">
+          </div>
+          <div>
+            <label style="font-weight:700;margin-bottom:4px;display:block">Drug / Medication</label>
+            <input id="drugInput" type="text" placeholder="e.g. Amoxicillin 500mg - twice daily" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e6f1f4;">
+          </div>
+          <div>
+            <label style="font-weight:700;margin-bottom:4px;display:block">Additional Notes (optional)</label>
+            <textarea id="notesText" rows="3" placeholder="Follow-up advice, tests, warnings..." style="width:100%;padding:8px;border-radius:8px;border:1px solid #e6f1f4;"></textarea>
+          </div>
         </div>
-        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
-          <button class="btn btn-primary" id="savePrescriptionInlineBtn">Save Prescription</button>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px">
+          <button class="btn btn-primary" id="savePrescriptionInlineBtn">Upload Prescription</button>
         </div>
       </div>
     `;
 
-    function renderMedList() {
-      const list = el('#medListInline');
-      list.innerHTML = '';
-      const meds = app._prescription?.meds || [];
-      if (meds.length === 0) {
-        list.innerHTML = '<div style="color:#6b8b90">No medications added yet.</div>';
+    el('#savePrescriptionInlineBtn').addEventListener('click', async () => {
+      const Diagnosis = el('#diagInput')?.value.trim();
+      const Drug = el('#drugInput')?.value.trim();
+      const Notes = el('#notesText')?.value.trim();
+
+      if (!Diagnosis && !Drug && !Notes) {
+        alert('Add at least one prescription detail (diagnosis, drug, or note).');
         return;
       }
-      meds.forEach((m, idx) => {
-        const row = document.createElement('div');
-        row.className = 'med-row';
-        row.innerHTML = `<div class="med-item"><strong>${m.name}</strong> - <span>${m.dose}</span></div>
-                         <button class="btn btn-secondary med-del-btn" data-idx="${idx}">Delete</button>`;
-        list.appendChild(row);
-      });
-      list.querySelectorAll('.med-del-btn').forEach((b) => {
-        b.addEventListener('click', (e) => {
-          const i = Number(e.currentTarget.dataset.idx);
-          app._prescription.meds.splice(i, 1);
-          renderMedList();
-        });
-      });
-    }
 
-    if (!app._prescription) app._prescription = { notes: '', meds: [] };
-    el('#prescriptionNotesInline').value = app._prescription.notes || '';
-    renderMedList();
+      try {
+        if (app.status !== 'completed') {
+          await updateAppointmentStatus(app.id, 'completed');
+          app.status = 'completed';
+        }
 
-    el('#addMedInlineBtn').addEventListener('click', () => {
-      const name = el('#medNameInline').value.trim();
-      const dose = el('#medDoseInline').value.trim();
-      if (!name) {
-        alert('Please enter medication name');
-        return;
+        const body = { AppointmentID: app.id };
+        if (Diagnosis) body.Diagnosis = Diagnosis;
+        if (Drug) body.Drug = Drug;
+        if (Notes) body.Notes = Notes;
+
+        let recordId = app.medicalRecordId;
+
+        try {
+          if (recordId) {
+            await apiFetch(`/medical-records/${recordId}`, { method: 'PATCH', body });
+          } else {
+            const created = await apiFetch('/medical-records', { method: 'POST', body });
+            recordId = created.data?.medicalRecord?.RecordID;
+          }
+        } catch (err) {
+          const msg = (err?.message || '').toLowerCase();
+          if (msg.includes('already exists')) {
+            recordId = await fetchMedicalRecordId(app.patientId, app.id);
+            if (recordId) {
+              await apiFetch(`/medical-records/${recordId}`, { method: 'PATCH', body });
+            } else {
+              throw err;
+            }
+          } else {
+            throw err;
+          }
+        }
+
+        if (recordId) {
+          app.medicalRecordId = recordId;
+          prescriptionCache.add(app.id);
+          app.hasPrescription = true;
+        }
+        alert('Prescription saved to patient record.');
+        await refreshData();
+        closeAllModals();
+      } catch (err) {
+        console.error('Prescription upload failed', err);
+        alert(err.message || 'Unable to upload prescription.');
       }
-      app._prescription.meds.push({ name, dose });
-      el('#medNameInline').value = '';
-      el('#medDoseInline').value = '';
-      renderMedList();
-    });
-
-    el('#savePrescriptionInlineBtn').addEventListener('click', () => {
-      const notes = el('#prescriptionNotesInline').value.trim();
-      app._prescription.notes = notes;
-      alert('Prescription saved locally (mock).');
-      container.innerHTML = '';
-      if (statusSection) statusSection.style.display = '';
     });
 
     el('#closePrescriptionPanelBtn').addEventListener('click', () => {
@@ -446,10 +487,19 @@
         const fullName = `${patient.FirstName || 'Patient'} ${patient.LastName || ''}`.trim();
         return {
           id: a.AppointmentID,
+          patientId: a.PatientID || a.patient?.PatientID,
           name: fullName,
           phone,
           avatar,
           status: normalizeStatus(a.Status),
+          hasPrescription:
+            prescriptionCache.has(a.AppointmentID) ||
+            Boolean(a.medicalRecordId || a.MedicalRecordID || a.MedicalRecordId),
+          medicalRecordId:
+            a.medicalRecordId ||
+            a.MedicalRecordID ||
+            a.MedicalRecordId ||
+            null,
           datetime: formatDateTime(a.AppointmentDate, a.StartTime),
           AppointmentDate: a.AppointmentDate,
           StartTime: a.StartTime,

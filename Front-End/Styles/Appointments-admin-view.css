@@ -97,9 +97,9 @@ a { text-decoration:none; }
   border: 1px solid #e8edf3;
   border-radius: 18px;
   box-shadow: 0 24px 60px rgba(15,23,42,0.14);
-  width: 420px;
+  width: 340px;
   max-width: calc(100vw - 32px);
-  padding: 18px 20px 20px;
+  padding: 10px 12px 12px;
   z-index: 9999;
   display: none;
   margin-top: 8px;
@@ -108,18 +108,19 @@ a { text-decoration:none; }
 
 .filter-input, .date-input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border: 1px solid #d8e3ee;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: 10px;
+  font-size: 13px;
   background: #fbfdff;
 }
-.date-input { padding: 10px 12px; }
+.date-input { padding: 8px 10px; }
 
-.filter-group { margin-bottom: 20px; }
+.filter-group { margin-bottom: 14px; }
+.filter-group:last-child { margin-bottom: 0; }
 .filter-group label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: 700;
   color: #1f2937;
 }
@@ -127,16 +128,16 @@ a { text-decoration:none; }
 .filter-quick-dates {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 .filter-chip {
   border: 1px solid #e2e8f0;
   background: #f8fafc;
   color: #334155;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
