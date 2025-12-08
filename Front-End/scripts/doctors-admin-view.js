@@ -1,118 +1,135 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // ==================== العناصر الأساسية ====================
-  const menuBtn = document.getElementById('menuBtn');
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
-  const modal = document.getElementById('actionModal');
-  const cancelBtn = modal.querySelector('.cancel-btn');
-  const confirmBtn = modal.querySelector('.confirm-btn');
-  const filterBtn = document.querySelector('.filter-btn');
-  const filterDropdown = document.getElementById('filterDropdown');
+document.addEventListener("DOMContentLoaded", () => {
+    const filterBtn = document.getElementsByClassName("filter-btn")[0];
+    const filterDropdown = document.getElementById("filterDropdown");
+    const searchInput = document.getElementById("doctorSearch");
+    const apiBase = window.API_BASE || "http://127.0.0.1:3000/api";
+    let doctorsCache = [];
+    let currentFilter = "name";
 
-  let currentCard = null;
+    const renderDoctors = (doctors) => {
+        const container = document.querySelector(".doctors-container");
+        if (!container) return;
+        container.innerHTML = "";
+        if (!doctors || doctors.length === 0) {
+            container.innerHTML =
+                '<p style="text-align:center;color:#666;width:100%;">No doctors found</p>';
+            return;
+        }
+        doctors.forEach((doctor) => {
+            const name = `${doctor.user.FirstName} ${doctor.user.LastName}`;
+            const specialty = doctor.specialty?.Name;
+            const price = doctor.Fee;
+            const avatar =
+                doctor?.Image_url ||
+                `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                    name
+                )}&background=random&size=128`;
 
-  // // ==================== Sidebar & Overlay ====================
-  // menuBtn.onclick = () => {
-  //   sidebar.classList.toggle('active');
-  //   overlay.classList.toggle('active');
-  // };
+            const card = document.createElement("div");
+            card.className = "doctor-card";
+            card.dataset.name = name.toLowerCase();
+            card.dataset.specialty = specialty.toLowerCase();
+            card.dataset.price = price;
+            card.dataset.doctorId = doctor.DoctorID;
 
-  // overlay.onclick = () => {
-  //   sidebar.classList.remove('active');
-  //   overlay.classList.remove('active');
-  //   modal.classList.remove('show');
-  //   filterDropdown.classList.remove('show');
-  // };
-
-  // ==================== Action Modal (Edit / Delete) ====================
-  document.querySelectorAll('.more-btn').forEach(btn => {
-    btn.onclick = (e) => {
-      e.stopPropagation();
-      currentCard = btn.closest('.doctor-card');
-      modal.classList.add('show');
-
-      // ريست الاختيار للـ Edit كل مرة
-      document.querySelector('input[name="action"][value="edit"]').checked = true;
-      document.querySelector('input[name="action"][value="delete"]').checked = false;
+            card.innerHTML = `
+        <img src="${avatar}" alt="${name}">
+        <div class="doctor-details">
+          <h3>${name}</h3>
+          <p class="specialty">${specialty}</p>
+          <p class="price">Starts from: <strong>${price} EGP</strong></p>
+        </div>
+        <span class="arrow">></span>
+      `;
+            card.addEventListener("click", () => {
+                window.location.href = `doctor-profile.html?doctorId=${doctor.DoctorID}`;
+            });
+            container.appendChild(card);
+        });
     };
-  });
+    const loadDoctors = async () => {
+        const container = document.querySelector(".doctors-container");
+        if (container) {
+            container.innerHTML =
+                '<p style="text-align:center;color:#666;width:100%;">Loading doctors...</p>';
+        }
+        try {
+            const res = await fetch(`${apiBase}/doctors`, {
+                credentials: "include",
+            });
+            const data = await res.json();
+            if (!res.ok)
+                throw new Error(data.message || "Failed to load doctors");
 
-  cancelBtn.onclick = () => modal.classList.remove('show');
+            doctorsCache = data.data?.doctors || data.data || [];
+            renderDoctors(doctorsCache);
+            filterAndSearch();
+        } catch (err) {
+            console.error("Error loading doctors:", err);
+            if (container) {
+                container.innerHTML =
+                    '<p style="text-align:center;color:#d9534f;width:100%;">Failed to load doctors</p>';
+            }
+        }
+    };
 
-  confirmBtn.onclick = () => {
-    if (!currentCard) return;
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (
+            filterDropdown.classList.contains("show") &&
+            !filterDropdown.contains(e.target) &&
+            e.target !== filterBtn
+        ) {
+            filterDropdown.classList.remove("show");
+        }
+    });
 
-    const selectedAction = document.querySelector('input[name="action"]:checked').value;
+    // Toggle dropdown
+    filterBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        filterDropdown.classList.toggle("show");
+    });
+    document.querySelectorAll(".filter-item").forEach((item) => {
+        item.addEventListener("click", () => {
+            document
+                .querySelectorAll(".filter-item")
+                .forEach((i) => i.classList.remove("active"));
+            item.classList.add("active");
 
-    if (selectedAction === 'delete') {
-      currentCard.remove();
-      updateTotalCount();
-    } else if (selectedAction === 'edit') {
-      const doctorId = currentCard.dataset.id || 'new';
-      window.location.href = `register-doctor.html?id=${doctorId}`;
+            currentFilter = item.dataset.type;
+            filterDropdown.classList.remove("show");
+
+            filterAndSearch();
+        });
+    });
+
+    // Main filtering function
+    function filterAndSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        const cards = document.querySelectorAll(".doctor-card");
+
+        cards.forEach((card) => {
+            const name = card.dataset.name || "";
+            const specialty = card.dataset.specialty || "";
+            const price = parseInt(card.dataset.price) || 0;
+
+            let shouldShow = false;
+
+            if (currentFilter === "name") {
+                shouldShow = name.includes(query) || query === "";
+            } else if (currentFilter === "specialty") {
+                shouldShow = specialty.includes(query) || query === "";
+            } else if (currentFilter === "price") {
+                shouldShow = !query || price <= parseInt(query);
+            }
+
+            card.style.display = shouldShow ? "flex" : "none";
+        });
     }
 
-    modal.classList.remove('show');
-  };
+    // Trigger search on input
+    searchInput.addEventListener("input", filterAndSearch);
 
-  modal.onclick = (e) => {
-    if (e.target === modal) modal.classList.remove('show');
-  };
-
-  // تحديث عدد الدكاترة
-  function updateTotalCount() {
-    const count = document.querySelectorAll('.doctor-card').length;
-    document.getElementById('totalDoctors').textContent = count;
-  }
-
-  // ==================== الفلتر دلوقتي شغال 100% ====================
-  if (filterBtn && filterDropdown) {
-    // فتح وإغلاق الفلتر
-    filterBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      filterDropdown.classList.toggle('show');
-    });
-
-    // إغلاق الفلتر لما تضغطي بره
-    document.addEventListener('click', (e) => {
-      if (filterDropdown.classList.contains('show') &&
-          !filterDropdown.contains(e.target) &&
-          !filterBtn.contains(e.target)) {
-        filterDropdown.classList.remove('show');
-      }
-    });
-
-    // منع إغلاق الفلتر لما تضغطي جواه
-    filterDropdown.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-
-    // تغيير نوع الفلتر (Name / Specialty / Price)
-    document.querySelectorAll('.filter-item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
-        item.classList.add('active');
-
-        // هنا ممكن تضيفي الكود بتاع البحث أو الترتيب بعدين
-        // دلوقتي بس بيغير الشكل
-        filterDropdown.classList.remove('show');
-      });
-    });
-  }
-
-  // ==================== View Mode (Grid / List) - اختياري ====================
-  document.querySelectorAll('.view-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const view = btn.dataset.view;
-      const grid = document.getElementById('doctorsGrid');
-      if (view === 'grid') {
-        grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(340px, 1fr))';
-      } else {
-        grid.style.gridTemplateColumns = '1fr';
-      }
-    });
-  });
+    // Run once on load
+    loadDoctors();
 });

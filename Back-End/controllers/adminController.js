@@ -1,3 +1,4 @@
+const path = require("path");
 const { StatusCodes } = require("http-status-codes");
 const {
     User,
@@ -7,7 +8,8 @@ const {
     Appointment,
     Patient,
     Award,
-    Certification
+    Certification,
+    sequelize,
 } = require("../models");
 const { Op } = require("sequelize");
 const { asyncHandler, AppError } = require("../middleware/errorHandler");
@@ -25,7 +27,6 @@ const createDoctor = asyncHandler(async (req, res) => {
         Phone,
         SpecialtyID,
         Bio,
-        Image_url,
         Gender,
         Fee,
         Education,
@@ -33,6 +34,14 @@ const createDoctor = asyncHandler(async (req, res) => {
         Awards,
         Certifications,
     } = req.body;
+
+    // Handle image file upload
+    let Image_url = null;
+    if (req.file) {
+        Image_url = `${req.protocol}://${req.get("host")}/uploads/${
+            req.file.filename
+        }`;
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ where: { Email } });
@@ -74,17 +83,25 @@ const createDoctor = asyncHandler(async (req, res) => {
         YearsOfExperience,
     });
 
-    if (Awards)
+    // Parse Awards and Certifications if they are JSON strings
+    const parsedAwards =
+        typeof Awards === "string" ? JSON.parse(Awards) : Awards;
+    const parsedCertifications =
+        typeof Certifications === "string"
+            ? JSON.parse(Certifications)
+            : Certifications;
+
+    if (parsedAwards && parsedAwards.length > 0)
         await Award.bulkCreate(
-            Awards.map((award) => ({
+            parsedAwards.map((award) => ({
                 DoctorID: doctor.DoctorID,
                 Award_name: award.name,
                 Award_description: award.description,
             }))
         );
-    if (Certifications)
+    if (parsedCertifications && parsedCertifications.length > 0)
         await Certification.bulkCreate(
-            Certifications.map((certification) => ({
+            parsedCertifications.map((certification) => ({
                 DoctorID: doctor.DoctorID,
                 Title: certification.name,
                 Description: certification.description,
@@ -244,9 +261,10 @@ const getPatients = asyncHandler(async (req, res) => {
             },
             order: [["AppointmentDate", "DESC"]],
         });
-        patient.dataValues.lastAppointmentDate = lastAppointment ? lastAppointment.AppointmentDate : null;
+        patient.dataValues.lastAppointmentDate = lastAppointment
+            ? lastAppointment.AppointmentDate
+            : null;
     }
-
 
     res.status(StatusCodes.OK).json({
         success: true,
@@ -384,30 +402,67 @@ const deleteSpecialty = asyncHandler(async (req, res) => {
 // Set doctor working hours
 const setDoctorWorkingHours = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const { workingHours } = req.body; //[ { DayOfWeek: 'Sunday', StartTime: '10:00', EndTime: '11:30' } ]
+    let { workingHours } = req.body; //[ { DayOfWeek: 'Sunday', StartTime: '10:00', EndTime: '11:30' } ]
+
+    if (!workingHours || !Array.isArray(workingHours)) {
+        throw new AppError(
+            "workingHours must be an array",
+            StatusCodes.BAD_REQUEST
+        );
+    }
+
+    // Remove duplicates - keep only one entry per day
+    const seenDays = new Set();
+    workingHours = workingHours.filter((day) => {
+        if (seenDays.has(day.DayOfWeek)) {
+            return false; // Skip duplicate
+        }
+        seenDays.add(day.DayOfWeek);
+        return true;
+    });
 
     const doctor = await Doctor.findByPk(id);
     if (!doctor) {
         throw new AppError("Doctor not found", StatusCodes.NOT_FOUND);
     }
-    // Delete existing working hours
-    await DoctorWorkingHours.destroy({ where: { DoctorID: id } });
 
-    // Create new working hours
-    const createdHours = await DoctorWorkingHours.bulkCreate(
-        workingHours.map((day) => ({
-            DoctorID: id,
-            DayOfWeek: day.DayOfWeek,
-            StartTime: day.StartTime,
-            EndTime: day.EndTime,
-        }))
-    );
+    // Use transaction to ensure atomic operation
+    const transaction = await sequelize.transaction();
+    try {
+        // Delete existing working hours within transaction
+        await DoctorWorkingHours.destroy({
+            where: { DoctorID: id },
+            transaction,
+        });
+        console.log(`Deleted existing working hours for doctor ID: ${id}`);
 
-    res.status(StatusCodes.OK).json({
-        success: true,
-        message: "Working hours updated successfully",
-        data: { workingHours: createdHours },
-    });
+        // Create new working hours (only if array is not empty)
+        let createdHours = [];
+        if (workingHours.length > 0) {
+            createdHours = await DoctorWorkingHours.bulkCreate(
+                workingHours.map((day) => ({
+                    DoctorID: id,
+                    DayOfWeek: day.DayOfWeek,
+                    StartTime: day.StartTime,
+                    EndTime: day.EndTime,
+                })),
+                { transaction }
+            );
+        }
+
+        // Commit transaction
+        await transaction.commit();
+
+        res.status(StatusCodes.OK).json({
+            success: true,
+            message: "Working hours updated successfully",
+            data: { workingHours: createdHours },
+        });
+    } catch (err) {
+        // Rollback on error
+        await transaction.rollback();
+        throw err;
+    }
 });
 
 const updateDoctorWorkingHours = asyncHandler(async (req, res) => {

@@ -217,11 +217,54 @@ const updateDoctorProfile = asyncHandler(async (req, res) => {
         data: { doctor: updatedDoctor },
     });
 });
+const updateProfilePicture = asyncHandler(async (req, res) => {
+    const userId = req.params.id || req.userId;
 
+    // Multer ensures req.file exists
+
+    if (!req.file) {
+        throw new AppError("No image file uploaded", StatusCodes.BAD_REQUEST);
+    }
+
+    // Build full URL for image (served from /uploads)
+    const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${
+        req.file.filename
+    }`;
+    // Get patient record
+    const doctor = await Doctor.findByPk(userId);
+    if (!doctor) {
+        throw new AppError("Doctor not found", StatusCodes.NOT_FOUND);
+    }
+
+    // Update image url and delete old file
+    const oldImageUrl = doctor.Image_url;
+    doctor.Image_url = imageUrl;
+    if (oldImageUrl) {
+        const oldImagePath = path.join(__dirname, "..", "uploads", path.basename(oldImageUrl));
+        fs.unlink(oldImagePath, (err) => {
+            if (err) console.error("Failed to delete old image:", err);
+        });
+    }
+
+    await doctor.save();
+
+    // Fetch updated data in SAME FORMAT as full profile
+    const updatedDoctor = await User.findByPk(userId, {
+        attributes: { exclude: ["PasswordHash"] },
+        include: [{ model: Doctor, as: "doctorInfo" }],
+    });
+
+    res.status(StatusCodes.OK).json({
+        success: true,
+        message: "Profile picture updated successfully",
+        data: { doctor: updatedDoctor },
+    });
+});
 module.exports = {
     getDoctors,
     getDoctor,
     getDoctorAvailability,
     getDoctorAppointments,
     updateDoctorProfile,
+    updateProfilePicture
 };

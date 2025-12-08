@@ -1,5 +1,20 @@
 const api_base = "http://127.0.0.1:3000/api";
 
+function showMessage(text, type = 'success') {
+  let msg = document.getElementById('message');
+  if (!msg) {
+    msg = document.createElement('div');
+    msg.id = 'message';
+    document.body.appendChild(msg);
+  };
+
+  msg.textContent = text;
+  msg.className = type;
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 4000);
+}
+window.showMessage = showMessage;
+
 // Get specific patient ID from URL query parameter (e.g., ?patientId=123)
 function getPatientIdFromURL() {
     const params = new URLSearchParams(window.location.search);
@@ -84,16 +99,13 @@ window.addEventListener("DOMContentLoaded", async () => {
             userData = authData.user;
             currentUserData = userData; // Same user for both
         }
-
-        window.userData = userData;
-        console.log(userData);
         
         const user = userData || {};
         const patient = user.patientInfo || {};
         
         // For navbar/sidebar, always use currentUserData
         const currentUser = currentUserData || {};
-        const currentPatient = currentUser.patientInfo || {};
+        const currentPatient = currentUser.patientInfo || currentUser.doctorInfo || {};
         const currentAvatar = currentPatient.Image_url ?? "images/default-avatar.png";
         const currentFullName =
             `${currentUser.FirstName ?? ""}  ${currentUser.LastName ?? ""}`.trim() || "User";
@@ -107,6 +119,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         
         const phone = user.Phone ?? "not provided";
         const profilePic = document.getElementById("profilePic");
+        
         const sidebarProfileImg = document.getElementById(
             "sidebar-profile-img"
         );
@@ -124,7 +137,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         );
         const genderElem = document.getElementById("sidebar-user-gender");
         const profilePreview = document.getElementById("profile-preview");
-
+        const adminName=document.getElementsByClassName("admin-name")[0];
         // Navbar/Sidebar elements - use currentUserData
         if (profilePic) profilePic.src = currentAvatar;
         if (sidebarProfileImg) sidebarProfileImg.src = currentAvatar;
@@ -159,7 +172,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         if (address) address.textContent = patient.Address || "No address provided";
         if (userID) userID.textContent = patient.PatientID || "N/A";
         if (phoneElem) phoneElem.textContent = phone;
-        
+        if(adminName) adminName.textContent= currentFullName;
         // Update remaining sidebarUserName elements (page content only)
         if (sidebarUserName && sidebarUserName.length > 1) {
             for (let i = 1; i < sidebarUserName.length; i++) {
@@ -205,6 +218,9 @@ window.addEventListener("DOMContentLoaded", async () => {
                 if (el) el.checked = true;
             }
         });
+        
+        // Expose userData to window so patient-form.js can access it
+        window.userData = userData;
     } catch (err) {
         console.error("Failed to load profile", err);
     }

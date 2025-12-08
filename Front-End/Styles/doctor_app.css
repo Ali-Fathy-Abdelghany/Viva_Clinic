@@ -127,10 +127,17 @@ body{
 .med-del-btn{background:#fff;border:1px solid #e8eef0;padding:6px 8px;border-radius:8px;cursor:pointer}
 
 /* MODALS */
+<<<<<<< HEAD
 .modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;width:92vw;max-width:720px;display:flex;align-items:center;justify-content:center}
 .modal.hidden{display:none}
 .modal-inner{background:var(--card);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.08);width:100%;max-width:720px;overflow:hidden;max-height:78vh}
 .modal-inner.large{max-width:720px;padding:0}
+=======
+.modal2{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;max-width:920px;width:90%;display:flex;align-items:center;justify-content:center}
+.modal2.hidden{display:none}
+.modal-inner{background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);width:100%;overflow:hidden}
+.modal-inner.large{max-width:920px;padding:0}
+>>>>>>> 0e1f1533d6bacc6b775a2266c5362c0eb9da287f
 /* MODAL HEADER BORDER COLOR */
 .modal-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--muted)}
 .modal-body{padding:14px 16px}

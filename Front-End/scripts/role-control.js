@@ -16,7 +16,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     // 1. تعريف العناصر الأساسية ودور المستخدم
-    const role = localStorage.getItem("role"); 
+    const role = localStorage.getItem("userRole") || "patient"; // افتراضياً مريض
     
     // عناصر الشريط الجانبي والأزرار
     const sidebar = document.querySelector(".sidebar");
@@ -203,22 +203,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (newSidebarImg) {
             newSidebarImg.style.cursor = "pointer";
             newSidebarImg.addEventListener("click", () => {
-                window.location.href = "PatientMedicalRecord.html";
+                window.goToProfile();
             });
             newUserName.style.cursor = "pointer";
             newUserName.addEventListener("click", () => {
-                window.location.href = "PatientMedicalRecord.html";
+                window.goToProfile();
             });
         }
 
-        // Navbar profile picture change + click to open patient profile
-        if (profilePic) {
-            profilePic.src = "images/patient.png";
-            profilePic.style.cursor = "pointer";
-            profilePic.addEventListener("click", () => {
-                window.location.href = "PatientMedicalRecord.html";
-            });
-        }    
 
     }
 });

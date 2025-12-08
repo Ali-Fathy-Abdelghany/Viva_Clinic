@@ -1,188 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Viva Clinic - Home</title>
-  <link rel="stylesheet" href="Styles/homepage.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="icon" type="image/png" href="images/ico.png"/>
-  <link rel="stylesheet" href="Styles/bell.css" />
-  <script src="scripts/bell.js" defer></script>
-  <link rel="stylesheet" href="Styles/nav-side-logout.css" />
-  <link rel="stylesheet" href="Styles/message.css" />
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Viva Clinic - Home</title>
+        <link rel="stylesheet" href="Styles/homepage.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
+        <link rel="icon" type="image/png" href="images/ico.png" />
+        <link rel="stylesheet" href="Styles/bell.css" />
+        <script src="scripts/bell.js" defer></script>
+        <link rel="stylesheet" href="Styles/nav-side-logout.css" />
+        <link rel="stylesheet" href="Styles/message.css" />
+    </head>
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="nav-left">
+                <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+                <img src="images/logo.png" alt="Viva Clinic" class="logo" />
+                <div class="nav-links">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#doctors" class="nav-link">Most Popular</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
-      <img src="images/logo.png" alt="Viva Clinic" class="logo">
-      <div class="nav-links">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#doctors" class="nav-link">Most Popular</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </div>
-    </div>
+            <div class="nav-right">
+                <div id="guestNav">
+                    <a href="login.html" class="login-btn">Login</a>
+                    <a href="medical.html" class="signup-btn">Sign Up</a>
+                </div>
 
-    <div class="nav-right">
-      <div id="guestNav">
-        <a href="login.html" class="login-btn">Login</a>
-        <a href="medical.html" class="signup-btn">Sign Up</a>
-      </div>
+                <div id="userNav" class="hidden">
+                    <div class="bell-container">
+                        <i class="fas fa-bell" id="bellIcon"></i>
+                        <div
+                            class="notifications-menu"
+                            id="notificationsMenu"
+                        ></div>
+                    </div>
 
-    <div id="userNav" class="hidden">
-      <div class="bell-container">
-         <i class="fas fa-bell" id="bellIcon"></i>
-        <div class="notifications-menu" id="notificationsMenu"></div>
-      </div>
-      
-      <!-- User profile picture - clickable (goes to patient profile) -->
-      <img src="images/default-avatar.png" class="profile-pic2" id="profilePic" alt="User Profile">
-    </div>
-   </div>
-  </nav>
+                    <!-- User profile picture - clickable (goes to patient profile) -->
+                    <img
+                        src="images/default-avatar.png"
+                        class="profile-pic2"
+                        id="profilePic"
+                        alt="User Profile"
+                    />
+                </div>
+            </div>
+        </nav>
 
-  <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-  <!-- Guest Sidebar ) -->
-  <div id="guestSidebar">
-    <div class="sidebar-guest-content">
-      <i class="fas fa-user-circle" style="font-size:80px;color:#007977;"></i><br><br>
-      <a href="login.html" style="color:#007977;font-weight:bold;font-size:18px;">Log in to your account</a>
-    </div>
-  </div>
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <!-- Guest Sidebar ) -->
+            <div id="guestSidebar">
+                <div class="sidebar-guest-content">
+                    <i
+                        class="fas fa-user-circle"
+                        style="font-size: 80px; color: #007977"
+                    ></i
+                    ><br /><br />
+                    <a
+                        href="login.html"
+                        style="
+                            color: #007977;
+                            font-weight: bold;
+                            font-size: 18px;
+                        "
+                        >Log in to your account</a
+                    >
+                </div>
+            </div>
 
-  <!-- User Sidebar  -->
-  <div id="userSidebar" class="hidden">   
-    <div class="user-info">
-      <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-      <h3 class="sidebar-user-name">Loading...</h3>
-      <p class="sidebar-user-email">loading@demo.com</p>
-    </div>
+            <!-- User Sidebar  -->
+            <div id="userSidebar" class="hidden">
+                <div class="user-info">
+                    <img
+                        src="images/default-avatar.png"
+                        id="sidebar-profile-img"
+                        alt="User Avatar"
+                    />
+                    <h3 class="sidebar-user-name">Loading...</h3>
+                    <p class="sidebar-user-email">loading@demo.com</p>
+                </div>
 
-    <ul class="sidebar-menu">
-      <li onclick="window.location.href='Appointments.html'">
-        <i class="fas fa-calendar-check"></i> My Appointments
-      </li>
-      <li onclick="window.location.href='PatientMedicalRecord.html'">
-        <i class="fas fa-file-medical"></i> Medical Record
-      </li>
-      <li onclick="window.location.href='chats.html'">
-        <i class="fas fa-comments"></i> Chats
-      </li>
-      <li onclick="window.location.href='settings.html'">
-        <i class="fas fa-cog"></i> Settings
-      </li>
-      <li id="logoutBtn" class="logout-item" href="logout-modal.html">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- Overlay -->
-<div id="sidebarOverlay" class="overlay hidden"></div>
-  
-<main class="main-content">
-
-    <!-- Hero -->
-    <section class="hero" id="home">
-      <div class="hero-content">
-        <h1>Book Appointments<br>with Trusted Doctors</h1>
-        <p>Find and schedule visits with verified healthcare professionals anytime and anywhere. Your health is just a click away.</p>
-        <a href="BookAppointment.html" class="btn">Book an Appointment</a>
-      </div>
-      <div class="hero-image">
-        <img src="images/img1.jpg" alt="Doctor">
-      </div>
-    </section>
-
-    <!-- Stats -->
-    <section class="stats">
-      <div class="stat">
-        <h3>20+</h3>
-        <p>Years Of Experience</p>
-      </div>
-      <div class="stat">
-        <h3>200+</h3>
-        <p>Satisfied Clients</p>
-      </div>
-      <div class="stat">
-        <h3>20+</h3>
-        <p>Certified Doctors</p>
-      </div>
-    </section>
-
-    <!-- Doctors -->
-    <section class="doctors-section" id="doctors">
-      <h2>Most Popular</h2>
-      <div class="doctors-container">
-        <div class="doctor-card" onclick="window.location.href='doctor-profile.html'">
-          <img src="images/doctor.png" alt="Dr. Sara Ali">
-          <div class="doctor-details">
-            <h3>Dr. Sara Ali</h3>
-            <p class="specialty">Cardiologist</p>
-            <p class="price">Starts from: <strong>250 EGP</strong></p>
-          </div>
-          <span class="arrow">></span>
+                <ul class="sidebar-menu">
+                    <li onclick="window.location.href='Appointments.html'">
+                        <i class="fas fa-calendar-check"></i> My Appointments
+                    </li>
+                    <li
+                        onclick="window.location.href='PatientMedicalRecord.html'"
+                    >
+                        <i class="fas fa-file-medical"></i> Medical Record
+                    </li>
+                    <li onclick="window.location.href='chats.html'">
+                        <i class="fas fa-comments"></i> Chats
+                    </li>
+                    <li
+                        id="logoutBtn"
+                        class="logout-item"
+                        href="logout-modal.html"
+                    >
+                        <i class="fas fa-sign-out-alt"></i> Log Out
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="explore-more">
-        <a href="ExploreAllDoctors.html" class="btn large">Explore All Doctors</a>
-      </div>
-    </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-      <h2>Contact</h2>
-      <div class="contact-methods">
-        <div class="contact-item">
-          <img src="images/c1.png" alt="Phone">
-          <h3>Give us a call</h3>
-          <p>(123) 456-7890</p>
-        </div>
-        <div class="contact-item">
-          <img src="images/c2.png" alt="Email">
-          <h3>Send us an email</h3>
-          <p>contact@example.com</p>
-        </div>
-        <div class="contact-item">
-          <img src="images/c3.png" alt="Location">
-          <h3>Visit clinic</h3>
-          <p>Alexandria, Egypt</p>
-        </div>
-      </div>
-    </section>
+        <!-- Overlay -->
+        <div id="sidebarOverlay" class="overlay hidden"></div>
 
-  </main>
-    <!-- ==================================== LOGOUT MODAL ==================================== -->
-  <div id="logoutModal" class="modal">
-    <div class="modal-content">
-        <p>Are you sure you want to Log out?</p>
-        <div class="modal-buttons">
-            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
-            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        <main class="main-content">
+            <!-- Hero -->
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <h1>Book Appointments<br />with Trusted Doctors</h1>
+                    <p>
+                        Find and schedule visits with verified healthcare
+                        professionals anytime and anywhere. Your health is just
+                        a click away.
+                    </p>
+                    <a href="ExploreAllDoctors.html" class="btn"
+                        >Book an Appointment</a
+                    >
+                </div>
+                <div class="hero-image">
+                    <img src="images/img1.jpg" alt="Doctor" />
+                </div>
+            </section>
+
+            <!-- Stats -->
+            <section class="stats">
+                <div class="stat">
+                    <h3>20+</h3>
+                    <p>Years Of Experience</p>
+                </div>
+                <div class="stat">
+                    <h3>200+</h3>
+                    <p>Satisfied Clients</p>
+                </div>
+                <div class="stat">
+                    <h3>20+</h3>
+                    <p>Certified Doctors</p>
+                </div>
+            </section>
+
+            <!-- Doctors -->
+            <section class="doctors-section" id="doctors">
+                <h2>Most Popular</h2>
+                <div class="doctors-container">
+                    <div
+                        class="doctor-card"
+                        onclick="window.location.href='doctor-profile.html'"
+                    >
+                        <img src="images/doctor.png" alt="Dr. Sara Ali" />
+                        <div class="doctor-details">
+                            <h3>Dr. Sara Ali</h3>
+                            <p class="specialty">Cardiologist</p>
+                            <p class="price">
+                                Starts from: <strong>250 EGP</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-more">
+                    <a href="ExploreAllDoctors.html" class="btn large"
+                        >Explore All Doctors</a
+                    >
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="contact" id="contact">
+                <h2>Contact</h2>
+                <div class="contact-methods">
+                    <div class="contact-item">
+                        <img src="images/c1.png" alt="Phone" />
+                        <h3>Give us a call</h3>
+                        <p>(123) 456-7890</p>
+                    </div>
+                    <div class="contact-item">
+                        <img src="images/c2.png" alt="Email" />
+                        <h3>Send us an email</h3>
+                        <p>contact@example.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <img src="images/c3.png" alt="Location" />
+                        <h3>Visit clinic</h3>
+                        <p>Alexandria, Egypt</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- ==================================== LOGOUT MODAL ==================================== -->
+        <div id="logoutModal" class="modal" >
+            <div class="modal-content">
+                <p>Are you sure you want to Log out?</p>
+                <div class="modal-buttons">
+                    <button id="modalYesBtn" class="modal-button yes-btn">
+                        Yes
+                    </button>
+                    <button id="modalNoBtn" class="modal-button no-btn">
+                        No
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-  <!-- Footer   -->
-  <footer>
-    <p>© 2025 Viva Clinic. All rights reserved.</p>
-    <div class="social">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-  </footer>
+        <!-- Footer   -->
+        <footer>
+            <p>© 2025 Viva Clinic. All rights reserved.</p>
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </footer>
 
-  <script src="scripts/loadData.js"></script>
-  <script src="scripts/common-layout.js"></script>
-  <script src="scripts/Dynamic Navigation Logic.js"></script>
-  <script src="scripts/loadMostPopularDoctors.js"></script>
-</body>
+        <script src="scripts/loadData.js"></script>
+        <script src="scripts/common-layout.js"></script>
+        <script src="scripts/Dynamic Navigation Logic.js"></script>
+        <script src="scripts/loadMostPopularDoctors.js"></script>
+    </body>
 </html>

@@ -193,3 +193,22 @@
     right: 12px;
     opacity: 0.7;
 }
+
+.message-bubble {
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.my-message {
+  background: linear-gradient(135deg, #14a2a0, #0f7e7d);
+  color: #fff;
+}
+
+.other-message {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+}

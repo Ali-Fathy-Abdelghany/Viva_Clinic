@@ -1,234 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viva Clinic - Doctor Profile</title>
-    <link rel="icon" type="image/png" href="images/ico.png"/>
-    <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css"> 
-    <link rel="stylesheet" href="Styles/doctor-profile.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
-    <link rel="stylesheet" href="Styles/bell.css" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Viva Clinic - Doctor Profile</title>
+        <link rel="icon" type="image/png" href="images/ico.png" />
+        <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css" />
+        <link rel="stylesheet" href="Styles/nav-side-logout.css" />
+        <link rel="stylesheet" href="Styles/doctor-profile.css" />
+        <link rel="stylesheet" href="Styles/message.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="Styles/bell.css" />
+    </head>
 
-</head>
+    <body>
+        <!-- ==================================== NAVBAR ==================================== -->
+        <nav class="navbar">
+            <div class="nav-left">
+                <!-- Hamburger menu button (toggles sidebar) -->
+                <i class="fas fa-bars menu-icon" id="menuBtn"></i>
 
-<body>
+                <!-- Clinic logo -->
+                <img
+                    src="images/logo.png"
+                    alt="Viva Clinic Logo"
+                    class="logo"
+                />
 
-<!-- ==================================== NAVBAR ==================================== -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <!-- Hamburger menu button (toggles sidebar) -->
-      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
-      
-      <!-- Clinic logo -->
-      <img src="images/logo.png" alt="Viva Clinic Logo" class="logo">
-      
-      <!-- Navigation links (Single Page App style - uses data-section) -->
-      <div class="nav-links" id="nav-links">
-        <a href="homepage.html#home" class="nav-link" id="nav-link" data-section="home">Home</a>
-        <a href="homepage.html#doctors" class="nav-link">Most Popular</a>
-        <a href="homepage.html#contact" class="nav-link">Contact</a>
-        <a href="ExploreAllDoctors.html" class="nav-link">Explore Doctors</a>
-        <a href="doctor_App.html" class="nav-link">My Appointments</a>
-      </div>
-    </div>
-    
-    <div class="nav-right">
-      <!-- Notification bell (dropdown will be added via JS) -->
-      <div class="bell-container">
-        <i class="fas fa-bell" id="bellIcon"></i>
-        <!-- Dropdown menu will be injected here dynamically -->
-        <div class="notifications-menu" id="notificationsMenu"></div>
-      </div>
-      
-      <img src="images/default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
-    </div>
-  </nav>
+                <!-- Navigation links (Single Page App style - uses data-section) -->
+                <div class="nav-links" id="nav-links">
+                    <!-- Links will be populated by JavaScript based on user role -->
+                </div>
+            </div>
 
-  <!-- ==================================== SIDEBAR ==================================== -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <div class="admin-info">
-      <div class="admin-avatar">
-        <img src="images/default-avatar.png" alt="Profile">
-      </div>
-      <span class="admin-name">ADMIN</span>
-    </div>
-  </div>
+            <div class="nav-right">
+                <!-- Notification bell (dropdown will be added via JS) -->
+                <div class="bell-container">
+                    <i class="fas fa-bell" id="bellIcon"></i>
+                    <!-- Dropdown menu will be injected here dynamically -->
+                    <div
+                        class="notifications-menu"
+                        id="notificationsMenu"
+                    ></div>
+                </div>
 
-    <ul class="sidebar-menu">
-      <li onclick="window.location.href='admin-dashboard.html'">
-        <i class="fas fa-bar-chart"></i> Dashboard
-      </li>
-      <li onclick="window.location.href='ExploreAllDoctors.html'">
-        <i class="fas fa-user-md"></i> Doctors
-      </li>
-      <li onclick="window.location.href='patients.html'">
-        <i class="fas fa-heartbeat"></i> Patients
-      </li>
-      <li onclick="window.location.href='register-doctor.html'">
-        <i class="fas fa-user-plus"></i> Register
-      </li>
-      <li onclick="window.location.href='settings.html'">
-        <i class="fas fa-cog"></i> Settings
-      </li>
-      <li id="logoutBtn" class="logout-item">
-        <i class="fas fa-sign-out-alt"></i> Log Out
-      </li>
-    </ul>
-</div>
+                <img
+                    src="images/default-avatar.png"
+                    class="profile-pic"
+                    id="profilePic"
+                    alt="Profile"
+                />
+            </div>
+        </nav>
 
-  <div class="overlay" id="overlay"></div>
+        <!-- ==================================== SIDEBAR ==================================== -->
+        <div class="sidebar" id="sidebar">
+            <!-- Will be dynamically populated by doctor-profile.js based on userRole -->
+        </div>
 
-<!-- ====================================  ==================================== -->
+        <div class="overlay" id="overlay"></div>
 
-<!-- Simple back link to list view -->
-<a href="ExploreAllDoctors.html" class="nav-link" style="margin:20px;display:inline-block;">&#8592; Back to all doctors</a>
+        <!-- ====================================  ==================================== -->
 
-<!----DOCTOR PROFILE CARD =============================== -->
-<section class="doctor-card"> 
-        <div class="card-header">
-            <div class="profile-info">
-                <img src="images/doctor.png" class="profile-pic-main" alt="Dr. Sara Ali">
+        <!-- Simple back link to list view -->
+        <a
+            href="ExploreAllDoctors.html"
+            class="nav-link"
+            style="margin: 20px; display: inline-block"
+            >&#8592; Back to all doctors</a
+        >
 
-                <div class="details">
-                    <p class="doctor-id">Doctor ID</p>
-                    <h1>Dr. Sara Ali <span class="badge" style="color:#007977;font-size:13px;">(Cardiologist)</span></h1>
+        <!----DOCTOR PROFILE CARD =============================== -->
+        <section class="doctor-card">
+            <div class="card-header">
+                <div class="profile-info">
+                    <img
+                        src="images/doctor.png"
+                        class="profile-pic-main"
+                        alt="Dr. Sara Ali"
+                    />
 
-                    <div class="contact-info">
-                        <span><i class="fa-solid fa-stethoscope"></i> MBBS, M.D Cardiology</span>
-                        <span><i class="fa-regular fa-address-card"></i> Years of Experience: 15+ Years</span>
+                    <div class="details">
+                        <p class="doctor-id">Doctor ID</p>
+                        <h1>
+                            Dr. Sara Ali
+                            <span
+                                class="badge"
+                                style="color: #007977; font-size: 13px"
+                                >(Cardiologist)</span
+                            >
+                        </h1>
+
+                        <div class="contact-info">
+                            <span
+                                ><i class="fa-solid fa-stethoscope"></i> MBBS,
+                                M.D Cardiology</span
+                            >
+                            <span
+                                ><i class="fa-regular fa-address-card"></i>
+                                Years of Experience: 15+ Years</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-btn" id="book-btn">
+                    <div style="text-align: right; margin-bottom: 10px">
+                        <p
+                            style="
+                                margin: 0;
+                                font-weight: bold;
+                                font-size: 14px;
+                                color: #666;
+                            "
+                        >
+                            Consultation Charge
+                        </p>
+                        <p
+                            style="
+                                margin: 0;
+                                font-size: 15px;
+                                font-weight: 700;
+                                color: #007977;
+                            "
+                        >
+                            -- EGP / 30 Minutes
+                        </p>
+                    </div>
+                    <div id="admin-actions" class="admin-actions"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================
+     CONTACT
+=============================== -->
+        <section class="card">
+            <div class="card-section">
+                <div class="section-title">Contact</div>
+                <div class="card-fields">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+1 54546 45648</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>saraali@example.com</span>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="book-btn" id="book-btn">
-                <div style="text-align:right; margin-bottom:10px;">
-                    <p style="margin:0; font-weight:bold; font-size:14px; color:#666;">Consultation Charge</p>
-                    <p style="margin:0; font-size:15px; font-weight:700; color:#007977;">-- EGP / 30 Minutes</p>
-                </div>
-                <a href="BookAppointment.html" class="btn-book" style="text-decoration: none;">Book Appointment</a>
-            </div>
-        </div>
-</section>
-
-<!-- ============================
-     CONTACT
-=============================== -->
-<section class="card">
-    <div class="card-section">
-        <div class="section-title">Contact</div>
-        <div class="card-fields">
-            <div class="contact-item">
-                <i class="fa-solid fa-phone"></i>
-                <span>+1 54546 45648</span>
-            </div>
-            <div class="contact-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>saraali@example.com</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================
+        <!-- ============================
      SHORT BIO
 =============================== -->
-<section class="card">
-    <div class="card-section">
-        <div class="section-title">Short Bio</div>
-        <div class="card-fields">
-            <p style="font-size:14px; color:#333; line-height:1.6;">
-                Dr. Sara Ali has been practicing family medicine for over 10 years. 
-                She has extensive experience in managing chronic illnesses, preventive 
-                care, and treating a wide range of medical conditions for patients 
-                of all ages. Dr. Sara is dedicated to providing patient-centered care 
-                with long-term trust-based relationships.
-            </p>
-        </div>
-    </div>
-</section>
+        <section class="card">
+            <div class="card-section">
+                <div class="section-title">Short Bio</div>
+                <div class="card-fields">
+                    <p style="font-size: 14px; color: #333; line-height: 1.6">
+                        Dr. Sara Ali has been practicing family medicine for
+                        over 10 years. She has extensive experience in managing
+                        chronic illnesses, preventive care, and treating a wide
+                        range of medical conditions for patients of all ages.
+                        Dr. Sara is dedicated to providing patient-centered care
+                        with long-term trust-based relationships.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-
-<!-- ============================
+        <!-- ============================
      AWARDS
 =============================== -->
-<section class="card">
-    <div class="card-section">
-        <div class="section-title">Awards & Recognition</div>
+        <section class="card">
+            <div class="card-section">
+                <div class="section-title">Awards & Recognition</div>
 
-        <div class="card-fields">
-            <div style="width:100%;">
-                <strong>Top Doctor Award (2023)</strong>
-                <p>Recognized for outstanding achievements in family medicine.</p>
+                <div class="card-fields">
+                    <div style="width: 100%">
+                        <strong>Top Doctor Award (2023)</strong>
+                        <p>
+                            Recognized for outstanding achievements in family
+                            medicine.
+                        </p>
+                    </div>
+
+                    <div style="width: 100%">
+                        <strong>Patient Choice Award (2022)</strong>
+                        <p>
+                            Awarded for consistently high patient satisfaction
+                            ratings.
+                        </p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div style="width:100%;">
-                <strong>Patient Choice Award (2022)</strong>
-                <p>Awarded for consistently high patient satisfaction ratings.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================
+        <!-- ============================
      CERTIFICATIONS
 =============================== -->
-<section class="card">
-    <div class="card-section">
-        <div class="section-title">Certifications</div>
+        <section class="card">
+            <div class="card-section">
+                <div class="section-title">Certifications</div>
 
-        <div class="card-fields">
-            <div style="width:100%;">
-                <strong>American Board of Family Medicine (ABFM), 2015</strong>
-                <p>Mastery of comprehensive care across all ages.</p>
+                <div class="card-fields">
+                    <div style="width: 100%">
+                        <strong
+                            >American Board of Family Medicine (ABFM),
+                            2015</strong
+                        >
+                        <p>Mastery of comprehensive care across all ages.</p>
+                    </div>
+
+                    <div style="width: 100%">
+                        <strong>American Heart Association – 2024</strong>
+                        <p>Certification in CPR and emergency response.</p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div style="width:100%;">
-                <strong>American Heart Association – 2024</strong>
-                <p>Certification in CPR and emergency response.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- ============================
+        <!-- ============================
      EDUCATION
 =============================== -->
-<section class="card">
-    <div class="card-section">
-        <div class="section-title">Education Information</div>
+        <section class="card">
+            <div class="card-section">
+                <div class="section-title">Education Information</div>
 
-        <div class="card-fields">
-            <p style="width:100%;"><strong>Boston Medicine Institution</strong> — MD (1990–1992)</p>
-            <p style="width:100%;"><strong>Harvard Medical School</strong> — MBBS (1985–1990)</p>
+                <div class="card-fields">
+                    <p style="width: 100%">
+                        <strong>Boston Medicine Institution</strong> — MD
+                        (1990–1992)
+                    </p>
+                    <p style="width: 100%">
+                        <strong>Harvard Medical School</strong> — MBBS
+                        (1985–1990)
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- ==================================== LOGOUT MODAL ==================================== -->
+        <div id="logoutModal" class="modal">
+            <div class="modal-content">
+                <p>Are you sure you want to Log out?</p>
+                <div class="modal-buttons">
+                    <button id="modalYesBtn" class="modal-button yes-btn">
+                        Yes
+                    </button>
+                    <button id="modalNoBtn" class="modal-button no-btn">
+                        No
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
-<!-- ==================================== LOGOUT MODAL ==================================== -->
-     <div id="logoutModal" class="modal">
-    <div class="modal-content">
-        <p>Are you sure you want to Log out?</p>
-        <div class="modal-buttons">
-            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
-            <button id="modalNoBtn" class="modal-button no-btn">No</button>
+        <!-- Delete Doctor Modal -->
+        <div id="deleteDoctorModal" class="modal" style="display: none">
+            <div class="modal-content">
+                <p>Are you sure you want to delete this doctor?</p>
+                <div class="modal-buttons">
+                    <button
+                        id="deleteDoctorConfirm"
+                        class="modal-button yes-btn"
+                    >
+                        Yes
+                    </button>
+                    <button id="deleteDoctorCancel" class="modal-button no-btn">
+                        No
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-    <script src="scripts/Dynamic Navigation Logic.js" defer></script>
-    <script src="scripts/common-layout.js" defer></script>
-    <script src="scripts/role-control.js"></script>
-    <script src="scripts/bell.js" defer></script>
-    <script src="scripts/doctor-profile.js" defer></script>
-
-</body>
+        <script src="scripts/loadData.js"></script>
+        <script src="scripts/Dynamic Navigation Logic.js"></script>
+        <script src="scripts/common-layout.js"></script>
+        <script src="scripts/role-control.js"></script>
+        <script src="scripts/bell.js"></script>
+        <script src="scripts/doctor-profile.js"></script>
+    </body>
 </html>
-
-
-
-

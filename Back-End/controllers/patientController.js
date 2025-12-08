@@ -228,7 +228,6 @@ const getPatientMedicalRecords = asyncHandler(async (req, res) => {
 
 const updateProfilePicture = asyncHandler(async (req, res) => {
     const userId = req.params.id || req.userId;
-    const userRole = req.userRole;
 
     // Multer ensures req.file exists
 

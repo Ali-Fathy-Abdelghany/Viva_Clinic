@@ -10,12 +10,13 @@
   <link rel="stylesheet" href="Styles/ExploreAllDoctors.css">
   <link rel="stylesheet" href="Styles/bell.css">
   <link rel="stylesheet" href="Styles/nav-side-logout.css">
+  <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css">
 
-
+  <script src="scripts/loadData.js" defer></script>
+  <script src="scripts/common-layout.js" defer></script>
   <script src="scripts/Dynamic Navigation Logic.js" defer></script>
   <script src="scripts/ExploreAllDoctors.js" defer></script>
   <script src="scripts/bell.js" defer></script>
-  <script src="scripts/common-layout.js" defer></script>
 </head>
 <body>
 
@@ -61,8 +62,8 @@
     <div id="userSidebar" class="hidden">
       <div class="user-info">
         <img src="images/default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">Loading...</h3>
-        <p id="sidebar-user-email">loading@demo.com</p>
+      <h3 class="sidebar-user-name">Loading...</h3>
+      <p class="sidebar-user-email">loading@demo.com</p>
       </div>
 
       <ul class="sidebar-menu">
@@ -74,9 +75,6 @@
         </li>
         <li onclick="window.location.href='chats.html'">
           <i class="fas fa-comments"></i> Chats
-        </li>
-        <li onclick="window.location.href='settings.html'">
-          <i class="fas fa-cog"></i> Settings
         </li>
         <li id="logoutBtn" class="logout-item">
           <i class="fas fa-sign-out-alt"></i> Log Out
@@ -92,14 +90,23 @@
   <section class="explore-doctors-page">
     <div class="container">
       <div class="page-header">
-        <h1 class="page-title">Explore All Doctors</h1>
-        <div class="search-container">
+        <div class="header-left">
+          <h1 class="page-title">Explore All Doctors</h1>
+          <span class="total " id="totalDoctorsSpan">Total Doctors: <strong id="totalDoctorsCount">0</strong></span>
+        </div>
+        <div class="header-right hidden" id="adminControls">
+          <a href="register-doctor.html" class="new-doctor-btn">
+            <i class="fas fa-plus"></i> New Doctor
+          </a>
+        </div>
+      </div>
+      <div class="search-container">
         <div class="search-box">
           <i class="fas fa-filter filter-icon" id="filterBtn"></i>
           <input type="text" placeholder="Search For Doctor..." id="doctorSearch">
           <i class="fas fa-search search-icon"></i>
         </div>
-        </div>
+      </div>
 
         <!-- Filter Dropdown -->
         <div class="filter-dropdown" id="filterDropdown">

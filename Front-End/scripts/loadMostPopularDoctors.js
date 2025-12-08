@@ -49,7 +49,6 @@ async function loadMostPopularDoctors() {
                     <p class="specialty">${specialty}</p>
                     <p class="price">Starts from: <strong>${fee} EGP</strong></p>
                 </div>
-                <span class="arrow">></span>
             `;
 
             container.appendChild(card);

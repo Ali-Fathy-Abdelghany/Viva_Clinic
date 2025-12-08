@@ -1,7 +1,7 @@
 // doctor_appointment.js
 // Doctor-facing appointments page wired to backend APIs.
 (() => {
-  const API_BASE = window.API_BASE || 'http://localhost:3000/api';
+  const API_BASE = window.API_BASE || 'http://127.0.0.1:3000/api';
 
   // State
   const state = {
@@ -101,19 +101,7 @@
     return `${datePart} - ${formatTime12h(startTime)}`;
   };
 
-  const setUserUI = (user) => {
-    const fullName = `${user.FirstName || ''} ${user.LastName || ''}`.trim() || 'Doctor';
-    const email = user.Email || '';
-    const avatar = user.doctorInfo?.Image_url || 'images/default-avatar.png';
-    const sidebarName = el('#sidebar-user-name');
-    const sidebarEmail = el('#sidebar-user-email');
-    const sidebarImg = el('#sidebar-profile-img');
-    const navPic = document.querySelector('.profile-pic2');
-    if (sidebarName) sidebarName.textContent = fullName;
-    if (sidebarEmail) sidebarEmail.textContent = email;
-    if (sidebarImg) sidebarImg.src = avatar;
-    if (navPic) navPic.src = avatar;
-  };
+
 
   const showInlineError = (msg) => {
     if (slotsArea) {
@@ -547,7 +535,6 @@
         return;
       }
       state.doctor = { id: user.UserID, name: `${user.FirstName || ''} ${user.LastName || ''}`.trim() };
-      setUserUI(user);
       renderSlots();
       renderAppointments();
       await refreshData();
