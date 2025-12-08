@@ -141,7 +141,7 @@
           </div>
           <div class="legend">
             <span><i style="background:#e15759"></i> Cancelled</span>
-            <span><i style="background:#f28e2c"></i> Reschedule</span>
+            <span><i style="background:#f28e2c"></i> Booked</span>
             <span><i style="background:#59a14f"></i> Completed</span>
           </div>
           <canvas id="barChart"></canvas>
@@ -218,43 +218,13 @@
   <div class="report-card rescheduled">
     <div class="report-icon"><i class="material-icons-round">event_repeat</i></div>
     <div class="report-info">
-      <div class="report-label">Rescheduled</div>
+      <div class="report-label">Booked</div>
       <div class="report-number">—</div>
     </div>
     <canvas id="rescheduledChart"></canvas>
   </div>
 </div>
 
-<!-- Date Range + Run Report (Beautiful centered card - same as Patients Report) -->
-<div class="report-date-range">
-    <h3 class="date-range-title">Date Range</h3>
-    
-    <div class="date-inputs-row">
-      <div class="date-field">
-        <label>Start Date</label>
-        <div class="date-input-wrapper">
-          <input type="text" 
-                id="appointmentsStartDate" 
-                placeholder="mm/dd/yyyy" 
-                class="date-input flatpickr">
-          <i class="far fa-calendar-alt calendar-icon"></i>
-        </div>
-      </div>
-      
-      <div class="date-field">
-        <label>End Date</label>
-        <div class="date-input-wrapper">
-          <input type="text" 
-                id="appointmentsEndDate" 
-                placeholder="mm/dd/yyyy" 
-                class="date-input flatpickr">
-          <i class="far fa-calendar-alt calendar-icon"></i>
-        </div>
-      </div>
-    </div>
-
-    <div class="run-report-btn" style="visibility:hidden;"></div>
-  </div>
 
 <!-- Appointments Table -->
 <div class="section">
@@ -325,58 +295,6 @@
       <div class="report-number">—</div>
     </div>
   </div>
-</div>
-
-<!-- Date Range + Run Report (Same style as Appointment Report) -->
-<div class="report-date-range">
-  <h3 class="date-range-title">Date Range</h3>
-  
-  <div class="date-inputs-row">
-    <div class="date-field">
-      <label>Start Date</label>
-      <div class="date-input-wrapper">
-        <input type="text" 
-               id="patientsStartDate" 
-               placeholder="mm/dd/yyyy" 
-               class="date-input flatpickr">
-        <i class="far fa-calendar-alt calendar-icon"></i>
-      </div>
-    </div>
-    
-    <div class="date-field">
-      <label>End Date</label>
-      <div class="date-input-wrapper">
-        <input type="text" 
-               id="patientsEndDate" 
-               placeholder="mm/dd/yyyy" 
-               class="date-input flatpickr">
-        <i class="far fa-calendar-alt calendar-icon"></i>
-      </div>
-    </div>
-  </div>
-
-  <button class="run-report-btn" onclick="runPatientsReport()">
-    <i class="fas fa-play"></i> Run Report
-  </button>
-</div>
-
-<!-- Patients Table -->
-<div class="section">
-  <table class="report-table">
-    <thead>
-      <tr>
-        <th>Patient</th>
-        <th>Age/Gender</th>
-        <th>Contact Info</th>
-        <th>Practitioner</th>
-        <th>Last Visit</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Rows populated by admin-dashboard.js -->
-    </tbody>
-  </table>
 </div>
 
 <!-- ==================================== LOGOUT MODAL ==================================== -->

@@ -62,7 +62,7 @@ function initSimpleCharts() {
   if (barCtx) {
     new Chart(barCtx, {
       type: "bar",
-      data: { labels: ["Completed", "Rescheduled", "Cancelled"], datasets: [{ data: [0, 0, 0], backgroundColor: ["#59a14f", "#f28e2c", "#e15759"] }] },
+      data: { labels: ["Completed", "Booked", "Cancelled"], datasets: [{ data: [0, 0, 0], backgroundColor: ["#59a14f", "#f28e2c", "#e15759"] }] },
       options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } },
     });
   }
@@ -220,10 +220,10 @@ async function loadDashboardData() {
     setText(".report-card.total .report-number", appts.length);
     const completed = appts.filter((a) => a.Status === "Completed").length;
     const cancelled = appts.filter((a) => a.Status === "Cancelled").length;
-    const rescheduled = appts.filter((a) => a.Status === "Rescheduled").length;
+    const booked = appts.filter((a) => a.Status === "Booked").length;
     setText(".report-card.completed .report-number", completed);
     setText(".report-card.cancelled .report-number", cancelled);
-    setText(".report-card.rescheduled .report-number", rescheduled);
+    setText(".report-card.booked .report-number", booked);
 
     setText(".report-card.total-patients .report-number", patients.length);
 
@@ -234,7 +234,7 @@ async function loadDashboardData() {
 
     const barChart = Chart.getChart("barChart");
     if (barChart) {
-      barChart.data.datasets[0].data = [completed, rescheduled, cancelled];
+      barChart.data.datasets[0].data = [completed, booked, cancelled];
       barChart.update();
     }
   } catch (err) {
