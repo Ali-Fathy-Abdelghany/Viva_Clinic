@@ -372,33 +372,13 @@
         <div id="downloadToast" class="toast-message">
             <i class="fas fa-check-circle"></i> Download Successful!
         </div>
-        <script>
-            // Setup navbar and sidebar based on user role
-            document.addEventListener("DOMContentLoaded", function () {
-                const userRole = (
-                    localStorage.getItem("userRole") ||
-                    sessionStorage.getItem("userRole") ||
-                    ""
-                ).toLowerCase();
-                const navLinks = document.querySelector(".nav-links");
-
-                if (userRole === "admin") {
-                    // Admin navbar
-                    if (navLinks) {
-                        navLinks.innerHTML = `
-                        <a href="admin-dashboard.html" class="nav-link">Home</a>
-                    `;
-                    }
-                }
-                // Patient navbar is already set by default in HTML
-            });
-        </script>
         <script src="scripts/loadData.js"></script>
         <script src="scripts/common-layout.js"></script>
         <script src="scripts/bell.js"></script>
         <script src="scripts/role-control.js"></script>
         <script src="scripts/prescription.js"></script>
         <script src="scripts/Dynamic Navigation Logic.js"></script>
+        <script src="scripts/patient-dynamic-view.js"></script>
         <script src="scripts/loadMedicalRecords.js"></script>
     </body>
 </html>
