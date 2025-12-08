@@ -1,11 +1,13 @@
 const express = require('express');
+const upload = require("../middleware/upload");
 const router = express.Router();
 const {
   getDoctors,
   getDoctor,
   getDoctorAvailability,
   getDoctorAppointments,
-  updateDoctorProfile
+  updateDoctorProfile,
+  updateProfilePicture
 } = require('../controllers/doctorController');
 const {getSpecialties}=require('../controllers/adminController')
 const { authenticate, authorize } = require('../middleware/auth');
@@ -31,6 +33,7 @@ router.get('/:id/appointments', authorize('Doctor','Admin'), validateId, getDoct
 
 // Update doctor profile (Doctor and Admin)
 router.patch('/profile', authorize('Doctor','Admin'), validateDoctorProfile, updateDoctorProfile);
+router.patch('/:id/profile-picture', authorize('Admin','Doctor'), validateId, upload.single("image"), updateProfilePicture );
 
 module.exports = router;
 

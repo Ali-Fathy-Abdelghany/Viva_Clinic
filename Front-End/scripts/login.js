@@ -44,6 +44,8 @@
           const role = user?.Role?.toLowerCase();
           window.userRole = role;
           localStorage.setItem('userRole', role);
+          window.userID = user?.UserID;
+          localStorage.setItem('userID', user?.UserID);
           window.location.href = role === 'patient'
             ? 'homepage.html'
             : role === 'doctor'

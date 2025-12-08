@@ -125,8 +125,8 @@ body{
 .med-del-btn{background:#fff;border:1px solid #e8eef0;padding:6px 8px;border-radius:8px;cursor:pointer}
 
 /* MODALS */
-.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;max-width:920px;width:90%;display:flex;align-items:center;justify-content:center}
-.modal.hidden{display:none}
+.modal2{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:130;max-width:920px;width:90%;display:flex;align-items:center;justify-content:center}
+.modal2.hidden{display:none}
 .modal-inner{background:var(--card);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,0.18);width:100%;overflow:hidden}
 .modal-inner.large{max-width:920px;padding:0}
 /* MODAL HEADER BORDER COLOR */

@@ -71,9 +71,6 @@ section {
   font-size: 15px;
 }
 
-.nav-links a.active {
-  text-decoration: underline;
-}
 
 .nav-right {
   display: flex;

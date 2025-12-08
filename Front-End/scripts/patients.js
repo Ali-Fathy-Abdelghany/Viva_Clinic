@@ -214,13 +214,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p class="last-app">Last Appt: ${lastAppt}</p>
             </div>
           </div>
-          <button class="more">⋮</button>
       `;
             container.appendChild(card);
+            card.addEventListener("click", () => {
+                window.location.href = `patientMedicalRecord.html?patientId=${patient.UserID}`;
+            });
         });
 
-        // Reinitialize edit-delete popup after rendering new cards
-        initializeEditDeletePopup();
     };
 
     const loadPatients = async () => {

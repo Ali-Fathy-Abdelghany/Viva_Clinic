@@ -6,13 +6,13 @@
   <title>New Doctor</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/ico.png"/>
-  <link rel="stylesheet" href="styles/common.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
    <!-- CSS -->
   <link rel="stylesheet" href="Styles/bell.css">
   <link rel="stylesheet" href="styles/register-doctor.css">
   <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css">
+  <link rel="stylesheet" href="Styles/message.css">
   <!-- JS -->
   <script src="scripts/bell.js" defer></script>
   <script src="scripts/register-doctor.js" defer></script>
@@ -56,7 +56,7 @@
       <li onclick="window.location.href='Appointments-admin-view.html'">
         <i class="fas fa-calendar-check"></i> Appointments
       </li>
-      <li onclick="window.location.href='doctors-admin-view.html'">
+      <li onclick="window.location.href='ExploreAllDoctors.html'">
         <i class="fas fa-user-md"></i> Doctors
       </li>
       <li onclick="window.location.href='patients.html'">
@@ -64,9 +64,6 @@
       </li>
       <li onclick="window.location.href='register-doctor.html'">
         <i class="fas fa-user-plus"></i> Register
-      </li>
-      <li onclick="window.location.href='settings.html'">
-        <i class="fas fa-cog"></i> Settings
       </li>
       <li id="logoutBtn" class="logout-item" href="logout-modal.html">
         <i class="fas fa-sign-out-alt"></i> Log Out
@@ -89,7 +86,7 @@
       <h3>Contact Information</h3>
 
       <div class="profile-upload">
-        <img id="profile-preview" src="images/assets/doctor-placeholder.png" alt="Doctor Photo">
+        <img id="profile-preview-img" src="images/default-avatar.png" alt="Doctor Photo">
         <input type="file" id="doctor-photo" accept="image/*" style="display:none;">
         <button type="button" class="upload-btn">Upload Photo</button>
       </div>
@@ -242,12 +239,11 @@
       <!-- Buttons -->
       <div class="form-actions">
         <button type="button" class="btn-cancel">Cancel</button>
-        <button type="submit" class="btn-add">Add Doctor</button>
+        <button type="button" class="btn-add">Add Doctor</button>
       </div>
     </div>
   </main>
-
-  <script src="scripts/register-doctor.js"></script>
+  <script src="scripts/loadData.js"> </script>
   <script src="scripts/common-layout.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {

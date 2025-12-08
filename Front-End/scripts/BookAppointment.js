@@ -363,6 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     renderCalendar();
-    
+    renderAvailabilityGrid(formatDate(currentActiveDate));
+    renderDayTabs();
     
 });

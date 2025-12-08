@@ -59,7 +59,7 @@
       <li onclick="window.location.href='Appointments-admin-view.html'">
         <i class="fas fa-calendar-check"></i> Appointments
       </li>
-      <li onclick="window.location.href='doctors-admin-view.html'">
+      <li onclick="window.location.href='ExploreAllDoctors.html'">
         <i class="fas fa-user-md"></i> Doctors
       </li>
       <li onclick="window.location.href='patients.html'">
@@ -67,9 +67,6 @@
       </li>
       <li onclick="window.location.href='register-doctor.html'">
         <i class="fas fa-user-plus"></i> Register
-      </li>
-      <li onclick="window.location.href='settings.html'">
-        <i class="fas fa-cog"></i> Settings
       </li>
       <li id="logoutBtn" class="logout-item" href="logout-modal.html">
         <i class="fas fa-sign-out-alt"></i> Log Out
@@ -130,26 +127,7 @@
     </section>
 
 
-    <!-- Popup Action Modal -->
-    <div id="actionModal" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); display:none; z-index:2000;">
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); background:white; width:350px; padding:25px; border-radius:20px; box-shadow:0 4px 20px rgba(0,0,0,0.2); text-align:center;">
-        <h3 style="margin-bottom:20px; color:#006b6a;">Choose Action</h3>
 
-        <div style="display:flex; justify-content:space-around; margin-bottom:25px;">
-            <label style="display:flex; align-items:center; gap:8px; font-size:18px; cursor:pointer;">
-                <input type="radio" name="actionType" value="delete" style="width:18px; height:18px;"> Delete
-            </label>
-            <label style="display:flex; align-items:center; gap:8px; font-size:18px; cursor:pointer;">
-                <input type="radio" name="actionType" value="edit" style="width:18px; height:18px;"> Edit
-            </label>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; margin-top:10px;">
-            <button id="cancelModal" style="padding:10px 25px; border:2px solid #006b6a; background:white; color:#006b6a; border-radius:12px; font-size:16px; cursor:pointer;">Cancel</button>
-            <button id="confirmModal" style="padding:10px 25px; background:#007977; color:white; border:none; border-radius:12px; font-size:16px; cursor:pointer;">Confirm</button>
-        </div>
-    </div>
-    </div>
 
   <!-- ==================================== LOGOUT MODAL ==================================== -->
   <div id="logoutModal" class="modal">
@@ -163,7 +141,7 @@
 </div>
 
     <script src="scripts/patients.js"></script>
-    <script src="scripts/edit-delete-popup.js"></script>
+    <!-- <script src="scripts/edit-delete-popup.js"></script> -->
     <script src="scripts/bell.js"></script>
     <script src="scripts/common-layout.js"></script>
 </html>

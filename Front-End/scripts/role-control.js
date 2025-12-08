@@ -203,22 +203,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (newSidebarImg) {
             newSidebarImg.style.cursor = "pointer";
             newSidebarImg.addEventListener("click", () => {
-                window.location.href = "PatientMedicalRecord.html";
+                window.goToProfile();
             });
             newUserName.style.cursor = "pointer";
             newUserName.addEventListener("click", () => {
-                window.location.href = "PatientMedicalRecord.html";
+                window.goToProfile();
             });
         }
 
-        // Navbar profile picture change + click to open patient profile
-        if (profilePic) {
-            profilePic.src = "images/patient.png";
-            profilePic.style.cursor = "pointer";
-            profilePic.addEventListener("click", () => {
-                window.location.href = "PatientMedicalRecord.html";
-            });
-        }    
 
     }
 });
