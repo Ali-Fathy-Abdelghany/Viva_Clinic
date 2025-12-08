@@ -1,110 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chats - Viva Clinic</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chats - Viva Clinic</title>
+        <link rel="icon" type="image/png" href="images/ico.png" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="Styles/nav-side-logout-doctor_admin.css" />
+        <link rel="stylesheet" href="Styles/web-app.css" />
+        <link rel="stylesheet" href="Styles/chats.css" />
+        <link rel="stylesheet" href="Styles/bell.css" />
+        <link rel="stylesheet" href="Styles/message.css" />
+    </head>
+    <body class="patient-page">
+        <nav class="navbar">
+            <div class="nav-left">
+                <i class="fas fa-bars menu-icon" id="menuBtn"></i>
+                <img
+                    src="images/logo.png"
+                    alt="Viva Clinic Logo"
+                    class="logo"
+                />
+                <div class="nav-links">
+                    <a href="homepage.html" class="nav-link">Home</a>
+                    <a href="homepage.html#doctors" class="nav-link"
+                        >Most Popular</a
+                    >
+                    <a href="homepage.html#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="bell-container">
+                    <i class="fas fa-bell" id="bellIcon"></i>
+                    <div
+                        class="notifications-menu"
+                        id="notificationsMenu"
+                    ></div>
+                </div>
+                <img
+                    src="images/default-avatar.png"
+                    class="profile-pic"
+                    id="profilePic"
+                    alt="Profile"
+                />
+            </div>
+        </nav>
 
-  <link rel="stylesheet" href="Styles/web-app.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="Styles/chats.css">
-  <link rel="stylesheet" href="Styles/bell.css" />
-   
-</head>
-<body class="patient-page">
-
-  <nav class="navbar">
-    <div class="nav-left">
-      <i class="fas fa-bars menu-icon" id="menuBtn"></i>
-      <img src="logo.png" alt="Viva Clinic Logo" class="logo">
-      <div class="nav-links">
-        <a href="#home" class="nav-link active" data-section="home">Home</a>
-        <a href="#doctors" class="nav-link" data-section="doctors">Most Popular</a>
-        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
-      </div>
-    </div>
-    <div class="nav-right">
-      <div class="bell-container">
-        <i class="fas fa-bell" id="bellIcon"></i>
-        <div class="notifications-menu" id="notificationsMenu"></div>
-      </div>
-      <img src="default-avatar.png" class="profile-pic" id="profilePic" alt="Profile">
-    </div>
-  </nav>
-
-  <div class="sidebar" id="sidebar">
-    <div id="sidebarContent">
-      <div class="user-info">
-        <img src="default-avatar.png" id="sidebar-profile-img" alt="User Avatar">
-        <h3 id="sidebar-user-name">Shimaa</h3>
-        <p id="sidebar-user-email">shimaa@demo.com</p>
-      </div>
-      <ul>
-        <li onclick="window.location.href='my-appointments.html'">
-          <i class="fas fa-calendar-check"></i> My Appointments
-        </li>
-        <li onclick="window.location.href='medical-record.html'">
-          <i class="fas fa-file-medical"></i> Medical Record
-        </li>
-        <li onclick="window.location.href='chats.html'">
-          <i class="fas fa-comments"></i> Chats
-        </li>
-        <li id="logoutBtn" class="logout-item">
-          <i class="fas fa-sign-out-alt"></i> Log Out
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="chat-main-wrapper">
-
-    <div class="chat-list-sidebar">
-      <div class="chat-list-header">Chat</div>
-      <div class="chat-search-box">
-        <input type="text" placeholder="Search doctors...">
-      </div>
-      <div class="doctors-list" id="doctorsList">
-    <div class="loading" style="text-align:center; padding:40px; color:#666;">
-        جاري تحميل الشاتات...
-    </div>
-</div>
-    </div>
-
-    <div class="chat-conversation">
-      <div class="chat-conversation-header">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Sara Ali">
-        <div>
-          <h3>Dr. Sara Ali</h3>
-          <p>Last Seen at 07:15 PM</p>
+        <div class="sidebar" id="sidebar">
+            <div id="userSidebar" class="hidden">
+                <div class="user-info">
+                    <img
+                        src="images/Profile2.jpeg"
+                        id="sidebar-profile-img"
+                        alt="User Avatar"
+                    />
+                    <h3 class="sidebar-user-name">Loading...</h3>
+                    <p class="sidebar-user-email">loading@demo.com</p>
+                </div>
+                <ul class="sidebar-menu">
+                    <li onclick="window.location.href='MyAppointments.html'">
+                        <i class="fas fa-calendar-check"></i> My Appointments
+                    </li>
+                    <li
+                        onclick="window.location.href='PatientMedicalRecord.html'"
+                    >
+                        <i class="fas fa-file-medical"></i> Medical Record
+                    </li>
+                    <li onclick="window.location.href='chats.html'">
+                        <i class="fas fa-comments"></i> Chats
+                    </li>
+                    <li id="logoutBtn" class="logout-item">
+                        <i class="fas fa-sign-out-alt"></i> Log Out
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="messages-container" id="messagesContainer">
-      </div>
-      <div class="chat-input-wrapper">
-        <div class="chat-input-icons">
-          <i class="far fa-smile"></i>
-          <i class="fas fa-paperclip"></i>
-        </div>
-        <input type="text" placeholder="Type your message here..." id="messageInput">
-        <button class="send-message-btn">
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div id="logoutModal" class="modal">
-    <div class="modal-content">
-        <p>Are you sure you want to Log out?</p>
-        <div class="modal-buttons">
-            <button id="modalYesBtn" class="modal-button yes-btn">Yes</button>
-            <button id="modalNoBtn" class="modal-button no-btn">No</button>
-        </div>
-    </div>
-</div>
 
-  <script src="Scripts/web-app.js"></script>
-  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-  <script src="Scripts/logout-modal.js"></script>
-  <script src="Scripts/chats.js"></script>
-</body>
+        <div id="sidebarOverlay" class="overlay hidden"></div>
+
+        <div class="chat-main-wrapper">
+            <div class="chat-list-sidebar">
+                <div class="chat-list-header">Chat</div>
+                <div class="chat-search-box">
+                    <input type="text" placeholder="Search doctors..." />
+                </div>
+                <div class="doctors-list" id="doctorsList">
+                    <div
+                        class="loading"
+                        style="text-align: center; padding: 40px; color: #666"
+                    >
+                        Loading chats...
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-conversation">
+                <div class="chat-conversation-header">
+                    <img
+                        src="https://randomuser.me/api/portraits/women/44.jpg"
+                        alt="Dr. Sara Ali"
+                    />
+                    <div>
+                        <h3>Dr. Sara Ali</h3>
+                        <p>Last Seen at 07:15 PM</p>
+                    </div>
+                </div>
+                <div class="messages-container" id="messagesContainer"></div>
+                <div class="chat-input-wrapper">
+                    <div class="chat-input-icons">
+                        <i class="far fa-smile"></i>
+                        <i class="fas fa-paperclip"></i>
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Type your message here..."
+                        id="messageInput"
+                    />
+                    <button class="send-message-btn" id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="logoutModal" class="modal" style="display: none">
+            <div class="modal-content">
+                <p>Are you sure you want to Log out?</p>
+                <div class="modal-buttons">
+                    <button id="modalYesBtn" class="modal-button yes-btn">
+                        Yes
+                    </button>
+                    <button id="modalNoBtn" class="modal-button no-btn">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="scripts/common-layout.js"></script>
+        <script src="scripts/loadData.js"></script>
+        <script src="scripts/bell.js"></script>
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const userRole = (
+                    localStorage.getItem("userRole") ||
+                    sessionStorage.getItem("userRole") ||
+                    ""
+                ).toLowerCase();
+                const navLinks = document.querySelector(".nav-links");
+                if (userRole === "admin") {
+                    if (navLinks)
+                        navLinks.innerHTML =
+                            '<a href="admin-dashboard.html" class="nav-link">Home</a>';
+                } else if (userRole === "doctor") {
+                    if (navLinks)
+                        navLinks.innerHTML =
+                            '<a href="doctor_app.html" class="nav-link">Appointments</a>';
+                }
+            });
+        </script>
+        <script src="scripts/chats.js"></script>
+    </body>
 </html>
