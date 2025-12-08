@@ -11,227 +11,14 @@ body {
     font-family: "Cairo", sans-serif;
     background: #f8fcfc;
     color: #333;
-    padding-top: 70px; /* Space for fixed navbar */
+    padding-top: 50px; /* Space for fixed navbar */
 }
 
 section {
     padding: 0 20px;
-    margin: 20px auto;
+    margin: 10px auto;
     max-width: 1200px;
 }
-
-/* ========================================================================= */
-/* Navbar                                                                    */
-/* ========================================================================= */
-/* .navbar {
-  height: 70px;
-  background: #14a2a0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 30px;
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.menu-icon {
-  color: white;
-  font-size: 26px;
-  cursor: pointer;
-  display: block;
-}
-
-.logo {
-  height: 60px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.nav-links a.active {
-  text-decoration: underline;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  direction: rtl;
-}
-.nav-right > * {
-  direction: ltr;             
-} */
-
-/* .login-btn, .signup-btn {
-  color: white;
-  text-decoration: none;
-  padding: 8px 20px;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.3s;
-}
-
-.signup-btn {
-  background: #007977;
-}
-
-.signup-btn:hover {
-  background: #00605e;
-}
-
-#userNav {
-  display: flex;
-  align-items: center;
-  gap: 15px;          
-  justify-content: flex-end;
-}
-
-
-.bell-container {
-  position: relative;
-  order: 1;
-}
-
-#bellIcon {
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.bell-container, .profile-pic {
-  display: flex;
-  align-items: center;
-}
-
-
-.profile-pic2 {
-  order: 2;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-} */
-
-/* ========================================================================= */
-/* Sidebar                                                                   */
-/* ========================================================================= */
-/* .sidebar {
-  position: fixed;
-  top: 0;
-  left: -320px;
-  width: 300px;
-  height: 100vh;
-  background: white;
-  box-shadow: 5px 0 25px rgba(0,0,0,0.15);
-  transition: left 0.4s ease;
-  z-index: 999;
-  padding: 70px 10px;
-}
-
-.sidebar.active {
-  left: 0;
-} */
-
-/* Guest Sidebar */
-/* .sidebar-guest-content {
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.sidebar-guest-content i {
-  font-size: 80px;
-  color: #007977;
-  margin-bottom: 20px;
-}
-
-.login-link {
-  color: #007977;
-  font-weight: bold;
-  font-size: 18px;
-  text-decoration: none;
-} */
-
-/* User Sidebar */
-/* .user-info {
-  text-align: center;
-  padding: 20px;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 30px;
-}
-
-.user-info img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 12px;
-}
-
-.user-info h3 {
-  color: #007977;
-  font-size: 15px;
-  margin: 8px 0 4px;
-}
-
-.user-info p {
-  color: #666;
-  font-size: 14px;
-}
-
-.sidebar-menu {
-  list-style: none;
-  padding: 5px 0;
-}
-
-.sidebar-menu li {
-  padding: 16px 0px;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.sidebar-menu li:hover {
-  color: #007977;
-}
-
-.logout-item {
-  color: #d9534f !important;
-} */
-
-/* Overlay */
-/* .overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 998;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-}
-
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-} */
-/**********************************************************************************/
-/**********************************************************************************/
 
 /* --- 2. Patient Information Card --- */
 
@@ -239,7 +26,7 @@ section {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 0;
+    padding: 0px;
     overflow: hidden;
     margin-top: 30px;
 }
@@ -247,7 +34,7 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 20px 30px;
+    padding: 15px 20px;
     /* Gradient Background matching the image's structure */
     background-image: linear-gradient(to right, #ffffff 65%, #e0f7fa);
     background-repeat: no-repeat;
@@ -261,12 +48,12 @@ section {
 }
 
 .profile-pic {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     margin-right: 20px;
     object-fit: cover;
-    border: 3px solid #14a2a0;
+    border: 1px solid #dee2e2;
 }
 
 .details h1 {
@@ -321,8 +108,8 @@ section {
 }
 
 .card-body {
-    padding: 15px 30px;
-    background-color: #fafafa;
+    padding: 10px 20px;
+    background-color: #c7d0d1;
     display: flex;
     flex-direction: column;
 }
@@ -330,7 +117,7 @@ section {
 .about-title {
     font-size: 14px;
     font-weight: bold;
-    color: #666;
+    color: #474646;
     margin-bottom: 10px;
 }
 
@@ -354,7 +141,8 @@ section {
 .about-details p {
     margin: 0;
     font-size: 14px;
-    color: #333;
+    color: #131212;
+    font-weight: 500;
 }
 
 /* --- 3. Medical History Form --- */
@@ -363,7 +151,7 @@ section {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     padding: 0;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .form-header {
@@ -560,16 +348,16 @@ section {
 .modal-content {
     background: #ffffff;
     border-radius: 12px;
-    padding: 20px 30px;
+    padding: 25px 30px;
     width: 90%;
-    max-width: 400px; /* Constrain size */
+    max-width:450px; /* Constrain size */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     position: relative;
     font-family: "Cairo", sans-serif;
 }
 
 .modal-clinic-logo {
-    width: 60px;
+    width: 70px;
     margin-right: 15px;
 }
 
@@ -578,8 +366,8 @@ section {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .doctor-info {
@@ -589,8 +377,8 @@ section {
 }
 
 .doctor-profile-pic {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
