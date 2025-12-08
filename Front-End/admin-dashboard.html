@@ -92,12 +92,8 @@
       <i class="material-icons-round">health_and_safety</i>
     </div>
     <div class="stat-info">
-      <div class="stat-number">247</div>
+      <div class="stat-number">—</div>
       <div class="stat-label">Doctors</div>
-      <div class="stat-trend up">
-        <span>+95%</span>
-        <small>in last 7 Days</small>
-      </div>
     </div>
     <div class="stat-chart">
       <canvas id="doctorsChart"></canvas>
@@ -110,12 +106,8 @@
       <i class="material-icons-round">groups</i>
     </div>
     <div class="stat-info">
-      <div class="stat-number">4,178</div>
+      <div class="stat-number">—</div>
       <div class="stat-label">Patients</div>
-      <div class="stat-trend up">
-        <span>+25%</span>
-        <small>in last 7 Days</small>
-      </div>
     </div>
     <div class="stat-chart">
       <canvas id="patientsChart"></canvas>
@@ -128,12 +120,8 @@
       <i class="material-icons-round">event_available</i>
     </div>
     <div class="stat-info">
-      <div class="stat-number">12,778</div>
+      <div class="stat-number">—</div>
       <div class="stat-label">Appointments</div>
-      <div class="stat-trend up">
-        <span>+15%</span>
-        <small>in last 7 Days</small>
-      </div>
     </div>
     <div class="stat-chart">
       <canvas id="appointmentsChart"></canvas>
@@ -150,9 +138,9 @@
             <select><option>Monthly</option></select>
           </div>
           <div class="legend">
-            <span><i style="background:#e15759"></i> Cancelled <strong>456</strong></span>
-            <span><i style="background:#f28e2c"></i> Reschedule <strong>745</strong></span>
-            <span><i style="background:#59a14f"></i> Completed <strong>4578</strong></span>
+            <span><i style="background:#e15759"></i> Cancelled</span>
+            <span><i style="background:#f28e2c"></i> Reschedule</span>
+            <span><i style="background:#59a14f"></i> Completed</span>
           </div>
           <canvas id="barChart"></canvas>
         </div>
@@ -162,36 +150,13 @@
             <h2>Appointments</h2>
             <select><option>All Type</option></select>
           </div>
-          <div class="calendar">
-            <div class="calendar-header">
-              <span>April 2025</span>
-            </div>
-            <div class="calendar-grid">
-              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-              <div class="empty"></div><div class="empty"></div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
-              <div>6</div><div>7</div><div>8</div><div class="has-appointments">9</div><div>10</div><div>11</div><div>12</div>
-              <div>13</div><div>14</div><div>15</div><div class="has-appointments">16</div><div>17</div><div>18</div><div>19</div>
-              <div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div>
-              <div>27</div><div>28</div><div>29</div><div>30</div>
-            </div>
-          </div>
           <div class="upcoming-appointments">
-            <div class="upcoming-item">
-              <strong>General Visit</strong>
-              <div>Wed, 09 Apr 2025, 06:30 PM</div>
-            </div>
-            <div class="upcoming-item">
-              <strong>General Visit</strong>
-              <div>Wed, 09 Apr 2025, 04:10 PM</div>
-            </div>
-            <div class="upcoming-item">
-              <strong>General Visit</strong>
-              <div>Wed, 09 Apr 2025, 10:00 AM</div>
-            </div>
+            <div class="upcoming-item">Loading upcoming appointments...</div>
             <a href="Appointments-admin-view.html" class="view-all">
               View All Appointments
               <i class="fas fa-arrow-right ml-2"></i>
-            </a>          </div>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -199,42 +164,15 @@
       <div class="grid-2">
         <div class="section popular-doctors">
           <h2>Popular Doctors</h2>
-          <div class="doctor-card">
-            <img src="https://via.placeholder.com/60" alt="Dr. Mick Thompson">
-            <div>
-              <strong>Dr. Mick Thompson</strong>
-              <div>Cardiologist</div>
-              <span class="bookings">298 Bookings</span>
-            </div>
-          </div>
-          <div class="doctor-card">
-            <img src="https://via.placeholder.com/60" alt="Dr. Emily Carter">
-            <div>
-              <strong>Dr. Emily Carter</strong>
-              <div>Pediatrician</div>
-              <span class="bookings">125 Bookings</span>
-            </div>
-          </div>
-          <div class="doctor-card">
-            <img src="https://via.placeholder.com/60" alt="Dr. David Lee">
-            <div>
-              <strong>Dr. David Lee</strong>
-              <div>Gynecologist</div>
-              <span class="bookings">115 Bookings</span>
-            </div>
-          </div>
+          <p style="color:#666;">Loading...</p>
         </div>
 
         <div class="section top-departments">
           <div class="section-header">
-            <h2>Top 3 Departments</h2>
-            <select><option>Weekly</option></select>
+            <h2>Top Departments</h2>
           </div>
-          <canvas id="doughnutChart"></canvas>
           <div class="doughnut-legend">
-            <span><i style="background:#4e79a7"></i> Cardiology - 214</span>
-            <span><i style="background:#c84e89"></i> Dental - 150</span>
-            <span><i style="background:#6b7280"></i> Neurology - 121</span>
+            <p style="color:#666;">Loading...</p>
           </div>
         </div>
       </div>
@@ -243,10 +181,7 @@
 <!-- Appointment Report Section -->
 <div class="report-header">
   <h1 class="section-title">Appointment Report</h1>
-  <button class="export-btn">
-    <i class="fas fa-download"></i> Export
-    <select><option>PDF</option><option>Excel</option></select>
-  </button>
+  <div class="export-btn" style="visibility:hidden;"></div>
 </div>
 
 <!-- Appointment Summary Cards -->
@@ -255,8 +190,7 @@
     <div class="report-icon"><i class="material-icons-round">event_note</i></div>
     <div class="report-info">
       <div class="report-label">Total Appointments</div>
-      <div class="report-number">850</div>
-      <div class="report-trend up">+10% <i class="fas fa-arrow-up"></i></div>
+      <div class="report-number">—</div>
     </div>
     <canvas id="totalAppChart"></canvas>
   </div>
@@ -265,8 +199,7 @@
     <div class="report-icon"><i class="material-icons-round">check_circle</i></div>
     <div class="report-info">
       <div class="report-label">Completed</div>
-      <div class="report-number">720</div>
-      <div class="report-trend up">+13.5% <i class="fas fa-arrow-up"></i></div>
+      <div class="report-number">—</div>
     </div>
     <canvas id="completedChart"></canvas>
   </div>
@@ -275,8 +208,7 @@
     <div class="report-icon"><i class="material-icons-round">cancel</i></div>
     <div class="report-info">
       <div class="report-label">Cancelled</div>
-      <div class="report-number">65</div>
-      <div class="report-trend up">+8.43% <i class="fas fa-arrow-up"></i></div>
+      <div class="report-number">—</div>
     </div>
     <canvas id="cancelledChart"></canvas>
   </div>
@@ -285,8 +217,7 @@
     <div class="report-icon"><i class="material-icons-round">event_repeat</i></div>
     <div class="report-info">
       <div class="report-label">Rescheduled</div>
-      <div class="report-number">40</div>
-      <div class="report-trend down">-6.58% <i class="fas fa-arrow-down"></i></div>
+      <div class="report-number">—</div>
     </div>
     <canvas id="rescheduledChart"></canvas>
   </div>
@@ -320,9 +251,7 @@
     </div>
   </div>
 
-  <button class="run-report-btn" onclick="runAppointmentsReport()">
-    <i class="fas fa-play"></i> Run Report
-  </button>
+  <div class="run-report-btn" style="visibility:hidden;"></div>
 </div>
 
 <!-- Appointments Table -->
@@ -358,10 +287,7 @@
    <!-- Patients Report Section -->
 <div class="report-header">
   <h1 class="section-title">Patients Report</h1>
-  <button class="export-btn">
-    <i class="fas fa-download"></i> Export
-    <select><option>PDF</option><option>Excel</option></select>
-  </button>
+  <div class="export-btn" style="visibility:hidden;"></div>
 </div>
 
 <!-- Patients Summary Cards -->
@@ -370,8 +296,7 @@
     <div class="report-icon"><i class="material-icons-round">people</i></div>
     <div class="report-info">
       <div class="report-label">Total Patients</div>
-      <div class="report-number">1,240</div>
-      <div class="report-trend up">5.62% from last month</div>
+      <div class="report-number">—</div>
     </div>
   </div>
 
@@ -379,8 +304,7 @@
     <div class="report-icon"><i class="material-icons-round">person_add</i></div>
     <div class="report-info">
       <div class="report-label">New Patients</div>
-      <div class="report-number">210</div>
-      <div class="report-trend up">11.4% from last month</div>
+      <div class="report-number">—</div>
     </div>
   </div>
 
@@ -388,8 +312,7 @@
     <div class="report-icon"><i class="material-icons-round">event_available</i></div>
     <div class="report-info">
       <div class="report-label">Appointment Booked</div>
-      <div class="report-number">500</div>
-      <div class="report-trend up">8.52% from last month</div>
+      <div class="report-number">—</div>
     </div>
   </div>
 
@@ -397,8 +320,7 @@
     <div class="report-icon"><i class="material-icons-round">person_outline</i></div>
     <div class="report-info">
       <div class="report-label">Returning Patients</div>
-      <div class="report-number">380</div>
-      <div class="report-trend down">7.45% from last month</div>
+      <div class="report-number">—</div>
     </div>
   </div>
 </div>
@@ -450,23 +372,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Alberto Ripley</td>
-        <td>25/Male</td>
-        <td>+1 43554 5484</td>
-        <td>Dr. Mick Thompson</td>
-        <td>30 Apr 2025</td>
-        <td><span class="status available">Available</span></td>
-      </tr>
-      <tr>
-        <td>Susan Babin</td>
-        <td>27/Female</td>
-        <td>susan@example.com</td>
-        <td>Dr. Sarah Johnson</td>
-        <td>15 Apr 2025</td>
-        <td><span class="status unavailable">Unavailable</span></td>
-      </tr>
-      <!-- Add more rows as needed -->
+      <!-- Rows populated by admin-dashboard.js -->
     </tbody>
   </table>
 </div>
