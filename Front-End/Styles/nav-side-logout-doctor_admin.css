@@ -55,7 +55,7 @@ section {
 
 .menu-icon {
   color: white;
-  font-size: 26px;
+  font-size: 28px;
   cursor: pointer;
 }
 
@@ -71,6 +71,9 @@ section {
   font-size: 15px;
 }
 
+/* .nav-links a.active {
+  text-decoration: underline;
+} */
 
 .nav-right {
   display: flex;
@@ -143,11 +146,11 @@ section {
 }
 
 .sidebar-menu li {
-  padding: 15px 0px;
+  padding: 10px 0px;
   font-size: 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   cursor: pointer;
   transition: color 0.3s;
 }
