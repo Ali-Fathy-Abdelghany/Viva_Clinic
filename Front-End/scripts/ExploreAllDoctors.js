@@ -81,7 +81,7 @@ function renderDoctors(doctors) {
         card.dataset.specialty = (specialtyName || "").toLowerCase();
         card.dataset.price = price;
         card.dataset.doctorId = doctor.UserID || doctor.DoctorID;
-        
+
         card.addEventListener("click", () => {
             window.location.href = `doctor-profile.html?doctorId=${card.dataset.doctorId}`;
         });
@@ -100,23 +100,27 @@ function renderDoctors(doctors) {
 }
 
 function applyFilters() {
-    const query = searchInput?.value?.trim().toLowerCase() || '';
+    const query = searchInput?.value?.trim().toLowerCase() || "";
     let filtered = [...allDoctors];
 
-    if (currentFilter === 'name') {
+    if (currentFilter === "name") {
         filtered = filtered.filter((doc) => {
-            const fullName = `${doc.user?.FirstName || ''} ${doc.user?.LastName || ''}`.toLowerCase();
+            const fullName = `${doc.user?.FirstName || ""} ${
+                doc.user?.LastName || ""
+            }`.toLowerCase();
             return fullName.includes(query);
         });
-    } else if (currentFilter === 'specialty') {
+    } else if (currentFilter === "specialty") {
         filtered = filtered.filter((doc) => {
-            const spec = doc.specialty?.Name?.toLowerCase() || '';
+            const spec = doc.specialty?.Name?.toLowerCase() || "";
             return spec.includes(query);
         });
-    } else if (currentFilter === 'price') {
+    } else if (currentFilter === "price") {
         const cap = parseInt(query, 10);
         if (!Number.isNaN(cap)) {
-            filtered = filtered.filter((doc) => typeof doc.Fee === 'number' && doc.Fee <= cap);
+            filtered = filtered.filter(
+                (doc) => typeof doc.Fee === "number" && doc.Fee <= cap
+            );
         }
         filtered.sort((a, b) => (a.Fee || 0) - (b.Fee || 0));
     }
@@ -124,7 +128,7 @@ function applyFilters() {
     renderDoctors(filtered);
 }
 
-filterBtn?.addEventListener('click', (e) => {
+filterBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
     filterDropdown.classList.toggle("show");
 });
@@ -193,7 +197,7 @@ async function checkAdminRole() {
             // Simplify navbar for admin (Home → admin dashboard)
             const navLinks = document.querySelector(".nav-links");
             if (navLinks) {
-                navLinks.innerHTML = `<a href="admin-dashboard.html" class="nav-link">Home</a>`;
+                navLinks.innerHTML = `<a href="admin-dashboard.html" class="nav-link">Dashboard</a>`;
             }
 
             // Swap sidebar to admin menu
@@ -222,8 +226,11 @@ async function checkAdminRole() {
                             <i class="fas fa-heartbeat"></i> Patients
                         </li>
                         <li onclick="window.location.href='register-doctor.html'">
-                            <i class="fas fa-user-plus"></i> Register
-                        </li>
+                        <i class="fas fa-user-plus"></i> Add New Doctor
+                    </li>
+                    <li onclick="window.location.href='Add New Admin.html'">
+                        <i class="fas fa-user-plus"></i> Add New Admin
+                    </li>
                         <li id="logoutBtn" class="logout-item">
                             <i class="fas fa-sign-out-alt"></i> Log Out
                         </li>

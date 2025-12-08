@@ -327,7 +327,7 @@ function setupNavbarLinks(role) {
     } else if (role === "admin") {
         // Admin navbar - admin specific links
         navLinks.innerHTML = `
-            <a href="admin-dashboard.html" class="nav-link">Home</a>
+            <a href="admin-dashboard.html" class="nav-link">Dashboard</a>
         `;
     } else {
         // Patient navbar - default with homepage links
@@ -377,9 +377,11 @@ function setupSidebar() {
         <li onclick="window.location.href='patients.html'">
           <i class="fas fa-heartbeat"></i> Patients
         </li>
-        <li onclick="window.location.href='register-doctor.html'">
-          <i class="fas fa-user-plus"></i> Register
-        </li>
+        <i class="fas fa-user-plus"></i> Add New Doctor
+                    </li>
+                    <li onclick="window.location.href='Add New Admin.html'">
+                        <i class="fas fa-user-plus"></i> Add New Admin
+                    </li>
         <li id="logoutBtn" class="logout-item">
           <i class="fas fa-sign-out-alt"></i> Log Out
         </li>
