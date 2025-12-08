@@ -186,18 +186,6 @@ function renderDoctorData(doctor) {
     const feeValue = Fee ?? "N/A";
     const yearsText = YearsOfExperience ? `${YearsOfExperience}+ Years` : "N/A";
 
-<<<<<<< HEAD
-  const photoUrl = getDoctorPhoto(doctor, fullName);
-  const profileImgElement = document.querySelector('.doctor-card img.profile-pic-main');
-  if (profileImgElement) profileImgElement.src = photoUrl;
-  const navPic = document.getElementById('profilePic');
-  if (navPic) navPic.src = photoUrl;
-
-  const idElem = document.querySelector('.doctor-id');
-  if (idElem) idElem.textContent = `Doctor ID: ${DoctorID}`;
-  const heading = document.querySelector('.doctor-card .details h1');
-  if (heading) heading.innerHTML = `${fullName} <span class="badge" style="color:#007977;font-size:13px;">(${specialtyName})</span>`;
-=======
     const profileImgElement = document.querySelector(
         ".doctor-card img.profile-pic-main"
     );
@@ -210,7 +198,6 @@ function renderDoctorData(doctor) {
     const heading = document.querySelector(".doctor-card .details h1");
     if (heading)
         heading.innerHTML = `${fullName} <span class="badge" style="color:#007977;font-size:13px;">(${specialtyName})</span>`;
->>>>>>> 0e1f1533d6bacc6b775a2266c5362c0eb9da287f
 
     const degreeElement = document.querySelector(
         ".doctor-card .contact-info span:first-child"

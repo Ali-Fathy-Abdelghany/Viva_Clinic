@@ -101,6 +101,32 @@
     return `${datePart} - ${formatTime12h(startTime)}`;
   };
 
+  const resolveDoctorPhoto = (user) => {
+    const name = `${user?.FirstName || ''} ${user?.LastName || ''}`.trim() || 'Doctor';
+    return (
+      user?.doctorInfo?.Image_url ||
+      user?.Image_url ||
+      user?.ImageUrl ||
+      user?.image_url ||
+      user?.imageUrl ||
+      `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&size=256`
+    );
+  };
+
+  const setUserUI = (user) => {
+    const fullName = `${user?.FirstName || ''} ${user?.LastName || ''}`.trim() || 'Doctor';
+    const email = user?.Email || '';
+    const avatar = resolveDoctorPhoto(user);
+    const sidebarName = el('.admin-name');
+    const sidebarImg = el('#sidebar-profile-img');
+    const navPic = document.querySelector('.profile-pic');
+    const sidebarEmail = el('#sidebar-user-email');
+    if (sidebarName) sidebarName.textContent = fullName;
+    if (sidebarEmail) sidebarEmail.textContent = email;
+    if (sidebarImg) sidebarImg.src = avatar;
+    if (navPic) navPic.src = avatar;
+  };
+
 
 
   const showInlineError = (msg) => {
@@ -535,6 +561,7 @@
         return;
       }
       state.doctor = { id: user.UserID, name: `${user.FirstName || ''} ${user.LastName || ''}`.trim() };
+      setUserUI(user);
       renderSlots();
       renderAppointments();
       await refreshData();

@@ -14,7 +14,6 @@ const monthDisplay = document.getElementById('current-month-display');
 const calendarBody = document.getElementById('calendar-body');
 const prevBtn = document.getElementById('prev-month-btn');
 const nextBtn = document.getElementById('next-month-btn');
-const dayTabsContainer = document.getElementById('day-tabs'); 
 const availabilityGrid = document.getElementById('availability-grid'); 
 const submitBtn = document.getElementById('submit-btn');
 const successModal = document.getElementById('success-modal');
@@ -170,9 +169,7 @@ function renderCalendar() {
             
            
             currentActiveDate = new Date(year, month, day);
-            
-            
-            renderDayTabs(); 
+            renderAvailabilityGrid(formatDate(currentActiveDate));
         });
 
         calendarBody.appendChild(dateCell);
@@ -187,44 +184,6 @@ function changeMonth(monthChange) {
     );
     renderCalendar();
 }
-
-/**
- * Renders the 5-day view tabs and calls renderAvailabilityGrid for the first day.
- */
-function renderDayTabs() {
-    dayTabsContainer.innerHTML = '';
-    
-    // Start from the current active date
-    const startDate = new Date(currentActiveDate);
-
-    // Limit to 5 days from the active date
-    for (let i = 0; i < 5; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
-        
-        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-        const dateString = formatDate(date);
-        
-        // Mark the very first tab as active by default
-        const tabClass = i === 0 ? 'day-tab active' : 'day-tab';
-
-        const tab = document.createElement('div');
-        tab.className = tabClass;
-        tab.dataset.date = dateString;
-        tab.innerHTML = `
-            <div class="day-name">${dayName}</div>
-            <div class="day-number">${date.getDate()}</div>
-        `;
-        dayTabsContainer.appendChild(tab);
-
-        // Render availability for the first active tab immediately
-        if (i === 0) {
-            renderAvailabilityGrid(dateString);
-        }
-    }
-}
-
-
 
 async function renderAvailabilityGrid(dateString) {
     // Reset selection state
@@ -326,20 +285,6 @@ prevBtn.addEventListener('click', () => changeMonth(-1));
 nextBtn.addEventListener('click', () => changeMonth(1));
 
 
-dayTabsContainer.addEventListener('click', (e) => {
-    const dayTab = e.target.closest('.day-tab');
-    if (dayTab && !dayTab.classList.contains('active')) {
-        // Update active tab class
-        document.querySelector('.day-tab.active')?.classList.remove('active');
-        dayTab.classList.add('active');
-
-        // Render the new availability grid
-        const dateString = dayTab.getAttribute('data-date');
-        renderAvailabilityGrid(dateString);
-    }
-});
-
-
 
 submitBtn.addEventListener('click', submitBooking);
 
@@ -364,6 +309,5 @@ document.addEventListener('DOMContentLoaded', () => {
     
     renderCalendar();
     renderAvailabilityGrid(formatDate(currentActiveDate));
-    renderDayTabs();
     
 });

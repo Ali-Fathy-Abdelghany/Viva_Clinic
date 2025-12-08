@@ -520,3 +520,12 @@ body {
 .modal-button:hover {
     background-color: #006666;
 }
+
+/* Overrides: hide day tabs and use flexible grid for availability */
+#day-tabs {
+    display: none !important;
+}
+
+#availability-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+}
